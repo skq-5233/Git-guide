@@ -140,3 +140,17 @@
 
 **然后使用命令:git pull origin master上传即可。**
 
+**2、在执行git pull origin main时，报错：error: src refspec main does not match any**
+
+**原因是：本地仓库的名称与远程仓库名称(默认是main,受到"Black Lives Matter"运动的影响)不一致导致的，故需修改仓库名。**
+
+**或使用命令：git pull origin master（当使用该条命令时，在远程仓库端会产生一个新的branch:mastere）；**
+
+**git branch -m master main（如下图所示：本地仓库名由master改为main）；**
+
+![image-20211225102906372](C:\Users\eivision\AppData\Roaming\Typora\typora-user-images\image-20211225102906372.png)
+
+**然后再使用：**
+
+**git push origin main**
+
