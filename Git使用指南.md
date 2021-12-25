@@ -154,3 +154,21 @@
 
 **git push origin main**
 
+**八、完成上传一个新的本地仓库的整体流程**
+
+**1、git remote （查看是否有.git文件夹）;**
+
+**2、git init（创建.git文件夹）；**
+
+**3、git remote add origin git@github.com:skq-5233/Git-guide.git（添加远程仓库信息）；**
+
+**4、git remote -v（显示远程仓库抓取fetch、push）；**
+
+**5、git remote (显示远程仓库-origin);**
+
+**6、git add .(将本地仓库添加到暂存区);**
+
+**7、git commit -m "注释（任意注释均可）"(将暂存区存放在工作区);**
+
+**8、git push origin main("将工作区存放在Guthub");**
+
