@@ -180,11 +180,19 @@
 
 **可以通过如下命令进行代码合并【注：pull=fetch+merge]**
 
-**git pull --rebase origin master**
+**git pull --rebase origin master   (master <-->main);**
 
 **执行上面代码后可以看到本地代码库中多了README.md文件**
 
 **此时再执行语句 git push -u origin main 即可完成代码上传到github;**
 
-**(注：执行 git pull 命令前，需执行：1、git add . ；2、git commit -m "注释（任意注释均可）"；3、git pull);**
+**(注：执行 git pull (抓取完README),或git push命令前)**
+
+**需执行：1、git add . ；**
+
+**2、git commit -m "注释（任意注释均可）"；**
+
+**3、git pull --rebase origin master(git push origin main);**
+
+
 
