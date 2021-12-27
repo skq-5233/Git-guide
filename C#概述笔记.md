@@ -212,4 +212,58 @@ namespace Chapter3_5
 //add(2021-1223)
 ```
 
-**
+```c#
+//add(2021-1227，面积筛选)
+//遍历完所有面积，打印总面积；
+double sum_area = 0;
+int ksize = contours.Size;//获取连通区域的个数；
+for (int i = 0; i < ksize; i++)//遍历每个连通轮廓；
+{
+    VectorOfPoint contour = contours[i];//获取独立的连通轮廓；
+    double area = CvInvoke.ContourArea(contour);//计算连通轮廓的面积；
+
+    double area1 = Convert.ToDouble(textBox2.Text);//实现string类型到double类型的转换;
+    //add(2021-1227,当输入面积小于0时，area==0);
+    if (area1 <= 0)
+    {
+        area1 = 0;
+    }
+    //add(2021-1227,当输入面积小于0时，num1==0);
+
+    //add(2021-1227，当轮廓面积大于阈值面积时，才执行下列语句，实现面积相加，否则跳出条件语句）；
+    if (area > area1)//对每一轮廓区域面积进行面积筛选；                                
+    {
+
+        use_contours.Push(contour);//添加筛选后的连通轮廓；
+        sum_area += area;//遍历结果相加；
+
+    }
+
+}
+//add(2021-1227)
+```
+
+```c#
+//add(2021-1227,num>255,num=255;num<0,num=0);
+int num = Convert.ToInt32(textBox1.Text);//实现string类型到int类型的转换;
+if (num > 255)
+{
+    num = 255;
+}
+if (num <=0)
+{
+    num = 0;
+}
+//add(2021-1227,num>255,num=255;num<0,num=0);
+CvInvoke.Threshold(binary_img, binary, num, 255, Emgu.CV.CvEnum.ThresholdType.Binary);//num自适应调节;
+pictureBox5.Image = binary.ToImage<Gray, byte>().ToBitmap();
+corrosion_img = binary;
+//add(2021-1227,num>255,num=255;num<0,num=0);
+```
+
+```c#
+//add(2021-1227,采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像);
+CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像；
+//add(2021-1227,采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像);
+```
+
