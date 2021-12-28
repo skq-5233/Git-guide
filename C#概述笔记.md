@@ -267,3 +267,192 @@ CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingT
 //add(2021-1227,采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像);
 ```
 
+```c#
+//add(2021-1228，自适应手动调整腐蚀次数，默认腐蚀次数为1)；
+ private void erode_Click(object sender, EventArgs e)
+{
+//腐蚀;Tab (代码整体左移)或 Shift+Tab(代码整体右移) ；
+#region
+//corrosion_img = binary_img.Copy();// 将二值化结果binary_img复制到corrosion_img;           
+
+//try
+//{
+//    //binary_img = img3.Copy();//将模板图像temp-匹配区域imge2的差运算结果拷贝到binary_img;                
+//    //int count1 = Convert.ToInt32(textBox1.Text); ; //string类型转换int类型
+//    int num = Convert.ToInt32(textBox1.Text);//实现string类型到int类型的转换;
+//    CvInvoke.Threshold(binary_img, binary, num, 255, Emgu.CV.CvEnum.ThresholdType.Binary);//num自适应调节;
+//    //pictureBox5.Image = binary.ToImage<Gray, byte>().ToBitmap();
+//}
+//catch (System.Exception ex)
+//{
+//    MessageBox.Show("  格式错误，请输入整型！");
+//}     
+#endregion
+    
+Mat struct_element = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Cross, new Size(3, 3), new Point(-1, -1));//指定参数获得结构元素；
+//指定参数进行形态学开（先腐蚀后膨胀）操作，（3：腐蚀迭代次数）；
+//CvInvoke.MorphologyEx(corrosion_img,corrosion1,Emgu.CV.CvEnum.MorphOp.Open, struct_element, new Point(-1, -1), 3, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));//new Point(-1, -1),表示结构元素中心，3，表示形态学开运算中腐蚀迭代次数；
+
+//add(2021-1228，自适应手动调整腐蚀次数，默认腐蚀次数为1)；
+int erode_num = Convert.ToInt32(textBox2.Text);//实现string类型到int类型转换（默认腐蚀次数erode_num=1，点击一次腐蚀一次）；
+CvInvoke.Erode(corrosion_img, corrosion1, struct_element, new Point(-1, -1), erode_num, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));//指定参数进行形态学腐蚀操作（自适应手动调整输入腐蚀次数）；
+    
+//指定参数进行形态学腐蚀操作（2：腐蚀2次）；
+//CvInvoke.Erode(corrosion_img, corrosion1, struct_element, new Point(-1, -1), 2, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+
+pictureBox5.Image = corrosion1.ToImage<Gray, byte>().ToBitmap();
+corrosion_img = corrosion1;//（将第一次腐蚀的结果作为第二次腐蚀的输入，如此循环，一直腐蚀，直至消失）;
+
+dilate_img = corrosion1;//（将腐蚀结果corrosion1复制给dilate_img，作为膨胀的输入）;
+}
+//add(2021-1228，自适应手动调整腐蚀次数，默认腐蚀次数为1)；
+```
+
+```c#
+//add(2021-1228，自适应手动调整膨胀次数，默认膨胀次数为1)；
+private void dilate_Click(object sender, EventArgs e)
+{
+
+//膨胀（work,单击一次膨胀按钮即膨胀一次）；
+#region
+//corrosion_img = binary_img.Copy();// 将二值化结果binary_img复制到corrosion_img；            
+
+//try
+//{
+//    //binary_img = img3.Copy();//将模板图像temp-匹配区域imge2的差运算结果拷贝到binary_img;                
+//    //int count1 = Convert.ToInt32(textBox1.Text); ; //string类型转换int类型
+//    int num = Convert.ToInt32(textBox1.Text);//实现string类型到int类型的转换;
+//    CvInvoke.Threshold(binary_img, binary, num, 255, Emgu.CV.CvEnum.ThresholdType.Binary);//num自适应调节;
+//    //pictureBox5.Image = binary.ToImage<Gray, byte>().ToBitmap();
+//}
+//catch (System.Exception ex)
+//{
+//    MessageBox.Show("  格式错误，请输入整型！");
+//}
+#endregion
+
+//add(2021-1228，自适应手动调整膨胀次数，默认膨胀次数为1)；
+private void dilate_Click(object sender, EventArgs e)
+{
+
+//膨胀（work,单击一次膨胀按钮即膨胀一次）；
+
+//形态学操作类型（add-2021-1228）
+//Erode = 0;(形态学腐蚀，消除边界点，使边界向内收缩，可消除没有意义的物体。使用CvInvoke.Erode)；
+//Dilate =1;(形态学膨胀，将与物体接触的所有背景点合并到该物体中，使边界向外扩张，可用来填补物体中的空洞。使用 CvInvoke.Dilate)；
+//open = 2;(形态学开操作，先腐蚀，后膨胀。即：OPEN(X)=D(E(X))，（使用CvInvoke.MorphologyEx（Emgu.CV.CvEnum.MorphOp.Open）作用：消除小物体，在纤细点处分离物体，位置和形状总是不变)；
+//Close = 3;(形态学闭操作，先膨胀，后腐蚀。即：CLOSE(X)=E(D(X)),（使用CvInvoke.MorphologyEx（Emgu.CV.CvEnum.MorphOp.Close））作用：可填平小孔，位置、形状不变。)
+//Gradient = 4;(形态学梯度操作，膨胀与腐蚀差。即：Grad(X)=Dilate(X)-Erode(X)。膨胀：扩大图像的边界，腐蚀：缩小图像的边界，膨胀-腐蚀：即为形态学梯度操作，可保存边缘轮廓)；
+//Tophat = 5;(形态学高帽，原始图像-开操作图像，即：Tophat(X)=X-Open（X）)；
+//Blackhat = 6;(形态学地帽，闭操作图像-原始图像，即：Blackhat(X)=Close(X)-X,结果是：输出图像大部分面积均为偏黑色，故称黑帽操作);
+//形态学操作类型（add-2021-1228）
+
+Mat struct_element = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Cross, new Size(3, 3), new Point(-1, -1));//指定参数获得结构元素；
+//指定参数进行形态学开操作； //new Point(-1, -1),表示结构元素中心，3，表示形态学开操作中腐蚀迭代次数；
+//CvInvoke.MorphologyEx(corrosion_img, corrosion1, Emgu.CV.CvEnum.MorphOp.Open, struct_element, new Point(-1, -1), 3, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+
+int dilate_num = Convert.ToInt32(textBox3.Text);//实现string类型到int类型转换（默认腐蚀次数dilate_num=1，点击一次膨胀一次）；
+CvInvoke.Dilate(dilate_img, swell, struct_element, new Point(-1, -1), dilate_num, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));//指定参数进行膨胀操作（默认腐蚀次数dilate_num=1，点击一次膨胀一次）；
+
+//CvInvoke.Dilate(dilate_img, swell, struct_element, new Point(-1, -1), 2, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));//指定参数进行膨胀操作（2：膨胀2次）；
+pictureBox5.Image = swell.ToImage<Gray, byte>().ToBitmap();
+dilate_img = swell; //（将第一次膨胀的结果作为第二次膨胀的输入，如此循环，一直膨胀）;
+}
+//add(2021-1228，自适应手动调整膨胀次数，默认膨胀次数为1)；
+```
+
+```c#
+//add(2021-1228，保存图像处理结果至指定文件夹)；
+private void LoadTemplate_Click(object sender, EventArgs e)
+{
+// 加载模板图像；
+OpenFileDialog OpenFileDialog = new OpenFileDialog();
+OpenFileDialog.Filter = "JPEG;BMP;PNG;JPG;GIF|*.JPEG;*.BMP;*.PNG;*.JPG;*.GIF|ALL|*.*";//（模板和加载图像尺寸不一致时，会报错）;
+if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+{
+string dbf_File = string.Empty;
+OpenFileDialog OpenFileDialog = new OpenFileDialog();
+       
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+dbf_File = OpenFileDialog.FileName;
+//string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+try
+{
+    temp = new Image<Bgr, Byte>(OpenFileDialog.FileName);
+    pictureBox1.Image = temp.ToBitmap();
+
+}
+catch (System.Exception ex)
+{
+    MessageBox.Show("图像格式错误！");
+}
+
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+//MessageBox.Show(dbf_File2);//add(filename-2021-1228);
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+//显示、保存图像；
+#region
+////CvInvoke.Imshow("img", temp); //显示图片
+CvInvoke.Imwrite("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\" + dbf_File2 + "_temp.bmp", temp); //保存匹配结果图像；
+CvInvoke.WaitKey(0); //暂停按键等待
+#endregion
+}
+}
+//add(2021-1228，保存图像处理结果至指定文件夹)；
+```
+
+```c#
+//显示、保存图像(2021-1228)；
+#region
+//CvInvoke.Imshow("img", temp); //显示图片
+CvInvoke.Imwrite("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\"+dbf_File2+"match_img1.bmp", match_img1); //保存匹配结果图像；
+CvInvoke.WaitKey(0); //暂停按键等待
+#endregion
+//显示、保存图像(2021-1228)；
+```
+
+```c#
+//打印匹配信息,（2021-1228,保存文本信息至指定文件夹）；
+displab.Text =
+"匹配信息: X " +
+max_loc.X + " Y " + max_loc.Y + "\n" +
+"\n" +
+"最大相似度:" + max.ToString("f2") + "\n" + "\n"+
+"最小相似度:" + min.ToString("f2");
+
+//（2021-1228,保存文本信息至指定文件夹）；
+string txt = displab.Text;
+string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.txt";   //文件名，可以带路径
+
+System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+sw.Write(displab.Text);
+sw.Close();
+//（2021-1228,保存文本信息至指定文件夹）；
+string txt = textBox1.Text;
+string filename = "temp.txt";   //文件名，可以带路径
+System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+sw.Write(txt);
+sw.Close();
+//（2021-1228,保存文本信息至指定文件夹）；
+```
+
+```c#
+//(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
+string txt = displab1.Text;
+string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.txt";   //文件名，可以带路径
+
+FileStream fs = new FileStream(filename, FileMode.Append);
+StreamWriter wr = null;
+wr = new StreamWriter(fs);
+
+//System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+wr.Write(displab1.Text);
+wr.Close();
+//(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
+```
+

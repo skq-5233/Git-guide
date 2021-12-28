@@ -100,7 +100,7 @@
 
 **2、接着输入：**
 
-**git add .**
+**git add .  （git branch -m master main 重命名 master--->main）**
 
 **3、然后输入：**
 
