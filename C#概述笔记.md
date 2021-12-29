@@ -419,13 +419,14 @@ OpenFileDialog OpenFileDialog = new OpenFileDialog();
 OpenFileDialog.Filter = "JPEG;BMP;PNG;JPG;GIF|*.JPEG;*.BMP;*.PNG;*.JPG;*.GIF|ALL|*.*";//（模板和加载图像尺寸不一致时，会报错）;
 if (OpenFileDialog.ShowDialog() == DialogResult.OK)
 {
+//获取文件名；
 string dbf_File = string.Empty;
 OpenFileDialog OpenFileDialog = new OpenFileDialog();
        
 //(add-2021-1228,保存处理后的图像至指定文件夹)
 dbf_File = OpenFileDialog.FileName;
 //string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
-
+//获取文件名；
 string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
 //(add-2021-1228,保存处理后的图像至指定文件夹)
 
@@ -511,5 +512,48 @@ wr = new StreamWriter(fs);
 wr.Write(displab1.Text);
 wr.Close();
 //(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
+```
+
+## VS编译出现错误，CS1061“object”未包含“Text”的定义，并且找不到可接受第一个“object”类型参数的可访问扩展方法“Text”(是否缺少 using 指令或程序集引用?)
+
+```c#
+//(add,2021-1229,将label.Text改为：(label as TextBox).Text)
+label.Text == dt.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss.fff");  //mm-dd才显示08-01，否则显示8-1;fff个数表示小数点后显示的位数，这里精确到小数点后3位;
+//当输入上述语句时，会出现如下错误：CS1061“object”未包含“Text”的定义，并且找不到可接受第一个“object”类型参数的可访问扩展方法“Text”(是否缺少 using 指令或程序集引用?)
+//此时，需将上述代码改为如下所述即可：
+(label as TextBox).Text = dt.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss.fff");
+//(add,2021-1229)
+```
+
+## 打印时间
+
+```c#
+////datetime格式化(2021-1229)；
+DateTime dt = DateTime.Now;
+
+////在Excel表中写入时间数据时，设置单元格格式，自定义格式yyyy-MM-dd HH:mm:ss
+//(label as TextBox).Text = dt.ToLocalTime().ToString();   //mm-dd才显示08-01，否则显示8-1
+////fff个数表示小数点后显示的位数，这里精确到小数点后3位
+
+//打印匹配信息（2021-1229,保存文本信息至指定文件夹并打印时间）；
+displab.Text = "时间:"+ dt.ToLocalTime().ToString() + "图像名称：" +dbf_File2 + "\n" +
+"\n" + "匹配信息: X " + 
+max_loc.X + "," + " Y " + max_loc.Y + ";" +
+"\n" +
+"最大相似度:" + max.ToString("f2") + ";" + "\n" +
+"最小相似度:" + min.ToString("f2") + ";" + "\n";
+
+//（2021-1228,保存文本信息至指定文件夹）；
+string txt = displab.Text;
+string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.txt";   //文件名，可以带路径
+
+FileStream fs = new FileStream(filename, FileMode.Append);
+StreamWriter wr = null;
+wr = new StreamWriter(fs);
+
+//System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+wr.Write(displab.Text);
+wr.Close();
+//（2021-1229,保存文本信息至指定文件夹）；
 ```
 
