@@ -269,6 +269,39 @@ corrosion_img = binary;
 //add(2021-1227,num>255,num=255;num<0,num=0);
 ```
 
+## //add(2021-1217，面积筛选，将默认面积area1 <= 0的情况，直接赋值为0)；
+
+```c#
+//add(2021-1217，面积筛选)
+//遍历完所有面积，打印总面积；
+double sum_area = 0;
+int ksize = contours.Size;//获取连通区域的个数；
+for (int i = 0; i < ksize; i++)//遍历每个连通轮廓；
+{
+VectorOfPoint contour = contours[i];//获取独立的连通轮廓；
+double area = CvInvoke.ContourArea(contour);//计算连通轮廓的面积；
+
+double area1 = Convert.ToDouble(textBox4.Text);//实现string类型到double类型的转换;
+//add(2021-1227,当输入面积小于0时，area==0);
+if (area1 <= 0)
+{
+area1 = 0;
+}
+//add(2021-1227,当输入面积小于0时，num1==0);
+
+//add(2021-1227，当轮廓面积大于阈值面积时，才执行下列语句，实现面积相加，否则跳出条件语句）；
+if (area > area1)//对每一轮廓区域面积进行面积筛选；                                
+{
+
+use_contours.Push(contour);//添加筛选后的连通轮廓；
+sum_area += area;//遍历结果相加；
+
+}
+
+}
+//add(2021-1217，面积筛选)
+```
+
 ## //add(2021-1227,采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像);
 
 ```c#
@@ -465,6 +498,8 @@ sw.Close();
 
 ```c#
 //(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
+//打印轮廓总面积信息；
+displab1.Text = "轮廓总面积:  " + sum_area.ToString() + ";"+"\n" + "\n";//打印遍历完的总面积（0044轮廓面积,当阈值选择30时，显示出错,试试RetrType.Ccomp）
 string txt = displab1.Text;
 string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.txt";   //文件名，可以带路径
 
