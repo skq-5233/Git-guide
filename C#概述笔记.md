@@ -70,7 +70,7 @@
 
 ## C#之Hello World
 
-## ##console(控制台应用程序)##
+## console(控制台应用程序)
 
 ```c#
 Console.WriteLine("Hello World");
