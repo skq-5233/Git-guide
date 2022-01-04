@@ -557,3 +557,98 @@ wr.Close();
 //（2021-1229,保存文本信息至指定文件夹）；
 ```
 
+## (XOR,异或，switch、While循环、2022-0104);
+
+```c#
+//(XOR,异或，for循环、2022-0104);
+#region
+Console.WriteLine("Input number1:");
+double n1 = Convert.ToDouble(Console.ReadLine());
+
+Console.WriteLine("Input number2:");
+double n2 = Convert.ToDouble(Console.ReadLine());
+
+bool b = (n1 > 10) ^ (n2 > 10);
+if (b)
+{
+Console.WriteLine("Meet the requirements");
+
+}
+else
+{
+Console.WriteLine("Please input number again!");
+}
+#endregion
+
+
+//(switch-case-break;2022-0104);
+#region
+//const string my_Favorite_Fruit = "apple";
+//const string he_Favorite_Fruit = "banana";
+//const string she_Favorite_Fruit = "orange";
+
+//Console.WriteLine("Please Enter Your Favorite Fruit:");
+//string fruit = Convert.ToString(Console.ReadLine());
+
+//switch(fruit.ToLower())
+//{
+//    case my_Favorite_Fruit:
+//        Console.WriteLine("I like it too!!!");
+//        break;
+//    case he_Favorite_Fruit:
+//        Console.WriteLine("He likes it too!!!");
+//        break;
+//    case she_Favorite_Fruit:
+//        Console.WriteLine("She likes it too!!!");
+//        break;
+
+//}
+
+//Console.WriteLine("Hello {0},Good morning!!!",fruit);
+//Console.ReadKey();
+#endregion
+
+//(for循环，1-100加法，1-15乘法总和)；
+#region
+//int multiplication = 1;
+//int sum = 0;
+//for (int i=1; i<101; i++)
+//{
+
+//sum += i;       
+////multiplication *=  i;
+////Console.WriteLine(multiplication);
+//Console.WriteLine(sum);
+////Console.ReadKey();
+//}
+#endregion
+
+//(do-while循环);
+#region
+//int i = 1;
+//do
+//{
+//    Console.WriteLine("{0}", i++);
+//}
+//while (i <= 10);
+#endregion
+
+//(While循环，2022-0104);
+#region
+//int i = 1;
+//while (i <= 10)
+//{
+//    Console.WriteLine("{0}", i++);
+//}
+#endregion
+
+//(for循环，2022-0104）；
+#region
+//int i;
+//for(i=1; i<=10;i++)
+//{
+//    Console.WriteLine("{0}",i);
+//}
+#endregion
+```
+
