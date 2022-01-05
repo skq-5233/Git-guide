@@ -557,7 +557,7 @@ wr.Close();
 //（2021-1229,保存文本信息至指定文件夹）；
 ```
 
-## (XOR,异或，switch、While循环、2022-0104);
+## (XOR,异或，switch、While、for循环、2022-0104);
 
 ```c#
 //(XOR,异或，for循环、2022-0104);
@@ -650,5 +650,33 @@ Console.WriteLine("Please input number again!");
 //    Console.WriteLine("{0}",i);
 //}
 #endregion
+```
+
+## 字节数组转化为图像（2022-0105）；
+
+```c#
+public static Image byte2img(byte[] buffer)
+{
+    MemoryStream ms = new MemoryStream(buffer);
+    ms.Position = 0;
+    Image img = Image.FromStream(ms);
+    ms.Close();
+    return img;
+}
+//字节数组转化为图像（2022-0105）；
+```
+
+## 图像转化为字节数组（2022-0105）；
+
+```c#
+public static byte[] byte2img(Bitmap Bit)
+{
+    byte[] back = null;
+    MemoryStream ms = new MemoryStream();
+    Bit.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+    back = ms.GetBuffer();
+    return back;
+}
+//图像转化为字节数组（2022-0105）；
 ```
 
