@@ -670,10 +670,8 @@ wk.Write(filestream); //通过流filestream将表wk写入文件
 Mat mask = contour_img.ToImage<Bgr, byte>().CopyBlank().Mat;//获取一张背景为黑色的图像，尺寸大小与contour_img一样(类型Bgr);
 CvInvoke.DrawContours(mask, use_contours, -1, new MCvScalar(0, 0, 255));//采用红色画笔在mask掩膜图像中画出所有轮廓；(MCvScalar是一个具有单元素到四元素间的一个数组)
 pictureBox6.Image = mask.ToImage<Bgr, byte>().ToBitmap();//显示轮廓区域图像；
-//(add-2022-0106--end)用流创建或读取.xlsx文件（同时流关联了文件）
+//(add-2022-0106--end)用流创建或读取.xlsx文件（同时流关联了文件）;
 ```
-
-
 
 ## VS编译出现错误，CS1061“object”未包含“Text”的定义，并且找不到可接受第一个“object”类型参数的可访问扩展方法“Text”(是否缺少 using 指令或程序集引用?)
 
@@ -840,4 +838,55 @@ public static byte[] byte2img(Bitmap Bit)
 }
 //图像转化为字节数组（2022-0105）；
 ```
+
+## 打开单张图像某文件夹中单张图像（2022-0106）；
+
+```c#
+//打开单张图像(2022-0106--start);
+private void LoadTemplate1_Click(object sender, EventArgs e)
+{
+/***********************自动模式下---1-Start；************************************/
+/***********************自动模式下---1-加载模板图像；************************************/
+/*****************(add,(2021-1231))**************************************/
+/******************与line_91一致(LoadTemplate_Click)**********************/
+
+//(打开单张图像，2022-0106-start)
+OpenFileDialog OpenFileDialog = new OpenFileDialog();
+OpenFileDialog.Filter = "JPEG;BMP;PNG;JPG;GIF|*.JPEG;*.BMP;*.PNG;*.JPG;*.GIF|ALL|*.*";//（模板和加载图像尺寸不一致时，会报错）;
+if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+{
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+dbf_File = OpenFileDialog.FileName;//(获取文件夹路径)；
+//string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile(获取dbf_File2路径名称);
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+try
+{
+temp = new Image<Bgr, Byte>(OpenFileDialog.FileName);
+pictureBox1.Image = temp.ToBitmap();
+
+}
+catch (System.Exception ex)
+{
+MessageBox.Show("图像格式错误！");
+}
+
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+//MessageBox.Show(dbf_File2);//add(filename-2021-1228);
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+//显示、保存图像；
+#region
+////CvInvoke.Imshow("img", temp); //显示图片
+CvInvoke.Imwrite("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\" + dbf_File2 + "_temp.bmp", temp);//保存匹配图像(dbf_File2:图像名称)；
+CvInvoke.WaitKey(0); //暂停按键等待
+#endregion
+}
+}
+//(打开单张图像，2022-0106-end)
+```
+
+
 

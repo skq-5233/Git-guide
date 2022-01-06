@@ -194,5 +194,11 @@
 
 **3、git pull --rebase origin master(git push origin main);**
 
+## 九、 查看暂存区中文件信息
 
+**1、git ls-files**
+
+**如果想将文件移除暂存区，可以执行：**
+
+**2、git rm --cached +文件名**
 
