@@ -306,7 +306,7 @@ sum_area += area;//遍历结果相加；
 
 ```c#
 //add(2021-1227,采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像);
-CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像；
+CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用归一化系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像；
 //add(2021-1227,采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像);
 ```
 
@@ -513,6 +513,167 @@ wr.Write(displab1.Text);
 wr.Close();
 //(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
 ```
+
+## //(2022-0105,打印信息至Excel表中，用流创建.xlsx文件,将两次信息打印在一张Excel表中，需将该方法放置在后面需打印的位置处；如：轮廓总面积)；
+
+```c#
+//add(2022-0106-start，面积筛选)
+//遍历完所有面积，打印总面积；
+double sum_area = 0;
+int ksize = contours.Size;//获取连通区域的个数；
+for (int i = 0; i < ksize; i++)//遍历每个连通轮廓；
+{
+VectorOfPoint contour = contours[i];//获取独立的连通轮廓；
+double area = CvInvoke.ContourArea(contour);//计算连通轮廓的面积；
+
+double area1 = Convert.ToDouble(textBox4.Text);//实现string类型到double类型的转换;
+//add(2021-1227,当输入面积小于0时，area==0);
+if (area1 <= 0)
+{
+area1 = 0;
+}
+//add(2021-1227,当输入面积小于0时，num1==0);
+
+//add(2021-1227，当轮廓面积大于阈值面积时，才执行下列语句，实现面积相加，否则跳出条件语句）；
+if (area > area1)//对每一轮廓区域面积进行面积筛选；                                
+{
+
+use_contours.Push(contour);//添加筛选后的连通轮廓；
+sum_area += area;//遍历结果相加；
+
+}  
+}
+//add(2022-0106--end，面积筛选)  
+
+//打印轮廓总面积信息(2022-0106-start)；
+displab1.Text = "轮廓总面积: " + sum_area.ToString() + ";" + "\n" + "\n" + "\n";//打印遍历完的总面积（0044轮廓面积,当阈值选择30时，显示出错,试试RetrType.Ccomp）
+
+//打印匹配信息（2021-1228,保存文本信息至指定文件夹）；
+#region
+//displab.Text = dbf_File2 + "\n" +
+//                 "轮廓总面积:  " + sum_area.ToString();
+
+////（2021-1228,保存文本信息至指定文件夹）；
+//string txt = displab1.Text;
+//string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息1.txt";   //文件名，可以带路径
+
+//System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+//sw.Write(displab1.Text);
+//sw.Close();
+#endregion
+//(add,2022-0106--start,在匹配信息Txt文本中添加轮廓面积信息)；
+string txt = displab1.Text;
+string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.txt";   //文件名，可以带路径
+
+FileStream fs = new FileStream(filename, FileMode.Append);
+StreamWriter wr = null;
+wr = new StreamWriter(fs);
+
+//System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+wr.Write(displab1.Text);
+wr.Close();
+//(add,2022-0106--end,在匹配信息Txt文本中添加轮廓面积信息)；
+
+//(add-2022-0106--start)用流创建或读取.xlsx文件（同时流关联了文件）
+filestream = new FileStream("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.xlsx", FileMode.OpenOrCreate);
+
+//创建表和sheet;
+if (indexOfExcel_j == 1)
+{
+wk = new XSSFWorkbook();   //创建表对象wk
+isheet = wk.CreateSheet("Sheet1");   //在wk中创建sheet1
+//创建表头
+IRow rowtitle = null;
+rowtitle = isheet.CreateRow(0); //创建index=j的行
+
+ICell cellTitle0 = null;
+cellTitle0 = rowtitle.CreateCell(0);  //在index=j的行中创建index=0的单元格
+cellTitle0.SetCellValue("时间"); //给创建的单元格赋值string
+
+ICell cellTitle1 = null;
+cellTitle1 = rowtitle.CreateCell(1);  //在index=j的行中创建index=0的单元格
+cellTitle1.SetCellValue("图像名称"); //给创建的单元格赋值string
+
+ICell cellTitle2 = null;
+cellTitle2 = rowtitle.CreateCell(2);  //在index=j的行中创建index=0的单元格
+cellTitle2.SetCellValue("匹配信息坐标X"); //给创建的单元格赋值string
+
+ICell cellTitle3 = null;
+cellTitle3 = rowtitle.CreateCell(3);  //在index=j的行中创建index=0的单元格
+cellTitle3.SetCellValue("匹配信息坐标Y"); //给创建的单元格赋值string
+
+ICell cellTitle4 = null;
+cellTitle4 = rowtitle.CreateCell(4);  //在index=j的行中创建index=0的单元格
+cellTitle4.SetCellValue("最大相似度"); //给创建的单元格赋值string
+
+
+ICell cellTitle5 = null;
+cellTitle5 = rowtitle.CreateCell(5);  //在index=j的行中创建index=0的单元格
+cellTitle5.SetCellValue("最小相似度"); //给创建的单元格赋值string
+
+ICell cellTitle6 = null;
+cellTitle6 = rowtitle.CreateCell(6);  //在index=j的行中创建index=0的单元格
+cellTitle6.SetCellValue("轮廓总面积"); //给创建的单元格赋值strin
+}
+
+#region
+//向单元格中写数据(2021-1231,循环写入行、列数据，先定义行数，再定义列数，这里是2行6列);
+//for (int indexOfExcel_j = 1; indexOfExcel_j < 3; indexOfExcel_j++)//(j:行)；
+//{
+
+//IRow row2 = null;
+//row2 = isheet.CreateRow(indexOfExcel_j++); //创建index=j的行
+
+////datetime格式化；
+#endregion
+DateTime dt = DateTime.Now;
+
+rowWrite = isheet.CreateRow(indexOfExcel_j++); //创建index=j的行
+
+ICell cell0 = null;
+cell0 = rowWrite.CreateCell(0);  //在index=j的行中创建index=0的单元格
+cell0.SetCellValue(dt.ToLocalTime().ToString()); //给创建的单元格赋值string
+
+ICell cell1 = null;
+cell1 = rowWrite.CreateCell(1);  //在index=j的行中创建index=0的单元格
+cell1.SetCellValue(dbf_File2); //给创建的单元格赋值string
+
+ICell cell2 = null;
+cell2 = rowWrite.CreateCell(2);  //在index=j的行中创建index=0的单元格
+cell2.SetCellValue("X:" + max_loc.X); //给创建的单元格赋值string
+
+ICell cell3 = null;
+cell3 = rowWrite.CreateCell(3);  //在index=j的行中创建index=0的单元格
+cell3.SetCellValue("Y:" + max_loc.Y); //给创建的单元格赋值string
+
+ICell cell4 = null;
+cell4 = rowWrite.CreateCell(4);  //在index=j的行中创建index=0的单元格
+cell4.SetCellValue(max.ToString("f2")); //给创建的单元格赋值string
+
+
+ICell cell5 = null;
+cell5 = rowWrite.CreateCell(5);  //在index=j的行中创建index=0的单元格
+cell5.SetCellValue(min.ToString("f2")); //给创建的单元格赋值string
+
+ICell cell6 = null;
+cell6 = rowWrite.CreateCell(6);  //在index=j的行中创建index=0的单元格
+cell6.SetCellValue(sum_area.ToString()); //给创建的单元格赋值string
+
+
+//通过流将表中写入的数据一次性写入文件中;
+wk.Write(filestream); //通过流filestream将表wk写入文件
+
+//(add,20211231)
+//filestream.Close(); //关闭文件流filestream
+//wk.Close(); //关闭Excel表对象wk
+
+Mat mask = contour_img.ToImage<Bgr, byte>().CopyBlank().Mat;//获取一张背景为黑色的图像，尺寸大小与contour_img一样(类型Bgr);
+CvInvoke.DrawContours(mask, use_contours, -1, new MCvScalar(0, 0, 255));//采用红色画笔在mask掩膜图像中画出所有轮廓；(MCvScalar是一个具有单元素到四元素间的一个数组)
+pictureBox6.Image = mask.ToImage<Bgr, byte>().ToBitmap();//显示轮廓区域图像；
+//(add-2022-0106--end)用流创建或读取.xlsx文件（同时流关联了文件）
+```
+
+
 
 ## VS编译出现错误，CS1061“object”未包含“Text”的定义，并且找不到可接受第一个“object”类型参数的可访问扩展方法“Text”(是否缺少 using 指令或程序集引用?)
 
