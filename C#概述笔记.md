@@ -888,5 +888,439 @@ CvInvoke.WaitKey(0); //暂停按键等待
 //(打开单张图像，2022-0106-end)
 ```
 
+## EmguCV Image类中的函数
+
+```C#
+//(add,2022-0106--start);
+1、Image<TColor, TDepth> AbsDiff     返回两幅图片或此图与某个yanse像素的差的绝对值的图片
+2、Image<TColor, TDepth> Add           返回这张图片与图片或颜色直接相加的图片（矩阵加法）
+
+3、Image<Gray, byte> Canny               边缘检测
+
+4、Image<TColor, TDepth> Clone()    拷贝
+
+5、Image<TColor, TDepth> ConcateHorizontal     返回与另一张图片横向链接的图片
+
+6、Image<TColor, TDepth> ConcateVertical          返回与另一张图片总想链接的图片
+
+7、Image<TColor, TOtherDepth> Convert                转换为其他格式的Image图片
+
+8、void ConvertFrom 从Mat或其他类型的Image图片转换回这种格式的图片
+
+9、Image<TColor, TOtherDepth> ConvertScale       变换大小
+
+10、Image<TColor, TDepth> Copy 复制图片 或只复制该图片的指定区域
+
+11、Image<TColor, TDepth> CopyBlank()                 复制出一张空图
+
+12、Image<TColor, TDepth> Dilate             扩大像素点的效果 效果图链接：点击打开链接
+
+13、void Draw         在该图片上绘制之前检测到的圆或长方形等
+
+14、Image<TColor, TDepth> Erode                         腐蚀效果（可调节）：效果图链接点击打开链接
+
+15、Image<TColor, TDepth> Flip                             翻转图片，有方式可选
+
+16、TColor GetAverage                      获取此图片所有像素点颜色的平均值
+
+17、CircleF[][] HoughCircles             霍夫圆变换，用于检测圆形，返回值为检测到的点的坐标
+
+18、LineSegment2D[][] HoughLines          霍夫线变换（还没用过，效果还不知道）
+
+19、Image<TColor, TDepth> Max        返回一张图片，图片的每个像素点的颜色为原图片在这像素点的颜色与参数图片或颜色的最大值
+
+20、Image<TColor, TDepth> Min          返回一张图片，图片的每个像素点的颜色为原图片在这像素点的颜色与参数图片或颜色的最小值
+21、void MinMax        返回一张图片的像素点的最小值和最大值以及它们的位置位置
+
+22、Image<TColor, TDepth> Mul     与图片或颜色数值直接相乘（矩阵乘法）
+
+23、Image<TColor, TDepth> Not()     图片有颜色的地方alpha值变为0，透明的地方alpha变为255（猜测）
+
+24、Image<TColor, TDepth> Or        图片与图片或颜色数值的或运算
+
+25、Image<TColor, TDepth> Pow     矩阵的乘方运算
+
+26、Image<TColor, TDepth> PyrDown()        降低图片分辨率
+
+27、Image<TColor, TDepth> PyrUp()              提高图片分辨率
+
+28、Image<TColor, TDepth> Resize                改变图片大小
+
+29、Image<TColor, TDepth> Rotate                 图片旋转（crop值设为false可以显示完整的图片）
+
+30、Image<Gray, TDepth>[] Split()                    色彩分割
+
+31、Image<TColor, TDepth> Sub                     从图片中减去某个颜色（矩阵减法）
+
+32、Image<TColor, TDepth> SubR                 负的sub
+
+33、Bitmap ToBitmap           转换为Bitmap格式
+//(add,2022-0106--end);
+```
+
+## Emgu函数总结：
+
+```c#
+//Emgucv常用函数总结(2022-0106--start);
+读取图片
+Mat SCr = new Mat(Form1.Path, Emgu.CV.CvEnum.LoadImageType.AnyColor);
+//根据路径创建指定的灰度图片
+Mat scr = new Mat(Form1.Path, Emgu.CV.CvEnum.LoadImageType.Grayscale);
+获取灰度    //图像类型转换， bgr 转成 gray 类型。MAT Bw = New MAT
+CvInvoke.CvtColor(SCr, bw, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+//相当于二值化图 --黑白 根据大小10判断为0还是255
+CvInvoke.Threshold(bw,bw,10,255,Emgu.CV.CvEnum.ThresholdType.BinaryInv);
+//获取指定区域图片 SCr为mat类型
+Rectangle rectangle = new Rectangle(10,10,10,10);
+SCr = SCr.ToImage<Bgr, byte>().GetSubRect(rectangle).Mat;
+//将Mat类型转换为Image类型
+Image<Bgr, byte> Su = SCr.ToImage<Bgr, byte>();
+Image<Bgr, byte> Img = new Image<Bgr, byte>(new Bitmap(""));//路径声明
+Image<Bgr, byte> Sub = SCr.ToImage<Bgr, byte>().GetSubRect(rectangle);//指定范围
+//指定参数获得结构元素
+Mat Struct_element = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Cross, new Size(3, 3), new Point(-1, -1));
+//膨胀
+CvInvoke.Dilate(bw, bw, Struct_element, new Point(1,1),3,Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+//腐蚀 当Struct_element模型创建不合理或者膨胀腐蚀次数较大时可能图像会发生偏移
+CvInvoke.Erode(bw, bw, Struct_element, new Point(-1, -1), 3,Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+//轮廓提取
+VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+//筛选后
+CvInvoke.FindContours(bw, contours, null, Emgu.CV.CvEnum.RetrType.List, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+int ksize = contours.Size;//获取连通区域的个数。     
+VectorOfPoint contour = contours[i];//获取独立的连通轮廓   
+Rectangle rect = CvInvoke.BoundingRectangle(contour);//提取最外部矩形。
+double Length = CvInvoke.ArcLength(contour, false);//计算连通轮廓的周长。
+//画出轮廓
+Mat mask = bw.ToImage<Bgr, byte>().CopyBlank().Mat;
+//获取一张背景为黑色的图像， 大小与 scr 的大小一样， 类型为 Bgr。
+CvInvoke.DrawContours(mask, contours, -1, new MCvScalar(0, 0, 255));
+Image<Ycc, byte> ycc_img = bgr_img.Convert<Ycc, byte>();//把 bgr颜色图片转成ycbcr类型。
+Ycc min = new Ycc(152, 38, 118);//最小值的颜色。
+Ycc max = new Ycc(94, 43, 118);//最大值得颜色。
+Image<Gray, byte> result = ycc_img.InRange(min, max);//进行颜色提取。
+Image<Bgr, byte> bgr_img = Ma.ToImage<Bgr, byte>();//载入一张 Bgr 类型的图片。
+Bgr min = new Bgr(255, 255, 255);//白色的最小值， 允许一定154的误差。
+Bgr max = new Bgr(255, 255, 255);//白色的最大值， 允许一定的误差。
+Image<Gray, byte> result = bgr_img.InRange(min, max);//进行颜色提取。
+Image<Bgr, Byte> imageSource = new Image<Bgr, Byte>(SCr.Bitmap);
+Image<Hsv, Byte> imageHsv = imageSource.Convert<Hsv, Byte>();//将色彩空间从BGR转换到HSV
+Image<Gray, Byte>[] imagesHsv = imageHsv.Split();//分解成H、S、V三部分
+CvInvoke.AbsDiff(Ma1, Ma2, Ma); // 返回两幅图片或此图与某个yanse像素的差的绝对值的图片
+CvInvoke.Add(Ma1, Ma2, Ma); // 返回这张图片与图片或颜色直接相加的图片（矩阵加法）  (适应两种效果)
+//CvInvoke.HConcat(Ma1, Ma2, Ma); //返回与另一张图片横向链接的图片
+//CvInvoke.VConcat(Ma1, Ma2, Ma);//返回与另一张图片纵向链接的图片
+
+//清除小于平均顶点10的二值图
+Point[] po = { new Point(0, 0), new Point(res.Width, 0), new Point(res.Width, minAvg - Gets.Fges[1] + 52), new Point(0, minAvg - Gets.Fges[1] + 52) };
+VectorOfPoint vp = new VectorOfPoint(po);
+//CvInvoke.DrawContours(res, vp, -1, new MCvScalar(0, 0, 255));
+CvInvoke.FillConvexPoly(res,vp,new MCvScalar(0),LineType.EightConnected);//填充指定区域
+
+/// <summary>
+/// 灰度直方图计算  手动计算、/获取百分比的阀值  0.95
+/// </summary>
+public static void GetDenseHistogram95(ref int huidu, Mat ma)
+{
+    DenseHistogram dense = new DenseHistogram(256, new RangeF(0, 255));
+    dense.Calculate(new Image<Gray, Byte>[] { ma.ToImage<Gray, byte>() }, true, null);
+    //计算直方图数据。
+    float[] data = dense.GetBinValues();
+    float[] data2 = dense.GetBinValues();
+    //获得直方图数据。
+    /*** 进行数据归一化到[0,256]区域内并且绘制直方图***/
+    float max = data[0]; //最大值
+    for (int j = 1; j < data.Length; j++)
+    {
+        if (data[j] > max)
+        {
+            max = data[j];
+        }
+    }
+    float Sum = data2.ToList().Sum();
+    float FloCount = 0;
+    for (int k = 0; k < data.Length; k++)
+    {
+        data[k] = data[k] * 256 / max;
+        FloCount += data2[k];
+        if (FloCount / Sum >= 0.95)
+        {
+            huidu = k;
+            break;
+        }
+    }}
+
+//各种颜色空间 Hsv/Rgb/Hls/Xyz/Ycc/Gray
+public static Image<Hsv, Byte> imageHsv=new Image<Hsv, byte>(mat.Bitmap);
+public static Image<Rgb, Byte> Rgbimg = new Image<Rgb, byte>(mat.Bitmap);
+public static Image<Hls, Byte> Hlsimg = new Image<Hls, byte>(mat.Bitmap);
+public static Image<Xyz, Byte> Xyzimg = new Image<Xyz, byte>(mat.Bitmap);
+public static Image<Ycc, Byte> Yccimg = new Image<Ycc, byte>(mat.Bitmap);
+public static Image<Gray, Byte> Grayimg = new Image<Gray, byte>(mat.Bitmap);
+Image<Gray, Byte>[] imagesHsvs = imageHsv.Split();//分解成H、S、V三部分其他相同
+//高斯滤波实现
+CvInvoke.GaussianBlur(ma, ma, new Size(5, 5), 4);
+//形态学闭运算，先膨胀后腐蚀  Others.matWithPhi(by)自定义模型
+CvInvoke.MorphologyEx(ma, ma, Emgu.CV.CvEnum.MorphOp.Close, Others.matWithPhi(by), new Point(-1, -1), 3, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+CvInvoke.MedianBlur(ma, ma, 5);//中值滤波实现
+CvInvoke.PutText(ma05, "G num: 1", new Point(10, 100), FontFace.HersheyComplex, 0.5, new MCvScalar(255)); //指定坐标(10, 100)显示文字，中文乱码，
+VectorOfPoint vp = new VectorOfPoint();
+CvInvoke.ConvexHull(pointof, vp);////查找最小外接矩形cvInpaint
+double dou = CvInvoke.ContourArea(vp, false);  //计算面积
+VectorOfPoint vect = new VectorOfPoint();
+CvInvoke.FindNonZero(ma, vect); //获取非0的点
+Mat maSave1 = ma5.Clone();//备份 保留原有图片
+CvInvoke.AdaptiveThreshold(ma, mas, 255, AdaptiveThresholdType.GaussianC, Emgu.CV.CvEnum.ThresholdType.Binary, 3, 0);//查找最适合二值图
+//Emgucv常用函数总结(2022-0106--end);
+```
+
+Emgu中Mat<--->Image转换；
+
+```c#
+//Emgucv常用函数总结(2022-0106--start);
+Image<Bgr, Byte> match_img = convert_img.ToImage<Bgr, Byte>();//Mat 2 Image（彩色图）;
+Image<Gray, Byte> match_img = grayImg.ToImage<Gray, Byte>(); //灰度图
+
+（1）  Image<Bgr,byte> 转为 Bitmap 可通过函数 img.ToBitmap(); 
+
+（2）   Bitmap 转为 Image 可通过读取实现 Image<Bgr,byte> img = new Image<Bgr,byte> （bitmap）;
+
+（3）  Mat 类可以通过  Image<Bgr,byte>matToimg = Matimg.ToImage<Bgr,byte>();
+
+//Emgucv常用函数总结(2022-0106--end);
+```
+
+
+
+## 自动模式下，遍历文件夹（需要添加对话框下：folderBrowserDialog控件；）获取匹配区域并画出矩形框(2011-0105）；
+
+```c#
+private void folder_Click(object sender, EventArgs e)
+
+/*******************************测试整个文件夹(加载待匹配图像)--start************************/
+/*****************************(2022-0105)***************************/
+/*****************************(2022-0105)***************************/
+
+//文件夹测试(2022-0106--start)；
+picturecount = 0;
+
+//for (int i = 0; i < classcount.Length; i++)
+//{
+//    classcount[i] = 0;
+//}
+
+//if (defaultfilepath != "")
+//{
+//    folderBrowserDialog1.SelectedPath = defaultfilepath;
+//}
+//else
+//{
+//    folderBrowserDialog1.SelectedPath = Application.StartupPath;
+//}
+
+//(打开文件夹函数--2022-0106--start)
+if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+{
+defaultfilepath = folderBrowserDialog1.SelectedPath;
+thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程
+thread1.Start();
+}
+}
+//文件夹测试函数(2022-0106--end);
+
+//文件夹测试函数(2022-0106--start);
+private void ImageProcessingAll()   //处理文件指定文件夹下所有图片
+{
+
+//nMax = 0;
+//nMin = 1;
+//double dThreValue = Convert.ToDouble(ThreshTb.Text);
+
+//Mat img;  //待测试图片
+DirectoryInfo folder;
+
+folder = new DirectoryInfo(defaultfilepath);
+
+//遍历文件
+foreach (FileInfo nextfile in folder.GetFiles())
+{
+//Invoke((EventHandler)delegate { label2.Text = "图片名称：" + Path.GetFileName(nextfile.FullName); });
+//Invoke((EventHandler)delegate { label2.Refresh(); });
+
+Point max_loc1 = new Point(0, 0);
+Point classNumber = max_loc1;    //最大可能性位置
+
+//string typeName = typeList[classNumber.X];
+
+convert_img = CvInvoke.Imread(nextfile.FullName, Emgu.CV.CvEnum.ImreadModes.AnyColor);
+
+//Image<Bgr, byte> matToimg = match_img.ToImage<Bgr, byte>();
+
+
+Image<Bgr, Byte> match_img = convert_img.ToImage<Bgr, Byte>();//Mat 2 Image;
+
+//if (match_img.IsEmpty)
+//{
+//    Invoke((EventHandler)delegate { label18.Text = "无法加载文件！"; });
+//    Invoke((EventHandler)delegate { label18.Refresh(); });
+//    return;
+//}
+
+//开始时间
+//Stopwatch stopwatch = new Stopwatch();
+//stopwatch.Start();   //开始监视代码运行时间
+
+//对输入图像数据进行处理
+//Mat blob = DnnInvoke.BlobFromImage(img, 1.0f, new Size(224, 224), new MCvScalar(), true, false);
+
+//进行图像种类预测
+//Mat prob;
+
+//net.SetInput(blob);      //设置输入数据
+//prob = net.Forward();    //推理
+
+//得到最可能分类输出
+//Mat probMat = prob.Reshape(1, 1);
+//double minVal = 0;  //最小可能性
+//double maxVal = 0;  //最大可能性
+//Point minLoc = new Point();
+//Point maxLoc = new Point();
+
+//CvInvoke.MinMaxLoc(probMat, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+//double classProb = maxVal;     //最大可能性
+//Point classNumber = maxLoc;    //最大可能性位置
+
+
+//if (nMin > maxVal)
+//{
+//    nMin = maxVal;
+//}
+//if (nMax < maxVal)
+//{
+//    nMax = maxVal;
+//}
+
+//string typeName = typeList[classNumber.X];
+
+//stopwatch.Stop();  //  停止监视
+//long timespan = stopwatch.ElapsedMilliseconds;  //获取当前实例测量得出的总时间
+
+//classcount[classNumber.X]++;
+//picturecount++;
+
+//classcount[classNumber.X]++;
+picturecount++;
+
+//if (ComboBoxindex == 1)    //保存NG图像
+//{
+//no******/
+//if (classNumber.X == 0)
+//{
+//    CvInvoke.Imwrite("result/NG/" + Path.GetFileName(nextfile.FullName), img);
+//}
+//no******/
+
+//    if (maxVal < dThreValue)
+//    {
+//        CvInvoke.Imwrite("result/NG/" + Path.GetFileName(nextfile.FullName), img);
+//    }
+
+
+//}
+//else if (ComboBoxindex == 2)    //保存OK图像
+//{
+//if (classNumber.X == 1)
+//{
+//    CvInvoke.Imwrite("result/OK/" + Path.GetFileName(nextfile.FullName), img);
+//}
+//if (maxVal > dThreValue)
+//{
+//    CvInvoke.Imwrite("result/OK/" + Path.GetFileName(nextfile.FullName), img);
+//}
+Invoke((EventHandler)delegate { label13.Text = "图片总数：" + picturecount.ToString(); });
+Invoke((EventHandler)delegate { label13.Refresh(); });
+
+
+//检测内容
+Invoke((EventHandler)delegate { pictureBox2.Image = BitmapExtension.ToBitmap(match_img); });
+Invoke((EventHandler)delegate { pictureBox2.Refresh(); });
+
+//Invoke((EventHandler)delegate { label1.Text = "图片测试结果为：" + typeName + "  可能性为：" + classProb.ToString("0.00000") + "  处理总时间为：" + timespan.ToString() + "ms"; });
+//Invoke((EventHandler)delegate { label1.Refresh(); });
+
+//string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile/*****************/
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+/***************/
+//Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+//try //******************//
+//{
+
+
+/****************自动模式下---2-加载待匹配图像并画出矩形框(--start)；*********************/
+/**********************************（add,2022-0106--start);***********************/
+
+//****************//
+//match_img = new Image<Bgr, Byte>(OpenFileDialog.FileName);               
+Mat result1 = new Mat(new Size(match_img.Width - temp.Width + 1, match_img.Height - temp.Height + 1), DepthType.Cv32F, 1);//创建mat存储输出匹配结果；
+CvInvoke.MatchTemplate(match_img, temp, result1, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法，数值越大越接近准确图像；
+//****************//
+//CvInvoke.Normalize(result1, result1, 1, 0, Emgu.CV.CvEnum.NormType.MinMax); //对数据进行（min,max;0-255）归一化；
+//double max = 0, min = 0;//创建double极值；
+//Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+
+//****************//
+CvInvoke.MinMaxLoc(result1, ref min, ref max, ref min_loc, ref max_loc);//获取极值及其坐标；
+
+match_img1 = match_img.Copy(); //将原图match_img复制到match_img1中，对match_img1进行画矩形框，避免pictureBox3显示匹配区域出现边框；
+CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
+pictureBox2.Image = match_img1.ToBitmap();//显示找到模板图像的待搜索图像；
+
+//显示、保存图像； 
+#region
+//****************//
+//CvInvoke.Imshow("img", temp); //显示图片
+//****************//
+
+//CvInvoke.Imwrite("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\" + dbf_File2 + "_match_img1.bmp", match_img1); //保存匹配结果图像；
+
+CvInvoke.Imwrite("test/match_img_result/" + Path.GetFileName(nextfile.FullName), match_img1); //保存匹配结果图像；
+CvInvoke.WaitKey(0); //暂停按键等待
+
+/****************自动模式下---2-加载待匹配图像并画出矩形框(--end)；*********************/
+/**********************************（add,2022-0106--end);***********************/
+
+
+
+/****************自动模式下---3-获取匹配区域(--start)；*********************/
+/**********************************（add,2022-0106--start);***********************/
+
+// 获取匹配区域；
+Mat result = new Mat(new Size(match_img.Width - temp.Width + 1, match_img.Height - temp.Height + 1), DepthType.Cv32F, 1);//创建mat存储输出匹配结果；
+CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像；
+//CvInvoke.Normalize(result, result, 1, 0, Emgu.CV.CvEnum.NormType.MinMax); //对数据进行（min,max;0-255）归一化；
+//double max = 0, min = 0;//创建double极值；
+//Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+CvInvoke.MinMaxLoc(result, ref min, ref max, ref min_loc, ref max_loc);//获取极值及其坐标；
+
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+//dbf_File = OpenFileDialog.FileName;
+//string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+//string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+match_area_img = match_img.Copy(new Rectangle(max_loc, temp.Size)); //将原图match_img复制到match_area_img中，显示匹配区域；
+pictureBox3.Image = match_area_img.ToBitmap();//显示匹配区域；
+
+//显示、保存图像；
+#region
+//CvInvoke.Imshow("img", temp); //显示图片
+CvInvoke.Imwrite("test/match_area_img_result/" + Path.GetFileName(nextfile.FullName), match_area_img); //保存匹配结果图像；
+CvInvoke.WaitKey(0); //暂停按键等待
+#endregion
+/****************自动模式下---3-获取匹配区域(--end)；*********************/
+/**********************************（add,2022-0106--end);***********************/
+```
+
 
 

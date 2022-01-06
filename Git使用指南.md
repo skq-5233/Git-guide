@@ -196,9 +196,57 @@
 
 ## 九、 查看暂存区中文件信息
 
+**查看暂存区信息**
+
 **1、git ls-files**
+
+**2、git status**
 
 **如果想将文件移除暂存区，可以执行：**
 
 **2、git rm --cached +文件名**
+
+##### **如果只想删除GitHub仓库的文件而保留本地文件，采用下列命令：**
+
+**1、git rm -r --cached target  # 删除你要删除的文件名称，这里是删除target文件夹cached不会把本地的文件夹删除）**
+**2、git push -u origin master  # 重新提交（若需要对其他分支进行操作，则把master换为对应分支，如:git push -u origin dev）**
+
+## 十、[如何删除GitHub仓库中的文件夹和文件](https://segmentfault.com/a/1190000022530115)
+
+https://segmentfault.com/a/1190000022530115
+
+##### 同时删除本地和仓库文件
+
+**1. 将对应仓库克隆到本地库命令行：**
+
+**git clone xxxxxx  # 将远程仓库里面的项目拉下来**
+
+**2. 在Git Bash中删除文件和文件夹 （需要cd进入克隆后的文件夹）**
+
+**git rm test.txt   # 删除文件test.txt**
+**git rm -r test    # 删除文件夹test（会同时删除本地和GitHub上）**
+
+**2.1 也可以直接在克隆后的文件夹删除文件后，执行：**
+
+**git add *            # 这条命令不执行似乎也可以**
+**git commit -am "Delete some files." # 提交,添加操作说明（注意这里用的是 -am ，否则会发生错误）**
+
+**3. 提交修改，在Git Bash输入如下：**
+
+**git commit -m "Delete some files."   # 提交,添加操作说明**
+
+**4. 重新上传，输入如下：**
+
+**git push xxxxxx        # 重新上传至GitHub仓库**
+
+**其中xxxxxx为对应的GitHub仓库地址。**
+
+##### **如果只想删除GitHub仓库的文件而保留本地文件，采用下列命令：**
+
+**1、git rm -r --cached target  # 删除你要删除的文件名称，这里是删除target文件夹cached不会把本地的文件夹删除）**
+**2、git push -u origin master  # 重新提交（若需要对其他分支进行操作，则把master换为对应分支，如:git push -u origin dev）**
+
+**Git强制push到Github:**
+
+**1、git push --force origin main**
 
