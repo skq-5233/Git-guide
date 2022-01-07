@@ -1445,5 +1445,28 @@ Console.ReadKey();
 //(数组使用case2,2022-0107--end);
 ```
 
+## 三十二、foreach循环；
+
+```c#
+//foreach循环(foreach循环对数组仅进行只读操作，不可改变任何元素的值)可用于定位数组中的每个元素（2022-0107--start）；
+//数组使用(20220-0107)；
+string[] workDays = { "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday", "Sunday" };
+int j;
+Console.WriteLine("There are {0} days in a week", workDays.Length);
+
+//foreach循环(2022-0107)；
+foreach(string workDay in workDays)
+{
+Console.WriteLine(workDay);
+}
+
+//for (j = 0; j < workDays.Length; j++)
+//{
+//    Console.WriteLine("The index of {0} is {1}", j, workDays[j]);
+//}
+Console.ReadKey();
+//foreach循环可用于定位数组中的每个元素（2022-0107--end）；
+```
+
 
 
