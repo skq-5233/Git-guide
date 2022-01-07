@@ -1,4 +1,4 @@
-# C#概述笔记
+# C#-Emgu概述笔记；
 
 ## C#的五大数据类型：
 
@@ -517,6 +517,24 @@ wr.Close();
 ## //(2022-0105,打印信息至Excel表中，用流创建.xlsx文件,将两次信息打印在一张Excel表中，需将该方法放置在后面需打印的位置处；如：轮廓总面积)；
 
 ```c#
+//add(2022-0107,导出Excel表--start)，NPOI库见具体md文档；添加如下：
+public partial class Form1 : Form
+{
+//(add,2021-1229,获取文件名);
+string dbf_File = string.Empty;
+OpenFileDialog OpenFileDialog = new OpenFileDialog();
+private int indexOfExcel_j = 1;
+FileStream filestream = null;
+
+XSSFWorkbook wk = null;
+ISheet isheet = null;
+IRow rowWrite = null;
+
+double max = 0, min = 0;//创建double极值；
+Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+}
+//add(2022-0107导出Excel表--end)
+
 //add(2022-0106-start，面积筛选)
 //遍历完所有面积，打印总面积；
 double sum_area = 0;
@@ -1095,6 +1113,35 @@ Image<Gray, Byte> match_img = grayImg.ToImage<Gray, Byte>(); //灰度图
 ## 自动模式下，遍历文件夹（需要添加对话框下：folderBrowserDialog控件；）获取匹配区域并画出矩形框(2011-0105）；
 
 ```c#
+//(表头添加如下,2022-0107-start)：
+using System.Threading;//创建线程,使用多线程；
+//Form1添加如下：
+public partial class Form1 : Form
+    {
+Mat convert_img = new Mat();
+//加载整个文件夹(2022-0106--start)；
+List<string> typeList = new List<string>();
+
+String defaultfilepath;
+Int32 picturecount = 0;  //图片总数
+//Int32[] classcount;      //各类图片计数
+
+Int32 classcount = 1;      //各类图片计数
+
+Thread thread1;
+Int32 ComboBoxindex = 0;
+//加载整个文件夹(2022-0106--end)；
+}
+
+public Form1()
+{
+InitializeComponent();
+
+defaultfilepath = "";
+
+//(表头添加如下,2022-0107-end)：
+
+//(自动模式下遍历整个文件夹--2022-0107--start);
 private void folder_Click(object sender, EventArgs e)
 
 /*******************************测试整个文件夹(加载待匹配图像)--start************************/
@@ -1320,6 +1367,7 @@ CvInvoke.WaitKey(0); //暂停按键等待
 #endregion
 /****************自动模式下---3-获取匹配区域(--end)；*********************/
 /**********************************（add,2022-0106--end);***********************/
+//(自动模式下遍历整个文件夹--2022-0107--start);
 ```
 
 
