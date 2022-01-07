@@ -241,7 +241,7 @@ https://segmentfault.com/a/1190000022530115
 
 **其中xxxxxx为对应的GitHub仓库地址。**
 
-##### **如果只想删除GitHub仓库的文件而保留本地文件，采用下列命令：**
+##### 5.**如果只想删除GitHub仓库的文件而保留本地文件，采用下列命令：**
 
 **1、git rm -r --cached target  # 删除你要删除的文件名称，这里是删除target文件夹cached不会把本地的文件夹删除）**
 **2、git push -u origin master  # 重新提交（若需要对其他分支进行操作，则把master换为对应分支，如:git push -u origin dev）**

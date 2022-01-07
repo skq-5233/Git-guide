@@ -1421,7 +1421,7 @@ const int arraySize = 5;
 int [] myIntArray = new int[arraySize] {1,2,3,4,5};//若忽略了关键字const，则编译会失败；
 //数组初始化(2022-0107--end);
 
-//(数组使用,2022-0107--start);
+//(数组使用case1,2022-0107--start);
 string [] friendNames = { "jack", "black", "michael" };
 int i;
 Console.WriteLine("Here are {0} of my friends:",friendNames.Length);
@@ -1431,7 +1431,18 @@ for (i = 0; i < friendNames.Length; i++)
     Console.WriteLine("Name with index of {0}: {1}",i, friendNames[i]);
 }
 Console.ReadKey();
-//(数组使用,2022-0107--end);
+//(数组使用case1,2022-0107--end);
+
+//(数组使用case2,2022-0107--start);
+string[] workDay = { "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday", "Sunday"};
+int i;
+Console.WriteLine("There are {0} days in a week", workDay.Length);
+for(i=0; i<workDay.Length; i++)
+{
+Console.WriteLine("The index of {0} is {1}",i, workDay[i]);
+}
+Console.ReadKey();
+//(数组使用case2,2022-0107--end);
 ```
 
 
