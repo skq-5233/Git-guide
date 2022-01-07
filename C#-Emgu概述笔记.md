@@ -1106,6 +1106,19 @@ Image<Gray, Byte> match_img = grayImg.ToImage<Gray, Byte>(); //灰度图
 （3）  Mat 类可以通过  Image<Bgr,byte>matToimg = Matimg.ToImage<Bgr,byte>();
 
 //Emgucv常用函数总结(2022-0106--end);
+
+//获取灰度图像像素值(2022-0107--start)：
+Image<Gray, Byte> img = grayImg.ToImage<Gray, Byte>();
+double meanValue = 0, sum = 0; 
+for (int i = 0; i < img.Rows; i++)
+{
+  for (int j = 0; j < img.Cols; j++)
+  {
+    sum += img[i, j].Intensity;
+  }
+}
+meanValue = sum / (img.Rows * img.Cols);
+//获取灰度图像像素值(2022-0107--end)：
 ```
 
 
@@ -1117,7 +1130,7 @@ Image<Gray, Byte> match_img = grayImg.ToImage<Gray, Byte>(); //灰度图
 using System.Threading;//创建线程,使用多线程；
 //Form1添加如下：
 public partial class Form1 : Form
-    {
+{
 Mat convert_img = new Mat();
 //加载整个文件夹(2022-0106--start)；
 List<string> typeList = new List<string>();
@@ -1368,6 +1381,27 @@ CvInvoke.WaitKey(0); //暂停按键等待
 /****************自动模式下---3-获取匹配区域(--end)；*********************/
 /**********************************（add,2022-0106--end);***********************/
 //(自动模式下遍历整个文件夹--2022-0107--start);
+```
+
+## 判断Emgu图像类型是否为空
+
+```c#
+//Emgu图像类型判断是否为空(2022-0107--start)；
+1、若图像类型为Mat,即：
+if(Mat.IsEmpty)
+{
+    Invoke((EventHandler)delegate { label1.Text = "无法加载文件！"; });
+    Invoke((EventHandler)delegate { label1.Refresh(); });
+    return;
+}
+2、若图像类型为Image,即：
+if(Image == null)
+{
+    Invoke((EventHandler)delegate { label1.Text = "无法加载文件！"; });
+    Invoke((EventHandler)delegate { label1.Refresh(); });
+    return;
+}
+//Emgu图像类型判断是否为空(2022-0107--end)；
 ```
 
 
