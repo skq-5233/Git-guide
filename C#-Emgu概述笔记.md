@@ -1443,6 +1443,10 @@ Console.WriteLine("The index of {0} is {1}",i, workDay[i]);
 }
 Console.ReadKey();
 //(数组使用case2,2022-0107--end);
+
+//多维数组（2022-0107--start）
+//多维数组使用多个索引访问其元素数组；
+
 ```
 
 ## 三十二、foreach循环；
@@ -1466,6 +1470,709 @@ Console.WriteLine(workDay);
 //}
 Console.ReadKey();
 //foreach循环可用于定位数组中的每个元素（2022-0107--end）；
+```
+
+## 三十三、将两次txt文本信息及Excel打印在一起（2022-0110）；
+
+```c#
+//*********************************************************//
+//************加载模板及匹配图像（2022-0110--start）***********//
+//********************************************************//
+
+//********************************************************//
+//*******************************************************//
+//**********************添加表头(2022-0110-start)**************************//
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Emgu;
+using Emgu.CV;
+using Emgu.Util;
+using System.Runtime.Serialization;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+using Emgu.CV.Util;
+using Emgu.CV.Cuda;
+using System.IO;
+using NPOI;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
+using System.Diagnostics;
+using System.Threading;
+//********************************************************//
+//*******************************************************//
+//**********************添加表头(2022-0110-end)**************************//
+
+//**************************************************//
+//**************************************************//
+//***************定义自变量（2022-0110--start）*************************//
+public partial class Form1 : Form
+{
+  //(add,2021-1229,获取文件名);
+    string dbf_File = string.Empty;
+    OpenFileDialog OpenFileDialog = new OpenFileDialog();
+    private int indexOfExcel_j = 1;
+    FileStream filestream = null;
+
+    XSSFWorkbook wk = null;
+    ISheet isheet = null;
+
+    IRow rowWrite = null;
+
+    double max = 0, min = 0;//创建double极值；
+    Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+
+    //加载整个文件夹(2022-0106--start)；
+    List<string> typeList = new List<string>();
+
+    String defaultfilepath;
+    Int32 picturecount = 0;  //图片总数
+    //Int32[] classcount;      //各类图片计数
+
+    Int32 classcount = 1;      //各类图片计数
+
+    Thread thread1;
+    Int32 ComboBoxindex = 0;
+    //加载整个文件夹(2022-0106--end)；
+
+    public Form1()
+    {
+        InitializeComponent();
+
+        defaultfilepath = "";
+        //加载、显示图像；
+        #region
+        //Image<Bgr, byte> img = new Image<Bgr, byte>("D:\\img\\HIGH\\Image0002.bmp");//加载图像；
+        //pictureBox1.Image = img.ToBitmap();//显示图像；
+        //Image<Bgr, byte> temp = new Image<Bgr, byte>("D:\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Image_temp00.bmp");//加载模板图像；
+        #endregion
+    }
+}
+//**************************************************//
+//**************************************************//
+//***************定义自变量（2022-0110--end）*************************//
+
+//**************************************************//
+//************自动模式下--加载模板及匹配图像（2022-0110--start）***********//
+//**************************************************//
+
+private void LoadTemplate1_Click(object sender, EventArgs e)
+{
+/***********************自动/自动模式下---1-Start；************************************/
+/***********************自动/自动模式下---1-加载模板图像；************************************/
+/*****************(add,(2021-1231))**************************************/
+/******************相当于(LoadTemplate_Click)**********************/
+
+
+OpenFileDialog OpenFileDialog = new OpenFileDialog();
+OpenFileDialog.Filter = "JPEG;BMP;PNG;JPG;GIF|*.JPEG;*.BMP;*.PNG;*.JPG;*.GIF|ALL|*.*";//（模板和加载图像尺寸不一致时，会报错）;
+if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+{
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+dbf_File = OpenFileDialog.FileName;
+//string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+try
+{
+temp = new Image<Bgr, Byte>(OpenFileDialog.FileName);
+pictureBox1.Image = temp.ToBitmap();
+
+}
+catch (System.Exception ex)
+{
+MessageBox.Show("图像格式错误！");
+}
+
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+//MessageBox.Show(dbf_File2);//add(filename-2021-1228);
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+//显示、保存图像；
+#region
+////CvInvoke.Imshow("img", temp); //显示图片
+CvInvoke.Imwrite(@"D:\SKQ\VS-Code\Demo\Emgu.CV.CvEnum\Emgu.CV.CvEnum\bin\Debug\test\temp_image_result\" + dbf_File2 + "_temp.bmp", temp); //保存匹配结果图像；
+CvInvoke.WaitKey(0); //暂停按键等待
+#endregion
+}
+}
+
+private void Matchimage1_Click(object sender, EventArgs e)
+{
+//string dbf_File = string.Empty;
+
+/****************自动模式下---2-加载待匹配图像并画出矩形框；*********************/
+/**********************************（add,2021-12-31);***********************/
+/**************************与line131一致（Matchimage_Click）*****************/
+
+
+//OpenFileDialog OpenFileDialog = new OpenFileDialog();
+OpenFileDialog.Filter = "JPEG;BMP;PNG;JPG;GIF|*.JPEG;*.BMP;*.PNG;*.JPG;*.GIF|ALL|*.*";//（模板和加载图像尺寸不一致时，会报错）;
+
+OpenFileDialog.Multiselect = true;//(2021-1231)该值确定是否可以选择多个文件;
+
+if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+{
+
+string[] files = OpenFileDialog.FileNames;//(2021-1231)该值确定是否可以选择多个文件;
+
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+dbf_File = OpenFileDialog.FileName;
+//string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+try
+{
+match_img = new Image<Bgr, Byte>(OpenFileDialog.FileName);
+Mat result1 = new Mat(new Size(match_img.Width - temp.Width + 1, match_img.Height - temp.Height + 1), DepthType.Cv32F, 1);//创建mat存储输出匹配结果；
+CvInvoke.MatchTemplate(match_img, temp, result1, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法，数值越大越接近准确图像；
+
+//CvInvoke.Normalize(result1, result1, 1, 0, Emgu.CV.CvEnum.NormType.MinMax); //对数据进行（min,max;0-255）归一化；
+//double max = 0, min1 = 0;//创建double极值；
+//Point max_loc = new Point(0, 0), min_loc1 = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+CvInvoke.MinMaxLoc(result1, ref min, ref max, ref min_loc, ref max_loc);//获取极值及其坐标；
+
+match_img1 = match_img.Copy(); //将原图match_img复制到match_img1中，对match_img1进行画矩形框，避免pictureBox3显示匹配区域出现边框；
+CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
+pictureBox2.Image = match_img1.ToBitmap();//显示找到模板图像的待搜索图像；
+
+}
+catch (System.Exception ex)
+{
+MessageBox.Show("图像格式错误！");
+}
+//*********************************************************//
+//************加载模板及匹配图像（2022-0110--end）***********//；
+//********************************************************//
+
+//遍历整个文件夹（2022-0110）；
+private void folder_Click(object sender, EventArgs e)
+{
+/*******************************测试整个文件夹(加载待匹配图像)--start************************/
+/*****************************(2022-0105)***************************/
+/*****************************(2022-0105)***************************/
+
+//文件夹测试(2022-0106--start)；
+picturecount = 0;
+
+#region
+//for (int i = 0; i < classcount.Length; i++)
+//{
+//    classcount[i] = 0;
+//}
+
+//if (defaultfilepath != "")
+//{
+//    folderBrowserDialog1.SelectedPath = defaultfilepath;
+//}
+//else
+//{
+//    folderBrowserDialog1.SelectedPath = Application.StartupPath;
+//}
+#endregion
+
+//(打开文件夹函数--2022-0106--start)
+if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+{
+    defaultfilepath = folderBrowserDialog1.SelectedPath;
+    thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程
+    thread1.Start();
+}
+}
+//文件夹测试函数(2022-0106--end);
+
+//文件夹测试函数(2022-0106--start);
+private void ImageProcessingAll()   //处理文件指定文件夹下所有图片
+{
+
+//nMax = 0;
+//nMin = 1;
+//double dThreValue = Convert.ToDouble(ThreshTb.Text);
+
+//Mat img;  //待测试图片
+DirectoryInfo folder;
+
+folder = new DirectoryInfo(defaultfilepath);
+
+//遍历文件
+foreach (FileInfo nextfile in folder.GetFiles())
+{
+    //Invoke((EventHandler)delegate { label2.Text = "图片名称：" + Path.GetFileName(nextfile.FullName); });
+    //Invoke((EventHandler)delegate { label2.Refresh(); });
+
+    Point max_loc1 = new Point(0, 0);
+    Point classNumber = max_loc1;    //最大可能性位置
+
+    //string typeName = typeList[classNumber.X];
+
+    convert_img = CvInvoke.Imread(nextfile.FullName, Emgu.CV.CvEnum.ImreadModes.AnyColor);
+
+    //Image<Bgr, byte> matToimg = match_img.ToImage<Bgr, byte>();
+
+
+    Image<Bgr, Byte> match_img = convert_img.ToImage<Bgr, Byte>();//Mat 2 Image;
+
+    if (match_img == null)
+    {
+        Invoke((EventHandler)delegate { label18.Text = "无法加载文件！"; });
+        Invoke((EventHandler)delegate { label18.Refresh(); });
+        return;
+    }
+
+    //开始时间
+    #region
+    //Stopwatch stopwatch = new Stopwatch();
+    //stopwatch.Start();   //开始监视代码运行时间
+
+    //对输入图像数据进行处理
+    //Mat blob = DnnInvoke.BlobFromImage(img, 1.0f, new Size(224, 224), new MCvScalar(), true, false);
+
+    //进行图像种类预测
+    //Mat prob;
+
+    //net.SetInput(blob);      //设置输入数据
+    //prob = net.Forward();    //推理
+
+    //得到最可能分类输出
+    //Mat probMat = prob.Reshape(1, 1);
+    //double minVal = 0;  //最小可能性
+    //double maxVal = 0;  //最大可能性
+    //Point minLoc = new Point();
+    //Point maxLoc = new Point();
+
+    //CvInvoke.MinMaxLoc(probMat, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+    //double classProb = maxVal;     //最大可能性
+    //Point classNumber = maxLoc;    //最大可能性位置
+
+
+    //if (nMin > maxVal)
+    //{
+    //    nMin = maxVal;
+    //}
+    //if (nMax < maxVal)
+    //{
+    //    nMax = maxVal;
+    //}
+
+    //string typeName = typeList[classNumber.X];
+
+    //stopwatch.Stop();  //  停止监视
+    //long timespan = stopwatch.ElapsedMilliseconds;  //获取当前实例测量得出的总时间
+
+    //classcount[classNumber.X]++;
+    //picturecount++;
+
+    //classcount[classNumber.X]++;
+    #endregion
+    picturecount++;
+
+    //保存图像（NG\OK）；
+    #region
+    //if (ComboBoxindex == 1)    //保存NG图像
+    //{
+    //no******/
+    //if (classNumber.X == 0)
+    //{
+    //    CvInvoke.Imwrite("result/NG/" + Path.GetFileName(nextfile.FullName), img);
+    //}
+    //no******/
+
+    //    if (maxVal < dThreValue)
+    //    {
+    //        CvInvoke.Imwrite("result/NG/" + Path.GetFileName(nextfile.FullName), img);
+    //    }
+
+
+    //}
+    //else if (ComboBoxindex == 2)    //保存OK图像
+    //{
+    //if (classNumber.X == 1)
+    //{
+    //    CvInvoke.Imwrite("result/OK/" + Path.GetFileName(nextfile.FullName), img);
+    //}
+    //if (maxVal > dThreValue)
+    //{
+    //    CvInvoke.Imwrite("result/OK/" + Path.GetFileName(nextfile.FullName), img);
+    //}
+    #endregion
+
+    Invoke((EventHandler)delegate { label13.Text = "图片总数：" + picturecount.ToString(); });
+    Invoke((EventHandler)delegate { label13.Refresh(); });
+
+
+    //检测内容
+    Invoke((EventHandler)delegate { pictureBox2.Image = BitmapExtension.ToBitmap(match_img); });
+    Invoke((EventHandler)delegate { pictureBox2.Refresh(); });
+
+    //显示label信息：图片测试结果、可能性、处理总时间；
+    #region
+    //Invoke((EventHandler)delegate { label1.Text = "图片测试结果为：" + typeName + "  可能性为：" + classProb.ToString("0.00000") + "  处理总时间为：" + timespan.ToString() + "ms"; });
+    //Invoke((EventHandler)delegate { label1.Refresh(); });
+    #endregion
+
+    /****************自动模式下---2-加载待匹配图像并画出矩形框(--start)；*********************/
+    /**********************************（add,2022-0106--start);***************************/
+    /************************************相当于(Matchimage_Click)*****************************/
+
+    //match_img = new Image<Bgr, Byte>(OpenFileDialog.FileName);               
+    Mat result1 = new Mat(new Size(match_img.Width - temp.Width + 1, match_img.Height - temp.Height + 1), DepthType.Cv32F, 1);//创建mat存储输出匹配结果；
+    CvInvoke.MatchTemplate(match_img, temp, result1, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法，数值越大越接近准确图像；
+    //****************//
+    //CvInvoke.Normalize(result1, result1, 1, 0, Emgu.CV.CvEnum.NormType.MinMax); //对数据进行（min,max;0-255）归一化；
+    //double max = 0, min = 0;//创建double极值；
+    //Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+
+    //****************//
+    CvInvoke.MinMaxLoc(result1, ref min, ref max, ref min_loc, ref max_loc);//获取极值及其坐标；
+
+    match_img1 = match_img.Copy(); //将原图match_img复制到match_img1中，对match_img1进行画矩形框，避免pictureBox3显示匹配区域出现边框；
+    CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
+    pictureBox2.Image = match_img1.ToBitmap();//显示找到模板图像的待搜索图像；
+
+    //显示、保存图像； 
+    #region
+    //****************//
+    //CvInvoke.Imshow("img", temp); //显示图片
+    //****************//
+
+    //CvInvoke.Imwrite("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\" + dbf_File2 + "_match_img1.bmp", match_img1); //保存匹配结果图像；
+
+    CvInvoke.Imwrite("test/match_img_result/" + Path.GetFileName(nextfile.FullName), match_img1); //保存匹配结果图像；
+    CvInvoke.WaitKey(0); //暂停按键等待
+
+    /****************自动模式下---2-加载待匹配图像并画出矩形框(--end)；*********************/
+    /**********************************（add,2022-0106--end);***************************/
+    /************************************相当于(Matchimage_Click)*****************************/
+
+
+
+    /****************自动模式下---3-获取匹配区域并打印匹配文本信息(--start)；*********************/
+    /**********************************（add,2022-0106--start);*******************************/
+    /*********************************相当于(MatchingArea_Click)***********************************/
+
+    // 获取匹配区域；
+    Mat result = new Mat(new Size(match_img.Width - temp.Width + 1, match_img.Height - temp.Height + 1), DepthType.Cv32F, 1);//创建mat存储输出匹配结果；
+    CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法(CcorrNormed)，打印出匹配相似度信息,数值越大越接近准确图像；
+    //CvInvoke.Normalize(result, result, 1, 0, Emgu.CV.CvEnum.NormType.MinMax); //对数据进行（min,max;0-255）归一化；
+    //double max = 0, min = 0;//创建double极值；
+    //Point max_loc = new Point(0, 0), min_loc = new Point(0, 0);//创建dPoint类型，表示极值的坐标；
+    CvInvoke.MinMaxLoc(result, ref min, ref max, ref min_loc, ref max_loc);//获取极值及其坐标；
+
+    //(add-2021-1228,保存处理后的图像至指定文件夹)
+    //dbf_File = OpenFileDialog.FileName;
+    //string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+    //string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+    //(add-2021-1228,保存处理后的图像至指定文件夹)
+
+    match_area_img = match_img.Copy(new Rectangle(max_loc, temp.Size)); //将原图match_img复制到match_area_img中，显示匹配区域；
+    pictureBox3.Image = match_area_img.ToBitmap();//显示匹配区域；
+
+    //显示、保存图像；
+    #region
+    //CvInvoke.Imshow("img", temp); //显示图片
+    CvInvoke.Imwrite("test/match_area_img_result/" + Path.GetFileName(nextfile.FullName), match_area_img); //保存匹配结果图像；
+    CvInvoke.WaitKey(0); //暂停按键等待
+    #endregion
+
+
+    //////datetime格式化并在Excel表中写入时间数据；
+    #region
+    //DateTime dt = DateTime.Now;
+
+    ////在Excel表中写入时间数据时，设置单元格格式，自定义格式yyyy-MM-dd HH:mm:ss
+    //(label as TextBox).Text = dt.ToLocalTime().ToString();   //mm-dd才显示08-01，否则显示8-1
+    ////fff个数表示小数点后显示的位数，这里精确到小数点后3位
+    #endregion
+
+    ////datetime格式化；
+    DateTime dt1 = DateTime.Now;
+
+    //打印匹配信息（2021-1228,保存文本信息至指定文件夹）；(nextFile.Extension:图像名称；nextfile.FullName：完整路径)
+    displab2.Text = "时间:" + dt1.ToLocalTime().ToString() + "\n" + "图像名称：" + nextfile.FullName + "\n" +
+                    "\n" + "匹配信息: X= " +
+                     max_loc.X + "," + " Y= " + max_loc.Y + ";" +
+                    "\n" +
+                    "最大相似度: " + max.ToString("f2") + ";" + "\n" +
+                    "最小相似度: " + min.ToString("f2") + ";" + "\n" + "\n";
+
+    //（2021-1228,保存文本信息至指定文件夹）；
+    string txt2 = displab2.Text;
+    string filename2 = @"D:\SKQ\VS-Code\Demo\Emgu.CV.CvEnum\Emgu.CV.CvEnum\bin\Debug\test\txt_result\匹配信息.txt";   //文件名，可以带路径
+
+    FileStream fs2 = new FileStream(filename2, FileMode.Append);
+    StreamWriter wr2 = null;
+    wr2 = new StreamWriter(fs2);
+
+    //System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+    wr2.Write(displab2.Text);
+    wr2.Close();
+    //（2021-1228,保存文本信息至指定文件夹）；
+    #region
+    //（add-2021-1229）将文本信息（dislab.Text）保存至Excel表格中；
+    //string sContext = displab.Text;// 控件的内容
+    //string sExcelPath = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.xlsx"; //excel路径
+    //int iSheet = 1;
+
+    // 连接Excel
+    //Application app = new Application();
+    //WorkBook WB = app.Workbooks.Open(sExcelPath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+    //WorkSheet WS = (Worksheet)WB.Worksheets[iSheet];
+    //Range range = (Range)worksheet.Cells[iRow, iCol]; ////得到指定行列的单元格
+    //range.Value2 = sContext; // 对单元格赋值
+
+    //（add-2021-1229）将文本信息（dislab.Text）保存至Excel表格中；
+
+
+
+    //向单元格中写数据(2021-1229,循环写入行、列数据，先定义行数，再定义列数);
+
+    ////datetime格式化；
+    //DateTime dt1 = DateTime.Now;
+
+    ////在Excel表中写入时间数据时，设置单元格格式，自定义格式yyyy-MM-dd HH:mm:ss
+    //string current_time = dt1.ToString("yyyy-MM-dd HH:mm:ss.fff");   //mm-dd才显示08-01，否则显示8-1
+    ////fff个数表示小数点后显示的位数，这里精确到小数点后3位
+
+
+    //(add-2021-1228,保存处理后的图像至指定文件夹)
+    //MessageBox.Show(dbf_File2);//add(filename-2021-1228);
+    //(add-2021-1228,保存处理后的图像至指定文件夹)
+    #endregion
+    /****************自动模式下---3-获取匹配区域并打印匹配文本信息(--end)；*********************/
+    /**********************************（add,2022-0106--end);*******************************/
+    /*********************************相当于(MatchingArea_Click)***********************************/
+     
+/****************自动模式下---将两次打印的匹配文本信息输出在一个txt文本中（2022-0110）；*********************/
+/********************自动模式下---8-进行二值化轮廓筛选及面积运算(2022-01010--start)******************************************/
+/******************* (add-2022-0110,轮廓运算--start）**************************************************************/
+/*********************相当于(BinarizedContour_Click--start)***********************************************************/
+
+// canny算子；
+#region
+//Mat corrosion_img = binary;
+//Mat corrosion1 = new Mat();//创建Mat，存储处理后的图像；
+//Mat struct_element = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Cross, new Size(3, 3), new Point(-1, -1));//指定参数获得结构元素；
+////指定参数进行形态学开操作；
+//CvInvoke.MorphologyEx(corrosion_img, corrosion1, Emgu.CV.CvEnum.MorphOp.Open, struct_element, new Point(-1, -1), 3, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+
+////开运算2（先腐蚀后膨胀）；
+//Mat img7 = corrosion1;
+//Mat corrosion2 = new Mat();//创建Mat，存储处理后的图像；
+//Mat struct_element1 = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Cross, new Size(3, 3), new Point(-1, -1));//指定参数获得结构元素；
+////指定参数进行形态学开操作；
+//CvInvoke.MorphologyEx(img7, corrosion2, Emgu.CV.CvEnum.MorphOp.Open, struct_element1, new Point(-1, -1), 3, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(0, 0, 0));
+#endregion
+
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+//dbf_File = OpenFileDialog.FileName;
+//string dbf_File1 = System.IO.Path.GetFileName(dbf_File);
+
+//string dbf_File2 = System.IO.Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+//(add-2021-1228,保存处理后的图像至指定文件夹)
+
+//(add-2021-1228,显示图像名称)
+//MessageBox.Show(dbf_File2);//add(filename-2021-1228);
+//(add-2021-1228,显示图像名称)
+
+contour_img = swell;
+
+CvInvoke.Canny(contour_img, canny_img, 120, 180); //指定阈值（第一阈值：120，第二阈值：180）进行Canny算子处理(这里是否需要Canny算子？？)；                       
+
+VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();//创建VectorOfVectorOfPoint类型，用于存储查找到的轮廓；
+//add(1215，用于面积筛选)
+VectorOfVectorOfPoint use_contours = new VectorOfVectorOfPoint();//创建VectorOfVectorOfPoint类型，用于存储筛选后的轮廓；
+//add(1215，用于面积筛选)
+
+//(RetrType.External:提取最外层轮廓；RetrType.List:提取所有轮廓;Emgu.CV.CvEnum.RetrType.Ccomp检索所有轮廓，并将它们组织成两级层级结构：水平是组件的外部边界，二级约束边界的洞）；
+CvInvoke.FindContours(canny_img, contours, null, Emgu.CV.CvEnum.RetrType.Ccomp, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);//查找dst所有轮廓并保存（contour_img<-->canny_img）；                                                            
+
+//add(2021-1217，面积筛选)
+//遍历完所有面积，打印总面积；
+double sum_area = 0;
+int ksize = contours.Size;//获取连通区域的个数；
+for (int i = 0; i < ksize; i++)//遍历每个连通轮廓；
+{
+    VectorOfPoint contour = contours[i];//获取独立的连通轮廓；
+    double area = CvInvoke.ContourArea(contour);//计算连通轮廓的面积；
+
+    double area1 = Convert.ToDouble(textBox7.Text);//实现string类型到double类型的转换;
+                                                   //add(2021-1227,当输入面积小于0时，area==0);
+    if (area1 <= 0)
+    {
+        area1 = 0;
+    }
+    //add(2021-1227,当输入面积小于0时，num1==0);
+
+    //add(2021-1227，当轮廓面积大于阈值面积时，才执行下列语句，实现面积相加，否则跳出条件语句）；
+    if (area > area1)//对每一轮廓区域面积进行面积筛选；                                
+    {
+
+        use_contours.Push(contour);//添加筛选后的连通轮廓；
+        sum_area += area;//遍历结果相加；
+
+    }
+
+}
+//打印轮廓总面积信息；
+displab3.Text = "轮廓总面积: " + sum_area.ToString() + ";" + "\n" + "\n" + "\n";//打印遍历完的总面积（0044轮廓面积,当阈值选择30时，显示出错,试试RetrType.Ccomp）
+
+
+//打印匹配信息（2021-1228,保存文本信息至指定文件夹）；
+#region
+//displab.Text = dbf_File2 + "\n" +
+//"轮廓总面积:  " + sum_area.ToString();
+
+////（2021-1228,保存文本信息至指定文件夹）；
+//string txt = displab1.Text;
+//string filename = "D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息1.txt";   //文件名，可以带路径
+
+//System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+//sw.Write(displab1.Text);
+//sw.Close();
+#endregion
+//(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
+string txt3 = displab3.Text;
+string filename3 = @"D:\SKQ\VS-Code\Demo\Emgu.CV.CvEnum\Emgu.CV.CvEnum\bin\Debug\test\txt_result\匹配信息.txt";   //文件名，可以带路径
+
+FileStream fs3 = new FileStream(filename3, FileMode.Append);
+StreamWriter wr3 = null;
+wr3 = new StreamWriter(fs3);
+
+//System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
+wr3.Write(displab3.Text);
+wr3.Close();
+//(add,2021-1228,在匹配信息Txt文本中添加轮廓面积信息)；
+       
+//将数据通过Stream写入Excel表格(2022-0110)；
+//(add-2021-1231)用流创建或读取.xlsx文件（同时流关联了文件）；
+filestream = new FileStream(@"D:\SKQ\VS-Code\Demo\Emgu.CV.CvEnum\Emgu.CV.CvEnum\bin\Debug\test\xlsx_result\匹配信息.xlsx", FileMode.OpenOrCreate);
+//(add-2021-1231)用流创建或读取.xlsx文件（同时流关联了文件）
+
+//add(2022-0110)
+DirectoryInfo folder1;
+
+folder1 = new DirectoryInfo(defaultfilepath);
+
+//遍历文件
+//foreach (FileInfo nextfile in folder1.GetFiles())
+//{
+
+    //创建表和sheet;
+    if (indexOfExcel_j == 1)
+    {
+        wk = new XSSFWorkbook();   //创建表对象wk
+        isheet = wk.CreateSheet("Sheet1");   //在wk中创建sheet1
+                                             //创建表头
+        IRow rowtitle = null;
+        rowtitle = isheet.CreateRow(0); //创建index=j的行
+
+        ICell cellTitle0 = null;
+        cellTitle0 = rowtitle.CreateCell(0); //在index=j的行中创建index=0的单元格
+        cellTitle0.SetCellValue("时间"); //给创建的单元格赋值string
+
+        ICell cellTitle1 = null;
+        cellTitle1 = rowtitle.CreateCell(1);  //在index=j的行中创建index=0的单元格
+        cellTitle1.SetCellValue("图像名称"); //给创建的单元格赋值string
+
+        ICell cellTitle2 = null;
+        cellTitle2 = rowtitle.CreateCell(2);  //在index=j的行中创建index=0的单元格
+        cellTitle2.SetCellValue("匹配信息坐标X"); //给创建的单元格赋值string
+
+        ICell cellTitle3 = null;
+        cellTitle3 = rowtitle.CreateCell(3);  //在index=j的行中创建index=0的单元格
+        cellTitle3.SetCellValue("匹配信息坐标Y"); //给创建的单元格赋值string
+
+        ICell cellTitle4 = null;
+        cellTitle4 = rowtitle.CreateCell(4);  //在index=j的行中创建index=0的单元格
+        cellTitle4.SetCellValue("最大相似度"); //给创建的单元格赋值string
+
+
+        ICell cellTitle5 = null;
+        cellTitle5 = rowtitle.CreateCell(5);  //在index=j的行中创建index=0的单元格
+        cellTitle5.SetCellValue("最小相似度"); //给创建的单元格赋值string
+
+        ICell cellTitle6 = null;
+        cellTitle6 = rowtitle.CreateCell(6);  //在index=j的行中创建index=0的单元格
+        cellTitle6.SetCellValue("轮廓总面积"); //给创建的单元格赋值strin
+    }
+
+
+    //向单元格中写数据(2021-1231,循环写入行、列数据，先定义行数，再定义列数，这里是2行6列);
+    //for (int indexOfExcel_j = 1; indexOfExcel_j < 3; indexOfExcel_j++)//(j:行)；
+    //{
+
+    //IRow row2 = null;
+    //row2 = isheet.CreateRow(indexOfExcel_j++); //创建index=j的行
+
+    ////datetime格式化；
+    DateTime dt2 = DateTime.Now;
+
+    rowWrite = isheet.CreateRow(indexOfExcel_j++); //创建index=j的行
+
+    ICell cell0 = null;
+    cell0 = rowWrite.CreateCell(0);  //在index=j的行中创建index=0的单元格
+    cell0.SetCellValue(dt2.ToLocalTime().ToString()); //给创建的单元格赋值string
+
+    ICell cell1 = null;
+    cell1 = rowWrite.CreateCell(1);  //在index=j的行中创建index=0的单元格
+    cell1.SetCellValue(nextfile.FullName); //给创建的单元格赋值string
+
+    ICell cell2 = null;
+    cell2 = rowWrite.CreateCell(2);  //在index=j的行中创建index=0的单元格
+    cell2.SetCellValue("X:" + max_loc.X); //给创建的单元格赋值string
+
+    ICell cell3 = null;
+    cell3 = rowWrite.CreateCell(3);  //在index=j的行中创建index=0的单元格
+    cell3.SetCellValue("Y:" + max_loc.Y); //给创建的单元格赋值string
+
+    ICell cell4 = null;
+    cell4 = rowWrite.CreateCell(4);  //在index=j的行中创建index=0的单元格
+    cell4.SetCellValue(max.ToString("f2")); //给创建的单元格赋值string
+
+
+    ICell cell5 = null;
+    cell5 = rowWrite.CreateCell(5);  //在index=j的行中创建index=0的单元格
+    cell5.SetCellValue(min.ToString("f2")); //给创建的单元格赋值string
+
+    ICell cell6 = null;
+    cell6 = rowWrite.CreateCell(6);  //在index=j的行中创建index=0的单元格
+    cell6.SetCellValue(sum_area.ToString()); //给创建的单元格赋值string
+
+
+    //通过流将表中写入的数据一次性写入文件中;
+    wk.Write(filestream); //通过流filestream将表wk写入文件
+
+
+    //(add,20211231)
+    //filestream.Close(); //关闭文件流filestream
+    //wk.Close(); //关闭Excel表对象wk
+
+
+    Mat mask = contour_img.ToImage<Bgr, byte>().CopyBlank().Mat;//获取一张背景为黑色的图像，尺寸大小与contour_img一样(类型Bgr);
+    CvInvoke.DrawContours(mask, use_contours, -1, new MCvScalar(0, 0, 255));//采用红色画笔在mask掩膜图像中画出所有轮廓；(MCvScalar是一个具有单元素到四元素间的一个数组)
+    pictureBox6.Image = mask.ToImage<Bgr, byte>().ToBitmap();//显示轮廓区域图像；
+
+
+    //显示、保存图像；
+    #region
+    //CvInvoke.Imshow("img", temp); //显示图片
+    CvInvoke.Imwrite(@"test/mask_result/" + Path.GetFileName(nextfile.FullName), mask); //保存匹配结果图像；
+    CvInvoke.WaitKey(0); //暂停按键等待
+    #endregion
+} //add(2022-0110)
+//add(2022-0110，和前面遍历文件Line232的foreach (FileInfo nextfile in folder.GetFiles())中的'{'相对应);   
 ```
 
 
