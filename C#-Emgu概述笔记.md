@@ -20,6 +20,10 @@
 
 **3、解决方案-->属性-->当前选定内容（执行多个解决方案时）；**
 
+**4、设置背景：主题-->Night;**
+
+**5、设置行号：文件-->偏好设置-->MarkDown-->代码块-->显示行号；**
+
 ## 三、C# -语法：
 
  **1、match_area_img_out = match_area_img_1.Convert<Gray, Byte>();//（将match_area_img_1转化为灰度图）;(image定义的图像通过Convert转化为灰度图);**
@@ -1470,6 +1474,17 @@ Console.WriteLine(workDay);
 //}
 Console.ReadKey();
 //foreach循环可用于定位数组中的每个元素（2022-0107--end）；
+
+//foreach 循环（2022-0111--start）；
+            string[] workMonths = { "January", "February", "March" , "April" , " May", "June", "July", "August", "September" , "October" , "November", "December" };
+            Console.WriteLine("There are {0} months in a year",workMonths.Length);
+            foreach (string workMonth in workMonths) 
+            {
+                Console.WriteLine(workMonth);
+            }
+
+            Console.ReadKey();
+//foreach 循环（2022-0111--end）；
 ```
 
 ## 三十三、将两次txt文本信息及Excel打印在一起（2022-0110）；
@@ -1705,7 +1720,7 @@ DirectoryInfo folder;
 
 folder = new DirectoryInfo(defaultfilepath);
 
-//遍历文件
+//遍历文件(2022-0110,foreach循环仅对数组内容进行只读访问，不改变数组元素的值);
 foreach (FileInfo nextfile in folder.GetFiles())
 {
     //Invoke((EventHandler)delegate { label2.Text = "图片名称：" + Path.GetFileName(nextfile.FullName); });
@@ -2175,5 +2190,112 @@ folder1 = new DirectoryInfo(defaultfilepath);
 //add(2022-0110，和前面遍历文件Line232的foreach (FileInfo nextfile in folder.GetFiles())中的'{'相对应);   
 ```
 
+## 三十四、创建并遍历多维数组（2022-0111）；
 
+```c#
+double [,] hillhight = new double[3,4];//声明一个四维数组（3行四列）；
+//使用字面值进行初始赋值，这里使用嵌套花括号,用逗号分隔开；
+double [,] hillhight = {{1,2,3,4},{2,3,4,5},{3,4,5,6}}；//与上述数组大小一样，也是3行四列；
+//若要访问多维数组中的个元素，只需指定索引即可，并用都好分开；
+hillhight[2,1]//访问上述定义的第三个嵌套数组中的第二个元素（4）；
+//遍历多维数组（2022-0111--start）；
+            double[,] hillhight = { { 1, 2, 3, 4 }, { 2, 3, 4, 5 }, { 3, 4, 5, 6 } };//与上述数组大小一样，也是3行四列；
+            foreach(double height in hillhight)
+            {
+                Console.WriteLine("{0}",height);
+            }
+//遍历多维数组（2022-0111--end）；
+
+//数组的数组（如锯齿数组（jagged array）--2022-0111--start）;
+jaggedArray = new int[2][];
+jaggedArray[0] = new int[3];
+jaggedArray[1] = new int[4];
+//或者使用上述字面值赋值的一种改进方式；
+jaggedArray = new int[3][]{new int[]{1,2,3},new int[]{1},new int[]{1,2}};
+//或者把数组的初始化和声明放在同一行上进行简化；
+int[][] jaggedArray ={new int[]{1,2,3},new int[]{1},new int[]{1,2}};
+//对锯齿数组进行foreach循环操作（需使用嵌套的foreach循环）；
+int[][] divisors1To10 = {new int[]{1},
+                         new int[]{1,2},
+                         new int[]{1,3},
+                         new int[]{1,2,4},
+                         new int[]{1,5},
+                         new int[]{1,2,3,6},
+                         new int[]{1,7},
+                         new int[]{1,2,4,8},
+                         new int[]{1,3,9},
+                         new int[]{1,2,5,10}};
+//若使用如下foreach循环会报错；
+foreach (int divisor in divisors1To10)
+{
+    Console.WriteLine(divisor);
+}
+//数组divisors1To10包含int[]元素而不是int元素，正确的做法是循环遍历每个子数组和数组本身；
+foreach (int[] divisorOfInt in divisors1To10)
+{
+    foreach (int divisor in divisors1To10)
+    {
+        Console.WriteLine(divisor);
+    }
+}
+//数组的数组（如锯齿数组（jagged array）--2022-0111--end                        
+```
+
+## 三十五、字符串处理（2022-0111）；
+
+```c#
+//string类型变量可以看成是char变量的只读数组，可使用下列语法访问个字符；
+strting myString = "A string";
+char myChar = myString[1];
+//但不能采用这种方式为各字符赋值，若要获取可写char数组，使用数组变量ToCharArray()命令；
+string myString = "A string";
+char[] myChars = myString.ToCharArray();
+//此时，即可处理char数组，也可在foreach循环中使用字符串，
+foreach (char character in myString)
+{
+    Console.WriteLine("{0}",character);
+}
+
+//还可使用myString.Length获取元素个数，
+string myString = Console.ReadLine();
+Console.WriteLine("You typed{0} characters.",myString.Length);
+
+//<string>.ToLower；字符串转换成小写；
+//<string>.ToUpper；字符串转换成大写；
+Console.WriteLine("请输入单词:");
+string userResponse = Console.ReadLine();
+if (userResponse.ToLower() == "yes")
+{
+    //Act on response.
+}
+userResponse = userResponse.ToLower();
+//userResponse.ToLower();
+Console.WriteLine("转化后的小写单词是：{0}", userResponse);
+Console.ReadKey();
+
+//<string>.TrimStart()；删除字符串前面的空格；
+//<string>.TrimEnd()；删除字符串后面的空格；
+//<string>.PadLeft()；在字符串左边添加空格；
+//<string>.PadRight()；在字符串右边添加空格；
+
+//字符串分割；
+class Program
+{
+    static void Main(string[] args)
+    {
+        string myString = "This is a test.";
+        char[] separator = {' '};
+        string[] myWords;
+        myWords = myString.Split(separator);//通过''及Split分割字符串；
+        foreach (string word in myWords)
+        {
+            Console.WriteLine("{0}", word);
+        }
+        Console.ReadKey();
+    }
+}
+}
+//列表可以存储一维数组，通过列表的嵌套可以实现多维数组;数组中的所有元素的类型都是相同的，而列表中的元素类型是任意的;
+
+```
 
