@@ -2297,5 +2297,31 @@ class Program
 }
 //列表可以存储一维数组，通过列表的嵌套可以实现多维数组;数组中的所有元素的类型都是相同的，而列表中的元素类型是任意的;
 
+//字符串逆序打印（2022-0112）；
+Console.WriteLine("Enter a number or string");
+string myString = Console.ReadLine();
+string reversedString = "";
+for(int index=myString.Length-1;index >=0; index--)
+{
+    reversedString += myString[index];
+}
+Console.WriteLine("逆序打印结果是：{0}",reversedString);
+Console.ReadKey();
+
+//字符串替换(Replace,2022-0112)；
+//case1:
+Console.WriteLine("Enter a string:");
+string myString = Console.ReadLine();
+myString = myString.Replace("no", "yes");
+Console.WriteLine("转换后的字符串是{0}", myString);
+Console.ReadKey();
+
+ //case2(给字符串加双引号):
+Console.WriteLine("Enter a string:");
+string myString = Console.ReadLine();
+myString = "\"" + myString.Replace(" ", "\" \"")+ "\"";
+Console.WriteLine("转换后的字符串是{0}", myString);
+Console.ReadKey();
+
 ```
 

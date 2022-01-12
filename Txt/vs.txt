@@ -1,0 +1,10 @@
+1、无法将类型Emgu.CV.Mat隐式转换为System.Drawing.Image  (change ToBitmap)
+2、“System.NullReferenceException”类型的未经处理的异常在 Emgu.CV.Bitmap.dll 中发生 
+
+其他信息: 未将对象引用设置到对象的实例。
+10-8 可视化操作界面
+3、专业版密钥：HMGNV-WCYXV-X7G9W-YCX63-B98R2 
+4、企业版密钥：HM6NR-QXX7C-DFW2Y-8B82K-WTYJV
+5、变更Winform左上角名称：点击左上角名称处-->打开右下角属性-->Text(修改为需要的名称，完成左上角名称变更)；
+6、Emgu.CV.CvEnum.RetrType.Ccomp检索所有轮廓，并将它们组织成两级层级结构：水平是组件的外部边界，二级约束边界的洞。（当轮廓面积显示故障时，可试试RetrType.Ccomp）；
+7、CvInvoke.MatchTemplate(match_img, temp, result, Emgu.CV.CvEnum.TemplateMatchingType.CcorrNormed);//采用系数匹配法(CcorrNormed))，打印出匹配相似度信息，数值越大越接近准确图像；
