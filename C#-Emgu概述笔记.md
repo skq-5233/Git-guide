@@ -2371,3 +2371,31 @@ void fun1();
 3. 用于类中的成员.表示这个成员是属于这个类但是不属于类中任意特定对象
 ```
 
+## 三十七、模式切换
+
+```c#
+//模式切换选择（2022-0113--start）；
+bool auto_or_manual = true;//设置全局变量；
+
+//设置不同模式转换（手动或自动）；
+private void button4_Click(object sender, EventArgs e)
+{
+    if(auto_or_manual)
+    {
+    groupBox3.Visible = false;
+    groupBox1.Visible = true;
+    auto_or_manual = !auto_or_manual;
+    }
+    else
+    {
+    groupBox3.Visible = true;
+    groupBox1.Visible = false;
+    auto_or_manual = !auto_or_manual;
+    }
+}
+//模式切换选择（2022-0113--end）；
+```
+
+
+
+## 
