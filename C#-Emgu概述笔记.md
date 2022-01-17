@@ -2396,6 +2396,3 @@ private void button4_Click(object sender, EventArgs e)
 //模式切换选择（2022-0113--end）；
 ```
 
-
-
-## 
