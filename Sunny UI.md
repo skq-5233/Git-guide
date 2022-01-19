@@ -15,7 +15,7 @@ private void uiAvatar1_Click(object sender, EventArgs e)
 //点击右上角图标，实现退出功能(2022-0118--end)；
 ```
 
-##  三、实现界面加载完成时，button被选中；
+##  三、实现界面加载完成时，button默认被选中；
 
 ```c#
 //实现界面加载完成时，button默认选中状态(2022-0118--start)；
