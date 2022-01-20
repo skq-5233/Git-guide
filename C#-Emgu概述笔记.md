@@ -2401,6 +2401,7 @@ private void button4_Click(object sender, EventArgs e)
 ## 三十九、uiTabControl1中不同TabPages切换；
 
 ```c#
+//模式切换选择（2022-0120--start）；
 private void uiHeaderButton1_Click(object sender, EventArgs e)
 {                      
     //if (auto_or_manual)
@@ -2456,6 +2457,6 @@ private void uiHeaderButton2_Click(object sender, EventArgs e)
     //    auto_or_manual = !auto_or_manual;
     //}
 }
-//模式切换选择（2022-0113--end）；
+//模式切换选择（2022-0120--end）；
 ```
 
