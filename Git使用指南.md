@@ -276,8 +276,6 @@ https://segmentfault.com/a/1190000022530115
 >
 > git remote add origin git@github.com:skq-5233/CSharp.git
 >
-> git remote add origin git@github.com:skq-5233/Template matching.git
->
 > git remote add origin git@github.com:skq-5233/Git-guide.git
 >
 > git remote add origin git@github.com:skq-5233/Template-Matching.git

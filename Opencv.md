@@ -36,7 +36,7 @@ cv2.destroyAllWindows()
 cv2.imwrite("D:/skq/DL/DL informaton/Opencv/VR-Gray1.png",img)   # cv2.imwrite(保存图像);
 ```
 
-## 三、使用 Matplotlib  
+## 三、使用 Matplotlib ;
 
 ```python
 # 003;
@@ -51,5 +51,52 @@ plt.imshow(img,cmap = 'gray', interpolation = 'bicubic')
 plt.xticks([]), plt.yticks([]) # to hide tick values on X and Y axis
 plt.show()
 cv2.imwrite('D:/skq/DL/DL informaton/Opencv/VR003.png',img) # 保存图像；
+
+# 注意：彩色图像使用 OpenCV 加载时是 BGR 模式。但是 Matplotib 是 RGB模式。所以彩色图像如果已经被 OpenCV 读取，那它将不会被 Matplotib 正确显示。
+# https://matplotlib.org/2.0.2/index.html
 ```
+
+## 四、视频
+
+```python
+# 4.1 用摄像头捕获视频;
+import numpy as np
+import cv2
+cap = cv2.VideoCapture(0) 
+while(True):
+    # Capture frame-by-frame
+    ret, frame = cap.read() # cap.read() 返回一个布尔值（True/False）;
+    # Our operations on the frame come here
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Display the resulting frame
+    cv2.imshow('frame', gray)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+# When everything done, release the capture
+cap.release()
+cv2.destroyAllWindows()
+
+# 4.2 从文件中播放视频;
+# 播放视频；
+import cv2
+cv =cv2.VideoCapture("Fall.mp4")
+# 检查视频是否正确打开；
+if cv.isOpened():
+    open,frame = cv.read()
+else:
+    open = False
+while open:
+    ret,frame = cv.read()
+    if frame is None:
+        break
+    if ret == True:
+        gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        cv2.imshow("result",gray)
+        if cv2.waitKey(10) &0xFF == 27:
+            break
+cv.release()
+cv2.destroyAllWindows()
+```
+
+## 五、**OpenCV** 中的绘图函数；
 
