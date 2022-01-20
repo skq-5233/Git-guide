@@ -2396,3 +2396,66 @@ private void button4_Click(object sender, EventArgs e)
 //模式切换选择（2022-0113--end）；
 ```
 
+## 三十八、FormBorderStyle属性：控制winform界面放大、关闭功能属性；
+
+## 三十九、uiTabControl1中不同TabPages切换；
+
+```c#
+private void uiHeaderButton1_Click(object sender, EventArgs e)
+{                      
+    //if (auto_or_manual)
+    //{
+        //uiHeaderButton1.IsPress = true; //设置默认手动模式button打开；
+        //uiHeaderButton2.IsPress = false; //设置默认自动模式button关闭；
+        //groupBox3.Visible = false;
+        //groupBox1.Visible = true;
+
+        //tabPage1.Visible = true;
+        //tabPage2.Visible = false;
+
+        uiTabControl1.SelectedIndex = 0;//从0开始哦，第一个tabpage1；
+
+    //    auto_or_manual = !auto_or_manual;
+    //}
+    //else
+    //{
+    //    groupBox3.Visible = true;
+    //    groupBox1.Visible = false;
+    //    auto_or_manual = !auto_or_manual;
+    //}
+}
+
+private void uiHeaderButton2_Click(object sender, EventArgs e)
+{
+    //可直接在起始界面点击自动模式(2022-0118)；
+    //if (auto_or_manual)
+    //{
+        //uiHeaderButton1.IsPress = true; //设置默认手动模式button打开；
+        //uiHeaderButton2.IsPress = false; //设置默认自动模式button关闭；
+        //groupBox3.Visible = false;
+        //groupBox1.Visible = true;
+
+        //tabPage1.Visible = true;
+        //tabPage2.Visible = false;
+        uiTabControl1.SelectedIndex = 1;//从0开始哦，第二个tabpage2；
+
+    //    auto_or_manual = !auto_or_manual;
+    //}
+    //可直接在起始界面点击自动模式(2022-0118)；
+
+    //if (!auto_or_manual)
+    //{
+    //    uiHeaderButton1.IsPress = false; //设置默认手动模式button关闭；
+    //    uiHeaderButton2.IsPress = true; //设置默认自动模式button打开；
+    //    groupBox3.Visible = true;
+    //    groupBox1.Visible = false;
+
+    //    //tabPage1.Visible = false;
+    //    //tabPage2.Visible = true;
+
+    //    auto_or_manual = !auto_or_manual;
+    //}
+}
+//模式切换选择（2022-0113--end）；
+```
+

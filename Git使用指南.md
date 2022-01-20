@@ -2,13 +2,13 @@
 
 **首先，安装Git Bash**；**Git Bash下载地址：https://git-scm.com/downloads**
 
-### **一、注册Github仓库**（https://github.com/）
+### 一、注册Github仓库（https://github.com/）
 
-### **二、新建仓库**
+### 二、新建仓库
 
 **1、注册好了之后新建仓库，进入Github主界面，鼠标左击右上角“+”处，选择 New repository，接着创建Repository name，接着选择Public，接着选择Add a README file，然后选择Create repository；（第一步Git仓库创建完成）**
 
-**三、git连接github远程仓库**
+### 三、git连接github远程仓库
 
 **Github支持两种同步方式`“https”`和`“ssh”`。**
 
@@ -52,7 +52,7 @@
 
 ![img](https://img2020.cnblogs.com/blog/2144260/202102/2144260-20210210142842621-692781828.png)
 
-**四、连接远程仓库**
+### 四、连接远程仓库
 
 **以上完成之后，接下来就是连接指定仓库。**
 
@@ -88,7 +88,7 @@
 
 **显示有fetch ：抓取；push：推；**
 
-**五、如何把本地仓库上传到远程仓库的步骤**
+### 五、如何把本地仓库上传到远程仓库的步骤
 
 **1、首先到本地仓库目录下使用:	git remote**	
 
@@ -120,13 +120,13 @@
 
 **完成本地仓库到远程仓库（Github）的推送。**
 
-**六、本地仓库同步远程仓库**
+### 六、本地仓库同步远程仓库
 
 **以上完成之后 如果需要把远程仓库同步到 本地仓库 我们就要拉取最新数据到本地仓库，命令如下：**
 
 **1、git pull  origin master    (before  pull ,check local repository newer or not?if no, do it;if yes ,input: git add . (then) git commit -m "注释（任意注释均可）",product code number );**
 
-**七、错误处理**
+### 七、错误处理
 
 ##### 在执行命令 git push origin master 时，报错 !
 
@@ -154,7 +154,7 @@
 
 **git push origin main**
 
-**八、完成上传一个新的本地仓库的整体流程**
+### 八、完成上传一个新的本地仓库的整体流程
 
 **1、git remote （查看是否有.git文件夹）;**
 
@@ -194,7 +194,7 @@
 
 **3、git pull --rebase origin master(git push origin main);**
 
-## 九、 查看暂存区中文件信息
+### 九、 查看暂存区中文件信息
 
 **查看暂存区信息**
 
@@ -211,7 +211,7 @@
 **1、git rm -r --cached target  # 删除你要删除的文件名称，这里是删除target文件夹cached不会把本地的文件夹删除）**
 **2、git push -u origin master  # 重新提交（若需要对其他分支进行操作，则把master换为对应分支，如:git push -u origin dev）**
 
-## 十、[如何删除GitHub仓库中的文件夹和文件](https://segmentfault.com/a/1190000022530115)
+### 十、[如何删除GitHub仓库中的文件夹和文件](https://segmentfault.com/a/1190000022530115)
 
 https://segmentfault.com/a/1190000022530115
 
@@ -250,5 +250,93 @@ https://segmentfault.com/a/1190000022530115
 
 **1、git push --force origin main**
 
+### 十一、push\pull日常操作流程
 
+1. 使用已有的rsa私钥在另一台电脑上使用已有远程仓库
+   设置用户名： git config --global user.name wk
+   设置密码： git config --global user.password p
+   将私钥复制到~/.ssh文件夹下：C:\Users\Administrator.ssh
+   身份验证： ssh -T git@github.com 
+   验证成功：Hi 用户名! You've successfully authenticated, but Github does not provide shell access.
+   将远程仓库clone下来，就可以提交修改了（clone别人的代码修改后无法提交，需要别人同意）
+
+### （1）直接从别人的项目里拷贝到文件夹里
+
+无需初始化仓库，直接在文件夹里就可以git clone。克隆下来的代码，修改要想提交到远程，必须向原作者发起pr，原作者merge后才可合并到远程仓库。
+
+> git clone `ssh`
+
+### （2）从自己的远程仓库里拉取代码到本地新建的空文件夹
+
+> git init	//建立本地仓库
+>
+> git remote add origin `ssh`	//连接远程仓库——ssh:git@github.com:WangKun19920124/DevExpressDemo.git
+>
+> git remote add origin git@github.com:skq-5233/C-Sharp-Demo.git
+>
+> git remote add origin git@github.com:skq-5233/CSharp.git
+>
+> git remote add origin git@github.com:skq-5233/Template matching.git
+>
+> git remote add origin git@github.com:skq-5233/Git-guide.git
+>
+> git remote add origin git@github.com:skq-5233/Template-Matching.git
+>
+> git remote add origin git@github.com:skq-5233/C-Example.git
+>
+> git remote add origin git@github.com:skq-5233/EmguCV.git
+>
+> git remote add origin git@github.com:skq-5233/CSharp-Material.git
+>
+> git remote add origin git@github.com:skq-5233/DeepLearning.git
+>
+> git pull origin master //拉取远程仓库代码
+
+https://www.runoob.com/git/git-pull.html
+
+**git pull** 其实就是 **git fetch** 和 **git merge FETCH_HEAD** 的简写。 命令格式如下：
+
+```git
+git pull <远程主机名> <远程分支名>:<本地分支名>
+```
+
+将远程主机 origin 的 master 分支拉取过来，与本地的 brantest 分支合并。
+
+```git
+git pull origin master:brantest
+```
+
+如果远程分支是与当前分支合并（拉取远程仓库代码），则冒号后面的部分可以省略。
+
+```git
+git pull origin master
+```
+
+### （3）工作区、暂存区、本地仓库
+
+```git
+git status
+git add .	//添加到暂存区
+git commit -m "message"	//提交到本地仓库
+git push -u origin master	//push到GitHub
+git pull origin master	//拉取
+```
+
+### （4）将服务器上的最新代码拉取到本地文件夹（已是项目文件夹，有.git文件夹）
+
+> git pull origin master
+
+**若本地代码被修改，但是未push到远程服务器。且在另一个主机上修改了服务器上代码。那么pull时，服务器上的改动和本地改动就会产生冲突。一般，git会自动合并冲突。但若涉及到同一行代码的改动，就需要手动合并代码**
+
+## 8. push时的忽略文件
+
+```git
+touch .gitignore	//创建.gitignore文件，编辑该文件，每行代表push时忽略不上传的文件
+```
+
+```git
+//.gitignore
+1.md	//忽略1.md文件
+build/	//忽略build目录下的所有文件
+```
 
