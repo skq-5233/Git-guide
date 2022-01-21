@@ -1,4 +1,6 @@
-## 一、python函数；
+# python函数；
+
+## 一、# matplotlib
 
 ```python
 ## coding:utf-8
@@ -19,6 +21,14 @@
 # print(11>>1) # （5）右移一位，相当于整除2的1次方；
 # print(11>>2) # （2）右移一位，相当于整除2的2次方；
 
+
+
+
+```
+
+## 二、# if-else语句
+
+```python
 # if-else语句
 # age = int(input('请输入年龄：'))
 #
@@ -69,7 +79,11 @@
 #     sum += i
 #     i+=1
 # print(sum)
+```
 
+## 三、for循环；
+
+```python
 # for循环（2022-0104）；
 # sum =0
 # for i in range(1,11):
@@ -89,7 +103,11 @@
 # for x in range(1,10):
 #     print(x,end='')# 一行打印；
 # print()
+```
 
+## 四、# 水仙花数；
+
+```python
 # 水仙花数；
 # for num in range(100,1000):
 #     b = num // 100 % 10
@@ -97,8 +115,11 @@
 #     g = num %10
 #     if b**3 + s**3 +g**3 == num:
 #         print(num)
+```
 
+## 五、# 打印*形矩形(嵌套循环)；
 
+```python
 # 打印*形矩形(嵌套循环)；
 # h = int(input("请输入高："))
 # b = int(input("请输入宽："))
@@ -106,7 +127,11 @@
 #     for j in range(b):
 #         print('*',end='')
 #     print()
+```
 
+## 六、#break；
+
+```python
 # # break
 # my_sum = 0
 # for i in range(1,101):
@@ -144,7 +169,11 @@
 #         print("密码或用户名错误！请重新输入密码和用户名！")
 # print("**************欢迎进入系统界面，开始你的表演！！!*************\n"
 #       "*******************8848，纯纯牛马手机**************")
+```
 
+## 七、# continue，结束当前循环；
+
+```python
 # continue，结束当前循环；(20220106)
 # for x in 'abcde':
 #     print(f'x={x}')
@@ -161,7 +190,11 @@
 #         continue
 # print(f'my_sum = {my_sum}')
 # print('Finished')
+```
 
+## 八、#字符串
+
+```python
 # pass语句占位符，执行时不做任何操作；(20220106)
 # 字符串索引
 # s = 'abced'
@@ -211,7 +244,11 @@
 
 # s = 'Hello World 1111H'
 # print(s.strip('H'))
+```
 
+## 九、列表、元组操作
+
+```python
 # (2022-0111);
 # 列表：包含一系列数据，类型不一，长度可变；
 # 列表使用[]括起来所有元素，各元素间用都好隔开；
@@ -332,118 +369,6 @@
 # print(var[0]) # (123, 456)
 # print(var[1]['name']) #'zhangsan'
 
-# 函数的定义和调用
-# 定义一个函数，能够完成打印信息的功能
-
-
-# def print_info():
-#     """
-#             函数名：print_info
-#             功能：测试函数文档
-#             参数：无
-#             返回值：无
-#     """
-#
-#     print('=' * 20)
-#     print('abc')
-#     print('=' * 20)
-#
-#
-# print('函数外部')
-# # 定义完函数后，函数是不会自动执行，需要调用它才可以
-# print_info()
-#
-# help(print_info)
-
-# 定义带有参数的函数
-
-# def add_num(a, b): # a,b形参；
-#     c = a + b
-#     print(c)
-#
-#
-# add_num(10, 20) # 10，20 实参；
-
-# (设置默认参数，位置参数在前，默认参数在后(默认参数要指向不变对象！！！)，否则报错)；
-
-# 可变参数
-# def fun1(*args):
-#     print('args =', args)
-#     print()
-#
-#
-# def fun2(**kwargs):
-#     print('kwargs =', kwargs)
-#     print()
-#
-#
-# print('可变位置参数，组装为元组:')
-# fun1()
-# fun1(10, 20, 30)
-#
-# print('可以将数据以列表或元组的形式，整体传递:')
-# data_list = [10, 20, 30]
-# fun1(*data_list)
-#
-# print('可变关键字参数，组装为字典:')
-# fun2()
-# fun2(a=10, b=20, c=30)
-#
-# print('可以将数据以字典的形式，整体传递:')
-# data_dict = {'a': 10, 'b': 20, 'c': 30}
-# fun2(**data_dict)
-
-# 局部变量，就是在函数内部定义的变量，不同的函数，可以定义相同的名字的局部变量，各自的使用不会产生影响。
-# 变量的使用范围就是它的作用域，局部变量的作用域仅限于定义它的这个函数内部。
-
-# 作用域
-# 第一句全局变量num
-# num = 100
-#
-# def func():
-#     print(num)
-
-# 第一句函数调用
-# func()
-# 第二句全局变量num
-# num = 100
-# 当全局变量和局部变量都存在时，作为局部变量使用。
-
-# print(pow(2, 3)) # 8;
-# print(round(2 / 3)) # 1;
-
-# import math
-# print(math.floor(23.5)) # 23;
-# print(math.ceil(23.4)) # 24;
-
-# from math import sqrt
-# print(sqrt(9)) # 3;
-
-# import cmath
-# print(cmath.sqrt(-1)) # 1j;
-
-# 动态绘制三角形；
-# from turtle import *
-# forward(100)
-# left(120)
-# forward(100)
-# left(120)
-# forward(100)
-
-# 周长；
-# import math
-# radius1 = input("radius of cricle:")
-# radius2 = float(radius1)
-# circumference=2*math.pi*radius2
-# print("circumference of circle:",circumference)
-
-# 面积
-# import math
-
-# r = input('please input r:')
-# r2 = float(r)
-# s = 2 * math.pi * r2 * r2
-# print(s)
 
 # 列表；
 # squares=[]
@@ -664,10 +589,128 @@
 # 4.2 创建和使用字典;字典由键及其相应的值组成，这种键值对称为项（item）。
 phonebook = {'Alice': '2341', 'Beth': '9102', 'Cecil': '3258'}
 print(phonebook['Cecil']) # 3258;
-
 ```
 
+## 十、# 函数的定义和调用
 
+```python
+# 函数的定义和调用
+# 定义一个函数，能够完成打印信息的功能
+
+
+# def print_info():
+#     """
+#             函数名：print_info
+#             功能：测试函数文档
+#             参数：无
+#             返回值：无
+#     """
+#
+#     print('=' * 20)
+#     print('abc')
+#     print('=' * 20)
+#
+#
+# print('函数外部')
+# # 定义完函数后，函数是不会自动执行，需要调用它才可以
+# print_info()
+#
+# help(print_info)
+
+# 定义带有参数的函数
+
+# def add_num(a, b): # a,b形参；
+#     c = a + b
+#     print(c)
+#
+#
+# add_num(10, 20) # 10，20 实参；
+
+# (设置默认参数，位置参数在前，默认参数在后(默认参数要指向不变对象！！！)，否则报错)；
+
+# 可变参数
+# def fun1(*args):
+#     print('args =', args)
+#     print()
+#
+#
+# def fun2(**kwargs):
+#     print('kwargs =', kwargs)
+#     print()
+#
+#
+# print('可变位置参数，组装为元组:')
+# fun1()
+# fun1(10, 20, 30)
+#
+# print('可以将数据以列表或元组的形式，整体传递:')
+# data_list = [10, 20, 30]
+# fun1(*data_list)
+#
+# print('可变关键字参数，组装为字典:')
+# fun2()
+# fun2(a=10, b=20, c=30)
+#
+# print('可以将数据以字典的形式，整体传递:')
+# data_dict = {'a': 10, 'b': 20, 'c': 30}
+# fun2(**data_dict)
+
+# 局部变量，就是在函数内部定义的变量，不同的函数，可以定义相同的名字的局部变量，各自的使用不会产生影响。
+# 变量的使用范围就是它的作用域，局部变量的作用域仅限于定义它的这个函数内部。
+
+# 作用域
+# 第一句全局变量num
+# num = 100
+#
+# def func():
+#     print(num)
+
+# 第一句函数调用
+# func()
+# 第二句全局变量num
+# num = 100
+# 当全局变量和局部变量都存在时，作为局部变量使用。
+
+# print(pow(2, 3)) # 8;
+# print(round(2 / 3)) # 1;
+
+# import math
+# print(math.floor(23.5)) # 23;
+# print(math.ceil(23.4)) # 24;
+
+# from math import sqrt
+# print(sqrt(9)) # 3;
+
+# import cmath
+# print(cmath.sqrt(-1)) # 1j;
+```
+
+## 十一、绘制三角形、求周长及面积；
+
+```python
+# 动态绘制三角形；
+# from turtle import *
+# forward(100)
+# left(120)
+# forward(100)
+# left(120)
+# forward(100)
+
+# 周长；
+# import math
+# radius1 = input("radius of cricle:")
+# radius2 = float(radius1)
+# circumference=2*math.pi*radius2
+# print("circumference of circle:",circumference)
+
+# 面积
+# import math
+
+# r = input('please input r:')
+# r2 = float(r)
+# s = 2 * math.pi * r2 * r2
+# print(s)
+```
 
 
 
