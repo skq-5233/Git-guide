@@ -118,6 +118,8 @@ cv2.waitKey(0)
 import numpy as np
 import cv2
 img=np.zeros((512,512,3), np.uint8)
+# cv2.line(img,(0,0),(511,511),(255,0,0),5)
+# cv2.rectangle(img,(384,0),(510,128),(0,255,0),3)
 cv2.rectangle(img,(384,0),(510,128),(0,255,0),3)
 cv2.imshow("img",img)
 cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\rectangle.jpg",img)
@@ -127,9 +129,98 @@ cv2.waitKey(0)
 import numpy as np
 import cv2
 img=np.zeros((512,512,3), np.uint8)
+# cv2.line(img,(0,0),(511,511),(255,0,0),5)
+# cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
+# cv2.circle(img,(447,63), 63, (0,0,255), -1)
 cv2.circle(img,(447,63), 63, (0,0,255), -1)
 cv2.imshow("img",img)
 cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\circle.jpg",img)
 cv2.waitKey(0)
+
+# 005_4 画椭圆；
+import numpy as np
+import cv2
+img=np.zeros((512,512,3), np.uint8)
+# cv2.line(img,(0,0),(511,511),(255,0,0),5)
+# cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
+# cv2.circle(img,(447,63), 63, (0,0,255), -1)
+# cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+cv2.imshow("img",img)
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\ellipse.jpg",img)
+cv2.waitKey(0)
+
+# 005_5 画多边形；
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+
+# 创建一个黑色图片 np.zeros()返回一个填充为0的数组
+img = np.zeros((512,512,3),np.uint8)
+pts=np.array([[100,150],[20,30],[400,20],[300,300]], np.int32)
+pts=pts.reshape((-1,1,2))  # 这里 reshape 的第一个参数为-1, 表明这一维的长度是根据后面的维度的计算出来的。
+# cv2.line(img,(0,0),(511,511),(255,0,0),5)
+# cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
+# cv2.circle(img,(447,63), 63, (0,0,255), -1)
+# cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+# cv2.polylines(img,[pts],True,(255,0,255))  # 如果第三个参数是 False，我们得到的多边形是不闭合的（首尾不相连）。
+cv2.polylines(img,[pts],True,(255,0,255),cv2.LINE_AA)  # 如果第三个参数是 False，我们得到的多边形是不闭合的（首尾不相连）。
+cv2.imshow("polylines",img)
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\polygon.jpg",img)
+cv2.waitKey(0)
+
+# 005_6 在图片上添加文字;
+# 在图像上绘制白色的 OpenCV；
+import numpy as np
+import cv2
+img=np.zeros((512,512,3), np.uint8)
+font=cv2.FONT_HERSHEY_SIMPLEX
+
+pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
+pts=pts.reshape((-1,1,2))  # 这里 reshape 的第一个参数为-1, 表明这一维的长度是根据后面的维度的计算出来的。
+# cv2.line(img,(0,0),(511,511),(255,0,0),5)
+# cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
+# cv2.circle(img,(447,63), 63, (0,0,255), -1)
+# cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+# cv2.polylines(img,[pts],True,(255,0,255))  # 如果第三个参数是 False，我们得到的多边形是不闭合的（首尾不相连）。
+
+cv2.putText(img,'OpenCV',(10,500), font, 4,(255,255,255),2)
+
+winname = 'example'
+cv2.namedWindow(winname)
+cv2.imshow(winname, img)
+cv2.waitKey(0)
+cv2.destroyWindow(winname)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Opencv.jpg',img)
+
+
+# 005_7 把鼠标当画笔;
+# import cv2
+# events=[i for i in dir(cv2) if 'EVENT'in i]
+# print (events)
+# 打印['EVENT_FLAG_ALTKEY', 'EVENT_FLAG_CTRLKEY',
+# 'EVENT_FLAG_LBUTTON', 'EVENT_FLAG_MBUTTON', 'EVENT_FLAG_RBUTTON', 'EVENT_FLAG_SHIFTKEY',
+# 'EVENT_LBUTTONDBLCLK', 'EVENT_LBUTTONDOWN', 'EVENT_LBUTTONUP', 'EVENT_MBUTTONDBLCLK',
+# 'EVENT_MBUTTONDOWN', 'EVENT_MBUTTONUP', 'EVENT_MOUSEHWHEEL', 'EVENT_MOUSEMOVE', 'EVENT_MOUSEWHEEL',
+# 'EVENT_RBUTTONDBLCLK', 'EVENT_RBUTTONDOWN', 'EVENT_RBUTTONUP']
+
+# 005_8 鼠标事件回调函数只用做一件事：在双击过的地方绘制一个圆圈。
+import numpy as np
+import cv2
+img=np.zeros((512,512,3), np.uint8)
+# mouse callback function
+def draw_circle(event,x,y,flags,param):
+    if event == cv2.EVENT_LBUTTONDBLCLK:
+        cv2.circle(img, (x, y), 100, (255, 0, 0), -1)
+# 创建图像与窗口并将窗口与回调函数绑定
+img = np.zeros((512,512,3),np.uint8)
+cv2.namedWindow('image')
+cv2.setMouseCallback('image',draw_circle)
+while(1):
+    cv2.imshow('image', img)
+    if cv2.waitKey(20) & 0xFF == 27:
+        break
+cv2.destroyAllWindows()
+
 ```
 
