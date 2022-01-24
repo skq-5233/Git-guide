@@ -21,7 +21,7 @@ print(img)
 # 警告： 就算图像的路径是错的， OpenCV 也不会提醒你的，但是当你使用命令print(img)时得到的结果是None。
 ```
 
-## 二、下面的程序将会加载一个灰度图， 显示图片，按下’s’键保存后退出，或者按下 ESC 键退出不保存。  
+## 二、加载图像，按下’s’键保存后退出，按下 ESC 键退出不保存。  
 
 ```python
 # 002（先创建窗口，在加载图像）；
@@ -56,7 +56,7 @@ cv2.imwrite('D:/skq/DL/DL informaton/Opencv/VR003.png',img) # 保存图像；
 # https://matplotlib.org/2.0.2/index.html
 ```
 
-## 四、视频
+## 四、播放视频；
 
 ```python
 # 4.1 用摄像头捕获视频;
@@ -141,6 +141,7 @@ cv2.waitKey(0)
 import numpy as np
 import cv2
 img=np.zeros((512,512,3), np.uint8)
+<<<<<<< HEAD
 # cv2.line(img,(0,0),(511,511),(255,0,0),5)
 # cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
 # cv2.circle(img,(447,63), 63, (0,0,255), -1)
@@ -169,6 +170,16 @@ cv2.imshow("polylines",img)
 cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\polygon.jpg",img)
 cv2.waitKey(0)
 
+=======
+cv2.line(img,(0,0),(511,511),(255,0,0),5)
+cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
+cv2.circle(img,(447,63), 63, (0,0,255), -1)
+cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+cv2.imshow("ellipse",img)
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\ellipse.jpg",img)
+cv2.waitKey(0)
+
+>>>>>>> 788726dc2794f0473eaf9698d132fbc4d41294fd
 # 005_6 在图片上添加文字;
 # 在图像上绘制白色的 OpenCV；
 import numpy as np
@@ -178,11 +189,19 @@ font=cv2.FONT_HERSHEY_SIMPLEX
 
 pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
 pts=pts.reshape((-1,1,2))  # 这里 reshape 的第一个参数为-1, 表明这一维的长度是根据后面的维度的计算出来的。
+<<<<<<< HEAD
 # cv2.line(img,(0,0),(511,511),(255,0,0),5)
 # cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
 # cv2.circle(img,(447,63), 63, (0,0,255), -1)
 # cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
 # cv2.polylines(img,[pts],True,(255,0,255))  # 如果第三个参数是 False，我们得到的多边形是不闭合的（首尾不相连）。
+=======
+cv2.line(img,(0,0),(511,511),(255,0,0),5)
+cv2.rectangle(img, (384, 0), (510, 128), (0, 255, 0), 3)
+cv2.circle(img,(447,63), 63, (0,0,255), -1)
+cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+cv2.polylines(img,[pts],True,(255,0,255)) # 如果第三个参数是False,则多边形是不闭合的（首尾不相连）。
+>>>>>>> 788726dc2794f0473eaf9698d132fbc4d41294fd
 
 cv2.putText(img,'OpenCV',(10,500), font, 4,(255,255,255),2)
 
@@ -191,6 +210,7 @@ cv2.namedWindow(winname)
 cv2.imshow(winname, img)
 cv2.waitKey(0)
 cv2.destroyWindow(winname)
+<<<<<<< HEAD
 cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Opencv.jpg',img)
 
 
@@ -222,5 +242,417 @@ while(1):
         break
 cv2.destroyAllWindows()
 
+=======
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\OpenCV.jpg',img)
+>>>>>>> 788726dc2794f0473eaf9698d132fbc4d41294fd
 ```
+
+## 六、把鼠标当画笔；
+
+```python
+# 005_7 把鼠标当画笔;
+import cv2
+events=[i for i in dir(cv2) if 'EVENT'in i]
+print (events)
+# 打印['EVENT_FLAG_ALTKEY', 'EVENT_FLAG_CTRLKEY',
+# 'EVENT_FLAG_LBUTTON', 'EVENT_FLAG_MBUTTON', 'EVENT_FLAG_RBUTTON', 'EVENT_FLAG_SHIFTKEY',
+# 'EVENT_LBUTTONDBLCLK', 'EVENT_LBUTTONDOWN', 'EVENT_LBUTTONUP', 'EVENT_MBUTTONDBLCLK',
+# 'EVENT_MBUTTONDOWN', 'EVENT_MBUTTONUP', 'EVENT_MOUSEHWHEEL', 'EVENT_MOUSEMOVE', 'EVENT_MOUSEWHEEL',
+# 'EVENT_RBUTTONDBLCLK', 'EVENT_RBUTTONDOWN', 'EVENT_RBUTTONUP']
+
+# 005_8 鼠标事件回调函数只用做一件事：在双击过的地方绘制一个圆圈。
+import numpy as np
+import cv2
+img=np.zeros((512,512,3), np.uint8)
+# mouse callback function
+def draw_circle(event,x,y,flags,param):
+    if event == cv2.EVENT_LBUTTONDBLCLK:
+        cv2.circle(img, (x, y), 100, (255, 0, 0), -1)
+# 创建图像与窗口并将窗口与回调函数绑定
+img = np.zeros((512,512,3),np.uint8)
+cv2.namedWindow('image')
+cv2.setMouseCallback('image',draw_circle)
+while(1):
+    cv2.imshow('image', img)
+    if cv2.waitKey(20) & 0xFF == 27:
+        break
+cv2.destroyAllWindows()
+
+# 005_9 高级一点的示例;
+
+import numpy as np
+import cv2
+# 当鼠标按下时变为 True
+drawing=False
+# 如果 mode 为 true 绘制矩形。按下'm' 变成绘制曲线。
+mode=True
+ix,iy=-1,-1
+# 创建回调函数
+def draw_circle(event,x,y,flags,param):
+    global ix,iy,drawing,mode
+# 当按下左键是返回起始位置坐标
+    if event==cv2.EVENT_LBUTTONDOWN:
+        drawing=True
+        ix,iy=x,y
+# 当鼠标左键按下并移动是绘制图形。event 可以查看移动，flag 查看是否按下
+    elif event==cv2.EVENT_MOUSEMOVE and flags==cv2.EVENT_FLAG_LBUTTON:
+        if drawing==True:
+            if mode==True:
+                cv2.rectangle(img,(ix,iy),(x,y),(0,255,0),-1)
+            else:# 绘制圆圈，小圆点连在一起就成了线，3 代表了笔画的粗细
+                cv2.circle(img,(x,y),3,(0,0,255),-1) # 下面注释掉的代码是起始点为圆心，起点到终点为半径的
+                # r=int(np.sqrt((x-ix)**2+(y-iy)**2))
+                # cv2.circle(img,(x,y),r,(0,0,255),-1)
+                # 当鼠标松开停止绘画。
+    elif event==cv2.EVENT_LBUTTONUP:
+        drawing==False
+        # if mode==True:
+        # cv2.rectangle(img,(ix,iy),(x,y),(0,255,0),-1)
+        # else:
+        # cv2.circle(img,(x,y),5,(0,0,255),-1)
+        img = np.zeros((512, 512, 3), np.uint8)
+        cv2.namedWindow('image')
+        cv2.setMouseCallback('image', draw_circle)
+        while (1):
+            cv2.imshow('image', img)
+            k = cv2.waitKey(1) & 0xFF
+            if k == ord('m'):
+                mode = not mode
+            elif k == 27:
+                break
+```
+
+## 七、用滑动条做调色板；
+
+```python
+# 005_10 用滑动条做调色板;
+import cv2
+import numpy as np
+def nothing(x):
+    pass
+# 创建一副黑色图像
+img=np.zeros((300,512,3),np.uint8)
+cv2.namedWindow('image')
+cv2.createTrackbar('R','image',0,255,nothing)
+cv2.createTrackbar('G','image',0,255,nothing)
+cv2.createTrackbar('B','image',0,255,nothing)
+switch='0:OFF\n1:ON'
+cv2.createTrackbar(switch,'image',0,1,nothing)
+while(1):
+    cv2.imshow('image',img)
+    k=cv2.waitKey(1)&0xFF
+    if k==27:
+        break
+    r=cv2.getTrackbarPos('R','image')
+    g=cv2.getTrackbarPos('G','image')
+    b=cv2.getTrackbarPos('B','image')
+    s=cv2.getTrackbarPos(switch,'image')
+    if s==0:
+        img[:]=0
+    else:
+        img[:]=[b,g,r]
+cv2.destroyAllWindows()
+```
+
+## 八、图像的基础操作；
+
+```python
+# 005_11 获取并修改像素值;
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\OpenCV.jpg')
+
+px=img[100,100]
+print (px) # [0 0 0];
+blue=img[100,100,0]
+print (blue) # 0;
+
+# 005_12 获取图像属性;
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\OpenCV.jpg')
+print(img.shape)  # (512, 512, 3)--img.shape 可以获取图像的形状;
+print(img.size)   # 786432--img.size 可以返回图像的像素数目(H*W*C);
+print(img.dtype)  # uint8--img.dtype 返回的是图像的数据类型;
+
+# 005_13 图像 ROI;
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\OpenCV.jpg')
+ball=img[280:340,330:390]
+img[273:333,100:160]=ball
+
+# 005_14 拆分及合并图像通道;
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\OpenCV.jpg')
+
+b,g,r=cv2.split(img)
+img=cv2.merge(b,g)
+
+b=img[:,:,0]
+img[:,:,2]=0
+print(img)
+
+# 005_15 为图像扩边（填充）;
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+BLUE=[255,0,0]
+img1=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan.jpg')
+replicate = cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_REPLICATE)
+reflect = cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_REFLECT)
+reflect101 = cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_REFLECT_101)
+wrap = cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_WRAP)
+constant= cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_CONSTANT,value=BLUE)
+plt.subplot(231),plt.imshow(img1,'gray'),plt.title('ORIGINAL')
+plt.subplot(232),plt.imshow(replicate,'gray'),plt.title('REPLICATE')
+plt.subplot(233),plt.imshow(reflect,'gray'),plt.title('REFLECT')
+plt.subplot(234),plt.imshow(reflect101,'gray'),plt.title('REFLECT_101')
+plt.subplot(235),plt.imshow(wrap,'gray'),plt.title('WRAP')
+plt.subplot(236),plt.imshow(constant,'gray'),plt.title('CONSTANT')
+
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_splicing.jpg')
+plt.show()
+
+# 如何保存多幅拼接图像；
+
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_img.png',all)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_img1.png',img1)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_replicate.png',replicate)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_reflect.png',reflect)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_reflect101.png',reflect101)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_wrap.png',wrap)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan_constant.png',constant)
+```
+
+## 九、图像上的算术运算;
+
+```python
+# 10.1 图像上的算术运算;
+# 函数 cv2.add() 将两幅图像进行加法运算;
+import numpy as np
+import cv2
+x = np.uint8([250])
+y = np.uint8([10])
+print(cv2.add(x,y))  # 250+10 = 260 => 255;
+print(x+y)           # 250+10 = 260 % 256 = 4;
+
+# 10.2 图像混合--(图像大小需一致)(g (x) = (1 − α) f0 (x) + αf1 (x));
+import cv2
+import numpy as np
+
+img1=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan.jpg')
+img2=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR002.png')
+dst= cv2.addWeighted(img1, 0.6, img2, 0.4, 0)
+cv2.imshow('dst',dst)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yy.jpg',dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 10.3 按位运算;
+import cv2
+import numpy as np
+# 加载图像
+img1=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan.jpg')
+img2=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\me.jpg') # I want to put logo on top-left corner, So I create a ROI
+rows,cols,channels = img2.shape
+roi = img1[0:rows, 0:cols ]
+# Now create a mask of logo and create its inverse mask also
+img2gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+ret, mask = cv2.threshold(img2gray, 175, 255, cv2.THRESH_BINARY)
+mask_inv = cv2.bitwise_not(mask)
+# Now black-out the area of logo in ROI
+# 取 roi 中与 mask 中不为零的值对应的像素的值，其他值为 0 # 注意这里必须有 mask=mask 或者 mask=mask_inv, 其中的 mask= 不能忽略
+img1_bg = cv2.bitwise_and(roi,roi,mask = mask)
+# 取 roi 中与 mask_inv 中不为零的值对应的像素的值，其他值为 0。
+# Take only region of logo from logo image.
+img2_fg = cv2.bitwise_and(img2,img2,mask = mask_inv)
+# Put logo in ROI and modify the main image
+dst = cv2.add(img1_bg,img2_fg)
+img1[0:rows, 0:cols ] = dst
+cv2.imshow('res',img1)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\logo.png',img1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+## 十、使用 OpenCV 检测程序效率;
+
+```python	
+# cv2.getTickCount 函数返回从参考点到这个函数被执行的时钟数;cv2.getTickFrequency 返回时钟频率;
+import cv2
+import numpy as np
+e1 = cv2.getTickCount()
+# your code execution
+e2 = cv2.getTickCount()
+time = (e2 - e1)/ cv2.getTickFrequency()
+
+import cv2
+import numpy as np
+img1 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Opencv.jpg')
+e1 = cv2.getTickCount()
+for i in range(5,49,2):
+    img1 = cv2.medianBlur(img1,i)
+e2 = cv2.getTickCount()
+t = (e2 - e1)/cv2.getTickFrequency()
+print (t) # 0.3033581;
+
+# 11.2 OpenCV 中的默认优化
+# import numpy as np
+# import cv2
+# cv2.useOptimized()  # return True or False;
+
+# 11.3 在 IPython 中检测程序效率
+# 11.4 更多 IPython 的魔法命令(profiling， line profiling，内存使用等)
+#
+# 1. Python Optimization Techniques
+# 2. Scipy Lecture Notes - Advanced Numpy
+# 3. Timing and Profiling in IPython
+```
+
+## 十一、OpenCV 中的图像处理；
+
+```python
+# OpenCV 中的图像处理
+# 13.1 转换颜色空间
+
+# cv2.cvtColor(input_image， flag),flag为转换类型；
+# 对于 BGR<->Gray 的转换，我们要使用的 flag 就是 cv2.COLOR_BGR2GRAY；
+# cv2.cvtColor(input_image,cv2.COLOR_BGR2GRAY)
+
+# 对于 BGR<->HSV 的转换，我们用的 flag 就是 cv2.COLOR_BGR2HSV；
+# CV2.cvtColor(input_image,cv2.COLOR_BRG2HSV);
+
+# 注意： 在 OpenCV 的 HSV 格式中， H（色彩/色度）的取值范围是 [0， 179]，S（饱和度）的取值范围 [0， 255]， V（亮度）的取值范围 [0， 255]。但是不
+# 同的软件使用的值可能不同。所以当你需要拿 OpenCV 的 HSV 值与其他软件的 HSV 值进行对比时，一定要记得归一化。
+
+# 13.2 物体跟踪(提取带有某个特定颜色的物体，比如：在蓝色物体周围画一个圈。)
+import cv2
+import numpy as np
+cap=cv2.VideoCapture(0)
+while(1):
+    # 获取每一帧
+    ret, frame = cap.read()
+    # 转换到 HSV
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # 设定蓝色的阈值
+    lower_blue = np.array([110, 50, 50])
+    upper_blue = np.array([130, 255, 255])
+    # 根据阈值构建掩模
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    # 对原图像和掩模进行位运算
+    res = cv2.bitwise_and(frame, frame, mask=mask)
+    # 显示图像
+    cv2.imshow('frame', frame)
+    cv2.imshow('mask', mask)
+    cv2.imshow('res', res)
+    k = cv2.waitKey(5) & 0xFF
+    if k == 27:
+        break
+# 关闭窗口；
+cv2.destroyAllWindows()
+
+# 13.3 怎样找到要跟踪对象的 HSV 值
+# -*- coding: utf-8 -*-
+# import cv2
+# import numpy as np
+# green=np.uint8([0,255,0])
+# hsv_green=cv2.cvtColor(green,cv2.COLOR_BGR2HSV)
+# error: /builddir/build/BUILD/opencv-2.4.6.1/
+# modules/imgproc/src/color.cpp:3541:
+# error: (-215) (scn == 3 || scn == 4) && (depth == CV_8U || depth == CV_32F)
+# in function cvtColor
+# scn (the number of channels of the source),
+# i.e. self.img.channels(), is neither 3 nor 4.
+#
+# depth (of the source),
+# i.e. self.img.depth(), is neither CV_8U nor CV_32F.
+# 所以不能用 [0,255,0]，而要用 [[[0,255,0]]]
+# 这里的三层括号应该分别对应于 cvArray， cvMat， IplImage
+# green=np.uint8([[[0,255,0]]])
+# hsv_green=cv2.cvtColor(green,cv2.COLOR_BGR2HSV)
+# print (hsv_green)
+# [[[60,255,255]]]
+```
+
+## 十一、几何变换；
+
+```python
+# 14 几何变换 (cv2.warpAffine 接收的参数是2 × 3 的变换矩阵，而 cv2.warpPerspective 接收的参数是 3 × 3 的变换矩阵。)
+# 14.1 扩展缩放
+# 扩展缩放只是改变图像的尺寸大小。 OpenCV 提供的函数 cv2.resize();
+# 在缩放时我们推荐使用 cv2.INTER_AREA，
+# 在扩展时我们推荐使用 v2.INTER_CUBIC（慢) 和 v2.INTER_LINEAR。
+# 默认情况下所有改变图像尺寸大小的操作使用的插值方法都是 cv2.INTER_LINEAR
+
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Opencv.jpg')
+# 下面的 None 本应该是输出图像的尺寸，但是因为后边我们设置了缩放因子,因此这里为 None;
+res=cv2.resize(img,None,fx=2,fy=2,interpolation=cv2.INTER_CUBIC)
+# OR,这里呢，我们直接设置输出图像的尺寸，所以不用设置缩放因子;
+height,width=img.shape[:2]
+res=cv2.resize(img,(2*width,2*height),interpolation=cv2.INTER_CUBIC)
+while(1):
+    cv2.imshow('res', res)
+    cv2.imshow('img', img)
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+cv2.destroyAllWindows()
+
+# 14.2 平移
+# 下面这个例子，它被移动了（ 100,50）个像素。
+# -*- coding: utf-8 -*-
+import cv2
+import numpy as np
+cap=cv2.VideoCapture(0)
+while(1):
+    # 获取每一帧
+    ret, frame = cap.read()
+    # 转换到 HSV
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # 设定蓝色的阈值
+    lower_blue = np.array([110, 50, 50])
+    upper_blue = np.array([130, 255, 255])
+    # 根据阈值构建掩模
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    # 对原图像和掩模进行位运算
+    res = cv2.bitwise_and(frame, frame, mask=mask)
+    # 显示图像
+    cv2.imshow('frame', frame)
+    cv2.imshow('mask', mask)
+    cv2.imshow('res', res)
+    k = cv2.waitKey(5) & 0xFF
+    if k == 27:
+        break
+# 关闭窗口
+cv2.destroyAllWindows()
+
+# 14.3 旋转
+# 为了构建这个旋转矩阵， OpenCV 提供了一个函数： cv2.getRotationMatrix2D。
+# -*- coding: utf-8 -*-
+import cv2
+import numpy as np
+img = cv2.imread('D:/software/DL information/Opencv/Opencv.png')
+rows,cols=img.shape
+# 这里的第一个参数为旋转中心，第二个为旋转角度，第三个为旋转后的缩放因子
+# 可以通过设置旋转中心，缩放因子，以及窗口大小来防止旋转后超出边界的问题
+M=cv2.getRotationMatrix2D((cols/2,rows/2),45,0.6)
+# 第三个参数是输出图像的尺寸中心
+dst=cv2.warpAffine(img,M,(2*cols,2*rows))
+while(1):
+    cv2.imshow('img',dst)
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+cv2.destroyAllWindows()
+
+# 14.3 旋转
+# 为了构建这个旋转矩阵， OpenCV 提供了一个函数： cv2.getRotationMatrix2D。
+# -*- coding: utf-8 -*-
+```
+
+
+
+
 
