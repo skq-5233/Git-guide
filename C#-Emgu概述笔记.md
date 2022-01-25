@@ -2460,3 +2460,37 @@ private void uiHeaderButton2_Click(object sender, EventArgs e)
 //模式切换选择（2022-0120--end）；
 ```
 
+## 四十、Label默认为空；
+
+```c#
+label18.Text = ""; (2022-0125);
+```
+
+## 四十一、记忆上次打开文件夹路径(2022-0125)；
+
+```c#
+ private void folder_Click(object sender, EventArgs e)
+{
+    /*
+    ******************************自动模式下遍历文件夹--1--测试整个文件夹(加载待匹配图像)--start************************
+    *****************************(add,2022-0121)--start*************************************************************
+    *****************************(add,2022-0121)--start*************************************************************
+    */
+
+    //文件夹测试(2022-0121--start)；
+    picturecount = 0;
+
+    folderBrowserDialog1.SelectedPath = defaultfilepath; //记忆上次打开文件夹路径(2022-0125)；
+
+    //(打开文件夹函数--2022-0106--start)
+    if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+    {
+        defaultfilepath = folderBrowserDialog1.SelectedPath; //记忆上次打开文件夹路径(2022-0125)；
+
+        thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程
+        thread1.Start();
+    }
+} 
+```
+
+ 
