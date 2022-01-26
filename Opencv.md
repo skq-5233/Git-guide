@@ -861,8 +861,8 @@ plt.subplot(121),plt.imshow(img),plt.title('Original')
 plt.xticks([]), plt.yticks([])
 plt.subplot(122),plt.imshow(dst),plt.title('Averaging')
 plt.xticks([]), plt.yticks([])
-# plt.show()
 plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR_filter2D.jpg')
+plt.show()
 
 # 图像模糊（图像平滑）使用低通滤波器可以达到图像模糊的目的。
 # 16.1 平均
@@ -876,14 +876,220 @@ plt.subplot(121),plt.imshow(img),plt.title('Original')
 plt.xticks([]), plt.yticks([])
 plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
 plt.xticks([]), plt.yticks([])
-# plt.show()
 plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR_blur.jpg')
+plt.show()
 
 # 16.2 高斯模糊
 # 实现的函数是 cv2.GaussianBlur()。
 # 高斯滤波可以有效的从图像中去除高斯噪音。
 # 0 是指根据窗口大小（ 5,5）来计算高斯函数标准差
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Opencv.jpg')
+blur = cv2.GaussianBlur(img,(5,5),0)
+cv2.imshow("GaussianBlur",blur)
+cv2.waitKey()
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\VR_GaussianBlur.jpg",blur) # work;
+# plt.savefig('D:\\DL information\\Opencv\\VR_GaussianBlur.jpg')
+# plt.show()
 
+# 16.3 中值模糊
+# 是用与卷积框对应像素的中值来替代中心像素的值；
+# 中值滤波器经常用来去除椒盐噪声；
+import cv2
+from matplotlib import pyplot as plt
+# img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Opencv.jpg')
+img =cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\noise.jpeg')
+median = cv2.medianBlur(img,5)
+# cv2.imshow("medianBlur",median)
+# cv2.waitKey()
+# cv2.imwrite("D:\\DL information\\Opencv\\VR_medianBlur.jpg",median) # work;
+plt.subplot(),plt.imshow(median),plt.title('median-image')
+plt.xticks([]), plt.yticks([])
+# plt.show()
+# plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR_median.jpg')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\noise_median.jpeg')
+
+# 16.4 双边滤波;
+# 函数 cv2.bilateralFilter() 能在保持边界清晰的情况下有效的去除噪音。
+# 双边滤波会确保边界不会被模糊掉，因为边界处的灰度值变化比较大;
+# cv2.bilateralFilter(src, d, sigmaColor, sigmaSpace)
+# d – Diameter of each pixel neighborhood that is used during filtering.
+# If it is non-positive, it is computed from sigmaSpace
+# 9 邻域直径，两个 75 分别是空间高斯函数标准差，灰度值相似性高斯函数标准差
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR.jpg')
+blur = cv2.bilateralFilter(img,9,75,75)
+plt.subplot(),plt.imshow(blur),plt.title('bilateralFilter-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR_bilateralFilter.jpg')
+plt.show()
+```
+
+## 十四、形态学转换；
+
+```python
+# 17 形态学转换
+# 学习不同的形态学操作，例如腐蚀，膨胀，开运算，闭运算等;
+# 我们要学习的函数有： cv2.erode()， cv2.dilate()， cv2.morphologyEx()等;
+
+# 17.1 腐蚀 (去除白噪声很有用)
+# -*- coding: utf-8 -*-
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((5,5),np.uint8)
+erosion = cv2.erode(img,kernel,iterations = 1) # iterations = 1腐蚀次数；
+cv2.imshow("erosion",erosion)
+cv2.waitKey()
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_erosion.jpg",erosion) # work;
+
+
+# 17.2 膨胀
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((3,3),np.uint8)
+dilation = cv2.dilate(img,kernel,iterations = 1)
+plt.subplot(),plt.imshow(dilation),plt.title('dilation-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_dilation.jpg')
+plt.show()
+
+
+# 17.3 开运算 (先进行腐蚀再进行膨胀就叫做开运算)；
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((3,3),np.uint8)
+opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+plt.subplot(),plt.imshow(opening),plt.title('opening-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_opening.jpg')
+plt.show()
+
+
+# 17.4 闭运算(先膨胀再腐蚀; 经常被用来填充前景物体中的小洞，或者前景物体上的小黑点);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((3,3),np.uint8)
+closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+plt.subplot(),plt.imshow(closing),plt.title('closing-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_closing.jpg')
+plt.show()
+
+
+# 17.5 形态学梯度(其实就是一幅图像膨胀与腐蚀的差别,结果看上去就像前景物体的轮廓。)
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((3,3),np.uint8)
+gradient = cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
+plt.subplot(),plt.imshow(gradient),plt.title('gradient-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_gradient.jpg')
+plt.show()
+
+
+# 17.6 礼帽(原始图像与进行开运算之后得到的图像的差);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((3,3),np.uint8)
+tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
+
+plt.subplot(),plt.imshow(tophat),plt.title('tophat-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_tophat.jpg')
+plt.show()
+
+
+# 17.7 黑帽(进行闭运算之后得到的图像与原始图像的差);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+kernel = np.ones((3,3),np.uint8)
+blackhat = cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, kernel)
+plt.subplot(),plt.imshow(blackhat),plt.title('blackhat-image')
+plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_blackhat.jpg')
+plt.show()
+```
+
+## 十五、图像梯度；
+
+```python
+# 18 图像梯度
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+
+# cv2.CV_64F 输出图像的深度（数据类型），可以使用-1, 与原图像保持一致 np.uint8
+laplacian=cv2.Laplacian(img,cv2.CV_64F)
+# 参数 1,0 为只在 x 方向求一阶导数，最大可以求 2 阶导数。
+sobelx=cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
+# 参数 0,1 为只在 y 方向求一阶导数，最大可以求 2 阶导数。
+sobely=cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5)
+plt.subplot(2,2,1),plt.imshow(img,cmap = 'gray')
+plt.title('Original'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,2),plt.imshow(laplacian,cmap = 'gray')
+plt.title('Laplacian'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,3),plt.imshow(sobelx,cmap = 'gray')
+plt.title('Sobel X'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,4),plt.imshow(sobely,cmap = 'gray')
+plt.title('Sobel Y'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise_blackhat.jpg')
+plt.show()
+
+
+# 输出图片的深度不同造成的不同效果
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+# Output dtype = cv2.CV_8U
+sobelx8u = cv2.Sobel(img,cv2.CV_8U,1,0,ksize=5)
+# 也可以将参数设为-1
+# sobelx8u = cv2.Sobel(img,-1,1,0,ksize=5)
+# Output dtype = cv2.CV_64F. Then take its absolute and convert to cv2.CV_8U
+sobelx64f = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
+abs_sobel64f = np.absolute(sobelx64f)
+sobel_8u = np.uint8(abs_sobel64f)
+plt.subplot(1,3,1),plt.imshow(img,cmap = 'gray')
+plt.title('Original'), plt.xticks([]), plt.yticks([])
+plt.subplot(1,3,2),plt.imshow(sobelx8u,cmap = 'gray')
+plt.title('Sobel CV_8U'), plt.xticks([]), plt.yticks([])
+plt.subplot(1,3,3),plt.imshow(sobel_8u,cmap = 'gray')
+plt.title('Sobel abs(CV_64F)'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise-depth.jpg')
+plt.show()
+```
+
+## 十六、Canny 边缘检测；
+
+```python
+# 19 Canny 边缘检测
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR.jpg',0)
+edges = cv2.Canny(img,100,200)
+plt.subplot(121),plt.imshow(img,cmap = 'gray')
+plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(edges,cmap = 'gray')
+plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR-Canny.jpg')
+plt.show()
 ```
 
 
