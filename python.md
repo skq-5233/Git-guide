@@ -712,6 +712,12 @@ print(phonebook['Cecil']) # 3258;
 # print(s)
 ```
 
+## 十二、列表和元组；
+
+```python
+
+```
+
 
 
 

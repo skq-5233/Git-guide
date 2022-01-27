@@ -1084,9 +1084,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR.jpg',0)
 edges = cv2.Canny(img,100,200)
-plt.subplot(121),plt.imshow(img,cmap = 'gray')
+plt.subplot(1,2,1),plt.imshow(img,cmap = 'gray')
 plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-plt.subplot(122),plt.imshow(edges,cmap = 'gray')
+plt.subplot(1,2,2),plt.imshow(edges,cmap = 'gray')
 plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
 plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR-Canny.jpg')
 plt.show()
@@ -1184,13 +1184,182 @@ cv2.imshow("orange", orange)
 cv2.imshow("apple_orange_reconstruct", apple_orange_reconstruct)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+############################################################
+# work(2022-0127)
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+def sameSize(img1, img2):
+    rows, cols, dpt = img2.shape
+    dst = img1[:rows, :cols]
+    return dst
+
+
+apple = cv2.imread(r"E:\\Deep Learning\\DeepLearning\\Opencv\\apple.jpg")
+orange = cv2.imread(r"E:\\Deep Learning\\DeepLearning\\Opencv\\orange.jpg")
+
+G = apple.copy()
+gp_apple = [G]
+for i in range(6):
+    G = cv2.pyrDown(G)  # 下采样共6次
+    gp_apple.append(G)
+
+G = orange.copy()
+gp_orange = [G]
+for j in range(6):
+    G = cv2.pyrDown(G)
+    gp_orange.append(G)
+
+lp_apple = [gp_apple[5]]
+for i in range(5, 0, -1):
+    GE = cv2.pyrUp(gp_apple[i])  # 上采样6次
+    L = cv2.subtract(gp_apple[i - 1], sameSize(GE, gp_apple[i - 1]))  # 两个图像相减
+    lp_apple.append(L)
+
+lp_orange = [gp_orange[5]]
+for i in range(5, 0, -1):
+    GE = cv2.pyrUp(gp_orange[i])
+    L = cv2.subtract(gp_orange[i - 1], sameSize(GE, gp_orange[i - 1]))
+    lp_orange.append(L)
+
+LS = []
+for la, lb in zip(lp_apple, lp_orange):  # 一个数组中取一个元素
+    rows, cols, dpt = la.shape
+    ls = np.hstack((la[:, 0:cols // 2], lb[:, cols // 2:]))  # 水平方向上平铺，各取一半
+    LS.append(ls)
+
+ls_reconstruct = LS[0]
+for i in range(1, 6):
+    ls_reconstruct = cv2.pyrUp(ls_reconstruct)
+    ls_reconstruct = cv2.add(sameSize(ls_reconstruct, LS[i]), LS[i])
+
+r, c, depth = apple.shape
+real = np.hstack((apple[:, 0:c // 2], orange[:, c // 2:]))  # apple和orange各取一半。
+
+plt.subplot(2,2,1), plt.imshow(cv2.cvtColor(apple, cv2.COLOR_BGR2RGB))
+plt.title("apple"), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,2), plt.imshow(cv2.cvtColor(orange, cv2.COLOR_BGR2RGB))
+plt.title("orange"), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,3), plt.imshow(cv2.cvtColor(real, cv2.COLOR_BGR2RGB))
+plt.title("real"), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,4), plt.imshow(cv2.cvtColor(ls_reconstruct, cv2.COLOR_BGR2RGB))
+plt.title("laplace_pyramid"), plt.xticks([]), plt.yticks([])
+plt.savefig("E:\\Deep Learning\\DeepLearning\\Opencv\\fruit-pyramid.jpg")
+plt.show()
+############################################################
+# work(2022-0127)
 ```
 
 ## 十八、OpenCV 中的轮廓；
 
 ```python
+# 21 OpenCV 中的轮廓;
+import cv2
+from matplotlib import pyplot as plt
 
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # BGR-灰度
+ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)  # 二值图像
+contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+img1 = img.copy()  # 对原始图像进行绘制
+contour = cv2.drawContours(img1, contours, -1, (0, 127, 127), 4)  # img1为复制图像，轮廓会修改原始图像
+# cv2.imshow("original", img)
+# cv2.imshow("contours", contour)
+# cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise-contour.jpg',contour)
+# cv2.waitKey()
+
+plt.subplot(2, 2, 1), plt.imshow(img, cmap='gray')
+plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(2, 2, 2), plt.imshow(binary, cmap='gray')
+plt.title('binary Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(2, 2, 3), plt.imshow(hierarchy, cmap='gray')
+plt.title('hierarchy Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(2, 2, 4), plt.imshow(contour, cmap='gray')
+plt.title('contour Image'), plt.xticks([]), plt.yticks([])
+
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise-contour2.jpg')
+plt.show()
+
+# 21.2 轮廓特征
+# 查找轮廓的不同特征，例如面积，周长，重心，边界框等
+# 21.2.1 矩
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\white-noise.jpg',0)
+
+ret,thresh = cv2.threshold(img,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+M = cv2.moments(cnt)
+print(M)
+
+# 21.2.2 轮廓面积
+# 轮廓面积
+# -*- coding: cp936 -*-
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR.jpg',0)
+
+ret,thresh = cv2.threshold(img,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+M = cv2.moments(cnt)
+area = cv2.contourArea(cnt)
+
+print(area) # 4.0;
+print(M['m00']) # 4.0;2种方法结果一致。
+
+
+# 21.2.3 轮廓周长
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR.jpg',0)
+
+ret,thresh = cv2.threshold(img,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+perimeter = cv2.arcLength(cnt,True)
+print(perimeter) # 7.656854152679443;
+
+# 21.2.4 轮廓近似
+# -*- coding: utf-8 -*-
+import numpy as np
+from matplotlib import pyplot as plt
+import cv2
+image = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\VR.jpg')
+# cv2.imshow("Image", image)
+# cv2.waitKey()
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+thresh = cv2.threshold(gray, 200, 255,cv2.THRESH_BINARY_INV)[1]
+
+# cv2.imshow("Thresh", thresh)
+# cv2.waitKey()
+
+plt.subplot(1, 3, 1), plt.imshow(image, cmap='gray')
+plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(1, 3, 2), plt.imshow(gray, cmap='gray')
+plt.title('gray Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(1, 3, 3), plt.imshow(thresh, cmap='gray')
+plt.title('thresh Image'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR-contour-approximation.jpg')
+plt.show()
+
+# 21.2.6 凸性检测
 ```
+
+
 
 
 
