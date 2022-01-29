@@ -1357,6 +1357,512 @@ plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR-contour-approximation.j
 plt.show()
 
 # 21.2.6 凸性检测
+# 21.2.6 凸性检测
+# 凸包检测和凸缺陷
+import cv2
+
+# 读取图像
+src1 = cv2.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\star.png")
+# print(src1.shape) # (264, 446, 3);
+# 转换为灰度图像
+gray = cv2.cvtColor(src1, cv2.COLOR_BGR2GRAY)
+# 二值化
+ret, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+# 获取结构元素
+k = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+# 开操作
+binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, k)
+# 轮廓发现
+contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+# 在原图上绘制轮廓，以方便和凸包对比，发现凸缺陷
+cv2.drawContours(src1, contours, -1, (0, 225, 0), 3)
+for c in range(len(contours)):
+    # 是否为凸包
+    ret = cv2.isContourConvex(contours[c])
+    # 凸缺陷
+    # 凸包检测，returnPoints为false的是返回与凸包点对应的轮廓上的点对应的index
+    hull = cv2.convexHull(contours[c], returnPoints=False)
+    defects = cv2.convexityDefects(contours[c], hull) # defects None???
+    print('defects', defects) # defects None???(需换成二值化图像)
+    for j in range(defects.shape[0]): # AttributeError: 'NoneType' object has no attribute 'shape';
+        s, e, f, d = defects[j, 0]
+        start = tuple(contours[c][s][0])
+        end = tuple(contours[c][e][0])
+        far = tuple(contours[c][f][0])
+        # 用红色连接凸缺陷的起始点和终止点
+        cv2.line(src1, start, end, (0, 0, 225), 2)
+        # 用蓝色最远点画一个圆圈
+        cv2.circle(src1, far, 5, (225, 0, 0), -1)
+
+# 保存；
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-Convex.jpg',src1)
+# 显示
+cv2.imshow("result", src1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# 21.2.7 边界矩形
+# 直边界矩形
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+# print(img.shape)  # (280, 282, 3);
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 1, 2)  # findContours()方法支持的image只能是CV_8UC1类型；
+cnt = contours[0]
+x, y, w, h = cv2.boundingRect(cnt)
+print(x, y, w, h)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.rectangle(img2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-rectangle.jpg',img2)
+cv2.imshow('result2', img2)
+cv2.waitKey(0)
+
+# 旋转的边界矩形
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+rect = cv2.minAreaRect(cnt)
+box = cv2.boxPoints(rect)
+box = np.int0(box)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.drawContours(img2,[box],0,(0,0,255),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-rectangle1.jpg',img2)
+cv2.waitKey(0)
+
+# 21.2.8 最小外接圆
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ret,thresh = cv2.threshold(img1,127,255,0) # img1灰度图；
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+(x,y),radius = cv2.minEnclosingCircle(cnt)
+center = (int(x),int(y))
+radius = int(radius)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.circle(img2,center,radius,(0,255,0),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-circle.jpg',img2)
+cv2.waitKey(0)
+
+# 21.2.9 椭圆拟合
+# 函数为 cv2.ellipse()
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+ret,thresh = cv2.threshold(img1,127,255,0) # img1灰度图；
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+ellipse = cv2.fitEllipse(cnt)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.ellipse(img2,ellipse,(0,255,0),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-ellipse.jpg',img2)
+cv2.waitKey(0)
+
+# 21.2.10 直线拟合
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+rows,cols = img.shape[:2]
+[vx,vy,x,y] = cv2.fitLine(cnt, cv2.DIST_L2,0,0.01,0.01)
+lefty = int((-x*vy/vx) + y)
+righty = int(((cols-x)*vy/vx)+y)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.line(img2,(cols-1,righty),(0,lefty),(0,255,0),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-line.jpg',img2)
+cv2.waitKey(0)
+
+# 21.3 轮廓的性质
+# 21.3.1 长宽比
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+x,y,w,h=cv2.boundingRect(cnt)
+aspect_ratio = float(w)/h
+print(aspect_ratio) # 0.8560606060606061;
+
+# 21.3.2 Extent (轮廓面积与边界矩形面积的比)
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+area = cv2.contourArea(cnt)
+x,y,w,h = cv2.boundingRect(cnt)
+rect_area = w*h
+extent = float(area)/rect_area
+print(extent) # 0.26451461517833197;
+
+# 21.3.3 Solidity(轮廓面积与凸包面积的比。);
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+area=cv2.contourArea(cnt)
+hull=cv2.convexHull(cnt)
+hull_area=cv2.contourArea(hull)
+solidity=float(area)/hull_area
+print(solidity) # 0.5194181147972617;
+
+# 21.3.4 Equivalent Diameter(与轮廓面积相等的圆形的直径);
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+area=cv2.contourArea(cnt)
+equi_diameter=np.sqrt(4*area/np.pi)
+print(equi_diameter) # 70.87712341618122;
+
+# 21.3.5 方向(对象的方向，下面的方法还会返回长轴和短轴的长度);
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+(x,y),(MA,ma),angle=cv2.fitEllipse(cnt)
+print((x,y),(MA,ma),angle) # (139.23236083984375, 139.5918731689453) (88.6601333618164, 105.14363861083984)  179.93600463867188 
+
+# 21.3.6 掩模和像素点(有时我们需要构成对象的所有像素点);
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+mask = np.zeros(img1.shape, np.uint8)
+# 这里一定要使用参数-1，绘制填充的轮廓
+cv2.drawContours(mask, [cnt], 0, 255, -1)
+pixelpoints = np.transpose(np.nonzero(mask))
+print(pixelpoints)
+
+# 21.3.7 最大值和最小值及它们的位置;
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+mask = np.zeros(img1.shape, np.uint8)
+min_val,max_val,min_loc,max_loc=cv2.minMaxLoc(img1,mask=mask)
+print(min_val,max_val,min_loc,max_loc) # 0.0 0.0 (-1, -1) (-1, -1);
+
+# 21.3.8 平均颜色及平均灰度
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+mask = np.zeros(img1.shape, np.uint8)
+mean_val=cv2.mean(img1,mask=mask)
+print(mean_val) # (0.0, 0.0, 0.0, 0.0);
+
+
+# 21.3.9 极点
+import cv2
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+leftmost = tuple(cnt[cnt[:,:,0].argmin()][0])
+rightmost = tuple(cnt[cnt[:,:,0].argmax()][0])
+topmost = tuple(cnt[cnt[:,:,1].argmin()][0])
+bottommost = tuple(cnt[cnt[:,:,1].argmax()][0])
+
+cv2.circle(img,leftmost, 5, (0,0,255), -1)
+cv2.circle(img,rightmost, 5, (0,0,255), -1)
+cv2.circle(img,topmost, 5, (0,0,255), -1)
+cv2.circle(img,bottommost, 5, (0,0,255), -1)
+
+print('极点', leftmost, rightmost, topmost, bottommost) # 极点 (83, 138) (195, 140) (138, 74) (138, 205)
+cv2.imshow('image',img)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-pole.png',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 21.4 轮廓：更多函数;
+# 21.4.1 凸缺陷;
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+ret, thresh = cv2.threshold(img_gray, 127, 255,0)
+contours,hierarchy = cv2.findContours(thresh,2,1)
+cnt = contours[0]
+# 使用函数 cv2.convexHull 找凸包时，参数returnPoints 一定要是 False。
+hull = cv2.convexHull(cnt,returnPoints = False)
+defects = cv2.convexityDefects(cnt,hull)
+for i in range(defects.shape[0]):
+    s,e,f,d = defects[i,0]
+    start = tuple(cnt[s][0])
+    end = tuple(cnt[e][0])
+    far = tuple(cnt[f][0])
+    cv2.line(img,start,end,[0,255,0],2)
+    cv2.circle(img,far,5,[0,0,255],-1)
+cv2.imshow('img',img)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-convexHull.png',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 21.4.2 Point Polygon Test;
+# 求解图像中的一个点到一个对象轮廓的最短距离。
+# 如果点在轮廓的外部，返回值为负，如果在轮廓上，返回值为0，如果在轮廓内部，返回值为正。
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+ret, thresh = cv2.threshold(img_gray, 127, 255,0)
+contours,hierarchy = cv2.findContours(thresh,2,1)
+cnt = contours[0]
+
+# True，就会计算最短距离。如果是 False，只会判断这个点与轮廓之间的位置关系
+dist = cv2.pointPolygonTest(cnt,(50,50),True)
+print(dist) # -90.44335243676011;(点在轮廓的外部)
+
+# 21.4.3 形状匹配;
+import cv2
+import numpy as np
+
+img1 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
+img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+ret, thresh2 = cv2.threshold(img2, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 2, 1)
+cnt1 = contours[0]
+contours, hierarchy = cv2.findContours(thresh2, 2, 1)
+cnt2 = contours[0]
+ret = cv2.matchShapes(cnt1, cnt2, 1, 0)
+print(ret) # 与自己匹配结果为0.0；
+```
+
+## 十九、直方图
+
+```python
+# 22 直方图
+# 22.1 直方图的计算，绘制与分析
+# 22.1.2 绘制直方图
+# 第一种方法：plt.hist（）
+import cv2 as cv
+import numpy as np
+from matplotlib import pyplot as plt
+src = cv.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg")
+hsv = cv.cvtColor(src, cv.COLOR_BGR2HSV)
+plt.hist(hsv.ravel(),256)
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-hist.jpg')
+plt.show()
+cv.waitKey(0)  # 等有键输入或者1000ms后自动将窗口消除，0表示只用键输入结束窗口
+cv.destroyAllWindows()
+
+# 第二种方法;
+import cv2 as cv
+import numpy as np
+from matplotlib import pyplot as plt
+
+src = cv.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg")
+hsv = cv.cvtColor(src, cv.COLOR_BGR2HSV)
+### 第二种方法
+hist = cv.calcHist([hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+plt.imshow(hist, interpolation='nearest')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-hist-1.jpg')
+plt.show()
+# cv.namedWindow("input image",cv.WINDOW_AUTOSIZE)
+# cv.imshow('input image', src)
+cv.waitKey(0)  # 等有键输入或者1000ms后自动将窗口消除，0表示只用键输入结束窗口
+cv.destroyAllWindows()
+
+# 第三种方法
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+src = cv2.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg")
+color = ('b','g','r')
+
+for i,col in enumerate(color):
+    histr = cv2.calcHist([src],[i],None,[256],[0,256])
+    plt.plot(histr,color=col)
+    plt.xlim([0,256])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-hist-2.jpg')
+plt.show()
+
+cv2.namedWindow("input image",cv2.WINDOW_AUTOSIZE)
+cv2.imshow('input image', src)
+cv2.waitKey(0)  # 等有键输入或者1000ms后自动将窗口消除，0表示只用键输入结束窗口
+cv2.destroyAllWindows()
+
+# 22.1.3 使用掩模
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+
+# create a mask
+mask = np.zeros(img.shape[:2], np.uint8)
+mask[100:300, 100:400] = 255
+masked_img = cv2.bitwise_and(img,img,mask = mask)
+# Calculate histogram with mask and without mask
+# Check third argument for mask
+hist_full = cv2.calcHist([img],[0],None,[256],[0,256])
+hist_mask = cv2.calcHist([img],[0],mask,[256],[0,256])
+plt.subplot(2,2,1), plt.imshow(img, 'gray')
+plt.title('Origin-Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(2,2,2), plt.imshow(mask,'gray')
+plt.title('mask-Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,3), plt.imshow(masked_img, 'gray')
+plt.title('masked-Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,4), plt.plot(hist_full), plt.plot(hist_mask)
+plt.title('Hist-Image'), plt.xticks([]), plt.yticks([])
+
+plt.xlim([0,256])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-mask.jpg')
+plt.show()
+
+# 22.2 直方图均衡化 (p140)
+# numpy直方图均衡化；
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+# flatten() 将数组变成一维
+hist,bins = np.histogram(img.flatten(),256,[0,256])
+# 计算累积分布图
+cdf = hist.cumsum()
+cdf_normalized = cdf * hist.max()/ cdf.max()
+plt.plot(cdf_normalized, color = 'b')
+plt.hist(img.flatten(),256,[0,256], color = 'r')
+plt.xlim([0,256])
+plt.legend(('cdf','histogram'), loc = 'best')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-histogram.jpg')
+plt.show()
+
+# 利用numpy掩膜数组实现直方图均衡化
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+hist,bins = np.histogram(img.flatten(),256,[0,256])
+cdf = hist.cumsum()
+# 构建Numpy 掩模数组。cdf 为原数组，当数组元素为0 时掩盖（计算时被忽略）。
+cdf_m = np.ma.masked_equal(cdf,0)
+cdf_m = (cdf_m - cdf_m.min())*255/(cdf_m.max()-cdf_m.min())
+# 对被掩盖的元素赋值为0
+cdf = np.ma.filled(cdf_m,0).astype('uint8')
+img2 = cdf[img]
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-histogram1.jpg',img2)
+cv2.imshow('result', img2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 22.2.1 OpenCV 中的直方图均衡化 (p142)
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+equ = cv2.equalizeHist(img)
+res = np.hstack((img, equ))
+# stacking images side-by-side
+
+plt.subplot(), plt.imshow(res,'gray')
+plt.title('EqualizeHist-Image'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-equalizeHist.jpg')
+plt.show()
+
+# 22.2.2 CLAHE 有限对比适应性直方图均衡化 (p144)
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+from matplotlib import pyplot as plt
+# create a CLAHE object (Arguments are optional).
+# 不知道为什么我没好到 createCLAHE 这个模块
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+cl1 = clahe.apply(img)
+
+plt.subplot(1,2,1), plt.imshow(img,'gray')
+plt.title('Origin-Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(1,2,2), plt.imshow(cl1,'gray')
+plt.title('Clahe-Image'), plt.xticks([]), plt.yticks([])
+
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-clahe.jpg')
+plt.show()
+
+# 22.3 2D 直方图（p145）;
+# 函数 cv2.calcHist() 来计算直方图;
+# 计算一维直方图，要从 BGR 转换到 HSV;
+
 ```
 
 
