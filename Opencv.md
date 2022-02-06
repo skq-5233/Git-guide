@@ -1893,6 +1893,323 @@ plt.show()
 # 22.3 2D 直方图（p145）;
 # 函数 cv2.calcHist() 来计算直方图;
 # 计算一维直方图，要从 BGR 转换到 HSV;
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+hist = cv2.calcHist([hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+cv2.imshow("Image",hist)
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-calcHist.jpg",hist)
+cv2.waitKey(0)
+
+# 22.3.3 Numpy 中 2D 直方图(146);
+
+# np
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+h,s,v = cv2.split(hsv)
+hist, xbins, ybins = np.histogram2d(h.ravel(), s.ravel(), [180,256], [[0, 180], [0, 256]])
+
+plt.subplot(1,2,1), plt.imshow(img_rgb,'gray')
+plt.title('Origin-Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(1,2,2), plt.imshow(hist,interpolation='nearest')
+plt.title('Numpy-Hist-Image'), plt.xticks([]), plt.yticks([])
+
+# plt.subplot(121)
+# plt.imshow(img_rgb)
+#
+# plt.subplot(122)
+# plt.imshow(hist, interpolation='nearest')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Numpy-Hist.jpg')
+plt.show()
+
+# 22.3.4 绘制 2D 直方图
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+hist = cv2.calcHist( [hsv], [0, 1], None, [180, 256], [0, 180, 0, 256] )
+plt.imshow(hist,interpolation = 'nearest')
+plt.title("2D-HIST")
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-2D-HIST.jpg')
+plt.show()
+
+# 一键生成素描（0206）
+import cv2
+from matplotlib import pyplot as plt
+
+img_path = "E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan.jpg"
+img = cv2.imread(img_path)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+inv = 255 - gray
+blur = cv2.GaussianBlur(inv, ksize=(17,17), sigmaX=50, sigmaY=50)
+res = cv2.divide(gray, 255 - blur, scale=255)
+
+plt.title("sketch")
+cv2.imshow('image',res)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan-sketch.jpg',res)
+cv2.waitKey()
+
+
+# 22.4 直方图反向投影(151)
+# 22.4.1 Numpy 中的算法
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+img = cv2.bilateralFilter(img, 13, 70, 50)  # 滤波降噪
+box_roi = cv2.selectROI("roi", img)  # 选择roi区域
+# 提取ROI图像
+roi_img = img[box_roi[1]:box_roi[1] + box_roi[3],
+          box_roi[0]:box_roi[0] + box_roi[2], :]
+hsv1 = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+hsv2 = cv2.cvtColor(roi_img, cv2.COLOR_BGR2HSV)
+hist1 = cv2.calcHist([hsv1], [0, 1], None, [180, 256], [0, 180, 0, 256])
+hist2 = cv2.calcHist([hsv2], [0, 1], None, [180, 256], [0, 180, 0, 256])
+
+# 使用Numpy中的算法
+R = hist2 / (hist1 + 1)  # 计算比值，加1 是为了避免除0
+h, s, v = cv2.split(hsv1)
+B = R[h.ravel(), s.ravel()]
+B = np.minimum(B, 1)
+B = B.reshape(hsv1.shape[:2]) * 255
+# cv2.getStructuringElement用于构造一个特定形状的结构元素
+# cv2.MORPH_ELLIPSE, (5, 5)表示构造一个5x5矩形内切椭圆用于卷积
+disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+B = cv2.filter2D(B, -1, disc)
+B = np.uint8(B)
+cv2.normalize(B, B, 0, 255, cv2.NORM_MINMAX)
+ret, thresh = cv2.threshold(B, 50, 255, 0)
+# 通道合并为3通道图像
+thresh = cv2.merge((thresh, thresh, thresh))
+# 使用形态学闭运算去除噪点
+kernel = np.ones((5, 5), np.uint8)
+mask = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+res = cv2.bitwise_and(img, mask)  # 与运算
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Numpy.jpg',res)
+cv2.imshow('Numpy', res)
+
+# 使用OpenCV中的算法
+# 利用 cv2.calcBackProject
+# hist2是roi的直方图，将roi的直方图投影到原图的hsv空间得到mask
+# 归一化之后的直方图便于显示，归一化之后就成了 0 到 255 之间的数了。
+# 归一化并不必要
+# cv2.normalize(hist2, hist2, 0, 255, cv2.NORM_MINMAX)
+dst = cv2.calcBackProject([hsv1], [0, 1], hist2, [0, 180, 0, 256], 1)
+disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+cv2.filter2D(dst, -1, disc, dst)
+out = cv2.merge([dst, dst, dst]) & img
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-OpenCV.jpg',res)
+cv2.imshow('OpenCV', out)
+cv2.waitKey(0)
+```
+
+## 二十、傅里叶变换；
+
+```python
+# 23 图像变换(156)
+# 23.1 傅里叶变换
+# 23.1.1 Numpy 中的傅里叶变换
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+f = np.fft.fft2(img)
+fshift = np.fft.fftshift(f)
+# 这里构建振幅图的公式没学过
+magnitude_spectrum = 20*np.log(np.abs(fshift))
+plt.subplot(121),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(magnitude_spectrum, cmap = 'gray')
+
+# （Magnitude Spectrum）幅度谱
+plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
+
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Magnitude-Spectrum.jpg')
+plt.show()
+
+# 频域变换
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+f = np.fft.fft2(img)
+fshift = np.fft.fftshift(f)
+rows, cols = img.shape
+crow,ccol = rows//2 , cols//2
+fshift[crow-30:crow+30, ccol-30:ccol+30] = 0
+f_ishift = np.fft.ifftshift(fshift)
+img_back = np.fft.ifft2(f_ishift)
+# 取绝对值
+img_back = np.abs(img_back)
+plt.subplot(131),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(132),plt.imshow(img_back, cmap = 'gray')
+plt.title('Image after HPF'), plt.xticks([]), plt.yticks([])
+plt.subplot(133),plt.imshow(img_back)
+plt.title('Result in JET'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-HPF-JET.jpg')
+plt.show()
+
+# 23.1.2 OpenCV 中的傅里叶变换（158）
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+dft = cv2.dft(np.float32(img),flags = cv2.DFT_COMPLEX_OUTPUT)
+dft_shift = np.fft.fftshift(dft)
+magnitude_spectrum = 20*np.log(cv2.magnitude(dft_shift[:,:,0],dft_shift[:,:,1]))
+plt.subplot(121),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(magnitude_spectrum, cmap = 'gray')
+plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-OpenCV-FFT.jpg')
+# cv2.cartToPolar(img)     # 同时返回幅度和相位；
+plt.show()
+
+# LPF（低通滤波）将高频部分去除(160);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+dft = cv2.dft(np.float32(img),flags = cv2.DFT_COMPLEX_OUTPUT)
+dft_shift = np.fft.fftshift(dft)
+rows, cols = img.shape
+crow,ccol = rows//2 , cols//2
+# create a mask first, center square is 1, remaining all zeros
+mask = np.zeros((rows,cols,2),np.uint8)
+mask[crow-30:crow+30, ccol-30:ccol+30] = 1
+# apply mask and inverse DFT
+fshift = dft_shift*mask
+f_ishift = np.fft.ifftshift(fshift)
+img_back = cv2.idft(f_ishift)
+img_back = cv2.magnitude(img_back[:,:,0],img_back[:,:,1])
+plt.subplot(121),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(img_back, cmap = 'gray')
+plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-LPF.jpg')
+plt.show()
+
+# 23.1.3 DFT 的性能优化(160)
+# OpenCV 你必须自己手动补 0。但是 Numpy，你只需要指定 FFT 运算的大小，它会自动补 0;
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+rows,cols = img.shape
+print (rows,cols) # 512 512
+
+nrows = cv2.getOptimalDFTSize(rows)
+ncols = cv2.getOptimalDFTSize(cols)
+print (nrows, ncols) #512 512
+
+# 滤波器(163)
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+# simple averaging filter without scaling parameter
+mean_filter = np.ones((3,3))
+# creating a guassian filter
+x = cv2.getGaussianKernel(5,10)
+#x.T 为矩阵转置
+gaussian = x*x.T
+# different edge detecting filters
+# scharr in x-direction
+scharr = np.array([[-3, 0, 3],
+[-10,0,10],
+[-3, 0, 3]])
+# sobel in x direction
+sobel_x= np.array([[-1, 0, 1],
+[-2, 0, 2],
+[-1, 0, 1]])
+# sobel in y direction
+sobel_y= np.array([[-1,-2,-1],
+[0, 0, 0],
+[1, 2, 1]])
+# laplacian
+laplacian=np.array([[0, 1, 0],
+[1,-4, 1],
+[0, 1, 0]])
+filters = [mean_filter, gaussian, laplacian, sobel_x, sobel_y, scharr]
+filter_name = ['mean_filter', 'gaussian','laplacian', 'sobel_x', 'sobel_y', 'scharr_x']
+fft_filters = [np.fft.fft2(x) for x in filters]
+fft_shift = [np.fft.fftshift(y) for y in fft_filters]
+mag_spectrum = [np.log(np.abs(z)+1) for z in fft_shift]
+for i in range(6):
+    plt.subplot(2,3,i+1),plt.imshow(mag_spectrum[i],cmap = 'gray')
+    plt.title(filter_name[i]), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-filter.jpg')
+plt.show()
+```
+
+## 二十一、模板匹配；
+
+```python
+# 24 模板匹配(165) 模板匹配是用来在一副大图中搜寻查找模版图像位置的方法。
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+img2 = img.copy()
+template = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Template.jpg',0)
+w, h = template.shape[::-1]
+# All the 6 methods for comparison in a list
+methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR','cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+for meth in methods:
+    img = img2.copy()
+# exec 语句用来执行储存在字符串或文件中的 Python 语句。
+# 例如，我们可以在运行时生成一个包含 Python 代码的字符串，然后使用 exec 语句执行这些语句。
+# eval 语句用来计算存储在字符串中的有效 Python 表达式
+    method = eval(meth)
+# Apply template Matching
+    res = cv2.matchTemplate(img,template,method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+# 使用不同的比较方法，对结果的解释不同
+# If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+    bottom_right = (top_left[0] + w, top_left[1] + h)
+    cv2.rectangle(img,top_left, bottom_right, 255, 2)
+    plt.subplot(121),plt.imshow(res,cmap = 'gray')
+    plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+    plt.subplot(122),plt.imshow(img,cmap = 'gray')
+    plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+    plt.suptitle(meth)
+    plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Template-Matching.jpg')
+    plt.show()
+    
+# 24.2 多对象的模板匹配(168);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img_rgb = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\mario.png')
+img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+template = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\mario_coin.png',0)
+w, h = template.shape[::-1]
+res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+threshold = 0.8
+# umpy.where(condition[, x, y])
+# Return elements, either from x or y, depending on condition.
+# If only condition is given, return condition.nonzero().
+loc = np.where(res >= threshold)
+for pt in zip(*loc[::-1]):
+    cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\mario_Result.png',img_rgb)
+cv2.imshow("1",img_rgb)
+cv2.waitKey(0)  
+```
+
+## 二十二、 Hough直线变换；
+
+```python
 
 ```
 
