@@ -2210,10 +2210,214 @@ cv2.waitKey(0)
 ## 二十二、 Hough直线变换；
 
 ```python
+# 目标：
+# • 理解霍夫变换的概念
+# • 学习如何在一张图片中检测直线
+# • 学习函数：cv2.HoughLines()，cv2.HoughLinesP()
 
+# 25.1 OpenCV 中的霍夫变换；
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray,50,150,apertureSize = 3)
+lines = cv2.HoughLines(edges,1,np.pi/180,200)
+for rho,theta in lines[0]:
+    a = np.cos(theta)
+    b = np.sin(theta)
+    x0 = a*rho
+    y0 = b*rho
+    x1 = int(x0 + 1000*(-b))
+    y1 = int(y0 + 1000*(a))
+    x2 = int(x0 - 1000*(-b))
+    y2 = int(y0 - 1000*(a))
+    cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Hough.jpg',img)
+cv2.imshow('img',img)
+cv2.waitKey(0)
+
+# 25.2 Probabilistic Hough Transform(hough优化)；
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray,50,150,apertureSize = 3)
+minLineLength = 100
+maxLineGap = 10
+lines = cv2.HoughLinesP(edges,1,np.pi/180,100,minLineLength,maxLineGap)
+for x1,y1,x2,y2 in lines[0]:
+    cv2.line(img,(x1,y1),(x2,y2),(0,255,0),2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-PHT.jpg',img)
+cv2.imshow('img',img)
+cv2.waitKey(0)
 ```
 
+## 二十三、Hough 圆环变换；
 
+```python
+# 26 Hough 圆环变换；
+# 目标：
+# • 学习使用霍夫变换在图像中找圆形（环）。
+# • 学习函数：cv2.HoughCircles()。
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv_logo.jpg', 0)
+img = cv2.medianBlur(img, 5)
+cimg = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1, 20,param1=50, param2=30, minRadius=0, maxRadius=0)
+circles = np.uint16(np.around(circles))
+for i in circles[0, :]:
+    # draw the outer circle
+    cv2.circle(cimg, (i[0], i[1]), i[2], (0, 255, 0), 2)
+    # draw the center of the circle
+    cv2.circle(cimg, (i[0], i[1]), 2, (0, 0, 255), 3)
+cv2.imshow('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv_logo-circle.jpg', cimg)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv_logo-circle.jpg', cimg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+## 二十四、分水岭算法图像分割；
+
+```python
+# 27 分水岭算法图像分割;
+# 目标：
+# • 使用分水岭算法基于掩模的图像分割
+# • 函数：cv2.watershed()
+
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\coin.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+rgb = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+
+ret, thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+# cv2.imshow('img',thresh)
+# cv2.waitKey(0)
+plt.subplot(121),plt.imshow(img,cmap = 'rgb')
+plt.title('Input-Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(thresh,cmap = 'gray')
+plt.title('Mask-Image'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\coin-mask.jpg')
+plt.show()
+
+# 利用分水岭算法分离多个相同硬币
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+# 为了正常显示中文添加以下代码
+from pylab import *
+
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+img = cv.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\coin.jpg')
+img1 = img.copy()
+# 将BGR图像转换为GRAY图像
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+# 得到自适应阈值的二值图像，并将黑白反转
+ret, thresh = cv.threshold(gray, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)
+img2 = thresh.copy()
+
+kernel = np.ones((3, 3), np.uint8)
+
+# 去除图像中的小的白色噪声
+opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel, iterations=2)
+
+# 找出图像中确定的背景
+sure_bg = cv.dilate(opening, kernel, iterations=3)
+
+# 以下函数不好解释，请自行查阅官方文档
+dist_transform = cv.distanceTransform(opening, cv.DIST_L2, 5)
+# 距离大于最大距离×0.7的区域被保留下来作为一定是硬币的区域(前景区域)
+ret, sure_fg = cv.threshold(dist_transform, 0.7 * dist_transform.max(), 255, 0)
+sure_fg = np.uint8(sure_fg)
+
+# 不确定区域，确定背景 - 前景区域
+unknown = cv.subtract(sure_bg, sure_fg)
+
+#  It labels background of the image with 0, then other objects are labelled with integers starting from 1.
+ret, markers = cv.connectedComponents(sure_fg)
+# 分水岭算法需要对确定区域进行标记为非0
+markers = markers + 1
+# 不确定区域全部标记为0
+markers[unknown == 255] = 0
+
+# 应用分水岭算法
+markers = cv.watershed(img, markers)
+# 用红色对分水岭算法确定的边界进行划定
+img[markers == -1] = [255, 0, 0]
+
+plt.subplot(241), plt.imshow(img1), plt.title('原图'), plt.axis('off')
+plt.subplot(242), plt.imshow(img2, cmap='gray'), plt.title('二值化'), plt.axis('off')
+plt.subplot(243), plt.imshow(opening, cmap='gray'), plt.title('消除白噪声'), plt.axis('off')
+plt.subplot(244), plt.imshow(sure_bg, cmap='gray'), plt.title('背景区域[黑色]'), plt.axis('off')
+plt.subplot(245), plt.imshow(sure_fg, cmap='gray'), plt.title('前景区域[白色]'), plt.axis('off')
+plt.subplot(246), plt.imshow(unknown, cmap='gray'), plt.title('不确定区域[白色]'), plt.axis('off')
+plt.subplot(247), plt.imshow(markers), plt.title('分水岭算法'), plt.axis('off')
+plt.subplot(248), plt.imshow(img), plt.title('对硬币边界标定'), plt.axis('off')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\coin-separate.jpg')
+plt.show()
+```
+
+## 二十五、使用GrabCut 算法进行交互式前景提取
+
+```python
+# 28 使用 GrabCut 算法进行交互式前景提取;
+# 目标：
+# • GrabCut 算法原理，使用 GrabCut 算法提取图像的前景
+# • 创建一个交互是程序完成前景提取；
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+mask = np.zeros(img.shape[:2],np.uint8)
+bgdModel = np.zeros((1,65),np.float64)
+fgdModel = np.zeros((1,65),np.float64)
+rect = (50,50,450,290) # 函数的返回值是更新的 mask, bgdModel, fgdModel
+cv2.grabCut(img,mask,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
+mask2 = np.where((mask==2)|(mask==0),0,1).astype('uint8')
+img = img*mask2[:,:,np.newaxis]
+plt.imshow(img),plt.colorbar()
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-GrabCut.jpg')
+plt.show()
+```
+
+## 二十六、Harris角点检测；
+
+```python
+# 29 理解图像特征;
+# 30 Harris 角点检测;
+# 30.1 OpenCV 中的 Harris 角点检测
+import cv2
+import numpy as np
+filename = 'E:\\Deep Learning\\DeepLearning\\Opencv\\checkerboard.png'
+img = cv2.imread(filename)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+gray = np.float32(gray)
+# 输入图像必须是 float32，最后一个参数在 0.04 到 0.05 之间
+dst = cv2.cornerHarris(gray,2,3,0.04)
+# result is dilated for marking the corners, not important
+dst = cv2.dilate(dst,None)
+# Threshold for an optimal value, it may vary depending on the image.
+img[dst>0.01*dst.max()]=[0,0,255]
+cv2.imshow('dst',img)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\checkerboard-Harris.png',img)
+if cv2.waitKey(0) & 0xff == 27:
+    cv2.destroyAllWindows()
+```
+
+## 二十七、介绍 SIFT(Scale-Invariant Feature Transform)；
+
+```python
+# 目标：
+# • 学习 SIFT 算法的概念
+# • 学习在图像中查找 SIFT 关键点和描述符;
+
+
+```
 
 
 
