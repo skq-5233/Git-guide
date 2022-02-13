@@ -2493,4 +2493,17 @@ label18.Text = ""; (2022-0125);
 } 
 ```
 
- 
+##  四十二、C#中OpenFileDialog获取文件名和文件路径的常用方法；
+
+```c#
+System.IO.Path.GetFullPath(openFileDialog1.FileName);  //绝对路径
+
+System.IO.Path.GetExtension(openFileDialog1.FileName); //文件扩展名
+
+System.IO.Path.GetFileNameWithoutExtension(openFileDialog1.FileName);//文件名没有扩展名
+
+System.IO.Path.GetFileName(openFileDialog1.FileName); //得到文件
+
+System.IO.Path.GetDirectoryName(openFileDialog1.FileName);//得到路径
+```
+
