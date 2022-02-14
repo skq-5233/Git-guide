@@ -2559,11 +2559,13 @@ foreach (FileInfo nextfile in folder.GetFiles())
     //}
 
 
+    //(设计进度条-0214--start)；
     //progressBar1.Value = 0;  //清空进度条
     double sumpic = (double)files.Length;
     progressBar1.Value = (int)(pic / sumpic * 100);
-    textBox2.Text = "当前进度:" + Convert.ToInt32((int)(pic / sumpic * 100)) + '%' + "\r\n";
+    label26.Text = "当前进度: " + Convert.ToInt32((int)(pic / sumpic * 100)) + '%' + "\r\n";
     Thread.Sleep(50);
+    //(设计进度条-0214--end)；
 
     //for (int i = 0; i < files.Length; i++)
     //{
