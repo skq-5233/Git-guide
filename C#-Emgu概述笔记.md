@@ -2507,3 +2507,100 @@ System.IO.Path.GetFileName(openFileDialog1.FileName); //得到文件
 System.IO.Path.GetDirectoryName(openFileDialog1.FileName);//得到路径
 ```
 
+## 四十三、progressBar设置进度条；
+
+```c#
+private void ImageProcessingAll()   //处理文件指定文件夹下所有图片
+{
+//Mat img;  //待测试图片
+ DirectoryInfo folder;
+
+folder = new DirectoryInfo(defaultfilepath);
+double pic = 0;//(图像计数-0214)；
+
+
+//遍历文件夹；
+foreach (FileInfo nextfile in folder.GetFiles())
+{
+    //Invoke((EventHandler)delegate { label2.Text = "图片名称：" + Path.GetFileName(nextfile.FullName); });
+    //Invoke((EventHandler)delegate { label2.Refresh(); });
+
+    pic++;//(图像计数-0214)；
+
+    Point max_loc1 = new Point(0, 0);
+    Point classNumber = max_loc1;    //最大可能性位置
+
+    //string typeName = typeList[classNumber.X];
+
+    // DirectoryInfo对象.Name获得文件夹名;.FullName获得文件夹完整的路径名(2022-0125)
+    convert_img = CvInvoke.Imread(nextfile.FullName, ImreadModes.AnyColor);
+
+    //Image<Bgr, byte> matToimg = match_img.ToImage<Bgr, byte>();
+
+
+    Image<Bgr, Byte> match_img = convert_img.ToImage<Bgr, Byte>();//Mat 2 Image;
+
+    if (match_img == null)
+    {
+        Invoke((EventHandler)delegate { label18.Text = "无法加载文件！"; });
+        Invoke((EventHandler)delegate { label18.Refresh(); });
+        return;
+    }
+
+
+    //(add--2022-0214--遍历文件夹内图像数量--start);
+    string path = defaultfilepath;
+    string[] files = Directory.GetFiles(path, "*.bmp");
+
+    //int SumCount = 0;
+    //foreach (string file in files)//遍历图像数量;
+    //{
+    //    SumCount++;
+    //}
+
+
+    //progressBar1.Value = 0;  //清空进度条
+    double sumpic = (double)files.Length;
+    progressBar1.Value = (int)(pic / sumpic * 100);
+    textBox2.Text = "当前进度:" + Convert.ToInt32((int)(pic / sumpic * 100)) + '%' + "\r\n";
+    Thread.Sleep(50);
+
+    //for (int i = 0; i < files.Length; i++)
+    //{
+    //    progressBar1.Value += (i / files.Length);
+    //    textBox2.Text = "当前进度:" + i.ToString() + '%'+ "\r\n";
+    //    Thread.Sleep(50);
+    //}
+
+    //int SumCount = 0;
+    //foreach (string file in files)//遍历图像数量;
+    //{
+    //    SumCount++;
+    //}
+    //(add--2022-0214--遍历文件夹内图像数量--end);
+
+    //int SumCount = 0;
+    //for (int i = 0; i < defaultfilepath.Length; i++) //遍历图像数量不对？
+    //{
+    //    //string[] bb = nextfile[i].Split(new char[] { '.' });
+    //    //if (bb[1].ToLower() == "bmp")
+    //    SumCount++;
+
+    //}
+
+    //开始时间；
+
+    //int Value = default(int);
+
+    //Value = (picturecount++ / SumCount++) * 100;//进度条不显示；
+
+    picturecount++;
+    //图像计数；
+    Invoke((EventHandler)delegate { label13.Text = "图片总数：" + picturecount.ToString(); });//数量是原文件夹内2倍？
+    Invoke((EventHandler)delegate { label13.Refresh(); });
+
+    //检测内容
+    Invoke((EventHandler)delegate { pictureBox11.Image = BitmapExtension.ToBitmap(match_img); });
+    Invoke((EventHandler)delegate { pictureBox11.Refresh(); });
+```
+

@@ -1357,10 +1357,1070 @@ plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\VR-contour-approximation.j
 plt.show()
 
 # 21.2.6 凸性检测
+<<<<<<< HEAD
+=======
+# 21.2.6 凸性检测
+# 凸包检测和凸缺陷
+import cv2
 
+# 读取图像
+src1 = cv2.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\star.png")
+# print(src1.shape) # (264, 446, 3);
+# 转换为灰度图像
+gray = cv2.cvtColor(src1, cv2.COLOR_BGR2GRAY)
+# 二值化
+ret, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+# 获取结构元素
+k = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+# 开操作
+binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, k)
+# 轮廓发现
+contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+# 在原图上绘制轮廓，以方便和凸包对比，发现凸缺陷
+cv2.drawContours(src1, contours, -1, (0, 225, 0), 3)
+for c in range(len(contours)):
+    # 是否为凸包
+    ret = cv2.isContourConvex(contours[c])
+    # 凸缺陷
+    # 凸包检测，returnPoints为false的是返回与凸包点对应的轮廓上的点对应的index
+    hull = cv2.convexHull(contours[c], returnPoints=False)
+    defects = cv2.convexityDefects(contours[c], hull) # defects None???
+    print('defects', defects) # defects None???(需换成二值化图像)
+    for j in range(defects.shape[0]): # AttributeError: 'NoneType' object has no attribute 'shape';
+        s, e, f, d = defects[j, 0]
+        start = tuple(contours[c][s][0])
+        end = tuple(contours[c][e][0])
+        far = tuple(contours[c][f][0])
+        # 用红色连接凸缺陷的起始点和终止点
+        cv2.line(src1, start, end, (0, 0, 225), 2)
+        # 用蓝色最远点画一个圆圈
+        cv2.circle(src1, far, 5, (225, 0, 0), -1)
+
+# 保存；
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-Convex.jpg',src1)
+# 显示
+cv2.imshow("result", src1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# 21.2.7 边界矩形
+# 直边界矩形
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+# print(img.shape)  # (280, 282, 3);
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 1, 2)  # findContours()方法支持的image只能是CV_8UC1类型；
+cnt = contours[0]
+x, y, w, h = cv2.boundingRect(cnt)
+print(x, y, w, h)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.rectangle(img2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-rectangle.jpg',img2)
+cv2.imshow('result2', img2)
+cv2.waitKey(0)
+
+# 旋转的边界矩形
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+rect = cv2.minAreaRect(cnt)
+box = cv2.boxPoints(rect)
+box = np.int0(box)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.drawContours(img2,[box],0,(0,0,255),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-rectangle1.jpg',img2)
+cv2.waitKey(0)
+
+# 21.2.8 最小外接圆
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ret,thresh = cv2.threshold(img1,127,255,0) # img1灰度图；
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+(x,y),radius = cv2.minEnclosingCircle(cnt)
+center = (int(x),int(y))
+radius = int(radius)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.circle(img2,center,radius,(0,255,0),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-circle.jpg',img2)
+cv2.waitKey(0)
+
+# 21.2.9 椭圆拟合
+# 函数为 cv2.ellipse()
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+ret,thresh = cv2.threshold(img1,127,255,0) # img1灰度图；
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+ellipse = cv2.fitEllipse(cnt)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.ellipse(img2,ellipse,(0,255,0),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-ellipse.jpg',img2)
+cv2.waitKey(0)
+
+# 21.2.10 直线拟合
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+rows,cols = img.shape[:2]
+[vx,vy,x,y] = cv2.fitLine(cnt, cv2.DIST_L2,0,0.01,0.01)
+lefty = int((-x*vy/vx) + y)
+righty = int(((cols-x)*vy/vx)+y)
+
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+cv2.line(img2,(cols-1,righty),(0,lefty),(0,255,0),2)
+
+cv2.imshow('result2', img2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-line.jpg',img2)
+cv2.waitKey(0)
+
+# 21.3 轮廓的性质
+# 21.3.1 长宽比
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+x,y,w,h=cv2.boundingRect(cnt)
+aspect_ratio = float(w)/h
+print(aspect_ratio) # 0.8560606060606061;
+
+# 21.3.2 Extent (轮廓面积与边界矩形面积的比)
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+area = cv2.contourArea(cnt)
+x,y,w,h = cv2.boundingRect(cnt)
+rect_area = w*h
+extent = float(area)/rect_area
+print(extent) # 0.26451461517833197;
+
+# 21.3.3 Solidity(轮廓面积与凸包面积的比。);
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+area=cv2.contourArea(cnt)
+hull=cv2.convexHull(cnt)
+hull_area=cv2.contourArea(hull)
+solidity=float(area)/hull_area
+print(solidity) # 0.5194181147972617;
+
+# 21.3.4 Equivalent Diameter(与轮廓面积相等的圆形的直径);
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+area=cv2.contourArea(cnt)
+equi_diameter=np.sqrt(4*area/np.pi)
+print(equi_diameter) # 70.87712341618122;
+
+# 21.3.5 方向(对象的方向，下面的方法还会返回长轴和短轴的长度);
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # img1灰度图；
+ret,thresh = cv2.threshold(img1,127,255,0)
+contours,hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+(x,y),(MA,ma),angle=cv2.fitEllipse(cnt)
+print((x,y),(MA,ma),angle) # (139.23236083984375, 139.5918731689453) (88.6601333618164, 105.14363861083984)  179.93600463867188 
+
+# 21.3.6 掩模和像素点(有时我们需要构成对象的所有像素点);
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+mask = np.zeros(img1.shape, np.uint8)
+# 这里一定要使用参数-1，绘制填充的轮廓
+cv2.drawContours(mask, [cnt], 0, 255, -1)
+pixelpoints = np.transpose(np.nonzero(mask))
+print(pixelpoints)
+
+# 21.3.7 最大值和最小值及它们的位置;
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+mask = np.zeros(img1.shape, np.uint8)
+min_val,max_val,min_loc,max_loc=cv2.minMaxLoc(img1,mask=mask)
+print(min_val,max_val,min_loc,max_loc) # 0.0 0.0 (-1, -1) (-1, -1);
+
+# 21.3.8 平均颜色及平均灰度
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+mask = np.zeros(img1.shape, np.uint8)
+mean_val=cv2.mean(img1,mask=mask)
+print(mean_val) # (0.0, 0.0, 0.0, 0.0);
+
+
+# 21.3.9 极点
+import cv2
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # img1灰度图；
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 1, 2)
+cnt = contours[0]
+
+leftmost = tuple(cnt[cnt[:,:,0].argmin()][0])
+rightmost = tuple(cnt[cnt[:,:,0].argmax()][0])
+topmost = tuple(cnt[cnt[:,:,1].argmin()][0])
+bottommost = tuple(cnt[cnt[:,:,1].argmax()][0])
+
+cv2.circle(img,leftmost, 5, (0,0,255), -1)
+cv2.circle(img,rightmost, 5, (0,0,255), -1)
+cv2.circle(img,topmost, 5, (0,0,255), -1)
+cv2.circle(img,bottommost, 5, (0,0,255), -1)
+
+print('极点', leftmost, rightmost, topmost, bottommost) # 极点 (83, 138) (195, 140) (138, 74) (138, 205)
+cv2.imshow('image',img)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-pole.png',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 21.4 轮廓：更多函数;
+# 21.4.1 凸缺陷;
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+ret, thresh = cv2.threshold(img_gray, 127, 255,0)
+contours,hierarchy = cv2.findContours(thresh,2,1)
+cnt = contours[0]
+# 使用函数 cv2.convexHull 找凸包时，参数returnPoints 一定要是 False。
+hull = cv2.convexHull(cnt,returnPoints = False)
+defects = cv2.convexityDefects(cnt,hull)
+for i in range(defects.shape[0]):
+    s,e,f,d = defects[i,0]
+    start = tuple(cnt[s][0])
+    end = tuple(cnt[e][0])
+    far = tuple(cnt[f][0])
+    cv2.line(img,start,end,[0,255,0],2)
+    cv2.circle(img,far,5,[0,0,255],-1)
+cv2.imshow('img',img)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\star-convexHull.png',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 21.4.2 Point Polygon Test;
+# 求解图像中的一个点到一个对象轮廓的最短距离。
+# 如果点在轮廓的外部，返回值为负，如果在轮廓上，返回值为0，如果在轮廓内部，返回值为正。
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+ret, thresh = cv2.threshold(img_gray, 127, 255,0)
+contours,hierarchy = cv2.findContours(thresh,2,1)
+cnt = contours[0]
+
+# True，就会计算最短距离。如果是 False，只会判断这个点与轮廓之间的位置关系
+dist = cv2.pointPolygonTest(cnt,(50,50),True)
+print(dist) # -90.44335243676011;(点在轮廓的外部)
+
+# 21.4.3 形状匹配;
+import cv2
+import numpy as np
+
+img1 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\star.png')
+
+img1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
+img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+
+ret, thresh = cv2.threshold(img1, 127, 255, 0)
+ret, thresh2 = cv2.threshold(img2, 127, 255, 0)
+contours, hierarchy = cv2.findContours(thresh, 2, 1)
+cnt1 = contours[0]
+contours, hierarchy = cv2.findContours(thresh2, 2, 1)
+cnt2 = contours[0]
+ret = cv2.matchShapes(cnt1, cnt2, 1, 0)
+print(ret) # 与自己匹配结果为0.0；
 ```
 
+## 十九、直方图
 
+```python
+# 22 直方图
+# 22.1 直方图的计算，绘制与分析
+# 22.1.2 绘制直方图
+# 第一种方法：plt.hist（）
+import cv2 as cv
+import numpy as np
+from matplotlib import pyplot as plt
+src = cv.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg")
+hsv = cv.cvtColor(src, cv.COLOR_BGR2HSV)
+plt.hist(hsv.ravel(),256)
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-hist.jpg')
+plt.show()
+cv.waitKey(0)  # 等有键输入或者1000ms后自动将窗口消除，0表示只用键输入结束窗口
+cv.destroyAllWindows()
+
+# 第二种方法;
+import cv2 as cv
+import numpy as np
+from matplotlib import pyplot as plt
+
+src = cv.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg")
+hsv = cv.cvtColor(src, cv.COLOR_BGR2HSV)
+### 第二种方法
+hist = cv.calcHist([hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+plt.imshow(hist, interpolation='nearest')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-hist-1.jpg')
+plt.show()
+# cv.namedWindow("input image",cv.WINDOW_AUTOSIZE)
+# cv.imshow('input image', src)
+cv.waitKey(0)  # 等有键输入或者1000ms后自动将窗口消除，0表示只用键输入结束窗口
+cv.destroyAllWindows()
+
+# 第三种方法
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+src = cv2.imread("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg")
+color = ('b','g','r')
+
+for i,col in enumerate(color):
+    histr = cv2.calcHist([src],[i],None,[256],[0,256])
+    plt.plot(histr,color=col)
+    plt.xlim([0,256])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-hist-2.jpg')
+plt.show()
+
+cv2.namedWindow("input image",cv2.WINDOW_AUTOSIZE)
+cv2.imshow('input image', src)
+cv2.waitKey(0)  # 等有键输入或者1000ms后自动将窗口消除，0表示只用键输入结束窗口
+cv2.destroyAllWindows()
+
+# 22.1.3 使用掩模
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+
+# create a mask
+mask = np.zeros(img.shape[:2], np.uint8)
+mask[100:300, 100:400] = 255
+masked_img = cv2.bitwise_and(img,img,mask = mask)
+# Calculate histogram with mask and without mask
+# Check third argument for mask
+hist_full = cv2.calcHist([img],[0],None,[256],[0,256])
+hist_mask = cv2.calcHist([img],[0],mask,[256],[0,256])
+plt.subplot(2,2,1), plt.imshow(img, 'gray')
+plt.title('Origin-Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(2,2,2), plt.imshow(mask,'gray')
+plt.title('mask-Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,3), plt.imshow(masked_img, 'gray')
+plt.title('masked-Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,4), plt.plot(hist_full), plt.plot(hist_mask)
+plt.title('Hist-Image'), plt.xticks([]), plt.yticks([])
+
+plt.xlim([0,256])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-mask.jpg')
+plt.show()
+
+# 22.2 直方图均衡化 (p140)
+# numpy直方图均衡化；
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+# flatten() 将数组变成一维
+hist,bins = np.histogram(img.flatten(),256,[0,256])
+# 计算累积分布图
+cdf = hist.cumsum()
+cdf_normalized = cdf * hist.max()/ cdf.max()
+plt.plot(cdf_normalized, color = 'b')
+plt.hist(img.flatten(),256,[0,256], color = 'r')
+plt.xlim([0,256])
+plt.legend(('cdf','histogram'), loc = 'best')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-histogram.jpg')
+plt.show()
+
+# 利用numpy掩膜数组实现直方图均衡化
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+hist,bins = np.histogram(img.flatten(),256,[0,256])
+cdf = hist.cumsum()
+# 构建Numpy 掩模数组。cdf 为原数组，当数组元素为0 时掩盖（计算时被忽略）。
+cdf_m = np.ma.masked_equal(cdf,0)
+cdf_m = (cdf_m - cdf_m.min())*255/(cdf_m.max()-cdf_m.min())
+# 对被掩盖的元素赋值为0
+cdf = np.ma.filled(cdf_m,0).astype('uint8')
+img2 = cdf[img]
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-histogram1.jpg',img2)
+cv2.imshow('result', img2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 显示numpy掩膜数组均衡化后直方图
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+
+hist,bins = np.histogram(img.flatten(),256,[0,256])
+cdf = hist.cumsum()
+
+# 构建Numpy 掩模数组。cdf 为原数组，当数组元素为0 时掩盖（计算时被忽略）。
+cdf_m = np.ma.masked_equal(cdf,0)
+cdf_m = (cdf_m - cdf_m.min())*255/(cdf_m.max()-cdf_m.min())
+# 对被掩盖的元素赋值为0
+cdf = np.ma.filled(cdf_m,0).astype('uint8')
+
+img2 = cdf[img]
+
+hist,bins = np.histogram(img2.flatten(),256,[0,256])
+cdf = hist.cumsum()
+
+cdf_normalized = cdf * float(hist.max()) / cdf.max()
+plt.plot(cdf_normalized, color = 'b')
+plt.hist(img2.flatten(),256,[0,256], color = 'r')
+plt.xlim([0,256])
+plt.legend(('cdf','histogram'), loc = 'upper left')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-histogram2.jpg')
+plt.show()
+
+
+# 22.2.1 OpenCV 中的直方图均衡化 (p142)
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+equ = cv2.equalizeHist(img)
+res = np.hstack((img, equ))
+# stacking images side-by-side
+
+plt.subplot(), plt.imshow(res,'gray')
+plt.title('EqualizeHist-Image'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-equalizeHist.jpg')
+plt.show()
+
+# 22.2.2 CLAHE 有限对比适应性直方图均衡化 (p144)
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+from matplotlib import pyplot as plt
+# create a CLAHE object (Arguments are optional).
+# 不知道为什么我没好到 createCLAHE 这个模块
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+cl1 = clahe.apply(img)
+
+plt.subplot(1,2,1), plt.imshow(img,'gray')
+plt.title('Origin-Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(1,2,2), plt.imshow(cl1,'gray')
+plt.title('Clahe-Image'), plt.xticks([]), plt.yticks([])
+
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-clahe.jpg')
+plt.show()
+
+# 22.3 2D 直方图（p145）;
+# 函数 cv2.calcHist() 来计算直方图;
+# 计算一维直方图，要从 BGR 转换到 HSV;
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+hist = cv2.calcHist([hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+cv2.imshow("Image",hist)
+cv2.imwrite("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-calcHist.jpg",hist)
+cv2.waitKey(0)
+
+# 22.3.3 Numpy 中 2D 直方图(146);
+
+# np
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+h,s,v = cv2.split(hsv)
+hist, xbins, ybins = np.histogram2d(h.ravel(), s.ravel(), [180,256], [[0, 180], [0, 256]])
+
+plt.subplot(1,2,1), plt.imshow(img_rgb,'gray')
+plt.title('Origin-Image'), plt.xticks([]), plt.yticks([])
+
+plt.subplot(1,2,2), plt.imshow(hist,interpolation='nearest')
+plt.title('Numpy-Hist-Image'), plt.xticks([]), plt.yticks([])
+
+# plt.subplot(121)
+# plt.imshow(img_rgb)
+#
+# plt.subplot(122)
+# plt.imshow(hist, interpolation='nearest')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Numpy-Hist.jpg')
+plt.show()
+
+# 22.3.4 绘制 2D 直方图
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+hist = cv2.calcHist( [hsv], [0, 1], None, [180, 256], [0, 180, 0, 256] )
+plt.imshow(hist,interpolation = 'nearest')
+plt.title("2D-HIST")
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-2D-HIST.jpg')
+plt.show()
+
+# 一键生成素描（0206）
+import cv2
+from matplotlib import pyplot as plt
+
+img_path = "E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan.jpg"
+img = cv2.imread(img_path)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+inv = 255 - gray
+blur = cv2.GaussianBlur(inv, ksize=(17,17), sigmaX=50, sigmaY=50)
+res = cv2.divide(gray, 255 - blur, scale=255)
+
+plt.title("sketch")
+cv2.imshow('image',res)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\yanyan-sketch.jpg',res)
+cv2.waitKey()
+
+
+# 22.4 直方图反向投影(151)
+# 22.4.1 Numpy 中的算法
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+img = cv2.bilateralFilter(img, 13, 70, 50)  # 滤波降噪
+box_roi = cv2.selectROI("roi", img)  # 选择roi区域
+# 提取ROI图像
+roi_img = img[box_roi[1]:box_roi[1] + box_roi[3],
+          box_roi[0]:box_roi[0] + box_roi[2], :]
+hsv1 = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+hsv2 = cv2.cvtColor(roi_img, cv2.COLOR_BGR2HSV)
+hist1 = cv2.calcHist([hsv1], [0, 1], None, [180, 256], [0, 180, 0, 256])
+hist2 = cv2.calcHist([hsv2], [0, 1], None, [180, 256], [0, 180, 0, 256])
+
+# 使用Numpy中的算法
+R = hist2 / (hist1 + 1)  # 计算比值，加1 是为了避免除0
+h, s, v = cv2.split(hsv1)
+B = R[h.ravel(), s.ravel()]
+B = np.minimum(B, 1)
+B = B.reshape(hsv1.shape[:2]) * 255
+# cv2.getStructuringElement用于构造一个特定形状的结构元素
+# cv2.MORPH_ELLIPSE, (5, 5)表示构造一个5x5矩形内切椭圆用于卷积
+disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+B = cv2.filter2D(B, -1, disc)
+B = np.uint8(B)
+cv2.normalize(B, B, 0, 255, cv2.NORM_MINMAX)
+ret, thresh = cv2.threshold(B, 50, 255, 0)
+# 通道合并为3通道图像
+thresh = cv2.merge((thresh, thresh, thresh))
+# 使用形态学闭运算去除噪点
+kernel = np.ones((5, 5), np.uint8)
+mask = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+res = cv2.bitwise_and(img, mask)  # 与运算
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Numpy.jpg',res)
+cv2.imshow('Numpy', res)
+
+# 使用OpenCV中的算法
+# 利用 cv2.calcBackProject
+# hist2是roi的直方图，将roi的直方图投影到原图的hsv空间得到mask
+# 归一化之后的直方图便于显示，归一化之后就成了 0 到 255 之间的数了。
+# 归一化并不必要
+# cv2.normalize(hist2, hist2, 0, 255, cv2.NORM_MINMAX)
+dst = cv2.calcBackProject([hsv1], [0, 1], hist2, [0, 180, 0, 256], 1)
+disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+cv2.filter2D(dst, -1, disc, dst)
+out = cv2.merge([dst, dst, dst]) & img
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-OpenCV.jpg',res)
+cv2.imshow('OpenCV', out)
+cv2.waitKey(0)
+```
+
+## 二十、傅里叶变换；
+
+```python
+# 23 图像变换(156)
+# 23.1 傅里叶变换
+# 23.1.1 Numpy 中的傅里叶变换
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+f = np.fft.fft2(img)
+fshift = np.fft.fftshift(f)
+# 这里构建振幅图的公式没学过
+magnitude_spectrum = 20*np.log(np.abs(fshift))
+plt.subplot(121),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(magnitude_spectrum, cmap = 'gray')
+
+# （Magnitude Spectrum）幅度谱
+plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
+
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Magnitude-Spectrum.jpg')
+plt.show()
+
+# 频域变换
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+f = np.fft.fft2(img)
+fshift = np.fft.fftshift(f)
+rows, cols = img.shape
+crow,ccol = rows//2 , cols//2
+fshift[crow-30:crow+30, ccol-30:ccol+30] = 0
+f_ishift = np.fft.ifftshift(fshift)
+img_back = np.fft.ifft2(f_ishift)
+# 取绝对值
+img_back = np.abs(img_back)
+plt.subplot(131),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(132),plt.imshow(img_back, cmap = 'gray')
+plt.title('Image after HPF'), plt.xticks([]), plt.yticks([])
+plt.subplot(133),plt.imshow(img_back)
+plt.title('Result in JET'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-HPF-JET.jpg')
+plt.show()
+
+# 23.1.2 OpenCV 中的傅里叶变换（158）
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+dft = cv2.dft(np.float32(img),flags = cv2.DFT_COMPLEX_OUTPUT)
+dft_shift = np.fft.fftshift(dft)
+magnitude_spectrum = 20*np.log(cv2.magnitude(dft_shift[:,:,0],dft_shift[:,:,1]))
+plt.subplot(121),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(magnitude_spectrum, cmap = 'gray')
+plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-OpenCV-FFT.jpg')
+# cv2.cartToPolar(img)     # 同时返回幅度和相位；
+plt.show()
+
+# LPF（低通滤波）将高频部分去除(160);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+dft = cv2.dft(np.float32(img),flags = cv2.DFT_COMPLEX_OUTPUT)
+dft_shift = np.fft.fftshift(dft)
+rows, cols = img.shape
+crow,ccol = rows//2 , cols//2
+# create a mask first, center square is 1, remaining all zeros
+mask = np.zeros((rows,cols,2),np.uint8)
+mask[crow-30:crow+30, ccol-30:ccol+30] = 1
+# apply mask and inverse DFT
+fshift = dft_shift*mask
+f_ishift = np.fft.ifftshift(fshift)
+img_back = cv2.idft(f_ishift)
+img_back = cv2.magnitude(img_back[:,:,0],img_back[:,:,1])
+plt.subplot(121),plt.imshow(img, cmap = 'gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(img_back, cmap = 'gray')
+plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-LPF.jpg')
+plt.show()
+
+# 23.1.3 DFT 的性能优化(160)
+# OpenCV 你必须自己手动补 0。但是 Numpy，你只需要指定 FFT 运算的大小，它会自动补 0;
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+rows,cols = img.shape
+print (rows,cols) # 512 512
+
+nrows = cv2.getOptimalDFTSize(rows)
+ncols = cv2.getOptimalDFTSize(cols)
+print (nrows, ncols) #512 512
+
+# 滤波器(163)
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+# simple averaging filter without scaling parameter
+mean_filter = np.ones((3,3))
+# creating a guassian filter
+x = cv2.getGaussianKernel(5,10)
+#x.T 为矩阵转置
+gaussian = x*x.T
+# different edge detecting filters
+# scharr in x-direction
+scharr = np.array([[-3, 0, 3],
+[-10,0,10],
+[-3, 0, 3]])
+# sobel in x direction
+sobel_x= np.array([[-1, 0, 1],
+[-2, 0, 2],
+[-1, 0, 1]])
+# sobel in y direction
+sobel_y= np.array([[-1,-2,-1],
+[0, 0, 0],
+[1, 2, 1]])
+# laplacian
+laplacian=np.array([[0, 1, 0],
+[1,-4, 1],
+[0, 1, 0]])
+filters = [mean_filter, gaussian, laplacian, sobel_x, sobel_y, scharr]
+filter_name = ['mean_filter', 'gaussian','laplacian', 'sobel_x', 'sobel_y', 'scharr_x']
+fft_filters = [np.fft.fft2(x) for x in filters]
+fft_shift = [np.fft.fftshift(y) for y in fft_filters]
+mag_spectrum = [np.log(np.abs(z)+1) for z in fft_shift]
+for i in range(6):
+    plt.subplot(2,3,i+1),plt.imshow(mag_spectrum[i],cmap = 'gray')
+    plt.title(filter_name[i]), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-filter.jpg')
+plt.show()
+```
+
+## 二十一、模板匹配；
+
+```python
+# 24 模板匹配(165) 模板匹配是用来在一副大图中搜寻查找模版图像位置的方法。
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+img2 = img.copy()
+template = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Template.jpg',0)
+w, h = template.shape[::-1]
+# All the 6 methods for comparison in a list
+methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR','cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+for meth in methods:
+    img = img2.copy()
+# exec 语句用来执行储存在字符串或文件中的 Python 语句。
+# 例如，我们可以在运行时生成一个包含 Python 代码的字符串，然后使用 exec 语句执行这些语句。
+# eval 语句用来计算存储在字符串中的有效 Python 表达式
+    method = eval(meth)
+# Apply template Matching
+    res = cv2.matchTemplate(img,template,method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+# 使用不同的比较方法，对结果的解释不同
+# If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+    bottom_right = (top_left[0] + w, top_left[1] + h)
+    cv2.rectangle(img,top_left, bottom_right, 255, 2)
+    plt.subplot(121),plt.imshow(res,cmap = 'gray')
+    plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+    plt.subplot(122),plt.imshow(img,cmap = 'gray')
+    plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+    plt.suptitle(meth)
+    plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Template-Matching.jpg')
+    plt.show()
+    
+# 24.2 多对象的模板匹配(168);
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+img_rgb = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\mario.png')
+img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+template = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\mario_coin.png',0)
+w, h = template.shape[::-1]
+res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+threshold = 0.8
+# umpy.where(condition[, x, y])
+# Return elements, either from x or y, depending on condition.
+# If only condition is given, return condition.nonzero().
+loc = np.where(res >= threshold)
+for pt in zip(*loc[::-1]):
+    cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\mario_Result.png',img_rgb)
+cv2.imshow("1",img_rgb)
+cv2.waitKey(0)  
+```
+
+## 二十二、 Hough直线变换；
+
+```python
+# 目标：
+# • 理解霍夫变换的概念
+# • 学习如何在一张图片中检测直线
+# • 学习函数：cv2.HoughLines()，cv2.HoughLinesP()
+
+# 25.1 OpenCV 中的霍夫变换；
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray,50,150,apertureSize = 3)
+lines = cv2.HoughLines(edges,1,np.pi/180,200)
+for rho,theta in lines[0]:
+    a = np.cos(theta)
+    b = np.sin(theta)
+    x0 = a*rho
+    y0 = b*rho
+    x1 = int(x0 + 1000*(-b))
+    y1 = int(y0 + 1000*(a))
+    x2 = int(x0 - 1000*(-b))
+    y2 = int(y0 - 1000*(a))
+    cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Hough.jpg',img)
+cv2.imshow('img',img)
+cv2.waitKey(0)
+
+# 25.2 Probabilistic Hough Transform(hough优化)；
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray,50,150,apertureSize = 3)
+minLineLength = 100
+maxLineGap = 10
+lines = cv2.HoughLinesP(edges,1,np.pi/180,100,minLineLength,maxLineGap)
+for x1,y1,x2,y2 in lines[0]:
+    cv2.line(img,(x1,y1),(x2,y2),(0,255,0),2)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-PHT.jpg',img)
+cv2.imshow('img',img)
+cv2.waitKey(0)
+```
+
+## 二十三、Hough 圆环变换；
+
+```python
+# 26 Hough 圆环变换；
+# 目标：
+# • 学习使用霍夫变换在图像中找圆形（环）。
+# • 学习函数：cv2.HoughCircles()。
+import cv2
+import numpy as np
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv_logo.jpg', 0)
+img = cv2.medianBlur(img, 5)
+cimg = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1, 20,param1=50, param2=30, minRadius=0, maxRadius=0)
+circles = np.uint16(np.around(circles))
+for i in circles[0, :]:
+    # draw the outer circle
+    cv2.circle(cimg, (i[0], i[1]), i[2], (0, 255, 0), 2)
+    # draw the center of the circle
+    cv2.circle(cimg, (i[0], i[1]), 2, (0, 0, 255), 3)
+cv2.imshow('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv_logo-circle.jpg', cimg)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv_logo-circle.jpg', cimg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+## 二十四、分水岭算法图像分割；
+
+```python
+# 27 分水岭算法图像分割;
+# 目标：
+# • 使用分水岭算法基于掩模的图像分割
+# • 函数：cv2.watershed()
+
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\coin.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+rgb = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+
+ret, thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+# cv2.imshow('img',thresh)
+# cv2.waitKey(0)
+plt.subplot(121),plt.imshow(img,cmap = 'rgb')
+plt.title('Input-Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(thresh,cmap = 'gray')
+plt.title('Mask-Image'), plt.xticks([]), plt.yticks([])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\coin-mask.jpg')
+plt.show()
+
+# 利用分水岭算法分离多个相同硬币
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+# 为了正常显示中文添加以下代码
+from pylab import *
+
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+img = cv.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\coin.jpg')
+img1 = img.copy()
+# 将BGR图像转换为GRAY图像
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+# 得到自适应阈值的二值图像，并将黑白反转
+ret, thresh = cv.threshold(gray, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)
+img2 = thresh.copy()
+
+kernel = np.ones((3, 3), np.uint8)
+
+# 去除图像中的小的白色噪声
+opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel, iterations=2)
+
+# 找出图像中确定的背景
+sure_bg = cv.dilate(opening, kernel, iterations=3)
+
+# 以下函数不好解释，请自行查阅官方文档
+dist_transform = cv.distanceTransform(opening, cv.DIST_L2, 5)
+# 距离大于最大距离×0.7的区域被保留下来作为一定是硬币的区域(前景区域)
+ret, sure_fg = cv.threshold(dist_transform, 0.7 * dist_transform.max(), 255, 0)
+sure_fg = np.uint8(sure_fg)
+
+# 不确定区域，确定背景 - 前景区域
+unknown = cv.subtract(sure_bg, sure_fg)
+
+#  It labels background of the image with 0, then other objects are labelled with integers starting from 1.
+ret, markers = cv.connectedComponents(sure_fg)
+# 分水岭算法需要对确定区域进行标记为非0
+markers = markers + 1
+# 不确定区域全部标记为0
+markers[unknown == 255] = 0
+
+# 应用分水岭算法
+markers = cv.watershed(img, markers)
+# 用红色对分水岭算法确定的边界进行划定
+img[markers == -1] = [255, 0, 0]
+
+plt.subplot(241), plt.imshow(img1), plt.title('原图'), plt.axis('off')
+plt.subplot(242), plt.imshow(img2, cmap='gray'), plt.title('二值化'), plt.axis('off')
+plt.subplot(243), plt.imshow(opening, cmap='gray'), plt.title('消除白噪声'), plt.axis('off')
+plt.subplot(244), plt.imshow(sure_bg, cmap='gray'), plt.title('背景区域[黑色]'), plt.axis('off')
+plt.subplot(245), plt.imshow(sure_fg, cmap='gray'), plt.title('前景区域[白色]'), plt.axis('off')
+plt.subplot(246), plt.imshow(unknown, cmap='gray'), plt.title('不确定区域[白色]'), plt.axis('off')
+plt.subplot(247), plt.imshow(markers), plt.title('分水岭算法'), plt.axis('off')
+plt.subplot(248), plt.imshow(img), plt.title('对硬币边界标定'), plt.axis('off')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\coin-separate.jpg')
+plt.show()
+```
+
+## 二十五、使用GrabCut 算法进行交互式前景提取
+
+```python
+# 28 使用 GrabCut 算法进行交互式前景提取;
+# 目标：
+# • GrabCut 算法原理，使用 GrabCut 算法提取图像的前景
+# • 创建一个交互是程序完成前景提取；
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+mask = np.zeros(img.shape[:2],np.uint8)
+bgdModel = np.zeros((1,65),np.float64)
+fgdModel = np.zeros((1,65),np.float64)
+rect = (50,50,450,290) # 函数的返回值是更新的 mask, bgdModel, fgdModel
+cv2.grabCut(img,mask,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
+mask2 = np.where((mask==2)|(mask==0),0,1).astype('uint8')
+img = img*mask2[:,:,np.newaxis]
+plt.imshow(img),plt.colorbar()
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-GrabCut.jpg')
+plt.show()
+```
+
+## 二十六、Harris角点检测；
+
+```python
+# 29 理解图像特征;
+# 30 Harris 角点检测;
+# 30.1 OpenCV 中的 Harris 角点检测
+import cv2
+import numpy as np
+filename = 'E:\\Deep Learning\\DeepLearning\\Opencv\\checkerboard.png'
+img = cv2.imread(filename)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+gray = np.float32(gray)
+# 输入图像必须是 float32，最后一个参数在 0.04 到 0.05 之间
+dst = cv2.cornerHarris(gray,2,3,0.04)
+# result is dilated for marking the corners, not important
+dst = cv2.dilate(dst,None)
+# Threshold for an optimal value, it may vary depending on the image.
+img[dst>0.01*dst.max()]=[0,0,255]
+cv2.imshow('dst',img)
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\checkerboard-Harris.png',img)
+if cv2.waitKey(0) & 0xff == 27:
+    cv2.destroyAllWindows()
+```
+
+## 二十七、介绍 SIFT(Scale-Invariant Feature Transform)；
+
+```python
+# 目标：
+# • 学习 SIFT 算法的概念
+# • 学习在图像中查找 SIFT 关键点和描述符;
+
+>>>>>>> b1544941fd9cfd8427b4c5935fac84053262a634
+
+```
 
 
 
