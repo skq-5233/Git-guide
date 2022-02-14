@@ -2418,9 +2418,94 @@ if cv2.waitKey(0) & 0xff == 27:
 # • 学习 SIFT 算法的概念
 # • 学习在图像中查找 SIFT 关键点和描述符;
 
->>>>>>> b1544941fd9cfd8427b4c5935fac84053262a634
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+sift = cv2.xfeatures2d.SIFT_create()
 
+kp = sift.detect(gray,None)#找到关键点
+
+img=cv2.drawKeypoints(gray,kp,img)#绘制关键点
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-keypoint.jpg',img)
+cv2.imshow('img',img)
+cv2.waitKey(0)
 ```
 
+## 二十八、介绍 SURF(Speeded-Up Robust Features) ；
 
+```python
+# 目标
+# 本节我们将要学习：
+# • SUFR 的基础是什么？
+# • OpenCV 中的 SURF;
+import cv2
+import numpy as np
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+sift = cv2.xfeatures2d.SIFT_create()
+
+kp = sift.detect(gray,None)#找到关键点
+img2 = cv2.drawKeypoints(img,kp,None,(255,0,0),4)
+
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-keypoint-1.jpg',img2)
+cv2.imshow('img',img2)
+cv2.waitKey(0)
+```
+
+## 二十九、角点检测的 FAST 算法;
+
+```python
+# 目标
+# • 理解 FAST 算法的基础
+# • 使用 OpenCV 中的 FAST 算法相关函数进行角点检测
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg', 0)
+
+fast = cv2.FastFeatureDetector_create()
+kp = fast.detect(img, None)
+img2 = cv2.drawKeypoints(img, kp, None, color=(255, 0, 0))
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg-fast_true.jpg', img2)
+
+# 输出所有默认参数
+print('help of fast: ', help(fast))
+print("Threshold: ", fast.getThreshold())
+print("nonmaxSuppression", fast.getNonmaxSuppression())
+
+fast.setNonmaxSuppression(0)
+kp = fast.detect(img, None)
+img3 = cv2.drawKeypoints(img, kp, None, color=(0, 255, 0))
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg-fast_false.jpg', img3)
+
+res = cv2.bitwise_and(img2, img3)
+res = np.hstack([img2, img3, res])
+
+cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Fast.jpg',res)
+cv2.imshow('res', res)
+
+cv2.waitKey(0) & 0xFF
+cv2.destroyAllWindows()
+```
+
+## 三十、BRIEF(Binary Robust Independent Elementary Features);
+
+```python
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+img = cv.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+# 初始化FAST检测器
+star = cv.xfeatures2d.StarDetector_create()
+# 初始化BRIEF提取器
+brief = cv.xfeatures2d.BriefDescriptorExtractor_create()
+# 找到STAR的关键点
+kp = star.detect(img,None)
+# 计算BRIEF的描述符
+kp, des = brief.compute(img, kp)
+print(brief.descriptorSize())
+print(des.shape)
+```
 
