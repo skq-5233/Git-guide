@@ -2509,3 +2509,168 @@ print(brief.descriptorSize())
 print(des.shape)
 ```
 
+## 三十一、ORB (Oriented FAST and Rotated BRIEF);
+
+```python
+# 目标
+# • 我们要学习 ORB 算法的基础
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+img = cv.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+# Initiate ORB detector
+orb = cv.ORB_create()
+# find the keypoints with ORB
+kp = orb.detect(img,None)
+# compute the descriptors with ORB
+kp, des = orb.compute(img, kp)
+# draw only keypoints location,not size and orientation
+img2 = cv.drawKeypoints(img, kp, None, color=(0,255,0), flags=0)
+# plt.imshow(img2), plt.show()
+
+plt.imshow(img2)
+plt.savefig("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-ORB.jpg")
+plt.show()
+```
+
+## 三十二、特征匹配 ；
+
+```python
+# 目标
+# • 我们将要学习在图像间进行特征匹配
+# • 使用 OpenCV 中的蛮力（ Brute-Force）匹配和 FLANN 匹配
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+
+# 为了正常显示中文添加以下代码
+from pylab import *
+
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+img1=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg',0)
+img2=cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-1.jpg',0)
+
+orb = cv2.ORB_create()
+#寻找关键点并计算描述符
+kp1, des1 = orb.detectAndCompute(img1,None)
+kp2, des2 = orb.detectAndCompute(img2,None)
+#创建BFMatcher对象,因为使用的是ORB,距离计算设置为cv2.NORM_HAMMING
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+#匹配描述符
+matches = bf.match(des1,des2)
+#按距离排序
+matches = sorted(matches, key = lambda x:x.distance)
+###　绘制匹配的点(在这里选取的前十个最佳匹配点）
+img3=cv2.drawMatches(img1,kp1,img2,kp2,matches[:10],None,flags=2)
+#
+# plt.subplot(131), plt.imshow(img1), plt.title('原图'), plt.axis('off')
+# plt.subplot(132), plt.imshow(img2, cmap='gray'),plt.title('待匹配图'), plt.axis('off')
+# plt.subplot(121), plt.imshow(img3,cmap='gray'), plt.title('匹配结果'), plt.axis('off')
+#
+# plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Match.jpg')
+# plt.show()
+
+plt.imshow(img3)
+plt.savefig("E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Match.jpg")
+plt.show()
+
+# cv2.imshow('img1',img1)
+# cv2.imshow('img2',img2)
+# cv2.imshow('img3',img3)
+# cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Match.jpg',img3)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+"""
+37.5-FLANN匹配器.py:
+FLANN 是快速最近邻搜索包 Fast_Library_for_Approximate_Nearest_Neighbors 的简称。
+它是一个对大数据集和高维特征进行最近邻搜索的算法的集合
+ 而且这些算法 已经被优化 了。
+ 在面对大数据集时它的效果 好于 BFMatcher
+"""
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+
+    img1 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg', 0)  # queryImage
+img2 = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-1.jpg', 0)  # trainImage
+
+# Initiate SIFT detector
+# sift = cv2.SIFT()
+sift = cv2.xfeatures2d.SIFT_create()
+
+# find the keypoints and descriptors with SIFT
+kp1, des1 = sift.detectAndCompute(img1, None)
+kp2, des2 = sift.detectAndCompute(img2, None)
+
+# FLANN parameters
+FLANN_INDEX_KDTREE = 0
+index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
+search_params = dict(checks=50)  # or pass empty dictionary
+
+flann = cv2.FlannBasedMatcher(index_params, search_params)
+matches = flann.knnMatch(des1, des2, k=2)
+# Need to draw only good matches, so create a mask
+matchesMask = [[0, 0] for i in range(len(matches))]
+
+# ratio test as per Lowe's paper
+for i, (m, n) in enumerate(matches):
+    if m.distance < 0.7 * n.distance:
+        matchesMask[i] = [1, 0]
+
+draw_params = dict(matchColor=(0, 255, 0),
+                   singlePointColor=(255, 0, 0),
+                   matchesMask=matchesMask,
+                   flags=0)
+
+img3 = cv2.drawMatchesKnn(img1, kp1, img2, kp2, matches, None, **draw_params)
+
+plt.imshow(img3 )
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Match-FLANN.jpg')
+plt.show()
+```
+
+### 三十三、 Meanshift 和 Camshift；
+
+```python
+# 39 Meanshift 和 Camshift(235);
+import numpy as np
+import cv2
+cap = cv2.VideoCapture('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv-code\\Fall.mp4')
+# take first frame of the video
+ret,frame = cap.read()
+# setup initial location of window
+r,h,c,w = 250,90,400,125 # simply hardcoded the values
+track_window = (c,r,w,h)
+# set up the ROI for tracking
+roi = frame[r:r+h, c:c+w]
+hsv_roi = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+mask = cv2.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
+roi_hist = cv2.calcHist([hsv_roi],[0],mask,[180],[0,180])
+cv2.normalize(roi_hist,roi_hist,0,255,cv2.NORM_MINMAX)
+# Setup the termination criteria, either 10 iteration or move by atleast 1 pt
+term_crit = ( cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1 )
+while(1):
+    ret ,frame = cap.read()
+    if ret == True:
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        dst = cv2.calcBackProject([hsv],[0],roi_hist,[0,180],1)
+        # apply meanshift to get the new location
+        ret, track_window = cv2.meanShift(dst, track_window, term_crit)
+        # Draw it on image
+        x,y,w,h = track_window
+        img2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
+        cv2.imshow('img2',img2)
+        k = cv2.waitKey(60) & 0xff
+        if k == 27:
+            break
+        else:
+            cv2.imwrite(chr(k)+".jpg",img2)
+    else:
+        break
+cv2.destroyAllWindows()
+cap.release()
+```
+
