@@ -2606,3 +2606,160 @@ foreach (FileInfo nextfile in folder.GetFiles())
     Invoke((EventHandler)delegate { pictureBox11.Refresh(); });
 ```
 
+## 四十四、取消文件夹测试；
+
+```c#
+ private volatile bool canStop = true;//add(设置bool值canStop，控制测试取消按钮，2022-0214);
+ private void Cancel_Click(object sender, EventArgs e)//取消测试按钮；
+ {
+    canStop = !canStop;
+ }
+
+private void folder_Click(object sender, EventArgs e)//文件夹测试按钮；
+{
+    /*
+     ******************************自动模式下遍历文件夹--1--测试整个文件夹(加载待匹配图像)--start************************
+     *****************************(add,2022-0121)--start*************************************************************
+     *****************************(add,2022-0121)--start*************************************************************
+     */
+    //文件夹测试(2022-0121--start)；
+    picturecount = 0;
+    folderBrowserDialog1.SelectedPath = defaultfilepath; //记忆上次打开文件夹路径(2022-0125)；
+
+    //(打开文件夹函数--2022-0106--start)
+    if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+    {
+        defaultfilepath = folderBrowserDialog1.SelectedPath; //记忆上次打开文件夹路径(2022-0125)；
+
+        thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程(work-0214)
+        thread1.Start();//(开启线程--work-0214)
+    }
+}
+
+private void ImageProcessingAll()   //处理文件指定文件夹下所有图片
+{
+    //nMax = 0;
+    //nMin = 1;
+    //double dThreValue = Convert.ToDouble(ThreshTb.Text);
+    //Mat img;  //待测试图片
+    DirectoryInfo folder;
+    folder = new DirectoryInfo(defaultfilepath);
+    double pic = 0;//(图像计数-0214)；
+
+    //遍历文件夹；
+    foreach (FileInfo nextfile in folder.GetFiles())
+    {
+        //Invoke((EventHandler)delegate { label2.Text = "图片名称：" + Path.GetFileName(nextfile.FullName); });
+        //Invoke((EventHandler)delegate { label2.Refresh(); });
+
+        // 使用匿名方法定义线程的执行体;
+        #region  
+            //add(2022-0214--start);
+            //thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程(work-0214)
+            //Thread thread = new Thread(delegate (object param)
+            /*{*/// 等待“停止”信号，如果没有收到信号则执行 
+            //thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程(work-0214)
+            //thread1.Start();//(work-0214)
+            //if (canStop == true)//有问题，无法运行？
+            //{
+
+            //    thread1 = new Thread(new ThreadStart(ImageProcessingAll));//创建线程(work-0214)
+            //    thread1.Start();//(work-0214)
+
+            //    //ImageProcessingAll();
+            //}
+            // 此时已经收到停止信号，可以在此释放资源并初始化变量;
+
+            //});
+            //add(2022-0214--end);
+            #endregion
+
+            if (canStop == false)
+            {
+                canStop = !canStop;
+                break;
+                //thread1.Abort();//可暂停但不退出；
+
+            }
+
+        pic++;//(图像计数-0214)；
+
+        Point max_loc1 = new Point(0, 0);
+        Point classNumber = max_loc1;    //最大可能性位置
+
+        //string typeName = typeList[classNumber.X];
+
+        // DirectoryInfo对象.Name获得文件夹名;.FullName获得文件夹完整的路径名(2022-0125)
+        convert_img = CvInvoke.Imread(nextfile.FullName, ImreadModes.AnyColor);
+
+        //Image<Bgr, byte> matToimg = match_img.ToImage<Bgr, byte>();
+
+
+        Image<Bgr, Byte> match_img = convert_img.ToImage<Bgr, Byte>();//Mat 2 Image;
+
+        if (match_img == null)
+        {
+            Invoke((EventHandler)delegate { label18.Text = "无法加载文件！"; });
+            Invoke((EventHandler)delegate { label18.Refresh(); });
+            return;
+        }
+
+
+        //(add--2022-0214--遍历文件夹内图像数量--start);
+        string path = defaultfilepath;
+        string[] files = Directory.GetFiles(path, "*.bmp");
+
+
+        /*
+         *************(设计进度条-2022-0214--start)**************
+         *******************************************************
+         */
+
+        //progressBar1.Value = 0;  //清空进度条
+        double sumpic = (double)files.Length;
+        progressBar1.Value = (int)(pic / sumpic * 100);
+        label26.Text = "当前进度: " + Convert.ToInt32((int)(pic / sumpic * 100)) + '%' + "\r\n";
+        Thread.Sleep(50);
+
+        /*
+         *************(设计进度条-2022-0214--end)****************
+         *******************************************************
+         */
+
+        //进度条设计；
+        #region
+            //for (int i = 0; i < files.Length; i++)
+            //{
+            //    progressBar1.Value += (i / files.Length);
+            //    textBox2.Text = "当前进度:" + i.ToString() + '%'+ "\r\n";
+            //    Thread.Sleep(50);
+            //}
+
+            //int SumCount = 0;
+            //foreach (string file in files)//遍历图像数量;
+            //{
+            //    SumCount++;
+            //}
+            //(add--2022-0214--遍历文件夹内图像数量--end);
+
+            //int SumCount = 0;
+            //for (int i = 0; i < defaultfilepath.Length; i++) 
+            //{
+            //    //string[] bb = nextfile[i].Split(new char[] { '.' });
+            //    //if (bb[1].ToLower() == "bmp")
+            //    SumCount++;
+
+            //}
+            #endregion
+
+
+        //图像计数；
+        picturecount++;
+        Invoke((EventHandler)delegate { label13.Text = "图片总数：" + picturecount.ToString(); });
+        Invoke((EventHandler)delegate { label13.Refresh(); });
+
+        //检测内容
+        Invoke((EventHandler)delegate { pictureBox11.Image = BitmapExtension.ToBitmap(match_img); });
+        Invoke((EventHandler)delegate { pictureBox11.Refresh(); });
+```
+
