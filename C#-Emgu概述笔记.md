@@ -2763,3 +2763,10 @@ private void ImageProcessingAll()   //处理文件指定文件夹下所有图片
         Invoke((EventHandler)delegate { pictureBox11.Refresh(); });
 ```
 
+## 四十五、Winform左上角图标及右上角放大、缩小、退出功能；
+
+```c#
+1、在属性中选择主窗体（Form），若需要隐藏左上角窗体图标及右上角放大、缩小、退出功能键，找到FormBorderStyle，选择None；
+2、若需要修改程序窗体图标，在属性中选择主窗体（Form），找到Icon，选择修改图标；
+```
+

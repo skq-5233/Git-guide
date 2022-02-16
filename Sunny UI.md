@@ -70,5 +70,9 @@ private void uiHeaderButton2_Click(object sender, EventArgs e)
 
 ## 四、如何在picturebox中加载无边框的图像；
 
+```c#
+BackColor---Transparent；
+```
+
 
 

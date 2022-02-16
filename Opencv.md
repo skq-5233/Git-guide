@@ -2632,7 +2632,7 @@ plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-Match-FLANN.jpg')
 plt.show()
 ```
 
-### 三十三、 Meanshift 和 Camshift；
+## 三十三、 Meanshift 和 Camshift；
 
 ```python
 # 39 Meanshift 和 Camshift(235);
