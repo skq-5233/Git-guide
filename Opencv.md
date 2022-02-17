@@ -2828,5 +2828,270 @@ cv2.destroyAllWindows()
 # 目标
 # • 学习摄像机畸变以及摄像机的内部参数和外部参数
 # • 学习找到这些参数，对畸变图像进行修复
+import numpy as np
+import cv2
+import glob
+# termination criteria
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+# prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)
+objp = np.zeros((6*7,3), np.float32)
+objp[:,:2] = np.mgrid[0:7,0:6].T.reshape(-1,2)
+# Arrays to store object points and image points from all the images.
+objpoints = [] # 3d point in real world space
+imgpoints = [] # 2d points in image plane.
+images = glob.glob('E:\\Deep Learning\\DeepLearning\\Opencv\\checkerboard.png')
+for fname in images:
+    img = cv2.imread(fname)
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    # Find the chess board corners
+    ret, corners = cv2.findChessboardCorners(gray, (7,6),None)
+    # If found, add object points, image points (after refining them)
+    if ret == True:
+        objpoints.append(objp)
+        corners2 = cv2.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
+        imgpoints.append(corners2)
+        # Draw and display the corners
+        img = cv2.drawChessboardCorners(img, (7,6), corners2,ret)
+        cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\checkerboard-point.png',img)
+        cv2.imshow('img', img)
+        cv2.waitKey(500)
+cv2.destroyAllWindows()
+
+# 42.2.2 标定
+#ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
+
+# 42.2.3 畸变校正
+# 读取一个新的图像（left2.ipg）
+# img = cv.imread('left12.jpg')
+# h,  w = img.shape[:2]
+# newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
+
+# 使用 cv2.undistort() 这是最简单的方法。只需使用这个函数和上边得到的 ROI 对结果进行裁剪。
+# # undistort
+# dst = cv.undistort(img, mtx, dist, None, newcameramtx)
+#
+# # crop the image
+# x, y, w, h = roi
+# dst = dst[y:y+h, x:x+w]
+# cv.imwrite('calibresult.png', dst)
+
+# 使用 remapping 这应该属于“曲线救国”了。首先我们要找到从畸变图像到非畸变图像的映射方程。再使用重映射方程。
+# # undistort
+# mapx, mapy = cv.initUndistortRectifyMap(mtx, dist, None, newcameramtx, (w,h), 5)
+# dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
+#
+# # crop the image
+# x, y, w, h = roi
+# dst = dst[y:y+h, x:x+w]
+# cv.imwrite('calibresult.png', dst)
+
+# 42.3 反向投影误差;
+# mean_error = 0
+# for i in xrange(len(objpoints)):
+#     imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+#     error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
+#     mean_error += error
+#     
+# print( "total error: {}".format(mean_error/len(objpoints)) )
+```
+
+## 三十七、姿势估计；
+
+```python
+# 43 姿势估计;
+# 首先，让我们从先前的校准结果中加载相机矩阵和畸变系数。
+# import numpy as np
+# import cv2 as cv
+# import glob
+# # Load previously saved data
+# with np.load('B.npz') as X:
+#     mtx, dist, _, _ = [X[i] for i in ('mtx','dist','rvecs','tvecs')]
+
+# 现在让我们创建一个函数，绘制它获取棋盘中的角（使用cv.findChessboardCorners()获得）和轴点来绘制3D轴。
+# def draw(img, corners, imgpts):
+#     corner = tuple(corners[0].ravel())
+#     img = cv.line(img, corner, tuple(imgpts[0].ravel()), (255,0,0), 5)
+#     img = cv.line(img, corner, tuple(imgpts[1].ravel()), (0,255,0), 5)
+#     img = cv.line(img, corner, tuple(imgpts[2].ravel()), (0,0,255), 5)
+#     return img
+
+# 然后与前面的情况一样，我们创建终止标准，对象点（棋盘中的角点的3D点）和轴点。
+# criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+# objp = np.zeros((6*7,3), np.float32)
+# objp[:,:2] = np.mgrid[0:7,0:6].T.reshape(-1,2)
+#
+# axis = np.float32([[3,0,0], [0,3,0], [0,0,-3]]).reshape(-1,3)
+
+# 很通常一样我们需要加载图像。搜寻 7x6 的格子，如果发现，我们就把它优化到亚像素级。
+# for fname in glob.glob('left*.jpg'):
+#     img = cv.imread(fname)
+#     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+#     ret, corners = cv.findChessboardCorners(gray, (7,6),None)
+#
+#     if ret == True:
+#         corners2 = cv.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
+#
+#         # Find the rotation and translation vectors.
+#         ret,rvecs, tvecs = cv.solvePnP(objp, corners2, mtx, dist)
+#
+#         # project 3D points to image plane
+#         imgpts, jac = cv.projectPoints(axis, rvecs, tvecs, mtx, dist)
+#         img = draw(img,corners2,imgpts)
+#         cv.imshow('img',img)
+#         k = cv.waitKey(0) & 0xFF
+#         if k == ord('s'):
+#             cv.imwrite(fname[:6]+'.png', img)
+#
+# cv.destroyAllWindows()
+```
+
+## 三十八、对极几何（ Epipolar Geometry）；
+
+```python
+# 目标
+# • 本节我们要学习多视角几何基础
+# • 学习什么是极点，极线，对极约束等
+
+# 首先，我们需要在两个图像之间找到尽可能多的匹配，以找到基本矩阵。为此，我们使用SIFT描述符和基于FLANN的匹配器和比率测试。
+# import numpy as np
+# import cv2 as cv
+# from matplotlib import pyplot as plt
+#
+# img1 = cv.imread('myleft.jpg',0)  #queryimage # left image
+# img2 = cv.imread('myright.jpg',0) #trainimage # right image
+#
+# sift = cv.SIFT()
+#
+# # find the keypoints and descriptors with SIFT
+# kp1, des1 = sift.detectAndCompute(img1,None)
+# kp2, des2 = sift.detectAndCompute(img2,None)
+#
+# # FLANN parameters
+# FLANN_INDEX_KDTREE = 1
+# index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+# search_params = dict(checks=50)
+#
+# flann = cv.FlannBasedMatcher(index_params,search_params)
+# matches = flann.knnMatch(des1,des2,k=2)
+#
+# good = []
+# pts1 = []
+# pts2 = []
+#
+# # ratio test as per Lowe's paper
+# for i,(m,n) in enumerate(matches):
+#     if m.distance < 0.8*n.distance:
+#         good.append(m)
+#         pts2.append(kp2[m.trainIdx].pt)
+#         pts1.append(kp1[m.queryIdx].pt)
+
+# 现在我们有两张图片的最佳匹配列表。让我们找到基本矩阵。
+# pts1 = np.int32(pts1)
+# pts2 = np.int32(pts2)
+# F, mask = cv.findFundamentalMat(pts1,pts2,cv.FM_LMEDS)
+#
+# # We select only inlier points
+# pts1 = pts1[mask.ravel()==1]
+# pts2 = pts2[mask.ravel()==1]
+
+# 下一步我们要找到极线。我们会得到一个包含很多线的数组。所以我们要定义一个新的函数将这些线绘制到图像中。
+# def drawlines(img1,img2,lines,pts1,pts2):
+#     ''' img1 - image on which we draw the epilines for the points in img2
+#         lines - corresponding epilines '''
+#     r,c = img1.shape
+#     img1 = cv.cvtColor(img1,cv.COLOR_GRAY2BGR)
+#     img2 = cv.cvtColor(img2,cv.COLOR_GRAY2BGR)
+#     for r,pt1,pt2 in zip(lines,pts1,pts2):
+#         color = tuple(np.random.randint(0,255,3).tolist())
+#         x0,y0 = map(int, [0, -r[2]/r[1] ])
+#         x1,y1 = map(int, [c, -(r[2]+r[0]*c)/r[1] ])
+#         img1 = cv.line(img1, (x0,y0), (x1,y1), color,1)
+#         img1 = cv.circle(img1,tuple(pt1),5,color,-1)
+#         img2 = cv.circle(img2,tuple(pt2),5,color,-1)
+#     return img1,img2
+
+# 现在我们在两个图像中找到了极线并绘制它们。
+# # Find epilines corresponding to points in right image (second image) and
+# # drawing its lines on left image
+# lines1 = cv.computeCorrespondEpilines(pts2.reshape(-1,1,2), 2,F)
+# lines1 = lines1.reshape(-1,3)
+# img5,img6 = drawlines(img1,img2,lines1,pts1,pts2)
+#
+# # Find epilines corresponding to points in left image (first image) and
+# # drawing its lines on right image
+# lines2 = cv.computeCorrespondEpilines(pts1.reshape(-1,1,2), 1,F)
+# lines2 = lines2.reshape(-1,3)
+# img3,img4 = drawlines(img2,img1,lines2,pts2,pts1)
+#
+# plt.subplot(121),plt.imshow(img5)
+# plt.subplot(122),plt.imshow(img3)
+# plt.show()
+```
+
+## 三十九、立体图像中的深度地图；
+
+```python
+# 目标
+# • 本节我们要学习为立体图像制作深度地图
+# import numpy as np
+# import cv2 as cv
+# from matplotlib import pyplot as plt
+#
+# imgL = cv.imread('tsukuba_l.png',0)
+# imgR = cv.imread('tsukuba_r.png',0)
+#
+# stereo = cv.StereoBM_create(numDisparities=16, blockSize=15)
+# disparity = stereo.compute(imgL,imgR)
+# plt.imshow(disparity,'gray')
+# plt.show()
+```
+
+##  四十、机器学习--K 近邻（ k-Nearest Neighbour ）；
+
+```python
+# 46.1 理解 K 近邻
+# 目标
+# • 本节我们要理解 k 近邻（ kNN）的基本概念。
+# 46.1 理解 K 近邻
+# 目标
+# • 本节我们要理解 k 近邻（ kNN）的基本概念。
+
+# 46.1.1 OpenCV 中的 kNN
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+# Feature set containing (x,y) values of 25 known/training data
+trainData = np.random.randint(0,100,(25,2)).astype(np.float32)
+# Labels each one either Red or Blue with numbers 0 and 1
+responses = np.random.randint(0,2,(25,1)).astype(np.float32)
+# Take Red families and plot them
+red = trainData[responses.ravel()==0]
+plt.scatter(red[:,0],red[:,1],80,'r','^')
+# Take Blue families and plot them
+blue = trainData[responses.ravel()==1]
+plt.scatter(blue[:,0],blue[:,1],80,'b','s')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\KNN.jpg')
+plt.show()
+
+# 让我们看看它是如何工作的。测试数据被标记为绿色
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+
+trainData = np.random.randint(0,100,(25,2)).astype(np.float32)
+# Labels each one either Red or Blue with numbers 0 and 1
+responses = np.random.randint(0,2,(25,1)).astype(np.float32)
+
+newcomer = np.random.randint(0,100,(1,2)).astype(np.float32)
+plt.scatter(newcomer[:,0],newcomer[:,1],80,'g','o')
+knn = cv2.ml.KNearest_create()
+knn.train(trainData,responses)
+ret, results, neighbours,dist = knn.find_nearest(newcomer, 3)
+print("result: ", results,"\n")
+print("neighbours: ", neighbours,"\n")
+print("distance: ", dist)
+plt.show()
+
+# 46.2 使用 kNN 对手写数字 OCR(277);
 ```
 
