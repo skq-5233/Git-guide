@@ -3093,5 +3093,417 @@ print("distance: ", dist)
 plt.show()
 
 # 46.2 使用 kNN 对手写数字 OCR(277);
+# 目标
+# • 要根据我们掌握的 kNN 知识创建一个基本的 OCR 程序
+# • 使用 OpenCV 自带的手写数字和字母数据测试我们的程序
+# 构建手写数字OCR的应用程序
+
+# 46.2.1 手写数字的 OCR
+# 需要一些 train_data 和 test_data。 OpenCV 附带一个图像digits.png，其中有 5000 个手写数字（每个数字 500 个）。每个数字都是一个 20x20 的图像。、
+# 第一步是将这个图像分成 5000 个不同的数字。对于每个数字，我们将其展平为 400 像素的一行。那就是我们的特征集，即所有像素的强度值。这是我们可以创建的最简单的功能集。
+# 第二部使用每个数字的前 250 个样本作为 train_data，剩下的250 个样本作为 test_data
+# 然后训练数据；
+
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\digits.png')  # 原始图像包括5000个不同的数字
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# 分割图像为5000个单元，每个20x20像素
+cells = [np.hsplit(row, 100) for row in np.vsplit(gray, 50)]
+
+# 转为Numpy数组，shape将为 (50,100,20,20)
+x = np.array(cells)
+
+# 准备训练集和测试集
+train = x[:, :50].reshape(-1, 400).astype(np.float32)  # Size = (2500,400)
+test = x[:, 50:100].reshape(-1, 400).astype(np.float32)  # Size = (2500,400)
+
+# 为训练数据和测试数据创建标签
+k = np.arange(10)
+train_labels = np.repeat(k, 250)[:, np.newaxis]
+test_labels = train_labels.copy()
+
+# 初始化KNN，训练模型，然后对测试集使用k=1进行测试
+knn = cv2.ml.KNearest_create()
+print('knn: ', knn)
+knn.train(train, cv2.ml.ROW_SAMPLE, train_labels)
+ret, result, neighbours, dist = knn.findNearest(test, k=5)
+
+print("result: ", result, result.shape)
+print("neighbours: ", neighbours)
+print("distance: ", dist)
+
+# 检查分类的准确性
+# 将预测分类的结果与其所属的测试标签进行比较，判断成功还是失败
+matches = result == test_labels
+correct = np.count_nonzero(matches)
+accuracy = correct * 100.0 / result.size
+
+# 识别手写数字得到了91.76% 的准确率。提高准确性的一种选择是添加更多用于训练的数据，尤其是错误的数据。
+# 可以把训练的数据/模型保存下来，这样下次就能直接从文件中加载数据/模型，然后进行分类，可借助Numpy函数（如 np.savetxt、np.savez、np.load 等）来保存模型
+print("OCR digits accuracy: ", accuracy)
+
+# 保存训练数据
+# 需要大约 4MB 的内存。由于使用强度值（uint8 数据）作为特征，因此最好先将数据转换为 np.uint8，然后再保存,这样只需要1MB。然后在加载时再转换回float32。
+np.savez('E:\\Deep Learning\\DeepLearning\\Opencv\\knn_data.npz', train=train, train_labels=train_labels)
+
+# 加载
+with np.load('E:\\Deep Learning\\DeepLearning\\Opencv\\knn_data.npz') as data:
+    print(data.files)
+    train = data['train']
+    train_labels = data['train_labels']
+    print(train.shape, train_labels.shape)
+
+# 需要大约 4MB 的内存。由于使用强度值（uint8 数据）作为特征，因此最好先将数据转换为 np.uint8，然后再保存。这样只需要1MB。然后在加载时再转换回np.float32。
+np.savez('E:\\Deep Learning\\DeepLearning\\Opencv\\knn_data_npuint8.npz', train=train.astype(np.uint8), train_labels=train_labels.astype(np.uint8))
+
+# 加载uint8的训练数据
+with np.load('E:\\Deep Learning\\DeepLearning\\Opencv\\knn_data_npuint8.npz') as data:
+    print(data.files)
+    train = data['train'].astype(np.float32)
+    train_labels = data['train_labels'].astype(np.float32)
+    print(train.shape, train_labels.shape)
+    
+    
+# 46.2.2 英文字母的 OCR；
+# 构建英文字母OCR的应用程序
+
+# 对英文字母进行OCR，但数据和特征集与手写数字略有变化。OpenCV 没有提供英文字母的图像，而是提供了一个数据文件 letter-recognition.data。
+# 共20000 行，每一行中第一列是一个字母表，这是标签。接下来的 16 个数字是其不同的功能。这些功能是从 UCI 机器学习存储库中获得的。您可以在此页面中找到这些功能的详细信息。
+# 有20000个样本可用，因此取前10000个数据作为训练样本，剩下的10000个作为测试样本。OpenCV无法直接处理字母，因此先将字母更改为 ascii 字符，然后进行处理。
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 加载数据，并转换字母为ASCII码
+data = np.loadtxt('E:\\Deep Learning\\DeepLearning\\Opencv\\letter-recognition.data', dtype='float32', delimiter=',',
+                  converters={0: lambda ch: ord(ch) - ord('A')})
+
+# 拆分数据为俩份，训练数据，测试数据各10000
+train, test = np.vsplit(data, 2)
+
+# 拆分训练数据集为特征及分类
+responses, trainData = np.hsplit(train, [1])
+labels, testData = np.hsplit(test, [1])
+
+# 初始化KNN，训练模型，度量其准确性
+knn = cv2.ml.KNearest_create()
+knn.train(trainData, cv2.ml.ROW_SAMPLE, responses)
+ret, result, neighbours, dist = knn.findNearest(testData, k=5)
+
+print("result: ", result, result.shape)
+print("neighbours: ", neighbours)
+print("distance: ", dist)
+
+correct = np.count_nonzero(result == labels)
+accuracy = correct * 100.0 / 10000
+
+# 得到了93.06%的准确度，如果要提高准确性，可以在每个级别中迭代添加错误数据。
+print('OCR alphabet accuracy: ', accuracy)
+```
+
+## 四十一、支持向量机；
+
+```python
+# 47.1 理解 SVM
+# 目标
+# • 对 SVM 有一个直观理解
+
+# 47.2 使用 SVM 进行手写数据 OCR
+# -*- coding: cp936 -*-
+import cv2
+import numpy as np
+import glob
+from matplotlib import pyplot as plt
+
+SZ=20
+bin_n = 16 # Number of bins
+affine_flags = cv2.WARP_INVERSE_MAP|cv2.INTER_LINEAR
+
+def deskew(img):
+    m = cv2.moments(img)
+    if abs(m['mu02']) < 1e-2:
+        return img.copy()
+    skew = m['mu11']/m['mu02']
+    M = np.float32([[1, skew, -0.5*SZ*skew], [0, 1, 0]])
+    img = cv2.warpAffine(img,M,(SZ, SZ),flags=affine_flags)
+    return img
+
+def hog(img):
+    gx = cv2.Sobel(img, cv2.CV_32F, 1, 0)
+    gy = cv2.Sobel(img, cv2.CV_32F, 0, 1)
+    mag, ang = cv2.cartToPolar(gx, gy)
+    bins = np.int32(bin_n*ang/(2*np.pi))    # quantizing binvalues in (0...16)
+    bin_cells = bins[:10,:10], bins[10:,:10], bins[:10,10:], bins[10:,10:]
+    mag_cells = mag[:10,:10], mag[10:,:10], mag[:10,10:], mag[10:,10:]
+    hists = [np.bincount(b.ravel(), m.ravel(), bin_n) for b, m in zip(bin_cells, mag_cells)]
+    hist = np.hstack(hists)     # hist is a 64 bit vector
+    return hist
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\digits.png',0)
+if img is None:
+    raise Exception("we need the digits.png image from samples/data here !")
+cells = [np.hsplit(row,100) for row in np.vsplit(img,50)]
+
+# First half is trainData, remaining is testData
+train_cells = [ i[:50] for i in cells ]
+test_cells = [ i[50:] for i in cells]
+deskewed = [list(map(deskew,row)) for row in train_cells]
+hogdata = [list(map(hog,row)) for row in deskewed]
+trainData = np.float32(hogdata).reshape(-1,64)
+responses = np.repeat(np.arange(10),250)[:,np.newaxis]
+
+svm = cv2.ml.SVM_create()
+svm.setKernel(cv2.ml.SVM_LINEAR)
+svm.setType(cv2.ml.SVM_C_SVC)
+svm.setC(2.67)
+svm.setGamma(5.383)
+svm.train(trainData, cv2.ml.ROW_SAMPLE, responses)
+svm.save('svm_data.dat')
+
+deskewed = [list(map(deskew,row)) for row in test_cells]
+hogdata = [list(map(hog,row)) for row in deskewed]
+testData = np.float32(hogdata).reshape(-1,bin_n*4)
+result = svm.predict(testData)[1]
+mask = result==responses
+correct = np.count_nonzero(mask)
+print(correct*100.0/result.size)
+```
+
+## 四十二、OpenCV 中的 K 值聚类；
+
+```python
+# 单一特征数据；
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+x = np.random.randint(25,100,25)
+y = np.random.randint(175,255,25)
+z = np.hstack((x,y))
+z = z.reshape((50,1))
+z = np.float32(z)
+plt.hist(z,256,[0,256])
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\K-Means.jpg')
+plt.show()
+
+# 定义终止标准 = ( type, max_iter = 10 , epsilon = 1.0 )
+criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+# 设置标志
+flags = cv.KMEANS_RANDOM_CENTERS
+# 应用K均值
+compactness,labels,centers = cv.kmeans(z,2,None,criteria,10,flags)
+
+A = z[labels==0]
+B = z[labels==1]
+
+# 现在绘制用红色'A'，用蓝色绘制'B'，用黄色绘制中心
+plt.hist(A,256,[0,256],color = 'r')
+plt.hist(B,256,[0,256],color = 'b')
+plt.hist(centers,32,[0,256],color = 'y')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\K-Means-1.jpg')
+plt.show()
+
+# 多特征数据；
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+X = np.random.randint(25,50,(25,2))
+Y = np.random.randint(60,85,(25,2))
+Z = np.vstack((X,Y))
+# 将数据转换未 np.float32
+Z = np.float32(Z)
+# 定义停止标准，应用K均值
+criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+ret,label,center=cv.kmeans(Z,2,None,criteria,10,cv.KMEANS_RANDOM_CENTERS)
+# 现在分离数据, Note the flatten()
+A = Z[label.ravel()==0]
+B = Z[label.ravel()==1]
+# 绘制数据
+plt.scatter(A[:,0],A[:,1])
+plt.scatter(B[:,0],B[:,1],c = 'r')
+plt.scatter(center[:,0],center[:,1],s = 80,c = 'y', marker = 's')
+plt.xlabel('Height'),plt.ylabel('Weight')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\K-Means-mush.jpg')
+plt.show()
+
+# 48.2.3 颜色量化
+import numpy as np
+import cv2
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena.jpg')
+Z = img.reshape((-1,3))
+# convert to np.float32
+Z = np.float32(Z)
+# define criteria, number of clusters(K) and apply kmeans()
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+K = 8
+ret,label,center=cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
+# Now convert back into uint8, and make original image
+center = np.uint8(center)
+res = center[label.flatten()]
+res2 = res.reshape((img.shape))
+cv2.imshow('res2',res2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+## 四十三、图像去噪；
+
+```python
+# 49.1.1 cv2.fastNlMeansDenoisingColored()
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\rabbit-noise.jpg')
+
+dst = cv2.fastNlMeansDenoisingColored(img,None,10,10,7,21)
+
+plt.subplot(121),plt.imshow(img)
+plt.subplot(122),plt.imshow(dst)
+plt.show()
+
+# 49.1.2 cv2.fastNlMeansDenoisingMulti();
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+cap = cv2.VideoCapture('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv-code\\Fall.mp4')
+# create a list of first 5 frames
+img = [cap.read()[1] for i in range(5)]
+# convert all to grayscale
+gray = [cv2.cvtColor(i, cv2.COLOR_BGR2GRAY) for i in img]
+# convert all to float64
+gray = [np.float64(i) for i in gray]
+# create a noise of variance 25
+noise = np.random.randn(*gray[1].shape)*10
+# Add this noise to images
+noisy = [i+noise for i in gray]
+# Convert back to uint8
+noisy = [np.uint8(np.clip(i,0,255)) for i in noisy]
+# Denoise 3rd frame considering all the 5 frames
+dst = cv2.fastNlMeansDenoisingMulti(noisy, 2, 5, None, 4, 7, 35)
+plt.subplot(131),plt.imshow(gray[2],'gray')
+plt.subplot(132),plt.imshow(noisy[2],'gray')
+plt.subplot(133),plt.imshow(dst,'gray')
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\opencv-code\\Fall.jpg')
+plt.show()
+```
+
+## 四十四、图像修补 ；
+
+```python
+# 目标
+# 本节我们将要学习：
+# • 使用修补技术去除老照片中小的噪音和划痕
+# • 使用 OpenCV 中与修补技术相关的函数
+
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
+plt.rcParams['axes.unicode_minus'] = False #用来正常显示负号
+
+img = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\people.png')
+# 缩放的目的是为了保证掩模图像和原图像大小一致
+img = cv2.resize(img, (150, 112))
+b,g,r = cv2.split(img)
+img2 = cv2.merge([r,g,b])
+
+print(img.shape, img.size)
+mask = cv2.imread('E:\\Deep Learning\\DeepLearning\\Opencv\\mask.png', 0)
+print(mask.shape, mask.size)
+# 使用算法一修复
+dst = cv2.inpaint(img, mask, 3, cv2.INPAINT_TELEA)
+# 使用算法二修复
+dst2 = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
+
+plt.subplot(141),plt.title('原图') ,plt.imshow(img)
+plt.subplot(142),plt.title('掩模图') ,plt.imshow(mask)
+plt.subplot(143),plt.title('算法一修复结果') ,plt.imshow(dst)
+plt.subplot(144),plt.title('算法二修复结果') ,plt.imshow(dst2)
+plt.savefig('E:\\Deep Learning\\DeepLearning\\Opencv\\people-inpaint.jpg')
+plt.show()
+
+
+# 显示待修复图像
+# cv2.imshow('img', img)
+# # 算法一的修复结果
+# cv2.imshow('dst', dst)
+# # 算法二的修复结果
+# cv2.imshow('dst2', dst2)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+```
+
+## 四十五、使用 Haar 分类器进行面部检测;
+
+```python
+# 实现静态图像脸、眼睛检测；
+import cv2
+file_name = r"E:\Deep Learning\DeepLearning\Opencv\Lena.jpg"
+
+def detect(filename):
+    # face_cascade = cv2.CascadeClassifier('E:\\Deep Learning\\DeepLearning\\Opencv\\haarcascade_frontalface_alt2.xml')
+    face_cascade = cv2.CascadeClassifier('E:\\Deep Learning\\DeepLearning\\Opencv\\haarcascade_frontalface_default.xml')
+
+    eye_cascade = cv2.CascadeClassifier('E:\\Deep Learning\\DeepLearning\\Opencv\\haarcascade_eye.xml')
+
+    img = cv2.imread(filename)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.1, 3)
+    for (x, y, w, h) in faces:
+        img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+        roi_gray = gray[y:y + h, x:x + w]
+        eyes = eye_cascade.detectMultiScale(roi_gray, 1.03, 3, 0, (30, 30))
+        for (ex, ey, ew, eh) in eyes:
+            cv2.rectangle(img, (ex + x, ey + y), (ex + ew + x, ey + eh + y), (0, 255, 0), 2)
+
+    cv2.namedWindow('face')
+    cv2.imwrite('E:\\Deep Learning\\DeepLearning\\Opencv\\Lena-face-eye.jpg',img)
+    cv2.imshow('face', img)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    detect(file_name)
+
+# 实现视频中人脸检测;
+import cv2
+import sys
+
+def detect():
+    face_cascade = cv2.CascadeClassifier('E:\\Deep Learning\\DeepLearning\\Opencv\\haarcascade_frontalcatface.xml')  # 使用脸部检测
+    eye_cascade = cv2.CascadeClassifier('E:\\Deep Learning\\DeepLearning\\Opencv\\haarcascade_eye.xml')
+    camera = cv2.VideoCapture(0)  # 0代表调用默认摄像头，1代表调用外接摄像头
+
+    while (True):
+        ret, frame = camera.read()
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+        for (x, y, w, h) in faces:  # 返回的x,y代表roi区域的左上角坐标，w,h代表宽度和高度
+            img = cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            roi_gray = gray[y:y + h, x:x + w]
+            eyes = eye_cascade.detectMultiScale(roi_gray, 1.03, 5, 0, (40, 40))
+
+            for (ex, ey, ew, eh) in eyes:
+                cv2.rectangle(img, (x + ex, y + ey), (x + ex + ew, y + ey + eh), (0, 255, 0), 2)
+
+        cv2.imshow("Camera", frame)
+
+        key = cv2.waitKey(30) & 0xff
+        if key == 27:
+            sys.exit()
+
+
+if __name__ == "__main__":
+    detect()
 ```
 
