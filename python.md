@@ -726,6 +726,132 @@ a.extend('acsd')  # 添加单个字母；
 a.insert(0,'ewqr') # 在索引值0前面，添加元素；
 print(a) # ['ewqr', 'qq', 111, 'abc', 'true', 'aas', 'gods', 'asd', 'qwq', 'a', 'c', 's', 'd']；
 
+# 2.2.1 索引；
+greeting = 'Hello'
+greeting[0] # 'H'；(-->)
+greeting[-1] # 'o'；(<--)
+
+# 2.2.2 切片；
+tag = '<a href="http://www.python.org">Python web site</a>'
+tag[9:30] # 'http://www.python.org'；
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+numbers[7:10] #[8, 9, 10];
+numbers[-3:-1] # [8, 9];
+
+# 复制整个序列
+numbers[:] # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+# 步长为1；
+numbers[0:10:1] # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]；
+
+# 步长为2；
+numbers[0:10:2] # [1, 3, 5, 7, 9]；
+
+# 2.2.3 序列相加；
+[1, 2, 3] + [4, 5, 6] # [1, 2, 3, 4, 5, 6]；一般而言，不能拼接不同类型的序列。
+
+# 2.2.4 乘法
+[42] * 10  # [42, 42, 42, 42, 42, 42, 42, 42, 42, 42]；
+
+# 2.3 列表：Python 的主力；
+# 2.3.1 函数 list；
+list('Hello') # ['H', 'e', 'l', 'l', 'o']；
+
+# 2.3.2 基本的列表操作；
+1. 修改列表：给元素赋值；
+ x = [1, 1, 1]
+ x[1] = 2  
+ print(x) # [1, 2, 1]；
+ 
+2. 删除元素；
+ names = ['Alice', 'Beth', 'Cecil', 'Dee-Dee', 'Earl']
+ del names[2]
+ print(names) #	['Alice', 'Beth', 'Dee-Dee', 'Earl'];
+    
+ # 3. 给切片赋值;
+ name = list('Perl')
+ name[2:] = list('ar')
+ print(name) # ['P', 'e', 'a', 'r'];
+    
+ # 2.3.3 列表方法
+ # 1. append(方法append用于将一个对象附加到列表末尾。)；
+ lst = [1, 2, 3]
+ lst.append(4)
+ print(lst) # [1, 2, 3, 4];
+
+ # 2. clear(方法clear就地清空列表的内容);
+ lst = [1, 2, 3]
+ lst.clear()
+ print(lst) # [];
+
+ # 3. copy(方法 copy 复制列表,常规复制只是将另一个名称关联到列表。);
+ a = [1, 2, 3]
+ b = a
+ b[1] = 4
+ print(a) # [1, 4, 3];
+    
+ a = [1, 2, 3]
+ b = a.copy()
+ b[1] = 4
+ print(a) # [1, 2, 3];
+    
+ # 4. count(方法count计算指定的元素在列表中出现了多少次。)
+  ['to', 'be', 'or', 'not', 'to', 'be'].count('to') # 2;
+    
+ # 5. extend(方法extend让你能够同时将多个值附加到列表末尾);
+ a = [1, 2, 3]
+ b = [4, 5, 6]
+ a.extend(b)
+ print(a) # [1, 2, 3, 4, 5, 6]；
+
+ # 6. index(方法index在列表中查找指定值第一次出现的索引。)
+ knights = ['We', 'are', 'the', 'knights', 'who', 'say', 'ni']
+ knights.index('who') # 4;
+  
+ # 7. insert(方法insert用于将一个对象插入列表。)
+ numbers = [1, 2, 3, 5, 6, 7]
+ numbers.insert(3, 'four')
+ print( numbers) # [1, 2, 3, 'four', 5, 6, 7];
+
+ # 8. pop(方法pop从列表中删除一个元素（末尾为最后一个元素），并返回这一元素。)
+ x = [1, 2, 3]
+ print(x.pop()) # 3;
+    
+ # 9. remove(方法remove用于删除第一个为指定值的元素。)
+ x = ['to', 'be', 'or', 'not', 'to', 'be']
+ x.remove('be')
+ print(x) # ['to', 'or', 'not', 'to', 'be']；
+    
+ # 10. reverse(方法reverse按相反的顺序排列列表中的元素);
+ x = [1, 2, 3]
+ x.reverse()
+ print(x) # [3, 2, 1];
+    
+ # 11. sort(方法sort用于对列表就地排序。)
+ x = [4, 6, 2, 1, 7, 9]
+ x.sort()
+ print(x) # [1, 2, 4, 6, 7, 9]；
+    
+ # 12. 高级排序(方法sort接受两个可选参数：key和reverse。)
+ x = ['aardvark', 'abalone', 'acme', 'add', 'aerate']
+ x.sort(key=len)
+ print(x) # ['add', 'acme', 'aerate', 'abalone', 'aardvark'];
+    
+ x = [4, 6, 2, 1, 7, 9]
+ x.sort(reverse=True)
+ print(x) # [9, 7, 6, 4, 2, 1];
+
+ # 2.4 元组：不可修改的序列(元组是不能修改的);
+  1, 2, 3 # ( 1, 2, 3)
+```
+
+## 十三、使用字符串；
+
+```python
+# 3.1 字符串基本操作
+# 所有标准序列操作（索引、切片、乘法、成员资格检查、长度、最小值和最大值）都适用于字符串，但别忘了字符串是不可变的;
+
 ```
 
 
