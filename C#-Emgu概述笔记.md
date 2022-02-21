@@ -2770,3 +2770,29 @@ private void ImageProcessingAll()   //处理文件指定文件夹下所有图片
 2、若需要修改程序窗体图标，在属性中选择主窗体（Form），找到Icon，选择修改图标；
 ```
 
+## 四十六、线程间操作无效: 从不是创建控件“progressBar1”的线程访问它；
+
+```c#
+/*
+ *************(设计进度条-2022-0214--start)**************
+ **************************************************
+ */
+
+//progressBar1.Value = 0;  //清空进度条（origin）
+double sumpic = (double)files.Length;
+progressBar1.Value = (int)((pic / sumpic) * 100);//(debug-0218--线程间操作无效: 从不是创建控件“progressBar1”的线程访问它。)
+label26.Text = "当前进度: " + Convert.ToInt32((int)((pic / sumpic) * 100)) + '%' + "\r\n";//(work-0216)
+Thread.Sleep(50);
+
+//Invoke(2022-0221)（改用Invoke）;
+double sumpic = (double)files.Length;
+Invoke((EventHandler)delegate { progressBar1.Value = (int)((pic / sumpic) * 100); });
+Invoke((EventHandler)delegate { label26.Text = "当前进度: " + Convert.ToInt32((int)((pic / sumpic) * 100)) + '%' + "\r\n"; });
+Thread.Sleep(50);
+
+/*
+*************(设计进度条-2022-0214--end)****************
+**************************************************
+*/
+```
+
