@@ -851,6 +851,12 @@ list('Hello') # ['H', 'e', 'l', 'l', 'o']；
 ```python
 # 3.1 字符串基本操作
 # 所有标准序列操作（索引、切片、乘法、成员资格检查、长度、最小值和最大值）都适用于字符串，但别忘了字符串是不可变的;
+# 3.2 设置字符串的格式：精简版
+format = "Hello, %s. %s enough for ya?"
+values = ('world', 'Hot')
+print( format % values) # 'Hello, world. Hot enough for ya?';
+# 上述格式字符串中的%s称为转换说明符，指出了要将值插入什么地方;
+
 
 ```
 
