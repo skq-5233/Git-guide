@@ -851,12 +851,101 @@ list('Hello') # ['H', 'e', 'l', 'l', 'o']；
 ```python
 # 3.1 字符串基本操作
 # 所有标准序列操作（索引、切片、乘法、成员资格检查、长度、最小值和最大值）都适用于字符串，但别忘了字符串是不可变的;
+# 3.3.1 替换字段名;
+
 # 3.2 设置字符串的格式：精简版
 format = "Hello, %s. %s enough for ya?"
 values = ('world', 'Hot')
 print( format % values) # 'Hello, world. Hot enough for ya?';
 # 上述格式字符串中的%s称为转换说明符，指出了要将值插入什么地方;
 
+from math import pi
+print( "{name} is approximately {value:.2f}.".format(value=pi, name="π")) # 'π is approximately 3.14.'(包含等号的参数称为关键字参数);
+
+# 3.3 设置字符串的格式：完整版;
+# 3.3.1 替换字段名;
+# 将按顺序将字段和参数配对;
+print( "{foo} {} {bar} {}".format(1, 2, bar=4, foo=3)) # '3 1 4 2';
+
+# 3.3.2 基本转换;
+print( print("{pi!s} {pi!r} {pi!a}".format(pi="π"))) # π 'π' '\u03c0';# 上述三个标志（s、r和a）指定分别使用str、repr和ascii进行转换;
+# 你还可指定要转换的值是哪种类型，更准确地说，是要将其视为哪种类型。例如，你可能提供一个整数，但将其作为小数进行处理。为此可在格式说明（即冒号后面）使用字符f（表示定点数）;
+"The number is {num}".format(num=42) # 'The number is 42';
+"The number is {num:f}".format(num=42) # 'The number is 42.000000';
+ 
+# 字符串格式设置中的类型说明符;
+b 将整数表示为二进制数
+c 将整数解读为Unicode码点
+d 将整数视为十进制数进行处理，这是整数默认使用的说明符
+e 使用科学表示法来表示小数（用e来表示指数）
+E 与e相同，但使用E来表示指数
+f 将小数表示为定点数
+F 与f相同，但对于特殊值（nan和inf），使用大写表示
+g 自动在定点表示法和科学表示法之间做出选择。这是默认用于小数的说明符，但在默认情况下至少有1位小数
+G 与g相同，但使用大写来表示指数和特殊值
+n 与g相同，但插入随区域而异的数字分隔符
+o 将整数表示为八进制数
+s 保持字符串的格式不变，这是默认用于字符串的说明符
+x 将整数表示为十六进制数并使用小写字母
+X 与x相同，但使用大写字母
+% 将数表示为百分比值（乘以100，按说明符f设置格式，再在后面加上%）
+
+# 3.3.3 宽度、精度和千位分隔符;
+# 设置浮点数（或其他更具体的小数类型）的格式时，默认在小数点后面显示6位小数，并根据需要设置字段的宽度，而不进行任何形式的填充。
+# 宽度是使用整数指定的;
+"{num:10}".format(num=3) # '          3';
+"{name:10}".format(name="Bob") # 'Bob          ';
+# 精度也是使用整数指定的，但需要在它前面加上一个表示小数点的句点。;
+"Pi day is {pi:.2f}".format(pi=pi) # 'Pi day is 3.14';
+# 最后，可使用逗号来指出你要添加千位分隔符;
+'One googol is {:,}'.format(10**100) # 'One googol is 10,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,00 0,000,000,000,000,000,000,000,000,000,000,000,000,000,000'
+ 
+# 3.3.4 符号、对齐和用 0 填充;
+# 3.4 字符串方法;
+# 3.4.1 center--(方法center通过在两边添加填充字符（默认为空格）让字符串居中。);
+print("The Middle by Jimmy Eat World".center(39)) # ' The Middle by Jimmy Eat World ';
+print( "The Middle by Jimmy Eat World".center(39, "*")) # '*****The Middle by Jimmy Eat World*****';
+
+# 3.4.2 find(方法find在字符串中查找子串。如果找到，就返回子串的第一个字符的索引，否则返回-1。);
+print( 'With a moo-moo here, and a moo-moo there'.find('moo')) # 7;
+# 注意 字符串方法find返回的并非布尔值。如果find像这样返回0，就意味着它在索引0处找到了指定的子串。;
+
+# 3.4.3 join--(join是一个非常重要的字符串方法，其作用与split相反，用于合并序列的元素。);
+seq = ['1', '2', '3', '4', '5']
+print(sep.join(seq)) # (1+2+3+4+5')--合并一个字符串列表;
+
+# 3.4.4 lower--(方法lower返回字符串的小写版本)。
+print('Trondheim Hammer Dance'.lower()) #  trondheim hammer dance';
+# 一个与lower相关的方法是title（参见附录B）。它将字符串转换为词首大写，即所有单词的首字母都大写，其他字母都小写。
+print("that's all folks".title()) # "That'S All, Folks";
+# 另一种大写方法是使用模块string中的函数capwords。
+import string
+print(string.capwords("that's all, folks")) # That's All, Folks";
+
+# 3.4.5 replace--(方法replace将指定子串都替换为另一个字符串，并返回替换后的结果。)
+print('This is a test'.replace('is', 'eez')) # 'Theez eez a test';
+
+# 3.4.6 split--(split是一个非常重要的字符串方法，其作用与join相反，用于将字符串拆分为序列。)
+print( '1+2+3+4+5'.split('+')) # ['1', '2', '3', '4', '5'];
+
+# 3.4.7 strip--(方法strip将字符串开头和末尾的空白（但不包括中间的空白）删除，并返回删除后的结果。)
+print( ' internal whitespace is kept '.strip()) # 'internal whitespace is kept'
+
+# 3.4.8 translate--(方法translate与replace一样替换字符串的特定部分，但不同的是它只能进行单字符替换。使用translate前必须创建一个转换表)
+table = str.maketrans('cs', 'kz')  # (c-->k;s-->z);
+print('this is an incredible test'.translate(table)) # 'thiz iz an inkredible tezt';( (c-->k;s-->z))
+
+# 3.4.9 判断字符串是否满足特定的条件
+# 3.5 小结
+# 函数；
+string.capwords(s[, sep]) # 使用split根据sep拆分s，将每项的首字母大写，再以空格为分隔符将它们合并起来;
+ascii(obj) # 创建指定对象的ASCII表示;
+```
+
+## 十四、当索引行不通时；
+
+```python
+# 4.1 字典的用途(73);
 
 ```
 
