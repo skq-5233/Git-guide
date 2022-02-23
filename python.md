@@ -1036,7 +1036,403 @@ print(d.values()) # dict_values([1, 2, 3, 1]);
 ## 十五、条件、循环及其他语句；
 
 ```python
+# 字符串是根据字符的字母排列顺序进行比较的。
+>>> "alpha" < "beta" 
+True
 # 5.1 再谈 print 和 import;
+# 提示 对很多应用程序来说，使用模块logging来写入日志比使用print更合适，详情请参阅第19章。
+# 5.1.1 打印多个参数；(可同时打印多个表达式)
+print('Age:', 42) # (Age: 42);
+
+name = 'Gumby' 
+salutation = 'Mr.' 
+greeting = 'Hello,' 
+print(greeting, salutation, name) # Hello, Mr. Gumby;
+
+# 5.1.2 导入时重命名;
+# 在语句末尾添加as子句并指定别名。
+import math as foobar 
+foobar.sqrt(4) # 2;
+
+# 下面是一个导入特定函数并给它指定别名的例子：
+from math import sqrt as foobar 
+foobar(4) # 2;
+
+# 5.2 赋值魔法;
+# 5.2.1 序列解包
+# 可同时（并行）给多个变量赋值;
+x, y, z = 1, 2, 3 
+print(x, y, z) # (1,2,3)
+
+# 使用方法popitem，它随便获取一个键-值对并以元组的方式返回。
+scoundrel = {'name': 'Robin', 'girlfriend': 'Marion'} 
+key, value = scoundrel.popitem() 
+print(key) #'girlfriend' 
+print(value) # 'Marion'
+
+# 可使用星号运算符（*）来收集多余的值，这样无需确保值和变量的个数相同，如下例所示：
+a, b, *rest = [1, 2, 3, 4] # 带星号的变量最终包含的总是一个列表;
+print(rest) # [3, 4]);
+
+# 5.2.2 链式赋值(链式赋值是一种快捷方式，用于将多个变量关联到同一个值);
+x = y = somefunction() 
+# 上述代码与下面的代码等价：
+y = somefunction() 
+x = y
+
+# 5.2.3 增强赋值;
+# 代码x = x + 1 改为：x += 1。这称为增强赋值；
+
+# 5.3 代码块：缩进的乐趣；
+# 代码块是一组语句，可在满足条件时执行（if语句），可执行多次（循环），等等。代码块是通过缩进代码（即在前面加空格）来创建的。
+# 5.4 条件和条件语句；
+# 5.4.1 这正是布尔值的用武之地；
+# 标准真值为0（表示假）和1（表示真）；
+
+# 5.4.2 有条件地执行和 if 语句；
+name = input('What is your name? ') 
+if name.endswith('Gumby'): 
+ print('Hello, Mr. Gumby')
+# 这就是if语句，让你能够有条件地执行代码。这意味着如果条件（if和冒号之间的表达式）为前面定义的真，就执行后续代码块（这里是一条print语句）；如果条件为假，就不执行；
+
+# 5.4.3 else 子句；
+name = input('What is your name?') 
+if name.endswith('Gumby'): 
+ print('Hello, Mr. Gumby') 
+else: 
+ print('Hello, stranger')
+
+# 还有一个与if语句很像的“亲戚”，它就是条件表达式——C语言中三目运算符的Python版本。
+status = "friend" if name.endswith("Gumby") else "stranger"
+# 如果条件（紧跟在if后面）为真，表达式的结果为提供的第一个值（这里为"friend"），否则为第二个值（这里为"stranger"）。
+
+# 5.4.4 elif 子句；
+num = int(input('Enter a number: ')) 
+if num > 0: 
+ print('The number is positive') 
+elif num < 0: 
+ print('The number is negative') 
+else: 
+ print('The number is zero')
+
+# 5.4.5 代码块嵌套；
+name = input('What is your name? ') 
+if name.endswith('Gumby'): 
+ if name.startswith('Mr.'): 
+ print('Hello, Mr. Gumby') 
+ elif name.startswith('Mrs.'): 
+ print('Hello, Mrs. Gumby') 
+ else: 
+ print('Hello, Gumby') 
+else: 
+ print('Hello, stranger')
+
+# 5.4.6 更复杂的条件；
+# 1. 比较运算符；
+x == y x 等于y
+x < y x小于y
+x > y x大于y
+x >= y x大于或等于y
+x <= y x小于或等于y
+x != y x不等于y
+x is y x和y是同一个对象
+x is not y x和y是不同的对象
+x in y x是容器（如序列）y的成员
+x not in y x不是容器（如序列）y的成员
+
+#  相等运算符；要确定两个对象是否相等，可使用比较运算符，用两个等号（==）表示。一个等号是赋值运算符，用于修改值，而进行比较时你可不想这样做。
+>>> x == y 
+True 
+>>> x is y 
+False
+# 显然，这两个列表相等但不相同。；
+# 总之，==用来检查两个对象是否相等，而is用来检查两个对象是否相同（是同一个对象）。
+
+#  in：成员资格运算符；
+name = input('What is your name?') 
+if 's' in name:
+    print('Your name contains the letter "s".') 
+else: 
+ print('Your name does not contain the letter "s".')
+
+#  字符串和序列的比较；
+# 字符串是根据字符的字母排列顺序进行比较的。
+>>> "alpha" < "beta" 
+True
+
+# 2. 布尔运算符；(编写一个程序，让它读取一个数，并检查这个数是否位于1～10（含）。)
+number = int(input('Enter a number between 1 and 10: ')) 
+if number <= 10 and number >= 1: 
+ print('Great!') 
+else: 
+ print('Wrong!')
+# 5.4.7 断言;
+# 基本上，你可要求某些条件得到满足（如核实函数参数满足要求或为初始测试和调试提供帮助），为此可在语句中使用关键字assert。
+>>> age = 10 
+>>> assert 0 < age < 100 
+>>> age = -1 
+>>> assert 0 < age < 100 
+Traceback (most recent call last): 
+ File "<stdin>", line 1, in ? 
+AssertionError
+
+# 5.5 循环;
+# 5.5.1 while 循环;
+x = 1 
+while x <= 100: 
+ print(x) 
+ x += 1 # (1-100);
+    
+# 你还可以使用循环来确保用户输入名字，如下所示：
+name = '' 
+while not name: 
+ name = input('Please enter your name: ') 
+print('Hello, {}!'.format(name))
+
+# 5.5.2 for 循环;
+# 可迭代对象是可使用for循环进行遍历的对象;
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] 
+for number in numbers: 
+ print(number) # (0-9);
+
+# 提示 只要能够使用for循环，就不要使用while循环。;
+# 5.5.3 迭代字典;
+# 要遍历字典的所有关键字，可像遍历序列那样使用普通的for语句。
+d = {'x': 1, 'y': 2, 'z': 3} 
+for key in d: 
+ print(key, 'corresponds to', d[key]) 
+# x corresponds to 1
+# y corresponds to 2
+# z corresponds to 3
+
+# 5.5.4 一些迭代工具;
+# 1. 并行迭代--有时候，你可能想同时迭代两个序列。假设有下面两个列表：
+names = ['anne', 'beth', 'george', 'damon'] 
+ages = [12, 45, 32, 102] 
+# 如果要打印名字和对应的年龄，可以像下面这样做：
+for i in range(len(names)): 
+ print(names[i], 'is', ages[i], 'years old') 
+# anne is 12 years old
+# beth is 45 years old
+# george is 32 years old
+# damon is 102 years old
+
+# 可使用list将其转换为列表。
+names = ['anne', 'beth', 'george', 'damon'] 
+ages = [12, 45, 32, 102] 
+list(zip(names, ages)) 
+for name, age in zip(names, ages): 
+ print(name, 'is', age, 'years old')
+[('anne', 12), ('beth', 45), ('george', 32), ('damon', 102)]
+# anne is 12 years old
+# beth is 45 years old
+# george is 32 years old
+# damon is 102 years old
+
+# 2. 迭代时获取索引;
+# 是使用内置函数enumerate。
+for index, string in enumerate(strings): 
+ if 'xxx' in string: 
+ strings[index] = '[censored]'
+
+# 3. 反向迭代和排序后再迭代；
+# 来看另外两个很有用的函数：reversed(逆序打印)和sorted(从小到大排序)
+>>> sorted([4, 3, 6, 8, 3]) 
+[3, 3, 4, 6, 8]
+
+>>> list(reversed('Hello, world!')) 
+['!', 'd', 'l', 'r', 'o', 'w', ' ', ',', 'o', 'l', 'l', 'e', 'H']
+
+# 提示 要按字母表排序，可先转换为小写。为此，可将sort或sorted的key参数设置为str.lower。例如，sorted("aBc", key=str.lower)返回['a', 'B', 'c']。
+
+# 5.5.5 跳出循环；
+# 1. break
+# 要结束（跳出）循环，可使用break。假设你要找出小于100的最大平方值（整数与自己相乘的结果），可从100开始向下迭代。
+from math import sqrt 
+for n in range(99, 0, -1): 
+ root = sqrt(n) 
+ if root == int(root): 
+ 	print(n) # 81；
+ 	break
+    
+# 如果你运行这个程序，它将打印81并结束。注意到我向range传递了第三个参数——步长，
+# 即序列中相邻数的差。通过将步长设置为负数，可让range向下迭代，如上面的示例所示；还可让它跳过一些数：   
+print(list(range(0, 10, 2))) # [0, 2, 4, 6, 8]；
+
+# 2. continue (语句continue没有break用得多。它结束当前迭代，并跳到下一次迭代开头。);
+# 3. while True/break成例
+word = 'dummy' 
+while word: 
+ word = input('Please enter a word: ') 
+ # 使用这个单词做些事情：
+ print('The word was', word)
+
+# 使用成例while True/break。
+while True: 
+ word = input('Please enter a word: ') 
+ if not word: break 
+ # 使用这个单词做些事情：
+ print('The word was ', word)
+    
+# 5.5.6 循环中的 else 子句;
+from math import sqrt 
+for n in range(99, 81, -1): 
+ 	root = sqrt(n) 
+ 	if root == int(root): 
+ 	print(n) 
+ 	break 
+else: 
+ print("Didn't find it!")
+
+# 5.6 简单推导;
+print([x * x for x in range(10)]) # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81];
+# 5.7 三人行-(pass、del和exec。);
+# 5.7.1 什么都不做--(pass);
+# 5.7.2 使用 del 删除
+# 5.7.3 使用 exec 和 eval 执行字符串及计算其结果
+# 1. exec (函数exec将字符串作为代码执行。)
+>>> exec("print('Hello, world!')") 
+Hello, world!
+
+# 2. eval (eval是一个类似于exec的内置函数。)
+>>> scope = {} 
+>>> scope['x'] = 2 
+>>> scope['y'] = 3 
+>>> eval('x * y', scope) 
+6
+# 5.8.1 本章介绍的新函数
+chr(n) # 返回一个字符串，其中只包含一个字符，这个字符对应于传入的顺序值n（0 ≤
+n < 256）
+eval(source[,globals[,locals]]) # 计算并返回字符串表示的表达式的结果
+exec(source[, globals[, locals]]) # 将字符串作为语句执行
+enumerate(seq) # 生成可迭代的索引值对
+ord(c) # 接受一个只包含一个字符的字符串，并返回这个字符的顺序值（一个整数）
+range([start,] stop[, step]) # 创建一个由整数组成的列表
+reversed(seq) # 按相反的顺序返回seq中的值，以便用于迭代
+sorted(seq[,cmp][,key][,reverse]) # 返回一个列表，其中包含seq中的所有值且这些值是经过排序的
+xrange([start,] stop[, step]) # 创建一个用于迭代的xrange对象
+zip(seq1, seq2,...) # 创建一个适合用于并行迭代的新序列
+```
+
+## 十六、抽象；
+
+```python
+# 6.1 懒惰是一种美德;
+# 计算一些斐波那契数;
+fibs = [0, 1] 
+for i in range(8): 
+ fibs.append(fibs[-2] + fibs[-1])
+print(fibs) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34];
+
+# 6.2 抽象和结构;
+# 6.3 自定义函数;
+def fibs(num): 
+ result = [0, 1] 
+ for i in range(num-2): 
+ 	result.append(result[-2] + result[-1]) 
+ return result
+
+>>> fibs(10) 
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+# 6.3.1 给函数编写文档;
+# 6.3.2 其实并不是函数的函数
+# 6.4 参数魔法
+# 6.4.1 值从哪里来;
+# 在def语句中，位于函数名后面的变量通常称为形参，而调用函数时提供的值称为实参;
+# 6.4.2 我能修改参数吗
+>>> def try_to_change(n): 
+... n = 'Mr. Gumby' 
+... 
+>>> name = 'Mrs. Entity' 
+>>> try_to_change(name) 
+>>> name 
+'Mrs. Entity'
+
+# 6.4.3 关键字参数和默认值;
+# 有时候，参数的排列顺序可能难以记住，尤其是参数很多时。为了简化调用工作，可指定参数的名称。
+>>> hello_1(greeting='Hello', name='world') 
+Hello, world! 
+# 在这里，参数的顺序无关紧要。
+>>> hello_1(name='world', greeting='Hello') 
+Hello, world!
+# 像这样使用名称指定的参数称为关键字参数，主要优点是有助于澄清各个参数的作用;
+# 6.4.4 收集参数;
+# 6.4.5 分配参数;
+# 6.4.6 练习使用参数;
+def story(**kwds): 
+ return 'Once upon a time, there was a ' \ 
+ '{job} called {name}.'.format_map(kwds) 
+    
+def power(x, y, *others): 
+ if others: 
+ 	print('Received redundant parameters:', others) 
+ return pow(x, y) 
+
+def interval(start, stop=None, step=1): 
+ 'Imitates range() for step > 0' 
+ if stop is None: # 如果没有给参数stop指定值，
+ 	start, stop = 0, start # 就调整参数start和stop的值
+ result = [] 
+ i = start # 从start开始往上数
+ while i < stop: # 数到stop位置
+ 	result.append(i) # 将当前数的数附加到result末尾
+ i += step # 增加到当前数和step（> 0）之和
+ return result
+
+# 6.5 作用域;
+# 有一个名为vars的内置函数，它返回这个不可见的字典;
+>>> x = 1 
+>>> scope = vars() 
+>>> scope['x'] 
+1 
+>>> scope['x'] += 1 
+>>> x 
+2
+
+# 6.6 递归;
+# 简单地说，递归意味着引用（这里是调用）自身。
+# 6.6.1 两个经典案例：阶乘和幂;
+# n的阶乘为n × (n-1) × (n-2) × … × 1，在数学领域的用途非常广泛
+def factorial(n):
+ result = n
+ for i in range(1, n):
+ 	result *= i
+ return result
+print(factorial(3)) # 1*2*3=6;
+
+# power(x, n)（x的n次幂）是将数字x自乘n - 1次的结果，即将n个x相乘的结果;
+def power(x, n): 
+ result = 1 
+ for i in range(n): 
+ 	result *= x 
+ return result
+print(power(2, 1)) # 2;
+
+# 6.6.2 另一个经典案例：二分查找;
+# 6.7 小结;
+# 6.7.1 本章介绍的新函数;
+map(func, seq[, seq, ...]) # 对序列中的所有元素执行函数
+filter(func, seq) # 返回一个列表，其中包含对其执行函数时结果为真的所有元素
+reduce(func, seq[, initial]) # 等价于 func(func(func(seq[0], seq[1]), seq[2]), ...)
+sum(seq) # 返回 seq 中所有元素的和
+apply(func[, args[, kwargs]]) # 调用函数（还提供要传递给函数的参数）
+```
+
+## 十七、再谈抽象；
+
+```python
+# 7.1 对象魔法；
+# 7.1.1 多态；
+# 7.1.2 多态和方法；
+>>> object.get_price() 
+2.5 # 像这样与对象属性相关联的函数称为方法；
+>>> from random import choice 
+>>> x = choice(['Hello, world!', [1, 2, 'e', 'e', 4]])
+>>> x.count('e') 
+2
+
+
 
 ```
 
