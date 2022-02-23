@@ -1434,6 +1434,47 @@ apply(func[, args[, kwargs]]) # 调用函数（还提供要传递给函数的参
 
 # 7.1.3 封装；
 # 封装（encapsulation）指的是向外部隐藏不必要的细节。
+# 7.1.4 继承；
+# 7.2 类；
+# 7.2.1 类到底是什么
+# 每个对象都属于特定的类，并被称为该类的实例。
+# “云雀”为“鸟类”的子类，而“鸟类”为“云雀”的超类。
+# 在英语日常交谈中，使用复数来表示类，如birds（鸟类）和larks（云雀）。在Python中，约定使用单数并将首字母大写，如Bird和Lark。
+# 7.2.2 创建自定义类
+__metaclass__ = type # 如果你使用的是Python 2，请包含这行代码
+class Person: 
+	def set_name(self, name): 
+ 		self.name = name 
+ 	def get_name(self): 
+ 		return self.name 
+ 	def greet(self): 
+ 		print("Hello, world! I'm {}.".format(self.name))
+        
+>>> foo = Person() 
+>>> bar = Person() 
+>>> foo.set_name('Luke Skywalker') 
+>>> bar.set_name('Anakin Skywalker') 
+>>> foo.greet() 
+Hello, world! I'm Luke Skywalker. 
+>>> bar.greet() 
+Hello, world! I'm Anakin Skywalker.
+# 对foo调用set_name和greet时，foo都会作为第一个参数自动传递给它们。我将这个参数命名为self，
+
+# 7.2.3 属性、函数和方法；
+>>> class Bird: 
+... song = 'Squaawk!' 
+... def sing(self): 
+... print(self.song) 
+... 
+>>> bird = Bird() 
+>>> bird.sing() 
+Squaawk! 
+>>> birdsong = bird.sing 
+>>> birdsong() 
+Squaawk!
+
+# 7.2.4 再谈隐藏；
+# 7.2.5 类的命名空间
 
 ```
 
