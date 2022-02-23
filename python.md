@@ -1432,6 +1432,8 @@ apply(func[, args[, kwargs]]) # 调用函数（还提供要传递给函数的参
 >>> x.count('e') 
 2
 
+# 7.1.3 封装；
+# 封装（encapsulation）指的是向外部隐藏不必要的细节。
 
 
 ```
