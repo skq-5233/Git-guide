@@ -2796,3 +2796,36 @@ Thread.Sleep(50);
 */
 ```
 
+## 四十七、获取当前程序运行路径，并与.exe在同一路径下；
+
+```c#
+//获取和设置包含该应用程序的目录的名称(0228)
+//获取当前程序运行路径；
+string str = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+
+//add--修改路径问题（设为本地路径(与.exe同一路径)--start）
+path = str + "\\Result\\Temp_result";
+
+if (!Directory.Exists(path))
+{
+    Directory.CreateDirectory(path);
+}
+//add--修改路径问题（设为本地路径(与.exe同一路径)--end）
+//显示、保存图像；
+#region
+////CvInvoke.Imshow("img", temp); //显示图片
+//CvInvoke.Imwrite(@"D:\SKQ\VS-Code\Demo\Template-Matching2022-0113\result\" + dbf_File2 + "_temp.bmp", temp); //保存模板图像；
+CvInvoke.Imwrite(path  + "\\" + dbf_File2 + "_temp.bmp", temp); //保存至本地文件夹Result;
+CvInvoke.WaitKey(0); //暂停按键等待；
+
+//获取和设置包含该应用程序的目录的名称。(推荐)
+string str = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+result: X:\xxx\xxx\ (.exe文件所在的目录+"\")
+                     
+//listbox 删除选中项;
+//删除单个：
+ListBox1.Items.RemoveAt(ListBox1.SelectedIndex);
+//删除多个：
+ListBox1.Items.Remove(ListBox1.SelectedItem);                    
+```
+
