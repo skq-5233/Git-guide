@@ -2829,3 +2829,17 @@ ListBox1.Items.RemoveAt(ListBox1.SelectedIndex);
 ListBox1.Items.Remove(ListBox1.SelectedItem);                 
 ```
 
+## 四十八、在原项目基础上新建一个form窗体；
+
+```c#
+public partial class Form1 : Form
+{
+  Form form1 = new Form();//实体化一个Form类;
+}
+//利用buitton按钮打开新的窗体(form1)；
+private void uiButton6_Click(object sender, EventArgs e)
+{
+  form1.Show();//弹出form1;
+}
+```
+
