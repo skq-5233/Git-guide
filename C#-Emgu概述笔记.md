@@ -2826,6 +2826,6 @@ result: X:\xxx\xxx\ (.exe文件所在的目录+"\")
 //删除单个：
 ListBox1.Items.RemoveAt(ListBox1.SelectedIndex);
 //删除多个：
-ListBox1.Items.Remove(ListBox1.SelectedItem);                    
+ListBox1.Items.Remove(ListBox1.SelectedItem);                 
 ```
 
