@@ -2863,52 +2863,51 @@ private void button2_Click(object sender, EventArgs e)
 }
 ```
 
-五十、
+## 五十、选中当前矩形框时，该矩形框红色加粗显示，并在label中显示当前选中区域坐标信息及时间；
 
 ```c#
- private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if(ifListBoxDel == false)
-            //{
-            //    //如何获取余下列表最小索引；               
+private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+   {
+    //if(ifListBoxDel == false)
+    //{
+ //如何获取余下列表最小索引；               
+//取坐标、生成框(使用match_img图像无法画出多矩形框，仅可画出一个？？0302)
+//   CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[this.listBox1.SelectedIndex].x1, rectangleLocations[this.listBox1.SelectedIndex].y1), new Size(rectangleLocations[this.listBox1.SelectedIndex].x2 - rectangleLocations[this.listBox1.SelectedIndex].x1, rectangleLocations[this.listBox1.SelectedIndex].y2 - rectangleLocations[this.listBox1.SelectedIndex].y1)), new MCvScalar(0, 255, 0), 1);//绘制矩形，匹配得到的结果(1：调整矩形粗细)；
+//CvInvoke.Rectangle(temp, new Rectangle(new Point(rectangleLocations[index].x1, rectangleLocations[index].y1), new Size(100, 100)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；               
 
-            //    //取坐标、生成框(使用match_img图像无法画出多矩形框，仅可画出一个？？0302)
-            //    CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[this.listBox1.SelectedIndex].x1, rectangleLocations[this.listBox1.SelectedIndex].y1), new Size(rectangleLocations[this.listBox1.SelectedIndex].x2 - rectangleLocations[this.listBox1.SelectedIndex].x1, rectangleLocations[this.listBox1.SelectedIndex].y2 - rectangleLocations[this.listBox1.SelectedIndex].y1)), new MCvScalar(0, 255, 0), 1);//绘制矩形，匹配得到的结果(1：调整矩形粗细)；
-            //    //CvInvoke.Rectangle(temp, new Rectangle(new Point(rectangleLocations[index].x1, rectangleLocations[index].y1), new Size(100, 100)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；               
+//创建一矩形，左上角坐标为(80,80)，大小为50*50;                      
+//CvInvoke.Rectangle(match_img1, new Rectangle(new Point(80, 80), new Size(50, 50)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
 
-            //    //创建一矩形，左上角坐标为(80,80)，大小为50*50;                      
-            //    //CvInvoke.Rectangle(match_img1, new Rectangle(new Point(80, 80), new Size(50, 50)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
-
-            //    //CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
-            //    pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
+//CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
+//    pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
 
 
-            //    //add--修改路径问题（设为本地路径(与.exe同一路径)--start）
-            //    path = str + "\\Template-Result\\Match_result";
+    //    //add--修改路径问题（设为本地路径(与.exe同一路径)--start）
+    //    path = str + "\\Template-Result\\Match_result";
 
-            //    if (!Directory.Exists(path))
-            //    {
-            //        Directory.CreateDirectory(path);
-            //    }
-            //    //add--修改路径问题（设为本地路径(与.exe同一路径)--end）
-            //    string dbf_File2 = Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
+    //    if (!Directory.Exists(path))
+    //    {
+    //        Directory.CreateDirectory(path);
+    //    }
+    //    //add--修改路径问题（设为本地路径(与.exe同一路径)--end）
+    //    string dbf_File2 = Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile
 
-            //    //显示、保存图像；
-            //    //CvInvoke.Imshow("img", temp); //显示图片
-            //    //CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_temp.bmp", temp); //保存匹配结果图像(含矩形框)；
-            //    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_match_img.bmp", match_img); //保存匹配结果图像(含矩形框)；
-            //    CvInvoke.WaitKey(0); //暂停按键等待
-            //}
-            //else
-            //{
-            //    ifListBoxDel = !ifListBoxDel;
-            //}
-            if (ifListBoxDel == false)//解决索引为-1问题（2022-0304）；
-            {
-                match_img = temp.Copy(); //将原图temp复制到match_img中，对match_img进行画矩形框，避免pictureBox显示匹配区域出现边框；  
-                pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
-//对当前选中区域进行判断，若选中的listBox1区域与列表中的坐标完全一致时，则对当前选中的区域（列表坐标信息）进行标红并加粗显示（2022-0304）；
-                for (int i = 0; i < rectangleLocations.Count; i++)
+    //    //显示、保存图像；
+    //    //CvInvoke.Imshow("img", temp); //显示图片
+    //    //CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_temp.bmp", temp); //保存匹配结果图像(含矩形框)；
+    //    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_match_img.bmp", match_img); //保存匹配结果图像(含矩形框)；
+    //    CvInvoke.WaitKey(0); //暂停按键等待
+    //}
+    //else
+    //{
+    //    ifListBoxDel = !ifListBoxDel;
+    //}
+    if (ifListBoxDel == false)//解决索引为-1问题（2022-0304）；
+    {
+        match_img = temp.Copy(); //将原图temp复制到match_img中，对match_img进行画矩形框，避免pictureBox显示匹配区域出现边框；  
+        pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
+        //对当前选中区域进行判断，若选中的listBox1区域与列表中的坐标完全一致时，则对当前选中的区域（列表坐标信息）进行标红并加粗显示（2022-0304）；
+        for (int i = 0; i < rectangleLocations.Count; i++)
                 {
 
                     if (rectangleLocations[this.listBox1.SelectedIndex].x1 == rectangleLocations[i].x1 &&
@@ -2917,39 +2916,36 @@ private void button2_Click(object sender, EventArgs e)
                        rectangleLocations[this.listBox1.SelectedIndex].y2 == rectangleLocations[i].y2
                         )
                     {
-                        //取坐标、生成框(使用match_img图像画出多矩形框)
-                        CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[i].x1, rectangleLocations[i].y1), new Size(rectangleLocations[i].x2 - rectangleLocations[i].x1, rectangleLocations[i].y2 - rectangleLocations[i].y1)), new MCvScalar(0, 0, 255), 2);//绘制矩形，匹配得到的结果(1：调整矩形粗细)；
-                                                                                                                                                                                                                                                                                     //CvInvoke.Rectangle(temp, new Rectangle(new Point(rectangleLocations[index].x1, rectangleLocations[index].y1), new Size(100, 100)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；               
+//取坐标、生成框(使用match_img图像画出多矩形框)
+CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[i].x1, rectangleLocations[i].y1), new Size(rectangleLocations[i].x2 - rectangleLocations[i].x1, rectangleLocations[i].y2 - rectangleLocations[i].y1)), new MCvScalar(0, 0, 255), 2);//绘制矩形，匹配得到的结果(1：调整矩形粗细)；
+                                                                                                                                                                                                                                                                                  //CvInvoke.Rectangle(temp, new Rectangle(new Point(rectangleLocations[index].x1, rectangleLocations[index].y1), new Size(100, 100)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；               
+  }
+            else
+            {
+CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[i].x1, rectangleLocations[i].y1), new Size(rectangleLocations[i].x2 - rectangleLocations[i].x1, rectangleLocations[i].y2 - rectangleLocations[i].y1)), new MCvScalar(0, 255, 0), 1);//绘制矩形，匹配得到的结果(1：调整矩形粗细)；
                     }
+//创建一矩形，左上角坐标为(80,80)，大小为50*50;                      
+//CvInvoke.Rectangle(match_img1, new Rectangle(new Point(80, 80), new Size(50, 50)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
+//CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
 
-                    else
-                    {
-                        CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[i].x1, rectangleLocations[i].y1), new Size(rectangleLocations[i].x2 - rectangleLocations[i].x1, rectangleLocations[i].y2 - rectangleLocations[i].y1)), new MCvScalar(0, 255, 0), 1);//绘制矩形，匹配得到的结果(1：调整矩形粗细)；
-                    }
-                    //创建一矩形，左上角坐标为(80,80)，大小为50*50;                      
-                    //CvInvoke.Rectangle(match_img1, new Rectangle(new Point(80, 80), new Size(50, 50)), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
+//add--修改路径问题（设为本地路径(与.exe同一路径)--start）
+            path = str + "\\Template-Result\\Match_result";
 
-                    //CvInvoke.Rectangle(match_img1, new Rectangle(max_loc, temp.Size), new MCvScalar(0, 255, 0), 3);//绘制矩形，匹配得到的结果；
-
-
-                    //add--修改路径问题（设为本地路径(与.exe同一路径)--start）
-                    path = str + "\\Template-Result\\Match_result";
-
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
 
 
-                }
-                pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
-                //add--修改路径问题（设为本地路径(与.exe同一路径)--end）
-                string dbf_File2 = Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile 
-                //显示、保存图像；
-                //CvInvoke.Imshow("img", temp); //显示图片
-                //CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_temp.bmp", temp); //保存匹配结果图像(含矩形框)；
-                CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_match_img.bmp", match_img); //保存匹配结果图像(含矩形框)；
-                CvInvoke.WaitKey(0); //暂停按键等待
+        }
+        pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
+        //add--修改路径问题（设为本地路径(与.exe同一路径)--end）
+        string dbf_File2 = Path.GetFileNameWithoutExtension(dbf_File); // for getting only MyFile 
+        //显示、保存图像；
+        //CvInvoke.Imshow("img", temp); //显示图片
+        //CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_temp.bmp", temp); //保存匹配结果图像(含矩形框)；
+        CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_match_img.bmp", match_img); //保存匹配结果图像(含矩形框)；
+        CvInvoke.WaitKey(0); //暂停按键等待
 
 //选中当前区域时，显示当前区域的坐标信息（2022-0304）；
                 //datetime格式化；
