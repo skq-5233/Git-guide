@@ -2968,5 +2968,6 @@ CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[i].x1, 
 ```c# 
 //需将待嵌入模块的命名空间与主程序软件命名空间保持一致；
 //各版本动态库一定要正确引用，否则会报错；
+//设置主窗体的IsMdiContainer属性为True;
 ```
 
