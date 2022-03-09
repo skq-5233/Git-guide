@@ -2839,6 +2839,7 @@ public partial class Form1 : Form
 //利用buitton按钮打开新的窗体(form1)；
 private void uiButton6_Click(object sender, EventArgs e)
 {
+   // Form form1 = new Form();//实体化一个Form类;
   form1.Show();//弹出form1;
 }
 ```
