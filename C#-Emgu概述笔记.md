@@ -2971,5 +2971,5 @@ CvInvoke.Rectangle(match_img, new Rectangle(new Point(rectangleLocations[i].x1, 
 pictureBox1.Image = match_img.ToBitmap();//显示找到模板图像的待搜索图像；
 //设置主窗体的IsMdiContainer属性为True;
 //若Form2需要引用Form1模块，则需要将Form1的命名空间改为与Form2保持一致；
+//对名称空间而言，可直接修改；但对于工程名称来说则不可以直接修改；
 ```
-
