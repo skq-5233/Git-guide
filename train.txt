@@ -1,0 +1,11 @@
+对于模型训练的准备工作：
+1、一定要使截取的图像尽量保持在中间位置（400*400）;
+2、仔细检查各正、负样本是否有混淆；
+3、尽量选取缺陷分布在中间小圆盘区域的图像（接缝处的黑色区域不算缺陷），若缺陷分布在外圈，则不予使用
+若在训练测试后发现有误踢：
+1、检查正、负样本数据的混淆问题；
+
+远程ToDesk设置正样本采样：
+1、VisionSystemImageprocessing-->ConfigData-->setup.ini-->>CAMERA1=False;CAMERA2=True;CAMERA3=True;CAMERA4=False;(CAMERA2:相机1；CAMERA3：相机2)；
+然后重新启动程序即可；
+
