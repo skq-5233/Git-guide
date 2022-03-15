@@ -4,8 +4,11 @@
 3、尽量选取缺陷分布在中间小圆盘区域的图像（接缝处的黑色区域不算缺陷），若缺陷分布在外圈，则不予使用
 若在训练测试后发现有误踢：
 1、检查正、负样本数据的混淆问题；
+2、若数据集已校验完后，仍出现误踢，不妨将误踢图像放置正样本数据集中；
 
 远程ToDesk设置正样本采样：
 1、VisionSystemImageprocessing-->ConfigData-->setup.ini-->>CAMERA1=False;CAMERA2=True;CAMERA3=True;CAMERA4=False;(CAMERA2:相机1；CAMERA3：相机2)；
 然后重新启动程序即可；
+
+
 
