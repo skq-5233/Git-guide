@@ -1,0 +1,12 @@
+深度学习模型部署共有两大步：
+第一步、查看当前产线生产品牌；
+第二步、查看模型参数；
+第三步、更新classify.dat;
+
+对于步骤一：打开VisionSystemUserInterface-->ConfigData-->Brand.dat(将其负值粘贴到服务器桌面上，便于后面利用Evenything查看当前产线生产品牌)-->打开Evenything工具（右下角）-->simpleconfig-->simpleconfig.exe(第三个)-->选择Brand.dat（最后一个）-->选择刚才复制的Brand.dat文件，查看当前产线生产品牌；
+
+对于步骤二：将ConfigData文件夹复制粘贴到服务器桌面上-->打开VisionSystemConfigDataJ.exe-->打开工具配置-->选择刚才复制粘贴的ConfigData文件夹-->打开Tool.dat-->工具启用（下拉至18-深度学习）-->算法启用（查看模型宽度及高度，若模型尺寸为224*224，则无需修改；若为其他尺寸，则统一修改为224*224）；
+
+对于步骤三：执行classify.dat（将加密后的模型更名为classify.dat）更新；进入程序后，进行品牌重载。
+
+至此模型更新完毕。。
