@@ -10,5 +10,4 @@
 1、VisionSystemImageprocessing-->ConfigData-->setup.ini-->>CAMERA1=False;CAMERA2=True;CAMERA3=True;CAMERA4=False;(CAMERA2:相机1；CAMERA3：相机2)；
 然后重新启动程序即可；
 
-
-
+BJLG-4-1尺寸：（280*280，X:270;Y:150);
