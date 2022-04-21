@@ -1,0 +1,3 @@
+1.HDF5格式文件保存的是 ： Model weights
+2.H5 格式文件保存的是： Model structure 和 Model weights
+3.JSON 和 YAML 格式文件保存的是： Model stucture

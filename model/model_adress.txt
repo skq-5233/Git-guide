@@ -1,0 +1,57 @@
+VGG16:
+
+WEIGHTS_PATH = ('https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5')#500MB
+WEIGHTS_PATH_NO_TOP = ('https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5') # 56.2 MB
+
+VGG19:
+
+WEIGHTS_PATH = ('https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5')
+WEIGHTS_PATH_NO_TOP = ('https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5') # 76.4MB
+
+ResNet50:
+
+WEIGHTS_PATH = ('https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5')
+WEIGHTS_PATH_NO_TOP = ('https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5') # 90.3MB
+
+
+
+keras预训练模型下载地址
+这些地址都是从keras文件中找的，总结一下。
+
+vgg16
+https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5
+
+vgg16-notop
+https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
+
+vgg19
+https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5
+
+vgg19-notop
+https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
+
+resnet50
+https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5
+
+resnet50-notop
+https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
+
+xception
+https://github.com/fchollet/deep-learning-models/releases/download/v0.4/xception_weights_tf_dim_ordering_tf_kernels.h5
+
+xception-notop
+https://github.com/fchollet/deep-learning-models/releases/download/v0.4/xception_weights_tf_dim_ordering_tf_kernels_notop.h5
+
+mobilenet
+https://github.com/fchollet/deep-learning-models/releases/download/v0.6/
+后面加上mobilenet_%s_%d_tf.h5（包括顶层）或mobilenet_%s_%d_tf_no_top.h5（不包括顶层）
+%s代表alpha，可取以下任一：1_0，7_5，5_0，2_5
+%d代表图像大小，可取以下任一:128, 160, 192, 224
+
+如alpha=1.0，图像为224，包括顶层。下载路径为https://github.com/fchollet/deep-learning-models/releases/download/v0.6/mobilenet_1_0_224_tf.h5
+如alpha=0.50，图像为224，包括顶层。下载路径为https://github.com/fchollet/deep-learning-models/releases/download/v0.6/mobilenet_5_0_224_tf_no_top.h5
+inception_v3
+https://github.com/fchollet/deep-learning-models/releases/download/v0.5/inception_v3_weights_tf_dim_ordering_tf_kernels.h5
+
+inception_v3-notop
+https://github.com/fchollet/deep-learning-models/releases/download/v0.5/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
