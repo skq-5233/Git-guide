@@ -29,8 +29,8 @@ namespace ArrayCompareApplication
             int [] Arrays = {0,1,2,3,4,5,6,7,8,9};
             int max = Arrays[2];
             int min = Arrays[5];
-            double sum = 0;
-            double avg = 0;
+            double sum = 0;//初始值设定为0！；
+            double avg = 0;//初始值设定为0！；
             for(int i=0; i<Arrays.Length; i++)
             {
                 if(Arrays[i]>max)
