@@ -237,9 +237,12 @@ namespace CalculatorApplication
 }
 ```
 
-### 5.3 按引用传递参数;
+### 5.3 按引用（ref）传递参数;
 
 ```c#
+//引用参数是一个对变量的内存位置的引用。当按引用传递参数时，与值参数不同的是，它不会为这些参数创建一个新的存储位置。引用参数表示与提供给方法的实际参数具有相同的内存位置。
+//在 C# 中，使用 ref 关键字声明引用参数。
+
 using System;
 namespace CalculatorApplication
 {
@@ -270,6 +273,41 @@ namespace CalculatorApplication
          Console.WriteLine("在交换之后，a 的值： {0}", a);//a=200;
          Console.WriteLine("在交换之后，b 的值： {0}", b);//b=100;
  
+         Console.ReadLine();
+
+      }
+   }
+}
+```
+
+### 5.4 按输出(0ut)传递参数;
+
+```c#
+//return 语句可用于只从函数中返回一个值。但是，可以使用 输出参数 来从函数中返回两个值。输出参数会把方法输出的数据赋给自己，其他方面与引用参数相似。
+using System;
+
+namespace CalculatorApplication
+{
+   class NumberManipulator
+   {
+      public void getValue(out int x )
+      {
+         int temp = 5;
+         x = temp;
+      }
+   
+      static void Main(string[] args)
+      {
+         NumberManipulator n = new NumberManipulator();
+         /* 局部变量定义 */
+         int a = 100;
+         
+         Console.WriteLine("在方法调用之前，a 的值： {0}", a);
+         
+         /* 调用函数来获取值 */
+         n.getValue(out a);
+
+         Console.WriteLine("在方法调用之后，a 的值： {0}", a);
          Console.ReadLine();
 
       }
