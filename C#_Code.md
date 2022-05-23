@@ -302,12 +302,12 @@ namespace CalculatorApplication
          /* 局部变量定义 */
          int a = 100;
          
-         Console.WriteLine("在方法调用之前，a 的值： {0}", a);
+         Console.WriteLine("在方法调用之前，a 的值： {0}", a);//a=100;
          
          /* 调用函数来获取值 */
          n.getValue(out a);
 
-         Console.WriteLine("在方法调用之后，a 的值： {0}", a);
+         Console.WriteLine("在方法调用之后，a 的值： {0}", a);//a=5;
          Console.ReadLine();
 
       }
