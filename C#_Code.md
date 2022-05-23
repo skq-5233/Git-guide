@@ -156,7 +156,7 @@ namespace NumberCompareApplication
 }
 ```
 
-### 5.1 递归方法调用
+### 5.1  递归方法调用;
 
 ```c#
 using System;
@@ -195,7 +195,87 @@ namespace CalculatorApplication
 }
 ```
 
+### 5.2  按值传递参数;
 
+```c#
+//实际参数的值会复制给形参，实参和形参使用的是两个不同内存中的值。所以，当形参的值发生改变时，不会影响实参的值，从而保证了实参数据的安全。
+//结果表明，即使在函数内改变了值，值也没有发生任何的变化。
+
+using System;
+namespace CalculatorApplication
+{
+   class NumberManipulator
+   {
+      public void swap(int x, int y)
+      {
+         int temp;
+         
+         temp = x; /* 保存 x 的值 */
+         x = y;    /* 把 y 赋值给 x */
+         y = temp; /* 把 temp 赋值给 y */
+      }
+     
+      static void Main(string[] args)
+      {
+         NumberManipulator n = new NumberManipulator();
+         /* 局部变量定义 */
+         int a = 100;
+         int b = 200;
+         
+         Console.WriteLine("在交换之前，a 的值： {0}", a);//a=100
+         Console.WriteLine("在交换之前，b 的值： {0}", b);//b=200;
+         
+         /* 调用函数来交换值 */
+         n.swap(a, b);
+         
+         Console.WriteLine("在交换之后，a 的值： {0}", a);//a=100;
+         Console.WriteLine("在交换之后，b 的值： {0}", b);//b=200;
+         
+         Console.ReadLine();
+      }
+   }
+}
+```
+
+### 5.3 按引用传递参数;
+
+```c#
+using System;
+namespace CalculatorApplication
+{
+   class NumberManipulator
+   {
+      public void swap(ref int x, ref int y)
+      {
+         int temp;
+
+         temp = x; /* 保存 x 的值 */
+         x = y;    /* 把 y 赋值给 x */
+         y = temp; /* 把 temp 赋值给 y */
+       }
+   
+      static void Main(string[] args)
+      {
+         NumberManipulator n = new NumberManipulator();
+         /* 局部变量定义 */
+         int a = 100;
+         int b = 200;
+
+         Console.WriteLine("在交换之前，a 的值： {0}", a);//a=100;
+         Console.WriteLine("在交换之前，b 的值： {0}", b);//b=200;
+
+         /* 调用函数来交换值 */
+         n.swap(ref a, ref b);
+
+         Console.WriteLine("在交换之后，a 的值： {0}", a);//a=200;
+         Console.WriteLine("在交换之后，b 的值： {0}", b);//b=100;
+ 
+         Console.ReadLine();
+
+      }
+   }
+}
+```
 
 
 
