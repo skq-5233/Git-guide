@@ -122,6 +122,40 @@ namespace RectangleAppliction
 }
 ```
 
+## 5、C# 调用方法；
+
+```c#
+using System;
+namespace NumberCompareApplication
+{
+    class NumberCompare
+    {
+        public int FindMax(int n1, int n2)
+        {
+            int result;
+            if(n1>n2)
+            {
+                result = n1;
+            }
+            else
+            {
+                result = n2;
+            }
+            return result;
+        }
+        static void Main(string[] args)
+        {
+            int max;
+            NumberCompare n = new NumberCompare();//通过创建一个实例来引用非静态变量NumberCompare;
+            max = n.FindMax(120,230);
+            Console.WriteLine("max={0}",max);
+            Console.ReadLine();
+        }
+        
+    }
+}
+```
+
 
 
 
