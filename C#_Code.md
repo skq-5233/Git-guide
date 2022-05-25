@@ -315,5 +315,56 @@ namespace CalculatorApplication
 }
 ```
 
+## 6、数组；
+
+```c#
+//简单数组；
+using System;
+namespace ArrayApplication
+{
+    class Array
+    {
+        static void Main(string[] args)
+        {
+            int [] nums = new int[10];
+            for(int i=0; i<10; i++)
+            {
+                nums[i]=i+100;
+            }
+            for(int j=0; j<10; j++)
+            {
+                Console.WriteLine("nums{0}={1}",j,nums[j]);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+/***************************************************************************************************/
+
+//多维数组；
+using System;
+namespace ArrayApplication
+{
+    class Array
+    {
+        static void Main(string[] args)
+        {
+            int [,] n = new int[5,2]{{0,0},{1,2},{2,4},{3,6},{4,8}};
+            for(int i=0; i<5; i++)
+            {
+                for(int j=0; j<2; j++)
+                {
+                    Console.WriteLine("a[{0},{1}]={2}",i,j,n[i,j]);
+                }
+            }
+            Console.ReadKey();
+        }
+    }
+}
+/***************************************************************************************************/
+```
+
+
+
 
 
