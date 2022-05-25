@@ -475,6 +475,21 @@ public class testStructure
 }
 ```
 
+8、C# 枚举（Enum）；
+
+```c#
+//枚举是一组命名整型常量。枚举类型是使用 enum 关键字声明的。
+//C# 枚举是值类型。换句话说，枚举包含自己的值，且不能继承或传递继承。
+//声明 enum 变量
+//声明枚举的一般语法：
+enum <enum_name>
+{ 
+    enumeration list 
+};
+```
+
+
+
 
 
 
