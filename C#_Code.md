@@ -533,6 +533,7 @@ public class EnumTest
 }
 /***************************************************************************************************/
 
+
 using System;
 namespace BoxApplication
 {
@@ -563,7 +564,7 @@ namespace BoxApplication
             // Box1 的体积
             volume = Box1.height * Box1.length * Box1.breadth;
             Console.WriteLine("Box1 的体积： {0}",  volume);
-
+ 
             // Box2 的体积
             volume = Box2.height * Box2.length * Box2.breadth;
             Console.WriteLine("Box2 的体积： {0}", volume);
