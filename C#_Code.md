@@ -550,6 +550,7 @@ namespace BoxApplication
             Box Box1 = new Box();        // 声明 Box1，类型为 Box
             Box Box2 = new Box();        // 声明 Box2，类型为 Box
             double volume = 0.0;         // 体积
+            double area = 0.0;
 
             // Box1 详述
             Box1.height = 5.0;
@@ -561,13 +562,202 @@ namespace BoxApplication
             Box2.length = 12.0;
             Box2.breadth = 13.0;
            
-            // Box1 的体积
+            // Box1 的面积、体积
+            area = Box1.height * Box1.length;
             volume = Box1.height * Box1.length * Box1.breadth;
-            Console.WriteLine("Box1 的体积： {0}",  volume);
+            Console.WriteLine("Box1's area={0}, Box1's volume = {1}", area, volume);
  
-            // Box2 的体积
+            // Box2 的面积、体积
+             area =  Box2.height * Box2.length;
             volume = Box2.height * Box2.length * Box2.breadth;
-            Console.WriteLine("Box2 的体积： {0}", volume);
+            Console.WriteLine("Box2's area={0}, Box2's volume = {1}", area,volume);
+            Console.ReadKey();
+        }
+    }
+}
+```
+
+### 9.1 成员函数和封装;
+
+```c#
+//类的成员函数是一个在类定义中有它的定义或原型的函数，就像其他变量一样。作为类的一个成员，它能在类的任何对象上操作，且能访问该对象的类的所有成员。
+//成员变量是对象的属性（从设计角度），且它们保持私有来实现封装。这些变量只能使用公共成员函数来访问。
+
+using System;
+namespace BoxApplication
+{
+    class Box
+    {
+       private double length;   // 长度
+       private double breadth;  // 宽度
+       private double height;   // 高度
+       public void setLength( double len )
+       {
+            length = len;
+       }
+
+       public void setBreadth( double bre )
+       {
+            breadth = bre;
+       }
+
+       public void setHeight( double hei )
+       {
+            height = hei;
+       }
+       public double getVolume()
+       {
+           return length * breadth * height;
+       }
+    }
+    class Boxtester
+    {
+        static void Main(string[] args)
+        {
+            Box Box1 = new Box();        // 声明 Box1，类型为 Box
+            Box Box2 = new Box();                // 声明 Box2，类型为 Box
+            double volume;                               // 体积
+
+
+            // Box1 详述
+            Box1.setLength(6.0);
+            Box1.setBreadth(7.0);
+            Box1.setHeight(5.0);
+
+            // Box2 详述
+            Box2.setLength(12.0);
+            Box2.setBreadth(13.0);
+            Box2.setHeight(10.0);
+       
+            // Box1 的体积
+            volume = Box1.getVolume();
+            Console.WriteLine("Box1 的体积： {0}" ,volume);//210;
+
+            // Box2 的体积
+            volume = Box2.getVolume();
+            Console.WriteLine("Box2 的体积： {0}", volume);//1560;
+           
+            Console.ReadKey();
+        }
+    }
+}
+```
+
+### 9.2 C# 中的构造函数;
+
+```c#
+//类的 构造函数 是类的一个特殊的成员函数，当创建类的新对象时执行。
+//构造函数的名称与类的名称完全相同，它没有任何返回类型。
+
+using System;
+namespace LineApplication
+{
+   class Line
+   {
+      private double length;   // 线条的长度
+      public Line()
+      {
+         Console.WriteLine("对象已创建");
+      }
+
+      public void setLength( double len )
+      {
+         length = len;
+      }
+      public double getLength()
+      {
+         return length;
+      }
+
+      static void Main(string[] args)
+      {
+         Line line = new Line();    
+         // 设置线条长度
+         line.setLength(6.0);
+         Console.WriteLine("线条的长度： {0}", line.getLength());
+         Console.ReadKey();
+      }
+   }
+}
+```
+
+### 9.3 C# 中的析构函数;
+
+```c#
+//类的析构函数是类的一个特殊的成员函数，当类的对象超出范围时执行。
+//析构函数的名称是在类的名称前加上一个波浪形（~）作为前缀，它不返回值，也不带任何参数。
+//析构函数用于在结束程序（比如关闭文件、释放内存等）之前释放资源。析构函数不能继承或重载。
+
+using System;
+namespace LineApplication
+{
+   class Line
+   {
+      private double length;   // 线条的长度
+      public Line()  // 构造函数
+      {
+         Console.WriteLine("对象已创建");
+      }
+      ~Line() //析构函数
+      {
+         Console.WriteLine("对象已删除");
+      }
+
+      public void setLength( double len )
+      {
+         length = len;
+      }
+      public double getLength()
+      {
+         return length;
+      }
+
+      static void Main(string[] args)
+      {
+         Line line = new Line();
+         // 设置线条长度
+         line.setLength(6.0);
+         Console.WriteLine("线条的长度： {0}", line.getLength());          
+      }
+   }
+}
+```
+
+### 9.4 C# 类的静态成员;
+
+```c#
+// 我们可以使用 static 关键字把类成员定义为静态的。当我们声明一个类成员为静态时，意味着无论有多少个类的对象被创建，只会有一个该静态成员的副本。
+// 关键字 static 意味着类中只有一个该成员的实例。静态变量用于定义常量，因为它们的值可以通过直接调用类而不需要创建类的实例来获取。静态变量可在成员函数或类的定义外部进行初始化。你也可以在类的定义内部初始化静态变量。
+
+using System;
+namespace StaticVarApplication
+{
+    class StaticVar
+    {
+       public static int num;
+        public void count()
+        {
+            num++;
+        }
+        public int getNum()
+        {
+            return num;
+        }
+    }
+    class StaticTester
+    {
+        static void Main(string[] args)
+        {
+            StaticVar s1 = new StaticVar();
+            StaticVar s2 = new StaticVar();
+            s1.count();
+            s1.count();
+            s1.count();
+            s2.count();
+            s2.count();
+            s2.count();        
+            Console.WriteLine("s1 的变量 num： {0}", s1.getNum());//6;
+            Console.WriteLine("s2 的变量 num： {0}", s2.getNum());//6;
             Console.ReadKey();
         }
     }
