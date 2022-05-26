@@ -475,7 +475,7 @@ public class testStructure
 }
 ```
 
-8、C# 枚举（Enum）；
+## 8、C# 枚举（Enum）；
 
 ```c#
 //枚举是一组命名整型常量。枚举类型是使用 enum 关键字声明的。
@@ -502,6 +502,38 @@ public class EnumTest
         Console.WriteLine("Fri = {0}", y);
     }
 }
+```
+
+## 9、C# 类（Class）；
+
+```c#
+//类的定义
+//类的定义是以关键字 class 开始，后跟类的名称。类的主体，包含在一对花括号内。下面是类定义的一般形式：
+<access specifier> class  class_name
+{
+    // member variables
+    <access specifier> <data type> variable1;
+    <access specifier> <data type> variable2;
+    ...
+    <access specifier> <data type> variableN;
+    // member methods
+    <access specifier> <return type> method1(parameter_list)
+    {
+        // method body
+    }
+    <access specifier> <return type> method2(parameter_list)
+    {
+        // method body
+    }
+    ...
+    <access specifier> <return type> methodN(parameter_list)
+    {
+        // method body
+    }
+}
+/***************************************************************************************************/
+
+
 ```
 
 
