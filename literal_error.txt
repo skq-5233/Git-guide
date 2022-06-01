@@ -1,0 +1,63 @@
+pip升级后报错ImportError: cannot import name ‘Literal’ from ‘typing’ (f:\python\python\lib\typing.py)；
+解决方案：
+参考：https://stackoverflow.com/questions/61206437/importerror-cannot-import-name-literal-from-typing
+1.因为pip命令不可用，使用easy_install安装typing_extensions
+————————————————
+2.修改pip代码
+在$python\Lib\site-packages\pip_vendor\rich路径下，修改以下文件：
+1、consolo.py
+if sys.version_info >= (3, 8):
+	from typing import Literal, Protocol, runtime_checkable
+else:
+	from pip._vendor.typing_extensions import (
+	Literal,
+	Protocol,
+	runtime_checkable,
+	) # pragma: no cover
+改：
+try:
+	from typing import Literal
+except ImportError:
+	from pip._vendor.typing_extensions import (
+	Literal,
+	Protocol,
+	runtime_checkable,
+	) # pragma: no cover
+
+2、emoji.py文件
+3、align.py文件
+4、box.py文件
+5、$PYTHON_HOME \lib\site-packages\pip_vendor\platformdirs\api.py文件
+
+2、3、4、5改：
+改：
+try:
+	from typing import Literal
+except ImportError:
+	from pip._vendor.typing_extensions import (
+	Literal,
+	Protocol,
+	runtime_checkable,
+	) # pragma: no cover
+-----------------------------------------------
+
+
+6、live_render.py文件
+if sys.version_info >= (3, 8):
+	from typing import Literal
+else:
+	from pip._vendor.typing_extensions import Literal # pragma: no cover
+改：
+try:
+	from typing import Literal
+except ImportError:
+	from pip._vendor.typing_extensions import Literal # pragma: no cover
+————————————————
+7、_ratio.py文件改
+try:
+	from typing import Literal
+except ImportError:
+	from pip._vendor.typing_extensions import Literal, Protocol # pragma: no cover
+————————————————
+
+
