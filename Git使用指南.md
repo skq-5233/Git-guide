@@ -288,6 +288,8 @@ https://segmentfault.com/a/1190000022530115
 >
 > git remote add origin git@github.com:skq-5233/DeepLearning.git
 >
+> git remote add origin git@github.com:skq-5233/ProjectDemo.git
+>
 > git pull origin master //拉取远程仓库代码
 
 https://www.runoob.com/git/git-pull.html
