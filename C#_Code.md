@@ -1,10 +1,17 @@
+# C# 命名规则：
+
+```c#
+// 1、camel命名：首单词首字母小写，其余单词首字母大写(常用于变量命名)；（如public static double overLoad）;
+// 2、Pascal命名：首字母大写，其余小写（常用于类或方法命名）；（如 class OverLoad）
+```
+
 ## 1、Hello_World;
 
 ```c#
 using System;
 namespace HelloWorld_Application
 {
-    class HelloWorld
+    class HelloWorld	//Pascal命名；
     {
         static void Main(string[] args)
         {
