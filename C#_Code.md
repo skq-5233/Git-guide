@@ -170,14 +170,44 @@ namespace IntToBinary
 
 ```c#
 // 整型（int）;
+int i = 2022;
 
+//char类型；
+char c1 = 'A';//单引号；
+
+//浮点型（float\double）;
+float f = 100.2f;//对于float类型变量的值，需要在数组后面添加f或F;
+
+double d = 100.2d;//对于double类型变量的值，需要在数组后面添加d或D;
+
+//decimal类型;
+decimal salary = 1000m;//对于decimal类型变量的值，需要在数组后面添加m;
+
+//bool类型；
+bool b1 = true;
+bool b1 = false;
+
+//枚举类型（enum）;
+public static enum DAY
+{
+      	MONDAY=1, 
+    	TUEDAY, 
+   	 	WEDDAY, 
+    	THUDAY, 
+    	FRIDAY, 
+    	SATDAY, 
+    	SUNDAY
+};
+
+//结构类型（struct）;
+struct Books
+{
+    public string titile;
+    public string author;
+    public string subject;
+    public int book_id;
+};
 ```
-
-
-
-
-
-
 
 ## 5、C# 调用方法；
 
