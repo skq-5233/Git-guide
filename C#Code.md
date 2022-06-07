@@ -190,7 +190,7 @@ bool b1 = false;
 //枚举类型（enum）;
 public static enum DAY
 {
-      	MONDAY=1, 
+      	MONDAY=0, 
     	TUEDAY, 
    	 	WEDDAY, 
     	THUDAY, 
