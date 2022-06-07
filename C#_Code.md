@@ -129,6 +129,47 @@ namespace RectangleAppliction
 }
 ```
 
+### 4.1 十进制转二进制；
+
+```c#
+using System;
+namespace IntToBinary
+{
+    class BinaryApplication
+    {
+        public static string ConvertIntToBinary(int n)
+        {
+            string binary = string.Empty;
+            int i = n;
+            int m = 0;
+            while(i>1)
+            {
+                i = n/2;
+                m = n%2;
+                binary = m.ToString()+binary;
+                n = i;
+            }
+            if(i>0)
+            {
+                binary="1"+binary;
+            }
+            return binary;
+            
+        }
+        
+        static void Main(string[] args)
+        {
+            Console.WriteLine(ConvertIntToBinary(15));
+            Console.ReadKey();
+        }
+    }
+}
+```
+
+
+
+
+
 ## 5、C# 调用方法；
 
 ```c#
@@ -501,7 +542,7 @@ public class EnumTest
 {
     enum Day { Sun, Mon, Tue, Wed, Thu, Fri, Sat };
 
-    static void Main()
+    static void Main(string[] args)
     {
         int x = (int)Day.Sun;
         int y = (int)Day.Fri;
