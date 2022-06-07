@@ -178,4 +178,12 @@
 2、CheckWeight研究；
 3、c#资料查找与研究；
 
+（2022--0606-0610）
+周清周高：
+1、DevExpress资料查找与研究（图标Logo、标题及实时显示时间（yyyy-MM-dd HH:mm:ss）；
+tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、navigationPage（二级子页面翻页功能）等设计使用）；
+
+2、CheckWeight-MainForm研究(一级主页面设计与二级子页面设计（{tileBarDropDownContain--[tileBar--(AddWideItem----通过Appearence设计Item背景、前景颜色及被选中时的颜色)--]--}，
+及对应的联动（点击一级主页面，显示二级子页面）--点击一级主页面，点击--DropDownControl--选择对应的tileBarDropDownContainer--）)；
+3、c#资料查找与研究（数据类型（int、float、double、decimal、string、char、bool、enum、struct））；
 
