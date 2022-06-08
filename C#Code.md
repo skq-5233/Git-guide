@@ -139,13 +139,13 @@ namespace IntToBinary
     {
         public static string ConvertIntToBinary(int n)
         {
-            string binary = string.Empty;
-            int i = n;
-            int m = 0;
+            string binary = string.Empty;	//定义字符串binary为空；
+            int i = n;	//定义i,并赋值为n;
+            int m = 0;	//声明m变量，并赋值为0;
             while(i>1)
             {
-                i = n/2;
-                m = n%2;
+                i = n/2;	//整除；
+                m = n%2;	//取余；
                 binary = m.ToString()+binary;
                 n = i;
             }
@@ -192,7 +192,7 @@ namespace ConvertApplication
         //将每一位二进制的值转化为十进制的值；
         n+= Int32.Parse(binary[i].ToString())*(int)Math.Pow(2,binary.Length-i-1);
     }
-    return n;
+    return n;	//int 类型，返回值为n;
 }
 static void Main(string[] args)
 {
@@ -244,6 +244,19 @@ struct Books
     public string subject;
     public int book_id;
 };
+```
+
+### 4.4 将控制台信息写入到指定路径下的Txt中；
+
+```c#
+static void Main(string[] args)
+{
+    Console.WriteLine("请输入信息：");
+    string str = Console.ReadLine();
+    System.IO.File.WriteAllText(@"C:\Users\eivision\Desktop\123.txt",str);
+    Console.WriteLine("Successed!");
+    Console.ReadKey();
+}
 ```
 
 ## 5、C# 调用方法；
