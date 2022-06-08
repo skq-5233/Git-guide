@@ -166,7 +166,44 @@ namespace IntToBinary
 }
 ```
 
-### 4.2 数据类型；
+### 4.2  二进制转十进制；
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace ConvertApplication
+{
+    class Convert
+    {
+        public static int ConvertBinaryToInt(string binary)
+{
+    //判断binatry字符串是否为空；
+    if(string.IsNullOrEmpty(binary)==true)
+    {
+        return -1;
+    }
+    int n = 0;	//声明n变量，并赋值为0；
+    //处理binary中各字符串中的数字；
+    for(int i = 0; i<binary.Length; i++)
+    {
+        //将每一位二进制的值转化为十进制的值；
+        n+= Int32.Parse(binary[i].ToString())*(int)Math.Pow(2,binary.Length-i-1);
+    }
+    return n;
+}
+static void Main(string[] args)
+{
+    Console.WriteLine(ConvertBinaryToInt("1111"));	//15;
+    Console.ReadKey();
+}
+    }
+}
+```
+
+### 4.3 数据类型；
 
 ```c#
 // 整型（int）;
