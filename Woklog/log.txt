@@ -186,4 +186,5 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 2、CheckWeight-MainForm研究(一级主页面设计与二级子页面设计（{tileBarDropDownContain--[tileBar--(AddWideItem----通过Appearence设计Item背景、前景颜色及被选中时的颜色)--]--}，
 及对应的联动（点击一级主页面，显示二级子页面）--点击一级主页面，点击--DropDownControl--选择对应的tileBarDropDownContainer--）)；
 3、c#资料查找与研究（数据类型（int、float、double、decimal、string、char、bool、enum、struct））；
+4、江苏淮安日化产线模型训练与部署；
 
