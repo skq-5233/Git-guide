@@ -267,6 +267,19 @@ struct Books
     public string subject;
     public int book_id;
 };
+
+
+// 将字符串转化为数字；
+string s = "123456";
+int value = Int32.Parse(s);
+Console.WriteLine(value);
+Console.ReadKey();
+
+// 将整型转化为字符串；
+int i = 1223;
+string s = i.ToString();
+Console.WriteLine(s);
+Console.ReadKey();
 ```
 
 ### 4.4 将控制台信息写入到指定路径下的Txt中；
