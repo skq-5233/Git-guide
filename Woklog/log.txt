@@ -188,3 +188,18 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 3、c#资料查找与研究（数据类型（int、float、double、decimal、string、char、bool、enum、struct））；
 4、江苏淮安日化产线模型训练与部署；
 
+
+（2022--0613-0617）
+周清周高：
+1、针对江苏淮安日化产线存在误踢、漏踢现象，进行模型增强学习并远程部署；
+2、
+
+
+
+
+
+
+
+
+
+
