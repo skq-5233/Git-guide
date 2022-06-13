@@ -486,7 +486,7 @@ namespace ArrayApplication
    {
       static void Main(string[] args)
       {
-         int []  n = new int[10]; /* n 是一个带有 10 个整数的数组 */
+         int []  n = new int[10]; /* n 是一个带有 10 个(均为0)整数的数组 */
          int i,j;
 
          /* 初始化数组 n 中的元素 */        
