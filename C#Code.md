@@ -421,6 +421,46 @@ for(int i=0; i<10;i++)
 //    default: 语句块n;
 
 //} 
+
+//Example;
+int i = 2022;
+switch(i)
+{
+    case 2022:i++;
+        break;
+    case 2023:i--;
+        break;
+    default: break;
+}
+
+Console.WriteLine(i);
+Console.ReadKey();
+
+//for语句--Example;
+int sum = 0;
+for (int i = 0; i < 101; i++)
+{
+    if(i % 2  != 0) //偶数和；（若i%2==0），则求取奇数和；
+    {
+        continue;
+    }
+    sum += i;   //偶数和；
+}
+
+Console.WriteLine(sum);
+Console.ReadKey();
+
+
+//foreach语句--Example;
+int[] arrays = { 1,3,5,7,9,3};
+int sum =0;
+foreach (int i in arrays)
+{
+    sum+=i;
+}
+
+Console.WriteLine(sum);
+Console.ReadKey();
 ```
 
 ### 4.4 将控制台信息写入到指定路径下的Txt中；
