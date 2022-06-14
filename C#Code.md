@@ -285,6 +285,21 @@ int i = 1223;
 string s = i.ToString();	//强制类型转换（int----string）；
 Console.WriteLine(s);
 Console.ReadKey();
+
+
+// ref 参数;
+static void Main(string[] args)
+{
+    int r =10;
+    GetInt(ref r);
+    Console.WriteLine(r);	//20;
+    Console.ReadLine();
+}
+
+public static void GetInt(ref int a)
+{
+    a += a;
+}
 ```
 
 ### 4.4 将控制台信息写入到指定路径下的Txt中；
