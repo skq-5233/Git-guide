@@ -410,6 +410,17 @@ for(int i=0; i<10;i++)
     Console.WriteLine(i.ToString());
     //Console.ReadKey();
 }
+
+
+//switch--case;
+//switch("表达式")
+//{
+//    case 常量表达式1：语句块1;
+//    case 常量表达式2：语句块2;
+//    ...
+//    default: 语句块n;
+
+//} 
 ```
 
 ### 4.4 将控制台信息写入到指定路径下的Txt中；
