@@ -226,7 +226,7 @@ static void Main(string[] args)
 }
 ```
 
-### 4.3 数据类型；
+### 4.3 数据类型(及使用ref\out参数)；
 
 ```c#
 // 整型（int）;
@@ -366,8 +366,6 @@ static void Main(string[] args)
             Console.WriteLine("sum=" + sum.ToString()); //2124;
             Console.ReadKey();
 }
-
-
 
 
 // ref 参数;
