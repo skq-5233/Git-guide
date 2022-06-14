@@ -268,16 +268,21 @@ struct Books
     public int book_id;
 };
 
+///强制类型转换；
+// 将字符串转化为数字；
+Console.WriteLine("请输入时间：");
+string s = Console.ReadLine();
+int value = Int32.Parse(s);
 
 // 将字符串转化为数字；
 string s = "123456";
-int value = Int32.Parse(s);
+int value = Int32.Parse(s);	//强制类型转换（string----int）；
 Console.WriteLine(value);
 Console.ReadKey();
 
 // 将整型转化为字符串；
 int i = 1223;
-string s = i.ToString();
+string s = i.ToString();	//强制类型转换（int----string）；
 Console.WriteLine(s);
 Console.ReadKey();
 ```
