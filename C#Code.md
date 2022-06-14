@@ -300,6 +300,20 @@ public static void GetInt(ref int a)
 {
     a += a;
 }
+
+
+// out参数；
+int F(int j ,out int i)
+{
+    j--;
+    i = j;
+    return i+j;
+}
+
+int i;
+// 调用out参数函数成员时，必须要在out参数前添加out修饰符;
+int sum = F(100，out i);	//调用F(int j ,out int i)函数; 
+Console.WriteLine(i);	//输出i变量的值;
 ```
 
 ### 4.4 将控制台信息写入到指定路径下的Txt中；
