@@ -400,7 +400,7 @@ Console.WriteLine(i);	//输出i变量的值;
 条件表达式？result_a :result_b;	//若条件成立，返回result_a;否则，返回result_b;
 
 
-//continue;
+//continue;组合快捷键shift+tab即可自动排版;
 for(int i=0; i<10;i++)
 {
     if(i%2==0)  //偶数，continue跳出循环，打印出基数；
