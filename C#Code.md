@@ -287,6 +287,89 @@ Console.WriteLine(s);
 Console.ReadKey();
 
 
+//使用值参数传递数据；
+
+static int GetSum(int i,int j)
+        {
+            i++;
+            j++;
+            return i + j;
+        }
+static void Main(string[] args)
+{
+int i = 2022;
+int j = 100;
+
+Console.WriteLine("执行前：");
+Console.WriteLine("i=" + i.ToString() + ",j=" + j.ToString());	//i=2022;j=100;
+
+int sum = GetSum(i, j);
+Console.WriteLine("执行后：");
+Console.WriteLine("i=" + i.ToString() + ",j=" + j.ToString());	//i=2022;j=100;
+
+Console.WriteLine("sum=" + sum.ToString());	//2124;
+Console.ReadKey();
+}
+
+
+
+//使用ref参数传递数据；
+static int GetSum(ref int i, ref int j)
+        {
+            i++;
+            j++;
+            return i + j;
+        }
+static void Main(string[] args )
+{
+int i = 2022;
+int j = 100;
+
+Console.WriteLine("执行前：");
+Console.WriteLine("i=" + i.ToString() + ",j=" + j.ToString());	//i=2022;j=100;
+
+int sum = GetSum(ref i, ref j);
+Console.WriteLine("执行后：");
+Console.WriteLine("i=" + i.ToString() + ",j=" + j.ToString());//(ref参数，i,j变量均修改)i=2023;j=101;
+
+Console.WriteLine("sum=" + sum.ToString());	//2124;
+Console.ReadKey();
+}
+
+
+ //使用out参数返回数据；
+static void GetSum(int i,int j, out int sum)
+ {
+      i++;
+      j++;
+      sum = i + j;
+  }
+
+static void Main(string[] args)
+{
+     // 使用out参数传递数据；
+
+            int i = 2022;
+            int j = 100;
+            int sum;
+
+            Console.WriteLine("执行前：");
+            Console.WriteLine("i=" + i.ToString() + ",j=" + j.ToString());  //i=2022;j=100;
+
+
+            GetSum(i, j, out sum);
+
+            Console.WriteLine("执行后：");
+            Console.WriteLine("i=" + i.ToString() + ",j=" + j.ToString());  //i=2022;j=100;
+
+
+            Console.WriteLine("sum=" + sum.ToString()); //2124;
+            Console.ReadKey();
+}
+
+
+
+
 // ref 参数;
 static void Main(string[] args)
 {
