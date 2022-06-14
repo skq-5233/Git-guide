@@ -395,6 +395,21 @@ int i;
 // 调用out参数函数成员时，必须要在out参数前添加out修饰符;
 int sum = F(100，out i);	//调用F(int j ,out int i)函数; 
 Console.WriteLine(i);	//输出i变量的值;
+
+// c# 中唯一三元运算符(?:)；
+条件表达式？result_a :result_b;	//若条件成立，返回result_a;否则，返回result_b;
+
+
+//continue;
+for(int i=0; i<10;i++)
+{
+    if(i%2==0)  //偶数，continue跳出循环，打印出基数；
+    {
+        continue;   //如果i等于2，则跳出当前循环，开始下一次；
+    }
+    Console.WriteLine(i.ToString());
+    //Console.ReadKey();
+}
 ```
 
 ### 4.4 将控制台信息写入到指定路径下的Txt中；
