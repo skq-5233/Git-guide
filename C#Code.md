@@ -463,9 +463,17 @@ Console.WriteLine(sum);
 Console.ReadKey();
 ```
 
-### 4.4 将控制台信息写入到指定路径下的Txt中；
+### 4.4 将控制台信息写入（读取）到指定路径下的Txt中；
 
 ```c#
+//将文本信息写入指定路径下的txt中；
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 static void Main(string[] args)
 {
     Console.WriteLine("请输入信息：");
@@ -474,6 +482,25 @@ static void Main(string[] args)
     Console.WriteLine("Successed!");
     Console.ReadKey();
 }
+
+// 使用using语句打开名称为123.txt文件；
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using (TextReader reader = File.OpenText(@"C:\Users\eivision\Desktop\123.txt"))
+{
+    string line;
+    while ((line = reader.ReadLine()) != null)
+    {
+        Console.WriteLine(line);
+    }
+    Console.ReadKey();
+}
+
 ```
 
 ### 4.5 判断闰年；
@@ -508,13 +535,17 @@ static void Main(string[] args)
     Console.ReadKey();
 }
 
+
+
 //case2--控制台输入任意年份；
 static void Main(string[] args)
 {
     Console.WriteLine("请输入要判断的年份：");
     string s = Console.ReadLine();
-    int year = Int32.Parse(s);
+    int year = Int32.Parse(s);	//将字符串转换为整型int；
 
+    //int year = Convert.ToInt32(s);	//将字符串转换为整型int；
+    
     while (year < 0)
     {
         Console.WriteLine("输入的年份有误，请重新输入！");
@@ -539,10 +570,6 @@ static void Main(string[] args)
     Console.ReadKey();
 }
 ```
-
-
-
-
 
 ## 5、C# 调用方法；
 
