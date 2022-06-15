@@ -479,6 +479,7 @@ static void Main(string[] args)
 ### 4.5 判断闰年；
 
 ```c#
+// case1--手动输入年份;
 static void JudgeYear(int year)
 {
     while(year<0)
@@ -504,6 +505,37 @@ static void JudgeYear(int year)
 static void Main(string[] args)
 {
     JudgeYear(2022);	//非闰年！
+    Console.ReadKey();
+}
+
+//case2--控制台输入任意年份；
+static void Main(string[] args)
+{
+    Console.WriteLine("请输入要判断的年份：");
+    string s = Console.ReadLine();
+    int year = Int32.Parse(s);
+
+    while (year < 0)
+    {
+        Console.WriteLine("输入的年份有误，请重新输入！");
+        break;
+    }
+
+
+    while (year > 0)
+    {
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+        {
+            Console.WriteLine("{0}是闰年!", year);
+            break;
+        }
+        else
+        {
+            Console.WriteLine("{0}非闰年！", year);
+            break;
+        }
+    }
+
     Console.ReadKey();
 }
 ```
