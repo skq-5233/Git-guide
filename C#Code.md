@@ -476,6 +476,42 @@ static void Main(string[] args)
 }
 ```
 
+### 4.5 判断闰年；
+
+```c#
+static void JudgeYear(int year)
+{
+    while(year<0)
+    {
+        Console.Writeline("输入的年份有误，请重新输入！");
+        break;
+    }
+    while(year>0)
+    {
+        if(year%4==0&&year%100!=0||year%400==0)
+        {
+            Console.WriteLinew("{0}是闰年！",year);
+            break;
+        }
+        else
+        {
+            Console.Writeline("{0}非闰年！",year);
+            break;
+        }
+    }
+}
+
+static void Main(string[] args)
+{
+    JudgeYear(2022);	//非闰年！
+    Console.ReadKey();
+}
+```
+
+
+
+
+
 ## 5、C# 调用方法；
 
 ```c#
