@@ -114,9 +114,10 @@ namespace PrimeNumberApplication
 }
 ```
 
-## 4、Public;
+## 4、Public(sttaic);
 
 ```c#
+//case1;
 using System;
 namespace RectangleAppliction
 {
@@ -148,6 +149,20 @@ namespace RectangleAppliction
 			}
         }
         
+    }
+}
+
+//case2;
+class Program
+{
+    class MyClass
+    {
+        public static int value = 2022;
+    }
+    static void Main(string[] args)
+    {
+        Console.WriteLine(MyClass.value);
+        Console.ReadKey();
     }
 }
 ```
