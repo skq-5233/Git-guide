@@ -813,6 +813,72 @@ namespace CalculatorApplication
 
 ## 6、数组；
 
+### 6.1 初始化数组；
+
+```c#
+//1、直接赋值；
+string [] str1 = {"c","c++","c#","java","python"};
+
+//2、使用new操作符，并指定数组长度；
+string [] str2 = new string [5] {"c","c++","c#","java","python"};
+
+//3、使用new操作符，不指定数组长度；
+string [] str2 = new string [] {"c","c++","c#","java","python"};
+
+//4、直接设置数组的各元素值；
+string [] str4 = new string[7];
+for(int i=0; i<str4.Length;i++)
+{
+    str4[i]=i.ToString();
+}
+```
+
+### 6.2 遍历数组（使用下标for\while;不使用下标--foreach）;
+
+```c#
+//遍历数组；
+1、使用下标遍历数组（for\while等）；
+2、不使用下标（foreach）;
+
+//case1--使用下标(for)；
+string[] str = new string[10];
+for(int i=0; i<str.Length;i++)
+{
+    str[i] = i.ToString();
+}
+
+//case2---不使用下标（foreach）;
+string [] str = new string[10];
+foreach(string s in str)
+{
+    Console.WriteLine(s);
+}
+
+
+//case3--Exercise;
+int[] nums = { 1, 23, 4, 34, 5, 6, 7, 3243 };
+
+int max = nums[1];
+int min = nums[3];
+
+for (int i = 0; i < nums.Length; i++)
+{
+    if (nums[i] > max)
+    {
+        max = nums[i];
+    }
+    if (nums[i] < min)
+    {
+        min = nums[i];
+    }
+}
+
+Console.WriteLine("max={0},min={1}", max, min);
+Console.ReadKey();
+```
+
+### 6.3  简单数组及多维数组使用--（params 关键字）；
+
 ```c#
 //简单数组；
 using System;
