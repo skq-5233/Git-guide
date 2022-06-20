@@ -586,6 +586,38 @@ static void Main(string[] args)
 }
 ```
 
+### 4.6 get\set;
+
+```c#
+public struct Point
+{
+    private int x;  //私有；
+    private int y;  //私有；
+};
+public int x
+{
+    get
+    {
+        return x;
+    }
+    set
+    {
+        x = value;
+    }
+}
+public int y
+{
+    get
+    {
+        return y;
+    }
+    set
+    {
+        y = value;
+    }
+}
+```
+
 ## 5、C# 调用方法；
 
 ```c#
