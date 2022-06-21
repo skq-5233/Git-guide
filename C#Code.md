@@ -587,6 +587,24 @@ static void Main(string[] args)
 ### 4.6 get\set;
 
 ```c#
+// get-set属性；
+//在面向对象编程里面，有的类的数据是私有的，是封装起来的，所以为了读取和写入对应的私有数据，c#采用了关键字get和set，其中get负责读取私有数据，set负责写入私有数据，
+
+// case
+class Bank
+{
+    private int money;//私有字段
+
+    public int Money  //属性
+    {
+        //GET访问器，可以理解成另类的方法，返回已经被赋了值的私有变量money
+        get { return money;  }
+        //SET访问器，将我们打入的值赋给私有变量money
+        set { money = value; }
+    }  
+}
+/****************************************************************************************/
+
 public struct Point
 {
     private int x;  //私有；
