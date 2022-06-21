@@ -197,7 +197,10 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 
 
 
-
+（2022--0620-0624）
+周清周高：
+1、CheckWeight-StatusMonitor研究（利用ChartControl中的Line、Pie、Point分别设计折线图、饼状图、散点图及设置对应的标题、图例、坐标等）；
+2、CheckWeight-StatusMonitor源码研究学习与资料查询；
 
 
 
