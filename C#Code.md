@@ -888,7 +888,22 @@ for(int i=0; i<str4.Length;i++)
 }
 ```
 
-### 6.3  遍历数组（使用下标for\while;不使用下标--foreach）;
+### 6.3  数组排序及反转；
+
+```c#
+//排序数组(Sort方法为快速排序算法，是不稳定排序，该算法时间复杂度为O(nlogn);n-数组长度)；
+int[] arrays = { 1, 32, 2, 43, 11 };
+Array.Sort(arrays);
+Console.WriteLine(arrays);
+Console.ReadKey();
+
+ //反转数组(Reverse)；
+int[] array = { 1, 32, 2, 43, 11 };
+Array.Reverse(array, 10, 100);  //反转数组，从第11个元素开始，连续100个元素；
+ 
+```
+
+### 6.4  遍历数组（使用下标for\while;不使用下标--foreach）;
 
 ```c#
 //遍历数组；
@@ -932,7 +947,7 @@ Console.WriteLine("max={0},min={1}", max, min);
 Console.ReadKey();
 ```
 
-### 6.4  简单数组及多维数组使用--（params 关键字）；
+### 6.5  简单数组及多维数组使用--（params 关键字）；
 
 ```c#
 //简单数组；
