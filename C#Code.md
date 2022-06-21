@@ -587,7 +587,7 @@ static void Main(string[] args)
 ### 4.6 get\set;
 
 ```c#
-// get-set属性；
+// get-set属性(使用GET和SET能让赋值和取值增加限制)；
 //在面向对象编程里面，有的类的数据是私有的，是封装起来的，所以为了读取和写入对应的私有数据，c#采用了关键字get和set，其中get负责读取私有数据，set负责写入私有数据，
 
 // case1:
