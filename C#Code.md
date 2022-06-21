@@ -19,8 +19,6 @@
 // 托管堆是CLR中自动内存管理的基础。初始化新进程时，运行时会为进程保留一个连续的地址空间区域。这个保留的地址空间被称为托管堆。托管堆维护着一个指针，用它指向将在堆中分配的下一个对象的地址。最初，该指针设置为指向托管堆的基址。
 ```
 
-
-
 # C# 命名规则：
 
 ```c#
@@ -813,7 +811,64 @@ namespace CalculatorApplication
 
 ## 6、数组；
 
-### 6.1 初始化数组；
+### 6.1 数组分类（一维、二维、多维、交错数组、）；
+
+```c#
+// 1、一维数组；
+type [] arrays1;	//type可为int、string等；arrays1数组名；
+//case1;
+int [] arrays1 = new int[9];
+for(int i=0;i<arrays1.Length;i++)
+{
+    arrays1[i]=i.ToString();
+}
+/***********************************************/
+
+// 2、二维数组（中括号加一个逗号[,]）；
+type[,] arrays2; //type可为int、string等；arrays2数组名；
+//case2;
+string[,] arrays2 = new string[10, 10];
+for (int i = 0; i < 10; i++)
+{
+    for (int j = 0; j < 10; j++)
+    {
+        arrays2[i, j] = i.ToString() + j.ToString();
+        Console.WriteLine(arrays2[i, j]);
+    }
+}
+Console.ReadKey();
+/***********************************************/
+
+// 3、多维数组；
+//type [,,] arrays3; //type可为int,double,string等；arrays3--数组名；
+
+string[,,] arrays3 = new string[2, 5, 10];
+for (int i = 0; i < 2; i++)
+{
+    for (int j = 0; j < 5; j++)
+    {
+        for (int k = 0; k < 10; k++)
+        {
+            arrays3[i, j, k] = i.ToString() + j.ToString() + k.ToString();
+            Console.WriteLine(arrays3[i, j, k]);
+        }
+    }
+}
+Console.ReadKey();
+/***********************************************/
+
+// 4、交错数组（数组的数组）--两个中括号表示为二维交错数组；
+//type[][] arrays4;   
+string[][] arrayj = new string[10][];
+for (int i = 0; i < 10; i++)
+{
+    arrayj[i] = new string[i + 1];
+    Console.WriteLine(arrayj[i]);
+}
+Console.ReadKey();
+```
+
+### 6.2  初始化数组；
 
 ```c#
 //1、直接赋值；
@@ -833,7 +888,7 @@ for(int i=0; i<str4.Length;i++)
 }
 ```
 
-### 6.2 遍历数组（使用下标for\while;不使用下标--foreach）;
+### 6.3  遍历数组（使用下标for\while;不使用下标--foreach）;
 
 ```c#
 //遍历数组；
@@ -877,7 +932,7 @@ Console.WriteLine("max={0},min={1}", max, min);
 Console.ReadKey();
 ```
 
-### 6.3  简单数组及多维数组使用--（params 关键字）；
+### 6.4  简单数组及多维数组使用--（params 关键字）；
 
 ```c#
 //简单数组；
