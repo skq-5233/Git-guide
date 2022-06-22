@@ -1131,8 +1131,11 @@ namespace DegreeApplication
 ## 7、接口（interface）;
 
 ```c#
+//接口interface定义一种协议，包含四种成员（方法、属性、事件、索引器）；
 //声明一个MyInterface的接口，并声明一个名称为name的属性；
-interface MyInterface
+
+//属性（在MyInterface接口中声明为name的属性，该属性包含get、set访问器,因此，该属性可读写。）；
+public interface MyInterface
 {
     string name
     {
@@ -1140,6 +1143,29 @@ interface MyInterface
         set;
     }
 }
+
+//索引器（声明索引器，只能声明该索引器具有哪个（get\set）,不能实现该访问器）；
+public interface MyInterface
+{
+    string this [int index]
+    {
+        get;
+        set;
+    }
+}
+
+//方法(在接口中声明方法时，只能声明该方法的签名，且该方法的方法体只能为；（分号）)
+public interface MyInterface
+{
+    string GetName(int userID);	//接口的方法体只能是一个；（分号），不包括其实现代码；
+}
+
+//事件（在接口中声明事件时，只能声明该事件的签名，且该事件的名称后必须接一个；（分号））
+public interface MyInterface
+{
+    event EventHandler print;
+}
+
 ```
 
 ## 8、委托（delegate）;
