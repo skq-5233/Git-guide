@@ -1075,6 +1075,59 @@ namespace ArrayApplication
 }
 ```
 
+6.6 Siwth-case;
+
+```c#
+// Sitch-case;
+using System;
+namespace DegreeApplication
+{
+    class Degree
+    {
+        public static void Main(string[] args)
+        {
+        Console.WriteLine("请输入等级：");
+        string level = Convert.ToString(Console.ReadLine());
+
+        decimal salary = 3500;
+        bool b = true;
+
+        switch(level)
+        {
+            case "A": salary += 500;
+                break;
+
+            case "B":salary += 200;
+                break;
+
+            case "C":salary += 0;
+                break;
+
+            case "D":salary -= 200;
+                break;
+
+            case "E":salary -= 500;
+                break;
+
+            default: Console.WriteLine("输入有误，退出程序！");
+                b = !b;
+                break;
+
+        }
+
+        if(b)
+        {
+            Console.WriteLine("salary={0}", salary);
+            Console.ReadKey();
+        }
+            
+        }
+        
+    }
+}
+
+```
+
 ## 7、接口（interface）;
 
 ```c#
