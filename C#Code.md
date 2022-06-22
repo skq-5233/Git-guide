@@ -1166,6 +1166,26 @@ public interface MyInterface
     event EventHandler print;
 }
 
+
+//声明一个名称为 MyInterface的接口，它包含四个成员：Name属性，索引器，GetName(int userID)方法和Print事件；
+public interface MyInterface
+{
+    string Name //Name属性；
+    {
+        get;    //get访问器，表示该属性可读；
+        set;    //set访问器，表示该属性可写；
+    } 
+
+    string this [int index] //索引器；
+    {
+        get;    //get访问器，表示该属性可读；
+        set;    //set访问器，表示该属性可写；
+    }
+
+    string GetName(int userID);
+    event EventHandler print;
+
+}
 ```
 
 ## 8、委托（delegate）;
