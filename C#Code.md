@@ -1167,7 +1167,7 @@ public interface MyInterface
 }
 
 
- //(实现接口)声明一个名称为 MyInterface的接口，它包含四个成员：Name属性，索引器，GetName(int userID)方法和Print事件；
+ //(实现接口)声明一个名称为 MyInterface的接口，它包含四个成员：Name属性，索引器，GetName(int userID)方法和Print事件；  
 public interface MyInterface
 {
     string Name //Name属性；
