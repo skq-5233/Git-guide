@@ -657,7 +657,7 @@ try
 }
 
 
-catch(System.Exception ex)
+catch(System.Exception ex)	//打印异常情况下的信息；
 {
     Console.WriteLine(ex.Message);
 }
