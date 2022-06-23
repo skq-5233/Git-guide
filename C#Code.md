@@ -582,6 +582,91 @@ static void Main(string[] args)
 
     Console.ReadKey();
 }
+
+//case3 输入年份、月份，输出对应的该月的天数；
+Console.WriteLine("请输入年份：");
+
+try
+{
+    int year = Convert.ToInt32(Console.ReadLine());
+
+
+    Console.WriteLine("请输入月份：");
+    int month = Convert.ToInt32(Console.ReadLine());
+
+
+    if (year < 0)
+    {
+        Console.WriteLine("输入年份有误，程序退出！");
+    }
+
+
+    if (month < 0 || month > 12)
+    {
+        Console.WriteLine("输入月份有误，程序退出！");
+    }
+
+
+    switch (month)
+    {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            Console.WriteLine("{0}年{1}月，有31天", year, month);
+            break;
+
+
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            Console.WriteLine("{0}年{1}月，有30天", year, month);
+            break;
+
+    }
+
+
+
+
+    bool b = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+    if (b)
+    {
+        switch (month)
+        {
+            case 2:
+                Console.WriteLine("{0}年{1}月，有29天", year, month);
+                break;
+        }
+    }
+
+    else
+    {
+        switch (month)
+        {
+            case 2:
+                Console.WriteLine("{0}年{1}月，有28天", year, month);
+                break;
+        }
+
+    }
+}
+
+
+catch(System.Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+
+finally
+{
+    Console.WriteLine("----------程序运行结束--------");
+}
 ```
 
 ### 4.6 get\set;
