@@ -1763,6 +1763,76 @@ wk.Write(filestream); //通过流filestream将表wk写入文件
 //wk.Close(); //关闭Excel表对象wk
 ```
 
+## 14、打开\保存\浏览--文本对话框；
+
+```c#
+//case1---打开文本对话框；
+private void btnFile_Click(object sender, EventArgs e)
+{
+    //创建浏览文件对话框的实例；
+
+    OpenFileDialog ofd = new OpenFileDialog();
+    ofd.Filter = "文本文件(*.txt)|*.txt|All files (*.*)|*.*";
+
+    //设置为文本文件或所有文件；
+    ofd.DefaultExt = "txt";
+
+    //打开对话框；
+    if (ofd.ShowDialog() == DialogResult.OK)
+    {
+        //获取文件全路径；
+        tbFile.Text = ofd.FileName; //tbFile:对应的Text的名称；
+    }
+}
+
+
+//case2---保存文本对话框；
+private void btnSave_Click(object sender, EventArgs e)
+{
+    //创建保存文本对话框的实例；
+    SaveFileDialog sfd = new SaveFileDialog();
+    sfd.Filter = "文本文件(*.txt)|*.txt|All files(*.*)|*.*";
+
+    //设置为文本文件或所有文件；
+    sfd.DefaultExt = "txt";
+
+    //打开对话框；
+    if(sfd.ShowDialog() == DialogResult.OK)
+    {
+        //打开文件并获取文件流；
+        FileStream fs = (FileStream)sfd.OpenFile();
+
+        //读取rtbMessage控件的数据，并转化为byte[]数组；
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(rtbMessage.Text);
+
+        //将内容写入文件；
+        fs.Write(data,0,data.Length);
+        fs.Close();
+
+    }
+
+}
+
+
+
+//case3---目录浏览对话框
+//创建FolderBrowerDialog类的实例fdb;
+private void btnFolder_Click(object sender, EventArgs e)
+{
+    //创建浏览目录对话框的实例；
+    FolderBrowserDialog fdb = new FolderBrowserDialog();
+
+    //打开对话框；
+    if (fdb.ShowDialog() == DialogResult.OK)
+    {
+        //显示选择目录路径；
+        tbFolder.text = fdb.SelectedPath;
+    }
+
+}
+
+```
+
 
 
 
