@@ -1814,7 +1814,6 @@ private void btnSave_Click(object sender, EventArgs e)
 }
 
 
-
 //case3---目录浏览对话框
 //创建FolderBrowerDialog类的实例fdb;
 private void btnFolder_Click(object sender, EventArgs e)
@@ -1830,7 +1829,6 @@ private void btnFolder_Click(object sender, EventArgs e)
     }
 
 }
-
 ```
 
 
