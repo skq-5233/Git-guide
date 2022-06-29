@@ -1649,6 +1649,116 @@ namespace StaticVarApplication
 
 ```
 
+## 13、I\0流、目录和文件处理；
+
+```c#
+// case1:I\O流；
+//与流相关的，常见的包括Stream、FileStreanm(文件流，操作文件)、MemoryStream(内存流，操作内存中的数据)、BufferedStream(缓存流，操作缓存中的数据)；
+
+//FileStream（文件流）；
+FileStream fs = ...;    //
+long length = fs.Length;    //获取流的长度；
+
+// case2:MemoryStream（内存流）；
+MemoryStream ms = new MemoryStream(100);   //创建内存流，容量100；
+long length = ms.Length;	 //获取流的长度；
+
+
+//case3---使用文件流--------
+//用文件流创建或读取.xlsx文件（同时流关联了文件）
+filestream = new FileStream("D:\\SKQ\\VS-Code\\Demo\\Emgu.CV.CvEnum\\Result\\匹配信息.xlsx", FileMode.OpenOrCreate);
+
+//创建表和sheet;
+if (indexOfExcel_j == 1)
+{
+wk = new XSSFWorkbook();   //创建表对象wk
+isheet = wk.CreateSheet("Sheet1");   //在wk中创建sheet1
+//创建表头
+IRow rowtitle = null;
+rowtitle = isheet.CreateRow(0); //创建index=j的行
+
+ICell cellTitle0 = null;
+cellTitle0 = rowtitle.CreateCell(0);  //在index=j的行中创建index=0的单元格
+cellTitle0.SetCellValue("时间"); //给创建的单元格赋值string
+
+ICell cellTitle1 = null;
+cellTitle1 = rowtitle.CreateCell(1);  //在index=j的行中创建index=0的单元格
+cellTitle1.SetCellValue("图像名称"); //给创建的单元格赋值string
+
+ICell cellTitle2 = null;
+cellTitle2 = rowtitle.CreateCell(2);  //在index=j的行中创建index=0的单元格
+cellTitle2.SetCellValue("匹配信息坐标X"); //给创建的单元格赋值string
+
+ICell cellTitle3 = null;
+cellTitle3 = rowtitle.CreateCell(3);  //在index=j的行中创建index=0的单元格
+cellTitle3.SetCellValue("匹配信息坐标Y"); //给创建的单元格赋值string
+
+ICell cellTitle4 = null;
+cellTitle4 = rowtitle.CreateCell(4);  //在index=j的行中创建index=0的单元格
+cellTitle4.SetCellValue("最大相似度"); //给创建的单元格赋值string
+
+
+ICell cellTitle5 = null;
+cellTitle5 = rowtitle.CreateCell(5);  //在index=j的行中创建index=0的单元格
+cellTitle5.SetCellValue("最小相似度"); //给创建的单元格赋值string
+
+ICell cellTitle6 = null;
+cellTitle6 = rowtitle.CreateCell(6);  //在index=j的行中创建index=0的单元格
+cellTitle6.SetCellValue("轮廓总面积"); //给创建的单元格赋值strin
+}
+
+#region
+//向单元格中写数据(2021-1231,循环写入行、列数据，先定义行数，再定义列数，这里是2行6列);
+//for (int indexOfExcel_j = 1; indexOfExcel_j < 3; indexOfExcel_j++)//(j:行)；
+//{
+
+//IRow row2 = null;
+//row2 = isheet.CreateRow(indexOfExcel_j++); //创建index=j的行
+
+////datetime格式化；
+#endregion
+DateTime dt = DateTime.Now;
+
+rowWrite = isheet.CreateRow(indexOfExcel_j++); //创建index=j的行
+
+ICell cell0 = null;
+cell0 = rowWrite.CreateCell(0);  //在index=j的行中创建index=0的单元格
+cell0.SetCellValue(dt.ToLocalTime().ToString()); //给创建的单元格赋值string
+
+ICell cell1 = null;
+cell1 = rowWrite.CreateCell(1);  //在index=j的行中创建index=0的单元格
+cell1.SetCellValue(dbf_File2); //给创建的单元格赋值string
+
+ICell cell2 = null;
+cell2 = rowWrite.CreateCell(2);  //在index=j的行中创建index=0的单元格
+cell2.SetCellValue("X:" + max_loc.X); //给创建的单元格赋值string
+
+ICell cell3 = null;
+cell3 = rowWrite.CreateCell(3);  //在index=j的行中创建index=0的单元格
+cell3.SetCellValue("Y:" + max_loc.Y); //给创建的单元格赋值string
+
+ICell cell4 = null;
+cell4 = rowWrite.CreateCell(4);  //在index=j的行中创建index=0的单元格
+cell4.SetCellValue(max.ToString("f2")); //给创建的单元格赋值string
+
+
+ICell cell5 = null;
+cell5 = rowWrite.CreateCell(5);  //在index=j的行中创建index=0的单元格
+cell5.SetCellValue(min.ToString("f2")); //给创建的单元格赋值string
+
+ICell cell6 = null;
+cell6 = rowWrite.CreateCell(6);  //在index=j的行中创建index=0的单元格
+cell6.SetCellValue(sum_area.ToString()); //给创建的单元格赋值string
+
+
+//通过流将表中写入的数据一次性写入文件中;
+wk.Write(filestream); //通过流filestream将表wk写入文件
+
+//(add,20211231)
+//filestream.Close(); //关闭文件流filestream
+//wk.Close(); //关闭Excel表对象wk
+```
+
 
 
 
