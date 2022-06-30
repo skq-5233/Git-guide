@@ -779,6 +779,9 @@ Console.ReadKey();
 
 //求1-100（包含）间的所有素数；
 //for+2次Tab自动出现for循环公式；
+
+int sum = 0;
+
 for (int i = 2; i <= 100; i++)  //当执行完Console.Writeline()时，再执行i++(自增1)；
 {
     bool flag = true;  //若该句放在最前面，仅输出2,3;
@@ -793,10 +796,13 @@ for (int i = 2; i <= 100; i++)  //当执行完Console.Writeline()时，再执行
     }
     if (flag)
     {
+        sum += i;
         Console.WriteLine("Prime is {0}", i);
+
     }
 
 }
+Console.WriteLine("sum is {0}", sum);   //所有素数求和；
 Console.ReadKey();
 ```
 
