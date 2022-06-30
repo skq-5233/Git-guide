@@ -777,9 +777,10 @@ Console.WriteLine("sum={0}",sum);   //4315;
 Console.ReadKey();
 
 
+
 //求1-100（包含）间的所有素数；
 //for+2次Tab自动出现for循环公式；
-
+   
 int sum = 0;
 
 for (int i = 2; i <= 100; i++)  //当执行完Console.Writeline()时，再执行i++(自增1)；
