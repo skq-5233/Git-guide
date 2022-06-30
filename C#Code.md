@@ -740,6 +740,68 @@ public int y
 }
 ```
 
+### 4.7 Code(条件求和、素数...)；
+
+```c#
+//1-100(包含)除能够被7整除外的所有整数和；
+//case1----(使用for循环+continue):
+int sum = 0;
+for (int i = 1; i < 101; i++)//for+2次Tab自动出现for循环公式；当执行完Console.WriteLine()时，再执行i++；
+{
+    if (i % 7 == 0)
+    {
+        continue;
+    }
+
+    sum += i;
+}
+Console.WriteLine("sum={0}",sum);   //4315;
+Console.ReadKey();
+
+//case2----(使用while-continue):
+ int sum = 0;
+int i = 1;
+
+while (i <= 100)
+{
+    if (i % 7 == 0)
+    {
+        i++;    //若无i++;则一直卡在i=7处；
+        continue;    //跳出当前循环，开启下一次循环；
+    }
+
+    sum += i;
+    i++;
+}
+Console.WriteLine("sum={0}",sum);   //4315;
+Console.ReadKey();
+
+
+//求1-100（包含）间的所有素数；
+//for+2次Tab自动出现for循环公式；
+for (int i = 2; i <= 100; i++)  //当执行完Console.Writeline()时，再执行i++(自增1)；
+{
+    bool flag = true;  //若该句放在最前面，仅输出2,3;
+    for (int j = 2; j < i; j++) //当执行完Console.Writeline()时，再执行i++(自增1)；
+    {
+        if (i % j == 0) //能被2和到自身的前一个数整除;
+        {
+            flag = false;
+            break;
+
+        }
+    }
+    if (flag)
+    {
+        Console.WriteLine("Prime is {0}", i);
+    }
+
+}
+Console.ReadKey();
+```
+
+
+
 ## 5、C# 调用方法；
 
 ```c#
