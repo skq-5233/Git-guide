@@ -204,7 +204,10 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 3、江苏淮安日化产线更换品牌，进行模型迭代学习优化并远程部署；
 
 
-
+（2022--0627-0701）
+周清周高：
+1、CheckWeight-StatusMonitor源码研究学习与资料查询；
+2、CheckWeight-DataAnalysis研究学习（时域分析、频域分析）；
 
 
 
