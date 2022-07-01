@@ -740,7 +740,7 @@ public int y
 }
 ```
 
-### 4.7 Code(条件求和、素数、水仙花数)；
+### 4.7 Code(条件求和、素数、水仙花数、随机数生成概率)；
 
 ```c#
 //1-100(包含)除能够被7整除外的所有整数和；
@@ -822,6 +822,14 @@ for (int i = 100; i < 1000; i++)
     }
 }
 Console.ReadLine();
+
+
+//case4----随机数生成概率；
+Random rnd = new Random();  //随机生成数据；
+
+//createRandomProbability(90, 8, 12, 13)---90%的概率出现在[8,12];10%的概率出现在[12,13];
+//随机生成一个带三位小数随机数；
+double cw = createRandomProbability(90, 8, 12, 13) + rnd.Next(0, 9) * 0.1 + rnd.Next(0, 9) * 0.01 + rnd.Next(0, 9) * 0.001;
 ```
 
 
