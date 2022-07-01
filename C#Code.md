@@ -740,7 +740,7 @@ public int y
 }
 ```
 
-### 4.7 Code(条件求和、素数...)；
+### 4.7 Code(条件求和、素数、水仙花数)；
 
 ```c#
 //1-100(包含)除能够被7整除外的所有整数和；
@@ -805,6 +805,23 @@ for (int i = 2; i <= 100; i++)  //当执行完Console.Writeline()时，再执行
 }
 Console.WriteLine("sum is {0}", sum);   //所有素数求和；
 Console.ReadKey();
+
+
+//case3----水仙花数；
+//shuixianshua;
+for (int i = 100; i < 1000; i++)
+{
+    int a = i / 100;
+    int b = i % 100 / 10;
+    int c = i % 10;
+
+    if(a*a*a+b*b*b+c*c*c==i)
+    {
+        Console.WriteLine("shuixianhuashu is {0}", i);
+
+    }
+}
+Console.ReadLine();
 ```
 
 
