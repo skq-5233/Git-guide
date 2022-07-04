@@ -740,7 +740,7 @@ public int y
 }
 ```
 
-### 4.7 Code(条件求和、素数、水仙花数、随机数生成概率)；
+### 4.7 Code(条件求和、素数、水仙花数、随机数生成、乘法表、加法组合)；
 
 ```c#
 //1-100(包含)除能够被7整除外的所有整数和；
@@ -830,6 +830,53 @@ Random rnd = new Random();  //随机生成数据；
 //createRandomProbability(90, 8, 12, 13)---90%的概率出现在[8,12];10%的概率出现在[12,13];
 //随机生成一个带三位小数随机数；
 double cw = createRandomProbability(90, 8, 12, 13) + rnd.Next(0, 9) * 0.1 + rnd.Next(0, 9) * 0.01 + rnd.Next(0, 9) * 0.001;
+
+
+//case5----九九乘法表；
+//1----(9行9列)
+for (int i = 1; i < 10; i++)
+{
+    for (int j = 1; j < 10; j++)
+    {
+        Console.Write("{0}*{1}={2}\t", i, j, i * j); //Console.Write();9行9列；
+    }
+    Console.WriteLine();    //换行并对齐（9行9列）;
+}
+Console.ReadKey();
+
+
+//2----（九九乘法表--三角形状）；
+for (int i = 1; i < 10; i++)
+{
+    for (int j = 1; j <= i; j++)
+    {
+        Console.Write("{0}*{1}={2}\t", i, j, i * j);   //Console.Write();
+    }
+    Console.WriteLine();
+}
+
+Console.ReadKey();
+
+
+//case6----输入一个正整数，输出所有和为该整数的组合；
+Console.WriteLine("输入一个正整数，输出所有组合");
+
+try
+{
+    int n = Convert.ToInt32(Console.ReadLine());
+
+    for (int i = 0; i <= n; i++)
+    {
+        Console.WriteLine("{0}+{1}={2}", i, n - i, n);
+    }
+
+}
+
+catch (System.Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+Console.ReadLine();
 ```
 
 
