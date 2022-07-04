@@ -985,6 +985,33 @@ Console.ReadLine();
             con.Close();
 
             *************************************/
+
+
+// case8----在button_click中写入连接数据库事件；
+private void btnConnect_Click(object sender,EventArgs e)
+{
+    //设置连接字符串；
+    string connectionString = "data source = localhost; user id = sa; pwd = 123456; database = CSharp3DB;";
+
+    //创建SqlConnection类实例，用于连接SQL Server数据库；
+    SqlConnection con = new SqlConnection();
+    con.ConnectionString = connectionString;
+    try
+    {
+        con.Open();
+        rtbMessage.Text = "连接数据库" + con.Database + "成功!\n" + con.ConnectionString;
+
+    }
+
+    catch (System.Exception ex)
+    {
+        rtbMessage.Text = ex.Message;
+    }
+    finally
+    {
+        con.Close();
+    }
+}
 ```
 
 
