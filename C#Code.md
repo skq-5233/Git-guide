@@ -740,7 +740,7 @@ public int y
 }
 ```
 
-### 4.7 Code(条件求和、素数、水仙花数、随机数生成、乘法表、加法组合)；
+### 4.7 Code(条件求和、素数、水仙花数、随机数生成、乘法表、加法组合、SQL)；
 
 ```c#
 //1-100(包含)除能够被7整除外的所有整数和；
@@ -877,6 +877,114 @@ catch (System.Exception ex)
     Console.WriteLine(ex.Message);
 }
 Console.ReadLine();
+
+
+//case7----MySql;
+//SqlConnection\SqlCommand\SqlDataReader\SqlDataAdapter\DataSet\DataView;
+/*****************sql********************
+
+            1、SqlConnection：用于连接SQL Server数据库;
+            其步骤如下：
+
+            1）创建连接字符串；
+            使用4个“名称/值”对，连接CSharp3DB数据库；local:本机； user id、pwd:用户名和密码；database:指定被连接的数据库的名称；
+            string connectionString = "data source=(local); user id = sa;pwd=123456;database=CSharp3DB;";
+
+            2) 创建SqlConnection类的实例；
+            SqlConnection con = new SqlConnection();    //创建SqlConnection类实例；
+            con.ConnectionString = connectionString;    //设置con实例的连接字符串为connectionString；
+
+            3）打开数据库的连接，即建立ADO.NET与数据库的会话；
+             //打开数据库的连接，即建立ADO.NET与数据库的会话；
+            try
+            {
+                con.Open();
+
+            }
+
+            catch(System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            4）关闭数据库的连接；
+            //在try语句的finally块中调用con实例Close()方法关闭数据库连接，并释放该连接占用的资源；
+            finally
+            {
+                if(con!=null)
+                {
+                    con.Close();    //关闭数据库连接；
+                }
+            }
+
+
+            2、SqlCommand对象可以执行对数据源的操作或命令，如检索、插入、更新、删除等，即它能够执行指定的SQL语句或存储过程；
+
+            1）ExecuteReader()方法：读取数据，并返回SqlDataReader对象；
+            2）ExecuteNonQuery()方法：执行指定的SQL语句或存储过程，并返回该操作影响的行数；
+            3）ExecuteXmlReader()方法：读取数据，并返回XmlReader对象；
+            4）ExecuteScalar()方法：读取数据，并返回结果集合中的第一行第一列的值；
+
+            //examples;
+            cmd实例调用ExecuteReader()方法执行它的SQL语句或存储过程；返回结果保存为dr对象，（类型为SqlDatareader()）;
+            (1)
+            SqlDatareader dr = cmd.ExecuteReader(); //cmd为SqlCommand类的实例；
+
+            (2)cmd实例调用ExecuteNonQuery()方法执行它的SQL语句或存储过程；返回结果保存为result变量，（类型为int）
+            int result = cmd.ExecuteNonQuery();
+
+
+
+            3、SqlDataReader对象提供一种从SQL Server数据库中快速读取数据的方法，且在读取数据时必须保持与数据库的连接；
+            具有如下3个特征：
+            1）只能读取数据：不能对数据库执行任何修改或插入操作；
+            2）只能向前读取数据：不能再次读取已经被访问的数据；
+            3）直接把数据传递到对象，WinForm或Wed窗体页；
+
+            //example;
+            在if语句中使用Read()方法读取dr实例的第一条记录值；若记录存在，则读取该记录的 id列的值，并保存为idValue变量；
+            if(dr.Read())
+            {
+                string idvalue = dr["id"].ToString();
+            }
+
+
+
+            4、DataSet对象，提供了一种被称为断开式的数据访问机制，是数据在内存驻留中的一种表示形式；
+
+
+            5、SqlDataAdapter对象表示一组操作数据的命令和一个数据库连接；
+            SqlDataAdapter对象提供以下4种命令；
+            1) SelectCommand:检索（查询）数据；
+            2）InsertCommand:插入数据；
+            3）UpdateCommand:修改数据；
+            4）DeleteCommand:删除数据；
+
+            SqlDataAdapter对象最常用的方法是用于填充DataSet对象，该功能由其Fill()方法实现，一般需要如下6个步骤；
+            1）创建连接字符串；
+            string connectionString = "data source=(local); user id = sa;pwd=123456;database=CSharp3DB;";
+
+            2) 创建SqlConnection类的实例；
+            SqlConnection con = new SqlConnection();    //创建SqlConnection类实例；
+            con.ConnectionString = connectionString;    //设置con实例的连接字符串为connectionString；
+
+
+            3) 创建查询数据的SQL语句或存储过程；
+            string cmdText = "select * from Data";
+
+            4)创建 SqlDataAdapter类实例；
+            SqlDataAdapter da = new  SqlDataAdapter(cmdText,con);   //创建 SqlDataAdapter类的实例cmd;
+
+            5)打开数据库的连接，获取数据并填充到数据集；
+            DataSet ds = new DataSet(); //创建DataSet对象ds;
+            con.Open(); //打开数据库的连接；
+            da.Fill(ds);    //获取数据，并填充DataSet对象ds;
+
+
+            6)关闭数据库连接；
+            con.Close();
+
+            *************************************/
 ```
 
 
