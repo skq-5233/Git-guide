@@ -740,7 +740,7 @@ public int y
 }
 ```
 
-### 4.7 Code(条件求和、素数、水仙花数、随机数生成、乘法表、加法组合、SQL)；
+### 4.7 Code(sum、prime、水仙花数、随机数生成、乘法表、加法组合、SQL、Random)；
 
 ```c#
 //1-100(包含)除能够被7整除外的所有整数和；
@@ -1012,6 +1012,46 @@ private void btnConnect_Click(object sender,EventArgs e)
         con.Close();
     }
 }
+
+
+//case9----使用Random结合Switch-case进行多条件判断；
+//产生随机数；
+Random rd = new Random();
+
+while(true)
+{
+    int number = rd.Next(1, 7);
+
+    Console.WriteLine("Input Your Name:");
+    string userName = Console.ReadLine();
+
+    switch(number)
+    {
+        case 1:
+            Console.WriteLine("{0},You Are A Dancer!",userName);
+            break;
+
+        case 2:
+            Console.WriteLine("{0},You Are A Teacher!",userName);
+            break;
+        case 3:
+            Console.WriteLine("{0},You Are An Engineer!",userName);
+            break;
+        case 4:
+            Console.WriteLine("{0},You Are A Doctorer!",userName);
+            break;
+
+        case 5:
+            Console.WriteLine("{0},You Are A Civil Servant!",userName);
+            break;
+
+        default:
+            Console.WriteLine("{0}, You Are A Loser!",userName);
+            break;
+    }
+    	Console.ReadKey();
+}
+
 ```
 
 
