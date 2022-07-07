@@ -212,7 +212,7 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 
 （2022--0704-0708）
 周清周高：
-1、CheckWeight-DataAnalysis研究学习：时域分析（折线图设计）、频域分析（散点图及饼状图设计）；
+1、CheckWeight-DataAnalysis研究学习：时域分析（插入折线图设计）、频域分析（插入散点图及饼状图设计）；
 2、组装软管灌装质量控制器（2套）及图像采集组件（5套）；
 
 
