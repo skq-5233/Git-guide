@@ -1087,7 +1087,6 @@ Console.ReadKey();
 
 //case11--将数组中的元素进行逆序排列并打印；
 
-
 int [] arr3 = { 9, 2, 5, 7, 8 };
 
 //逆序前
@@ -1118,6 +1117,24 @@ for (int i = 0; i < arr3.Length; i++)
 {
 
     Console.WriteLine(arr3[i]);
+}
+Console.ReadKey();
+
+
+//case12----数组逆序-exercise;
+
+string[] strs = { "a", "b", "c", "d", "e", "f", "g" };
+
+for (int i = 0; i < strs.Length/2; i++)
+{
+    string temp = strs[i];
+    strs[i] = strs[strs.Length - i - 1];
+    strs[strs.Length - i - 1] = temp;
+}
+
+for (int i = 0; i < strs.Length; i++)
+{
+    Console.WriteLine(strs[i]);
 }
 Console.ReadKey();
 ```
