@@ -1103,7 +1103,7 @@ Console.ReadKey();
 //}
 
 //逆序
-for (int i = 0; i < arr3.Length/2; i++)
+for (int i = 0; i < arr3.Length/2; i++)	//i--交换次数；
 {
 
     int temp = arr3[i];
@@ -1113,7 +1113,7 @@ for (int i = 0; i < arr3.Length/2; i++)
 
 }
 Console.WriteLine("逆序后：");
-for (int i = 0; i < arr3.Length; i++)
+for (int i = 0; i < arr3.Length; i++)	//i--数组长度；
 {
 
     Console.WriteLine(arr3[i]);
@@ -1121,22 +1121,31 @@ for (int i = 0; i < arr3.Length; i++)
 Console.ReadKey();
 
 
-//case12----数组逆序-exercise;
 
+//case12----数组逆序-exercise;
 string[] strs = { "a", "b", "c", "d", "e", "f", "g" };
 
-for (int i = 0; i < strs.Length/2; i++)
+Console.WriteLine("逆序前：");
+
+for (int i = 0; i < strs.Length; i++)
+{
+    Console.WriteLine(strs[i]);
+}
+
+for (int i = 0; i < strs.Length / 2; i++)   //i--交换次数；
 {
     string temp = strs[i];
     strs[i] = strs[strs.Length - i - 1];
     strs[strs.Length - i - 1] = temp;
 }
 
-for (int i = 0; i < strs.Length; i++)
+Console.WriteLine("逆序后：");
+for (int i = 0; i < strs.Length; i++)   //i--数组长度；
 {
     Console.WriteLine(strs[i]);
 }
 Console.ReadKey();
+
 ```
 
 
