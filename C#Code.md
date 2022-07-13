@@ -1083,6 +1083,43 @@ for (int i = 0; i < nums.Length; i++)
 
 Console.WriteLine("MAX={0},MIN={1},SUM={2},AVG={3}", max, min, sum, avg);
 Console.ReadKey();
+
+
+//case11--将数组中的元素进行逆序排列并打印；
+
+
+int [] arr3 = { 9, 2, 5, 7, 8 };
+
+//逆序前
+Console.WriteLine("逆序前：");
+for (int i = 0; i < arr3.Length; i++)
+{               
+    Console.WriteLine(arr3[i]);
+}
+Console.ReadKey();
+
+//foreach (var i in arr3)
+//{
+//    Console.Write(i + " ");
+//}
+
+//逆序
+for (int i = 0; i < arr3.Length/2; i++)
+{
+
+    int temp = arr3[i];
+    arr3[i] = arr3[arr3.Length - i - 1];
+    arr3[arr3.Length - i - 1] = temp;
+
+
+}
+Console.WriteLine("逆序后：");
+for (int i = 0; i < arr3.Length; i++)
+{
+
+    Console.WriteLine(arr3[i]);
+}
+Console.ReadKey();
 ```
 
 
