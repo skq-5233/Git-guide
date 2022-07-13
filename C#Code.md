@@ -1052,6 +1052,37 @@ while(true)
     	Console.ReadKey();
 }
 
+
+//case10--arrays-exercise;
+int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+int max = int.MinValue; //max取最小值，使得数组中的所有值均比max大；
+int min = int.MaxValue; //min取最大值，使得数组中的所有值均比min小；
+
+double sum = 0.0d;
+double avg = 0.0d;
+
+for (int i = 0; i < nums.Length; i++)
+{
+    nums[i] += i;
+
+    if (nums[i] > max)
+    {
+        max = nums[i];
+    }
+
+    if (nums[i] < min)
+    {
+        min = nums[i];
+    }
+
+    sum += nums[i];
+    avg = sum / 9;
+    Console.WriteLine(nums[i]);
+}
+
+Console.WriteLine("MAX={0},MIN={1},SUM={2},AVG={3}", max, min, sum, avg);
+Console.ReadKey();
 ```
 
 
