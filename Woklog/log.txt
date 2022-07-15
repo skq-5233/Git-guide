@@ -222,6 +222,7 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 1、江苏淮安日化产线15模型优化与更新；
 2、组装软图像采集组件；
 3、CheckWeight-DataAnalysis研究学习：插入日历与查询历史数据功能；
+4、研究BatchSize等参数对模型精度的影响；
 
 
 
