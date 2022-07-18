@@ -23,6 +23,7 @@
 1、VisionSystemImageprocessing-->ConfigData-->setup.ini-->>CAMERA1=False;CAMERA2=True;CAMERA3=True;CAMERA4=False;(CAMERA2:相机1；CAMERA3：相机2)；
 然后重新启动程序即可；
 
+五、数据增强不可使用：rescale=1. / 255；否则训练损失会一直增大；无法收敛；----2022-0718；
 
 
 
