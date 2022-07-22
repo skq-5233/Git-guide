@@ -1903,3 +1903,36 @@ True
 ['cat', 'hat', 'sat', 'mat']
 ```
 
+## 三十、Coding;
+
+```python
+# 1、第一行输出字符串Hello World!，第二行输出字符串Hello Nowcoder!
+print("Hello World!")
+print("Hello Nowcode!")
+
+
+# 2、假设输入的name为Niuniu，则输出I am Niuniu and I am studying Python in Nowcoder!请按以上句式输出相应的英文句子。
+name = input()	# name 接受输入；
+print(f"I am {name} and I am studying Python in Nowcoder!")
+
+
+# 3、请分别按全小写、全大写和首字母大写的方式对name进行格式化输出（注：每种格式独占一行）。
+name = input()	# name 接受输入；
+print(name.lower())	# 全小写;
+print(name.upper())	# 全大写;
+print(name.title())	# 首字母大写;
+
+# 4、一行输出name去掉两边的空白符后的原本的内容。
+
+# .strip() --- 删除两边空格
+# .lstrip() --- 删除左边空格
+# .rstrip() --- 删除右边空格
+# .replace(" ","") --- 删除所有空格
+# .split() --- 先切分，"".join() --- 再拼接
+
+name = input()	# 接受输入；
+print(name.lstrip())
+
+
+```
+
