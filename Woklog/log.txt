@@ -231,5 +231,11 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 3、CheckWeight-DataAnalysis研究学习；
 
 
+（2022--0725-0729）
+周清周高：
+1、研究密集层层数、冻结网络层数等超参数对模型精度的影响；
+2、CheckWeight-DataAnalysis研究学习；
+3、模型缺陷生成软件设计【添加加载模板图像、加载缺陷图像、加载逻辑与、或图像及合成图像模块功能并显示处理后的图像】；
+
 
 
