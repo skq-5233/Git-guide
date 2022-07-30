@@ -1,0 +1,9 @@
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\bin\Debug\Exercise1.exe.config
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\bin\Debug\Exercise1.exe
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\bin\Debug\Exercise1.pdb
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\obj\Debug\Exercise1.exe
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\obj\Debug\Exercise1.pdb
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\obj\Debug\Exercise1.csprojResolveAssemblyReference.cache
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\bin\Debug\System.Drawing.Common.dll
+D:\Console\ConsoleHello-World\ConsoleApplication1(2022-0104)\Exercise1\bin\Debug\MySql.Data.dll
