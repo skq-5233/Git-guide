@@ -1,0 +1,17 @@
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\First_Demo.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\obj\Debug\First_Demo.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\obj\Debug\First_Demo.Form1.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\obj\Debug\First_Demo.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\obj\Debug\First_Demo.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\First_Demo.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\First_Demo.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\Emgu.CV.Bitmap.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\Emgu.CV.Platform.NetStandard.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\netstandard.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\System.Drawing.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\Emgu.CV.Bitmap.xml
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\Emgu.CV.Platform.NetStandard.xml
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\obj\Debug\First_Demo.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\obj\Debug\First_Demo.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\Emgu.CV.UI.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\First_Demo\bin\Debug\Emgu.CV.dll
