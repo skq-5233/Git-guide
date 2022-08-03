@@ -1,0 +1,16 @@
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\bin\Debug\BasicDemo_CS.exe
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\bin\Debug\BasicDemo_CS.pdb
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\bin\Debug\en-US\BasicDemo_CS.resources.dll
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\bin\Debug\zh-CHS\BasicDemo_CS.resources.dll
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\bin\Debug\MvCameraControl.Net.dll
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\bin\Debug\MvCameraControl.Net.xml
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo.csprojResolveAssemblyReference.cache
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo.Form1.resources
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo.Properties.Resources.resources
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo.Form1.en-US.resources
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo.Form1.zh-CHS.resources
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo.csproj.GenerateResource.Cache
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\en-US\BasicDemo_CS.resources.dll
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\zh-CHS\BasicDemo_CS.resources.dll
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo_CS.exe
+D:\software\MVS_STD_3.4.1_220407\MVS\Development\Samples\C#\BasicDemo\obj\Debug\BasicDemo_CS.pdb
