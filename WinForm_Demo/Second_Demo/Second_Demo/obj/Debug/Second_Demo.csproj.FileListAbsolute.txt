@@ -1,0 +1,16 @@
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Second_Demo.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\obj\Debug\Second_Demo.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\obj\Debug\Second_Demo.Second_Demo.resources
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\obj\Debug\Second_Demo.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\obj\Debug\Second_Demo.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Second_Demo.exe
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Second_Demo.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Emgu.CV.Bitmap.dll
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Emgu.CV.Platform.NetStandard.dll
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\netstandard.dll
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\System.Drawing.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Emgu.CV.Bitmap.xml
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\bin\Debug\Emgu.CV.Platform.NetStandard.xml
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\obj\Debug\Second_Demo.exe
+C:\Users\eivision\Desktop\WinForm_Demo\Second_Demo\Second_Demo\obj\Debug\Second_Demo.pdb
