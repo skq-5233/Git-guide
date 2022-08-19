@@ -245,7 +245,7 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 
 
 （2022--0815-0819）
-1、云南白药 1号机进行模型迭代优化并远程部署；
+1、中山多美1号机进行模型迭代优化并远程部署；
 2、编写热红外相机图像处理程序将RAW转为BMP并显示处理后的图像；
 3、显示BMP图像像素最大值、最小值及图像名称等信息并将其打印至Txt及Excel中；
 4、 CheckWeight-ParameterConifg研究学习；
