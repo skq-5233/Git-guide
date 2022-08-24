@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raw2Himage_CSharp", "Raw2Himage_CSharp\Raw2Himage_CSharp.csproj", "{2BCE3C20-B152-4174-BFB9-2C397F0637E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raw_2_3DFile_CSharp_13-18", "Raw_2_3DFile_CSharp\Raw_2_3DFile_CSharp_13-18.csproj", "{F006F83F-F25F-4560-BE2A-4C60B54EA8FA}"

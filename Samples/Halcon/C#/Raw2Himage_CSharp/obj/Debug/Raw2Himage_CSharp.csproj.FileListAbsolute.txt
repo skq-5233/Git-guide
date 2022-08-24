@@ -1,0 +1,1 @@
+D:\software\Typora\git\Samples\Halcon\C#\Raw2Himage_CSharp\bin\Debug\Raw2Himage_CSharp.exe.config
