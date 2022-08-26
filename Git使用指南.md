@@ -340,3 +340,22 @@ touch .gitignore	//创建.gitignore文件，编辑该文件，每行代表push�
 build/	//忽略build目录下的所有文件
 ```
 
+## 9.GitHub连接超时
+
+```git
+https://wwwxz.blog.csdn.net/article/details/121546823?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-121546823-blog-79393393.pc_relevant_multi_platform_whitelistv3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-121546823-blog-79393393.pc_relevant_multi_platform_whitelistv3&utm_relevant_index=1
+```
+
+### 9.1 检查本地配置的用户名和邮箱
+
+```
+git config --global --list
+```
+
+### 9.2 获取github.com 和 github.global.ssl.fastly.net的IP，添加到hosts文件就可以了 ;不行使用9；
+
+```git
+ping github.com
+ping github.global.ssl.fastly.net
+```
+
