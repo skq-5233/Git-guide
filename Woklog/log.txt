@@ -256,3 +256,4 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 2、编写代码将像素值打印至至Txt及Excel中；
 3、移植并编写程序保存处理后的图像至指定文件夹；
 4、 使用SunnyUI进行页面设计；
+5、熟悉复合型改造说明，协助安装复合型。
