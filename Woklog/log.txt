@@ -249,3 +249,10 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 2、编写热红外相机图像处理程序将RAW转为BMP并显示处理后的图像；
 3、显示BMP图像像素最大值、最小值及图像名称等信息并将其打印至Txt及Excel中；
 4、 CheckWeight-ParameterConifg研究学习；
+
+
+（2022--0822-0826）
+1、编写代码查找图像中像素最小值、最大值及对应的位置并与原图Raw进行对比；
+2、编写代码将像素值打印至至Txt及Excel中；
+3、移植并编写程序保存处理后的图像至指定文件夹；
+4、 使用SunnyUI进行页面设计；
