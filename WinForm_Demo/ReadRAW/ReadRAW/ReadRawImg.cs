@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using Emgu.CV;
-using DevExpress.Utils.StructuredStorage.Internal.Reader;
+using Sunny.UI;
+using ReadRAW.OfflineTestMode;
+using ReadRAW.OnlineTestMode;
 
 namespace ReadRAW
 {
-    public partial class ReadRawImg : Form
+    //UIHeaderAsideMainFrame--work
+    public partial class ReadRawImg : UIAsideHeaderMainFrame
     {
         public ReadRawImg()
         {
@@ -28,20 +25,40 @@ namespace ReadRAW
             int pageIndex = 1000;
             //Header.SetNodePageIndex(Header.Nodes[0], pageIndex);
             //Header.SetNodeSymbol(Header.Nodes[0], 61451);
-            //TreeNode parent = Aside.CreateNode("绝对值模式", 61451, 24, pageIndex);
+            TreeNode parent = Aside.CreateNode("离线测试模式", 61451, 24, pageIndex);
 
             //通过设置PageIndex关联，节点文字、图标由相应的Page的Text、Symbol提供
-            //Aside.CreateChildNode(parent, AddPage(new FAvatar(), ++pageIndex));
-            //Aside.CreateChildNode(parent, AddPage(new FButton(), ++pageIndex));
+            Aside.CreateChildNode(parent, AddPage(new AbsValueMode(), ++pageIndex));
+            Aside.CreateChildNode(parent, AddPage(new RelValueMode(), ++pageIndex));
+
+            Aside.CreateChildNode(parent, AddPage(new RegionalMode(), ++pageIndex));
+            Aside.CreateChildNode(parent, AddPage(new ThermalMapMode(), ++pageIndex));
+
+            //示例设置某个节点的小红点提示
+            Aside.ShowTips = true;
+            //Aside.SetNodeTipsText(Aside.Nodes[0], "6", Color.Red, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[0], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[1], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[2], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[3], " ", Color.Lime, Color.White);
 
             pageIndex = 2000;
-            Header.SetNodePageIndex(Header.Nodes[1], pageIndex);
-            Header.SetNodeSymbol(Header.Nodes[1], 61818);
-            TreeNode parent = Aside.CreateNode("窗体", 61818, 24, pageIndex);
+            //Header.SetNodePageIndex(Header.Nodes[1], pageIndex);
+            //Header.SetNodeSymbol(Header.Nodes[1], 61818);
+            parent = Aside.CreateNode("在线测试模式", 61818, 24, pageIndex);
             //通过设置GUID关联，节点字体图标和大小由UIPage设置
-            Aside.CreateChildNode(parent, AddPage(new FDialogs(), Guid.NewGuid()));
-            Aside.CreateChildNode(parent, AddPage(new FEditor(), Guid.NewGuid()));
-            Aside.CreateChildNode(parent, AddPage(new FFrames(), Guid.NewGuid()));
+            Aside.CreateChildNode(parent, AddPage(new InitializationMode(), Guid.NewGuid()));
+            Aside.CreateChildNode(parent, AddPage(new CaptureImageMode(), Guid.NewGuid()));
+            Aside.CreateChildNode(parent, AddPage(new SaveImageMode(), Guid.NewGuid()));
+            Aside.CreateChildNode(parent, AddPage(new ParameterSettingMode(), Guid.NewGuid()));
+
+            //示例设置某个节点的小红点提示
+            Aside.ShowTips = true;
+            //Aside.SetNodeTipsText(Aside.Nodes[0], "6", Color.Red, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[0], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[1], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[2], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[3], " ", Color.Lime, Color.White);
         }
 
         public byte[] ImgData = null;
@@ -152,7 +169,7 @@ namespace ReadRAW
                 //pictureBox1.Image = new Bitmap(Bmp, pictureBox1.Width, pictureBox1.Height);   //origin;
 
                 //Thread with Invoke;事件委托；
-                Invoke(new EventHandler(delegate { pictureBox1.Image = new Bitmap(Bmp, pictureBox1.Width, pictureBox1.Height); }));
+                //Invoke(new EventHandler(delegate { pictureBox1.Image = new Bitmap(Bmp, pictureBox1.Width, pictureBox1.Height); }));
                 //Bmp.Dispose();
             }
 
@@ -579,7 +596,7 @@ namespace ReadRAW
         {
             DateTime now = new DateTime();
             now = DateTime.Now;
-            this.labelControl_time.Text = now.ToString("yyyy-MM-dd  HH:mm:ss");
+            this.labelControl.Text = now.ToString("yyyy-MM-dd  HH:mm:ss");
         }
 
      

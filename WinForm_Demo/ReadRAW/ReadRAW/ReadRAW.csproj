@@ -75,6 +75,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OfflineTestMode\AbsValueMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfflineTestMode\AbsValueMode.Designer.cs">
+      <DependentUpon>AbsValueMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OfflineTestMode\RegionalMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfflineTestMode\RegionalMode.Designer.cs">
+      <DependentUpon>RegionalMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OfflineTestMode\RelValueMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfflineTestMode\RelValueMode.Designer.cs">
+      <DependentUpon>RelValueMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OfflineTestMode\ThermalMapMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfflineTestMode\ThermalMapMode.Designer.cs">
+      <DependentUpon>ThermalMapMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTestMode\CaptureImageMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnlineTestMode\CaptureImageMode.Designer.cs">
+      <DependentUpon>CaptureImageMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTestMode\InitializationMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnlineTestMode\InitializationMode.Designer.cs">
+      <DependentUpon>InitializationMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTestMode\ParameterSettingMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnlineTestMode\ParameterSettingMode.Designer.cs">
+      <DependentUpon>ParameterSettingMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTestMode\SaveImageMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnlineTestMode\SaveImageMode.Designer.cs">
+      <DependentUpon>SaveImageMode.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReadRawImg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +131,30 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="OfflineTestMode\AbsValueMode.resx">
+      <DependentUpon>AbsValueMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfflineTestMode\RegionalMode.resx">
+      <DependentUpon>RegionalMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfflineTestMode\RelValueMode.resx">
+      <DependentUpon>RelValueMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfflineTestMode\ThermalMapMode.resx">
+      <DependentUpon>ThermalMapMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnlineTestMode\CaptureImageMode.resx">
+      <DependentUpon>CaptureImageMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnlineTestMode\InitializationMode.resx">
+      <DependentUpon>InitializationMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnlineTestMode\ParameterSettingMode.resx">
+      <DependentUpon>ParameterSettingMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnlineTestMode\SaveImageMode.resx">
+      <DependentUpon>SaveImageMode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReadRawImg.resx">
       <DependentUpon>ReadRawImg.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,6 +180,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
