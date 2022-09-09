@@ -23,6 +23,16 @@ namespace ReadRAW.OfflineTestMode
 {
     public partial class SingleImageProcessMode : UIPage
     {
+
+/***************************************设计离线测试-单图像处理模式************************************************************
+        *1、【图像格式选择】：Raw,Jpg,Png,Tif,Bmp;----添加到imgFormatUiComboBox1；并在事件中设计SelectedIndexChanged;
+        *1.1、当选择图像格式为Raw时，【图像位数选择】：8,12,14；----添加到chooseBitFormatUiComboBox1；并在事件中设计SelectedIndexChanged;
+        *2、【测试模式】包括【绝对值模式】、【相对值模式】、【区域模式】及【显示模式】（【灰度图模式】、【热力图模式】）；
+        *2.1、 其中【显示模式】为前三个模式共有；
+        *2.2、【测试模式】----添加到testModeUiComboBox2；并在事件中设计SelectedIndexChanged; 
+        *2.3、【区域模式】----上下限阈值通过TextBox进行设置；
+        *3、通过Label显示像素值及坐标信息；
+****************************************************************************************************************************/
         public SingleImageProcessMode()
         {
             InitializeComponent();

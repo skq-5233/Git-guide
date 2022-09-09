@@ -17,7 +17,14 @@ using ReadRAW.OnlineTestMode;
 namespace ReadRAW
 {
     //UIHeaderAsideMainFrame-(UIAsideHeaderMainFrame)-work;
-    public partial class ReadRawImg : UIAsideHeaderMainFrame
+
+/***********************************************************热红外相机测试系统***********************
+    * 1、一级菜单：包括【离线模式】，【在线模式】；
+    * 2、【离线模式】包括：【单图像处理】、【批量图像处理】
+    * 2.1、 【单图像处理】包括：1、【图像格式】；2、Raw-【位数选择】；3、【绝对值模式】、【相对值模式】、【区域模式】；4、【显示模式】包括：【灰度图模式】、【热力图模式】；
+    * 3、【在线模式】包括：【初始化模式】、【图像采集模式】、【图像保存模式】、【参数设置模式】；
+***************************************************************************************************/
+    public partial class ReadRawImg : UIAsideHeaderMainFrame    //继承UIAsideHeaderMainFrame;
     {
         public ReadRawImg()
         {
@@ -610,7 +617,7 @@ namespace ReadRAW
         {
             switch (menuIndex)
             {
-                case 2:     //2--Header个数;
+                case 2:     //2--Header个数;（该项目包括两个头部标题：离线测试、在线测试）；
                     UIStyle style = (UIStyle)pageIndex;
                     if (style != UIStyle.Colorful)
                         StyleManager.Style = style;
