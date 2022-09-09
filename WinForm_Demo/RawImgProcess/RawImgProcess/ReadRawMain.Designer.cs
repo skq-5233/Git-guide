@@ -44,12 +44,17 @@
             // Aside
             // 
             this.Aside.LineColor = System.Drawing.Color.Black;
-            this.Aside.Size = new System.Drawing.Size(250, 623);
+            this.Aside.Location = new System.Drawing.Point(2, 146);
+            this.Aside.ShowOneNode = true;
+            this.Aside.ShowSecondBackColor = true;
+            this.Aside.ShowTips = true;
+            this.Aside.Size = new System.Drawing.Size(200, 620);
             // 
             // Header
             // 
             this.Header.Controls.Add(this.labelControl_Time);
             this.Header.Controls.Add(this.pictureBox2);
+            this.Header.Location = new System.Drawing.Point(2, 36);
             treeNode1.Name = "节点0";
             treeNode1.Text = "绝对值模式";
             treeNode2.Name = "节点1";
@@ -64,7 +69,7 @@
             treeNode3,
             treeNode4});
             this.Header.SelectedIndex = 0;
-            this.Header.Size = new System.Drawing.Size(1024, 110);
+            this.Header.Size = new System.Drawing.Size(1020, 110);
             // 
             // pictureBox2
             // 
@@ -100,6 +105,10 @@
             this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReadRawMain";
+            this.Padding = new System.Windows.Forms.Padding(2, 36, 2, 2);
+            this.ShowDragStretch = true;
+            this.ShowRadius = false;
+            this.ShowShadow = true;
             this.Text = "热红外相机测试软件";
             this.ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReadRawMain_FormClosing);

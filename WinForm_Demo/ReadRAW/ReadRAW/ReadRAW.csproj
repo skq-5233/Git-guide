@@ -39,11 +39,33 @@
     <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="Emgu.CV">
-      <HintPath>..\..\..\..\Project_Code\Template-Matching2022-0113\dll\Emgu.CV.dll</HintPath>
+    <Reference Include="Emgu.CV.Bitmap, Version=4.5.1.4349, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.Bitmap.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.CV.UI">
-      <HintPath>..\..\..\..\Project_Code\Template-Matching2022-0113\dll\Emgu.CV.UI.dll</HintPath>
+    <Reference Include="Emgu.CV.DebuggerVisualizers, Version=4.5.5.4823, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.DebuggerVisualizers.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Models, Version=4.5.5.4823, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetCore, Version=4.5.5.4823, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.Platform.NetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetFramework, Version=4.5.5.4823, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.Platform.NetFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetStandard, Version=4.5.1.4349, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\SKQ\VS-Code\Project_Code\Template-Matching2022-0113\dll\netstandard.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\SKQ\VS-Code\Project_Code\Template-Matching2022-0113\dll\NPOI.dll</HintPath>
@@ -64,6 +86,11 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,29 +102,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OfflineTestMode\AbsValueMode.cs">
+    <Compile Include="OfflineTestMode\SingleImageProcessMode.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OfflineTestMode\AbsValueMode.Designer.cs">
-      <DependentUpon>AbsValueMode.cs</DependentUpon>
+    <Compile Include="OfflineTestMode\SingleImageProcessMode.Designer.cs">
+      <DependentUpon>SingleImageProcessMode.cs</DependentUpon>
     </Compile>
-    <Compile Include="OfflineTestMode\RegionalMode.cs">
+    <Compile Include="OfflineTestMode\BatchImageProcessMode.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OfflineTestMode\RegionalMode.Designer.cs">
-      <DependentUpon>RegionalMode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OfflineTestMode\RelValueMode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OfflineTestMode\RelValueMode.Designer.cs">
-      <DependentUpon>RelValueMode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OfflineTestMode\ThermalMapMode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OfflineTestMode\ThermalMapMode.Designer.cs">
-      <DependentUpon>ThermalMapMode.cs</DependentUpon>
+    <Compile Include="OfflineTestMode\BatchImageProcessMode.Designer.cs">
+      <DependentUpon>BatchImageProcessMode.cs</DependentUpon>
     </Compile>
     <Compile Include="OnlineTestMode\CaptureImageMode.cs">
       <SubType>Form</SubType>
@@ -131,17 +146,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="OfflineTestMode\AbsValueMode.resx">
-      <DependentUpon>AbsValueMode.cs</DependentUpon>
+    <EmbeddedResource Include="OfflineTestMode\SingleImageProcessMode.resx">
+      <DependentUpon>SingleImageProcessMode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OfflineTestMode\RegionalMode.resx">
-      <DependentUpon>RegionalMode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OfflineTestMode\RelValueMode.resx">
-      <DependentUpon>RelValueMode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OfflineTestMode\ThermalMapMode.resx">
-      <DependentUpon>ThermalMapMode.cs</DependentUpon>
+    <EmbeddedResource Include="OfflineTestMode\BatchImageProcessMode.resx">
+      <DependentUpon>BatchImageProcessMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OnlineTestMode\CaptureImageMode.resx">
       <DependentUpon>CaptureImageMode.cs</DependentUpon>

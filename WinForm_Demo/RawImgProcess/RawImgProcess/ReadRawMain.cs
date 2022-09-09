@@ -1,4 +1,5 @@
-﻿using RawImgProcess.AbsValueMode;
+﻿using DevExpress.Utils.StructuredStorage.Internal.Reader;
+using RawImgProcess.AbsValueMode;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Windows.Forms;
 
 namespace RawImgProcess
 {
+    //UIHeaderAsideMainFrame--work;
     public partial class ReadRawMain : UIHeaderAsideMainFrame
     {
         public ReadRawMain()
@@ -24,12 +26,12 @@ namespace RawImgProcess
             TreeNode parent = Aside.CreateNode("绝对值模式", 61451, 24, pageIndex);
             //通过设置PageIndex关联，节点文字、图标由相应的Page的Text、Symbol提供
             Aside.CreateChildNode(parent, AddPage(new Readimg(), ++pageIndex));
-            //Aside.CreateChildNode(parent, AddPage(new Saveimg(), ++pageIndex));
+            Aside.CreateChildNode(parent, AddPage(new Saveimg(), ++pageIndex));
 
             //示例设置某个节点的小红点提示
             Aside.ShowTips = true;
             Aside.SetNodeTipsText(Aside.Nodes[0], "", Color.Red, Color.White);
-            //Aside.SetNodeTipsText(parent.Nodes[1], " ", Color.Lime, Color.White);
+            Aside.SetNodeTipsText(parent.Nodes[1], " ", Color.Lime, Color.White);
 
 
             pageIndex = 2000;

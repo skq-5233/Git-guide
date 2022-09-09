@@ -33,17 +33,21 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label3 = new System.Windows.Forms.Label();
             this.uiLabel1 = new Sunny.UI.UILabel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.labelControl_time = new DevExpress.XtraEditors.LabelControl();
             this.labelControl = new DevExpress.XtraEditors.LabelControl();
             this.label2 = new System.Windows.Forms.Label();
+            this.Header_NavBar = new Sunny.UI.UINavBar();
+            this.StyleManager = new Sunny.UI.UIStyleManager(this.components);
             this.Header.SuspendLayout();
             this.SuspendLayout();
             // 
             // Header
             // 
+            this.Header.BackColor = System.Drawing.SystemColors.Desktop;
             this.Header.Controls.Add(this.labelControl);
             resources.ApplyResources(this.Header, "Header");
+            this.Header.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.Header.ForeColor = System.Drawing.Color.White;
             this.Header.Style = Sunny.UI.UIStyle.Custom;
             // 
             // Aside
@@ -63,11 +67,6 @@
             this.uiLabel1.Name = "uiLabel1";
             this.uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.Time_Tick);
             // 
             // labelControl_time
             // 
@@ -96,16 +95,35 @@
             this.label2.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label2.Name = "label2";
             // 
+            // Header_NavBar
+            // 
+            resources.ApplyResources(this.Header_NavBar, "Header_NavBar");
+            this.Header_NavBar.DropMenuFont = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Header_NavBar.Name = "Header_NavBar";
+            this.Header_NavBar.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("Header_NavBar.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("Header_NavBar.Nodes1")))});
+            this.Header_NavBar.SelectedIndex = 0;
+            this.Header_NavBar.Style = Sunny.UI.UIStyle.Custom;
+            this.Header_NavBar.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.Header_NavBar.MenuItemClick += new Sunny.UI.UINavBar.OnMenuItemClick(this.Header_NarBar_MenuItemClick);
+            // 
+            // StyleManager
+            // 
+            this.StyleManager.DPIScale = true;
+            // 
             // ReadRawImg
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.Header_NavBar);
             this.Controls.Add(this.labelControl_time);
             this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.MaximizeBox = false;
             this.Name = "ReadRawImg";
             this.Style = Sunny.UI.UIStyle.Custom;
             this.ZoomScaleRect = new System.Drawing.Rectangle(15, -113, 1008, 729);
@@ -116,6 +134,7 @@
             this.Controls.SetChildIndex(this.labelControl_time, 0);
             this.Controls.SetChildIndex(this.Aside, 0);
             this.Controls.SetChildIndex(this.Header, 0);
+            this.Controls.SetChildIndex(this.Header_NavBar, 0);
             this.Header.ResumeLayout(false);
             this.Header.PerformLayout();
             this.ResumeLayout(false);
@@ -127,10 +146,11 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Label label3;
         private Sunny.UI.UILabel uiLabel1;
-        private System.Windows.Forms.Timer timer1;
         private DevExpress.XtraEditors.LabelControl labelControl_time;
         private DevExpress.XtraEditors.LabelControl labelControl;
         private System.Windows.Forms.Label label2;
+        private Sunny.UI.UINavBar Header_NavBar;
+        private Sunny.UI.UIStyleManager StyleManager;
     }
 }
 
