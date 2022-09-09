@@ -138,9 +138,7 @@ namespace ReadRAW.OfflineTestMode
 
         //add;
         //DataTable dt = new DataTable();
-
-        //根据TextBox输入进行判断；
-        //bool numberInputFlag =true;
+     
 
         public class Info
         {
@@ -214,6 +212,7 @@ namespace ReadRAW.OfflineTestMode
         //使用线程thread1，将函数ImgData()封装在一起；
         public void ImgprocessAccelerate()
         {
+            //测试软件运行时间;
             //Time_Test;
             //st.Reset();
             //st.Start();
@@ -1696,7 +1695,7 @@ namespace ReadRAW.OfflineTestMode
 
 
                 ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-                //GetImgIntProcess();
+                GetImgIntProcess();
 
                 ////调用函数将Raw(8,12,14)进行绝对值模式处理;
                 ////将输入图像Raw转换为的图像数组转换为字节;
@@ -1704,10 +1703,10 @@ namespace ReadRAW.OfflineTestMode
 
 
                 ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-                //GetImgRGBProcess();
+                GetImgRGBProcess();
 
                 ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-                //GetBmpProcess();
+                GetBmpProcess();
 
             }
 
@@ -1726,7 +1725,7 @@ namespace ReadRAW.OfflineTestMode
                 heatmapUiComboTreeView1.Visible = false;
 
                 ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-                //GetImgIntProcess();
+                GetImgIntProcess();
 
                 ////调用函数将Raw(8,12,14)进行相对值模式处理;
                 ////将输入图像Raw转换为的图像数组转换为字节;
@@ -1734,10 +1733,10 @@ namespace ReadRAW.OfflineTestMode
 
 
                 ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-                //GetImgRGBProcess();
+                GetImgRGBProcess();
 
                 ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-                //GetBmpProcess();
+                GetBmpProcess();
 
             }
 
@@ -1757,38 +1756,34 @@ namespace ReadRAW.OfflineTestMode
                 heatmapUiComboTreeView1.Visible = false;
 
                 //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-                //GetImgIntProcess();
+                GetImgIntProcess();
 
                 //////调用函数将Raw(8,12,14)进行区域模式处理;
                 //////将输入图像Raw转换为的图像数组转换为字节;            
                 RegionModeGetImgByteProcess();
 
                 //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-                //GetImgRGBProcess();
+                GetImgRGBProcess();
 
                 //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-                //GetBmpProcess();
+                GetBmpProcess();
             }
 
+/****************************【离线模式】外部调用（否则出错！）GetImgIntProcess()、GetImgRGBProcess()及GetBmpProcess()函数**********************/
             ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
             GetImgIntProcess();
-
-            ////调用函数将Raw(8,12,14)进行区域模式处理;
-            ////将输入图像Raw转换为的图像数组转换为字节;            
-            //RegionModeGetImgByteProcess();
+           
 
             ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
             GetImgRGBProcess();
 
             ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
             GetBmpProcess();
-
-
         }
 
 
-        /*************显示模式选择******************************/
-        //uiComboBox2.SelectedIndex不同索引对应不同的显示模式选择；
+/**********************************************显示模式选择******************************************************************/
+//uiComboBox2.SelectedIndex不同索引对应不同的显示模式选择；
         private void uiComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -1892,15 +1887,14 @@ namespace ReadRAW.OfflineTestMode
             int x = Control.MousePosition.X;
             int y = Control.MousePosition.Y;
 
-
-            //Color color = bt.GetPixel(x, y);
-
-            //pixelValueLabel1.Text = "X坐标："+ x.ToString() + ";" + "\n" + "Y坐标：" + y.ToString() + ";" + "\n" +"像素值："+color.ToString();           
-
             //work;
             //pixelValueLabel1.Text = "X坐标：" + x.ToString() + ";" + "\n" + "Y坐标：" + y.ToString() + ";";
 
-            //pixelValueLabel1.Text = "X坐标：" + (MousePosition.X - this.Location.X) + ";" + "\n" + "Y坐标：" + (MousePosition.Y - this.Location.Y) +"\n" + "像素值：" + color.ToString();
+            //获取像素值;
+            //Color originalColor = bt.GetPixel(x, y);
+            //int grayScale = (int)(originalColor.R);   //RGB通道像素值一样，这里仅取R通道值;
+            //pixelValueLabel1.Text = "X坐标：" + (e.X - this.Location.X) + ";" + "\n" + "Y坐标：" + (e.Y - this.Location.Y) + ";" + "\n" + "像素值：" + grayScale.ToString();
+           
         }
 
         //获取坐标;

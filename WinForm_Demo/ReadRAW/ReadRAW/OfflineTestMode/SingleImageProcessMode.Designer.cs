@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Autumn");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Bone");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Jet");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Winter");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Rainbow");
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Ocean");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Summer");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Spring");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Cool");
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Hsv");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Pink");
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Hot");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Parula");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Magma");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Inferno");
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Plasma");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Viridis");
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Cividis");
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Twilight");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("TwilightShifted");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Turbo");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Autumn");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Bone");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Jet");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Winter");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Rainbow");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Ocean");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Summer");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Spring");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Cool");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Hsv");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Pink");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Hot");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Parula");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Magma");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Inferno");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Plasma");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Viridis");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Cividis");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Twilight");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("TwilightShifted");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Turbo");
             this.uiButton1_Load_Img = new Sunny.UI.UIButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -163,70 +163,70 @@
             this.heatmapUiComboTreeView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.heatmapUiComboTreeView1.MinimumSize = new System.Drawing.Size(63, 0);
             this.heatmapUiComboTreeView1.Name = "heatmapUiComboTreeView1";
-            treeNode22.Name = "节点0";
-            treeNode22.Text = "Autumn";
-            treeNode23.Name = "节点0";
-            treeNode23.Text = "Bone";
-            treeNode24.Name = "节点1";
-            treeNode24.Text = "Jet";
-            treeNode25.Name = "节点2";
-            treeNode25.Text = "Winter";
-            treeNode26.Name = "节点3";
-            treeNode26.Text = "Rainbow";
-            treeNode27.Name = "节点4";
-            treeNode27.Text = "Ocean";
-            treeNode28.Name = "节点5";
-            treeNode28.Text = "Summer";
-            treeNode29.Name = "节点6";
-            treeNode29.Text = "Spring";
-            treeNode30.Name = "节点7";
-            treeNode30.Text = "Cool";
-            treeNode31.Name = "节点8";
-            treeNode31.Text = "Hsv";
-            treeNode32.Name = "节点9";
-            treeNode32.Text = "Pink";
-            treeNode33.Name = "节点10";
-            treeNode33.Text = "Hot";
-            treeNode34.Name = "节点11";
-            treeNode34.Text = "Parula";
-            treeNode35.Name = "节点12";
-            treeNode35.Text = "Magma";
-            treeNode36.Name = "节点13";
-            treeNode36.Text = "Inferno";
-            treeNode37.Name = "节点14";
-            treeNode37.Text = "Plasma";
-            treeNode38.Name = "节点15";
-            treeNode38.Text = "Viridis";
-            treeNode39.Name = "节点16";
-            treeNode39.Text = "Cividis";
-            treeNode40.Name = "节点17";
-            treeNode40.Text = "Twilight";
-            treeNode41.Name = "节点18";
-            treeNode41.Text = "TwilightShifted";
-            treeNode42.Name = "节点19";
-            treeNode42.Text = "Turbo";
+            treeNode1.Name = "节点0";
+            treeNode1.Text = "Autumn";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "Bone";
+            treeNode3.Name = "节点1";
+            treeNode3.Text = "Jet";
+            treeNode4.Name = "节点2";
+            treeNode4.Text = "Winter";
+            treeNode5.Name = "节点3";
+            treeNode5.Text = "Rainbow";
+            treeNode6.Name = "节点4";
+            treeNode6.Text = "Ocean";
+            treeNode7.Name = "节点5";
+            treeNode7.Text = "Summer";
+            treeNode8.Name = "节点6";
+            treeNode8.Text = "Spring";
+            treeNode9.Name = "节点7";
+            treeNode9.Text = "Cool";
+            treeNode10.Name = "节点8";
+            treeNode10.Text = "Hsv";
+            treeNode11.Name = "节点9";
+            treeNode11.Text = "Pink";
+            treeNode12.Name = "节点10";
+            treeNode12.Text = "Hot";
+            treeNode13.Name = "节点11";
+            treeNode13.Text = "Parula";
+            treeNode14.Name = "节点12";
+            treeNode14.Text = "Magma";
+            treeNode15.Name = "节点13";
+            treeNode15.Text = "Inferno";
+            treeNode16.Name = "节点14";
+            treeNode16.Text = "Plasma";
+            treeNode17.Name = "节点15";
+            treeNode17.Text = "Viridis";
+            treeNode18.Name = "节点16";
+            treeNode18.Text = "Cividis";
+            treeNode19.Name = "节点17";
+            treeNode19.Text = "Twilight";
+            treeNode20.Name = "节点18";
+            treeNode20.Text = "TwilightShifted";
+            treeNode21.Name = "节点19";
+            treeNode21.Text = "Turbo";
             this.heatmapUiComboTreeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode22,
-            treeNode23,
-            treeNode24,
-            treeNode25,
-            treeNode26,
-            treeNode27,
-            treeNode28,
-            treeNode29,
-            treeNode30,
-            treeNode31,
-            treeNode32,
-            treeNode33,
-            treeNode34,
-            treeNode35,
-            treeNode36,
-            treeNode37,
-            treeNode38,
-            treeNode39,
-            treeNode40,
-            treeNode41,
-            treeNode42});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21});
             this.heatmapUiComboTreeView1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
             this.heatmapUiComboTreeView1.Size = new System.Drawing.Size(150, 29);
             this.heatmapUiComboTreeView1.TabIndex = 82;
@@ -257,7 +257,7 @@
             // 
             this.groupBox1.Controls.Add(this.uiButton1_Load_Img);
             this.groupBox1.Controls.Add(this.uiButton2_SaveImg);
-            this.groupBox1.Location = new System.Drawing.Point(635, 516);
+            this.groupBox1.Location = new System.Drawing.Point(33, 516);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(152, 168);
             this.groupBox1.TabIndex = 86;
@@ -312,9 +312,9 @@
             this.groupBox2.Controls.Add(this.lowerThresholdLabel4);
             this.groupBox2.Controls.Add(this.imgFormatUiComboBox1);
             this.groupBox2.Controls.Add(this.imageFormatLabel1);
-            this.groupBox2.Location = new System.Drawing.Point(38, 515);
+            this.groupBox2.Location = new System.Drawing.Point(208, 516);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(309, 194);
+            this.groupBox2.Size = new System.Drawing.Size(309, 180);
             this.groupBox2.TabIndex = 91;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "测试参数选择";
@@ -381,7 +381,7 @@
             this.groupBox4.Controls.Add(this.showModeUiComboBox3);
             this.groupBox4.Controls.Add(this.heatMapLabel1);
             this.groupBox4.Controls.Add(this.heatmapUiComboTreeView1);
-            this.groupBox4.Location = new System.Drawing.Point(384, 516);
+            this.groupBox4.Location = new System.Drawing.Point(554, 516);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(212, 168);
             this.groupBox4.TabIndex = 94;
