@@ -28,34 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Autumn");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Bone");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Jet");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Winter");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Rainbow");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Ocean");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Summer");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Spring");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Cool");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Hsv");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Pink");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Hot");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Parula");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Magma");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Inferno");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Plasma");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Viridis");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Cividis");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Twilight");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("TwilightShifted");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Turbo");
             this.uiButton1_Load_Img = new Sunny.UI.UIButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.uiButton2_SaveImg = new Sunny.UI.UIButton();
             this.imgFormatUiComboBox1 = new Sunny.UI.UIComboBox();
             this.testModeUiComboBox2 = new Sunny.UI.UIComboBox();
-            this.heatmapUiComboTreeView1 = new Sunny.UI.UIComboTreeView();
             this.imageFormatLabel1 = new System.Windows.Forms.Label();
             this.testModeLabel2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -71,6 +49,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.showModeUiComboBox3 = new Sunny.UI.UIComboBox();
+            this.heatmapTypeUiComboBox1 = new Sunny.UI.UIComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -153,87 +132,6 @@
             this.testModeUiComboBox2.Watermark = "";
             this.testModeUiComboBox2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.testModeUiComboBox2.SelectedIndexChanged += new System.EventHandler(this.uiComboBox2_SelectedIndexChanged);
-            // 
-            // heatmapUiComboTreeView1
-            // 
-            this.heatmapUiComboTreeView1.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
-            this.heatmapUiComboTreeView1.FillColor = System.Drawing.Color.White;
-            this.heatmapUiComboTreeView1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.heatmapUiComboTreeView1.Location = new System.Drawing.Point(10, 91);
-            this.heatmapUiComboTreeView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.heatmapUiComboTreeView1.MinimumSize = new System.Drawing.Size(63, 0);
-            this.heatmapUiComboTreeView1.Name = "heatmapUiComboTreeView1";
-            treeNode1.Name = "节点0";
-            treeNode1.Text = "Autumn";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "Bone";
-            treeNode3.Name = "节点1";
-            treeNode3.Text = "Jet";
-            treeNode4.Name = "节点2";
-            treeNode4.Text = "Winter";
-            treeNode5.Name = "节点3";
-            treeNode5.Text = "Rainbow";
-            treeNode6.Name = "节点4";
-            treeNode6.Text = "Ocean";
-            treeNode7.Name = "节点5";
-            treeNode7.Text = "Summer";
-            treeNode8.Name = "节点6";
-            treeNode8.Text = "Spring";
-            treeNode9.Name = "节点7";
-            treeNode9.Text = "Cool";
-            treeNode10.Name = "节点8";
-            treeNode10.Text = "Hsv";
-            treeNode11.Name = "节点9";
-            treeNode11.Text = "Pink";
-            treeNode12.Name = "节点10";
-            treeNode12.Text = "Hot";
-            treeNode13.Name = "节点11";
-            treeNode13.Text = "Parula";
-            treeNode14.Name = "节点12";
-            treeNode14.Text = "Magma";
-            treeNode15.Name = "节点13";
-            treeNode15.Text = "Inferno";
-            treeNode16.Name = "节点14";
-            treeNode16.Text = "Plasma";
-            treeNode17.Name = "节点15";
-            treeNode17.Text = "Viridis";
-            treeNode18.Name = "节点16";
-            treeNode18.Text = "Cividis";
-            treeNode19.Name = "节点17";
-            treeNode19.Text = "Twilight";
-            treeNode20.Name = "节点18";
-            treeNode20.Text = "TwilightShifted";
-            treeNode21.Name = "节点19";
-            treeNode21.Text = "Turbo";
-            this.heatmapUiComboTreeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode21});
-            this.heatmapUiComboTreeView1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.heatmapUiComboTreeView1.Size = new System.Drawing.Size(150, 29);
-            this.heatmapUiComboTreeView1.TabIndex = 82;
-            this.heatmapUiComboTreeView1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.heatmapUiComboTreeView1.Visible = false;
-            this.heatmapUiComboTreeView1.Watermark = "";
-            this.heatmapUiComboTreeView1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // imageFormatLabel1
             // 
@@ -378,9 +276,9 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.heatmapTypeUiComboBox1);
             this.groupBox4.Controls.Add(this.showModeUiComboBox3);
             this.groupBox4.Controls.Add(this.heatMapLabel1);
-            this.groupBox4.Controls.Add(this.heatmapUiComboTreeView1);
             this.groupBox4.Location = new System.Drawing.Point(554, 516);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(212, 168);
@@ -406,6 +304,25 @@
             this.showModeUiComboBox3.Watermark = "";
             this.showModeUiComboBox3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.showModeUiComboBox3.SelectedIndexChanged += new System.EventHandler(this.uiComboBox3_SelectedIndexChanged);
+            // 
+            // heatmapTypeUiComboBox1
+            // 
+            this.heatmapTypeUiComboBox1.DataSource = null;
+            this.heatmapTypeUiComboBox1.DropDownWidth = 300;
+            this.heatmapTypeUiComboBox1.FillColor = System.Drawing.Color.White;
+            this.heatmapTypeUiComboBox1.FilterMaxCount = 50;
+            this.heatmapTypeUiComboBox1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.heatmapTypeUiComboBox1.Location = new System.Drawing.Point(7, 94);
+            this.heatmapTypeUiComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.heatmapTypeUiComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
+            this.heatmapTypeUiComboBox1.Name = "heatmapTypeUiComboBox1";
+            this.heatmapTypeUiComboBox1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.heatmapTypeUiComboBox1.Size = new System.Drawing.Size(150, 29);
+            this.heatmapTypeUiComboBox1.TabIndex = 95;
+            this.heatmapTypeUiComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.heatmapTypeUiComboBox1.Watermark = "";
+            this.heatmapTypeUiComboBox1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.heatmapTypeUiComboBox1.SelectedIndexChanged += new System.EventHandler(this.heatmapTypeUiComboBox1_SelectedIndexChanged);
             // 
             // SingleImageProcessMode
             // 
@@ -438,7 +355,6 @@
         private Sunny.UI.UIButton uiButton2_SaveImg;
         private Sunny.UI.UIComboBox imgFormatUiComboBox1;
         private Sunny.UI.UIComboBox testModeUiComboBox2;
-        private Sunny.UI.UIComboTreeView heatmapUiComboTreeView1;
         private System.Windows.Forms.Label imageFormatLabel1;
         private System.Windows.Forms.Label testModeLabel2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -454,5 +370,6 @@
         private Sunny.UI.UIComboBox showModeUiComboBox3;
         private System.Windows.Forms.Label imgBitFormaLabel1;
         private Sunny.UI.UIComboBox chooseBitFormatUiComboBox1;
+        private Sunny.UI.UIComboBox heatmapTypeUiComboBox1;
     }
 }

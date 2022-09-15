@@ -125,7 +125,6 @@ C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Debug\ReadRAW.Propert
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Debug\ReadRAW.csproj.GenerateResource.Cache
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Debug\ReadRAW.exe
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Debug\ReadRAW.pdb
-C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.DebuggerVisualizers.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Models.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Platform.NetCore.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Platform.NetFramework.dll
@@ -135,3 +134,5 @@ C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Platfor
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Platform.NetFramework.xml
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\SunnyUI.Common.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Debug\ReadRAW.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\System.Drawing.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\System.Drawing.Common.xml
