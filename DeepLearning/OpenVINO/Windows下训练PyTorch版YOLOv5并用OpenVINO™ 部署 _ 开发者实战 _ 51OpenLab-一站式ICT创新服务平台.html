@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.51openlab.com/article/253/ -->
+<html lang="zh-hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">*{margin:0;padding:0;box-sizing:border-box}.verify-wrap{width:100%;height:45px;background-color:#e5e5e5;border:1px solid #e0e0e0;border-radius: 4px;margin:0 auto;position:relative}.verify-wrap .drag-btn{position:absolute;left:-1px;top:-1px;width:50px;height:45px;border-radius:4px;background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAiCAYAAAApkEs2AAAA/UlEQVRYhe3XLc9GYBjG8eN6dkdFIQuqoCiCbj6ob2CCIplRaJKqEHT3c/kAz66Xc/fLnvO3UY7N/jNmxDAMF77AQ57iOH53x5/GccTPuyNUcSg1DqXGodQ4lNr/CC3LEsuyaG8mrEKzLEPXdZjnWWszYRXq+z7yPMc0Tej7XnkzYf2Muq6LoiiwrivatsV1XUrby0Mlx3Huu7fvO5qmUd50kL31QgijTdXD+gq/zvNEVVXwPA9pmipvOqxDj+O4Q4IgQJIkypsuq9Bt21DXNaIoug/VzYRVqHw55J0Kw1BrMyHkXyj/3BHiUGocSo1DqXEota8Jvb/18hP16Z7qL3h/w53n4AAAAABJRU5ErkJggg==) no-repeat center center;background-size:100% 100%;z-index:2;cursor:move;}.verify-wrap .suc-drag-btn{border-radius:4px;background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAiCAYAAAApkEs2AAACA0lEQVRYhe2Y2yuDYRzHv7PJYc5zKspYSRMymStXu5NCs5W4csEfwJ+gSA53csg1F4R/gSu0OcWSmNIQkfMcEvu9tdpY79793leo91Nbbft993x6nj2/52kal8v1gX+Ajp4sFstve4jidrsR99sSUlFFlUYVVRpVVGl0SnyJ934VaxczOLpdwd3bufBeWnw+StLrYc1tQ3FqnewxZIk+vz9g7rAHO9dL3z67efXBfTkrPCqymtBqGkaiNoU9FnvpSXJyzx5R8itUQ7WU4cIWnT/qhe9xS3I91VKGC0uUfpPbV4uSajUhQ1CGshxYorRxpGDObECf1Ysm40DM2a+wNhPt7mhUZzvhMI1Aq9HBkFgUUzYSrBkNtiDCkGBES/Eg8pLKwiSdplFB8uRhEzMH3RGzsSC7j9oKe1CT4wi0oEZMeRzITy4XJOM0WkFy2uOE//1O7jA8UWrm1CeJ5dMxlGXYoI/PQrd5AQlavagkZTmwlt4UOHGCnPs9wkw+vl0jSZcWdSZDsz8uas1tD3t99rSL8b0W3Lz4cHy/LrrctYEjlQNr6Y2ptag0NIf10gv/Pvo3akRzlOGe++yTyV4yhAJ9leR6qqUMF7YoXTC6zPPChSMaVEO1ci4lstoTDdxROhE4Fjv/9jUvCIkoISPGv7nhq6JKo4oqjSqqNEIfpf8f/zqf+36643RPeo8AAAAASUVORK5CYII=) no-repeat center center;background-size:100% 100%}.verify-wrap .drag-progress{position:absolute;left:0;top:-1px;height:45px;border-top-left-radius: 4px;border-bottom-left-radius: 4px;border-top:1px solid #7ac23c;border-top:1px solid #7ac23c;width:0;background-color:#7ac23c;color:#fff;font-size:18px;text-align:center;line-height:45px}.verify-wrap .fix-tips,.verify-msg{width:100%;position:absolute;right:0;left:1px;height:100%;color:#51555c;z-index:1;line-height:38px;font-size:12px;text-align:center}.verify-wrap .verify-msg{background-color:#7ac23c;color:#fff;display:none}</style>
+        
+        <title>Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 | 开发者实战 | 51OpenLab-一站式ICT创新服务平台</title>
+        
+            <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+            
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="telephone=no" name="format-detection">
+<meta name="keywords" content="在线教育,实验平台,开放实验,在线实验,项目实训,科研创新,测试验证,未来网络,云计算,5G,网络安全,物联网,大数据,工业互联网人工智能,区块链">
+<meta name="description" content="51OpenLab是一站式ICT创新服务平台，以“共学、共研、共创”为使命，连接和服务ICT产学研链条，提供实验平台、培训认证、测试验证、项目对接、众包研发、成果转化等多元服务，促进基础设施、信息、人才和技术等资源的流通、共享和合作，构筑开放融合的产业创新生态。">
+
+        
+
+        
+    
+        <link rel="shortcut icon" href="https://www.51openlab.com/site_media/static/img/logo/mini_logo.90062c1046c7.png" type="image/x-icon">
+    
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/font-awesome.min.86bfd2a04db7.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/font-awesome.min.bf0c425cdb73.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/iconfont.402c19af6492.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/img_smooth_check.f0f1419f9ec0.css">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/jquery-ui.min.cecf233b743f.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/iconfont.92b454d8d100.css">
+    <link rel="stylesheet" type="text/css" href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/left-side-menu.f1a4eb219856.css">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/button.edbe151f33f9.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/style-kefu.3b968145b080.css" rel="stylesheet">
+
+<!--    <link href="/site_media/static/luces_css/main.e4acbe571b89.css" rel="stylesheet">-->
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/main_user.07f766b34aad.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/style_defined.d48115f2c3cb.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/luces.5f25407d5960.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/login.9532ba5e4aa3.css" rel="stylesheet">
+
+    
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/responsive-style.90f8bd25e8ff.css" rel="stylesheet">
+    
+
+    
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/community-style.b5e4d8fdc13b.css" rel="stylesheet">
+    <link href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/article-style.e9bc6133cbde.css" rel="stylesheet">
+    <style type="text/css">
+        .suspension_1 .suspension-box {cursor: pointer;}
+        .suspension_1 .suspension-box .icon-dianzan.active {cursor: pointer;color: #5297ff;}
+        #exptComment .video-question-r{margin-right:10px;}
+    </style>
+
+
+    
+
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/hm.js.下载"></script><script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/jquery-1.11.3.min.895323ed2f72.js.下载"></script>
+
+    <!--[if lt IE 9]>
+      <script src="/site_media/static/js/respond.min.afc1984a3d17.js"></script>
+      <script src="/site_media/static/js/excanvas.59e01a2bcf64.js"></script>
+      <script src="/site_media/static/js/indexof_ie8.78914e4e1981.js"></script>
+      <script>
+       (function() {
+             if (!0) return;
+             var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
+             var i= e.length;
+             while (i--){
+                 document.createElement(e[i])
+             }
+
+        })();
+      </script>
+    <![endif]-->
+
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/browser.f3a117284928.js.下载"></script>
+
+
+
+        
+            <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+            <!--[if lt IE 9]>
+            <![endif]-->
+        
+
+        
+    
+
+
+    <style>.w-e-toolbar,
+.w-e-text-container,
+.w-e-menu-panel {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #fff;
+  /*表情菜单样式*/
+  /*分割线样式*/
+}
+.w-e-toolbar h1,
+.w-e-text-container h1,
+.w-e-menu-panel h1 {
+  font-size: 32px !important;
+}
+.w-e-toolbar h2,
+.w-e-text-container h2,
+.w-e-menu-panel h2 {
+  font-size: 24px !important;
+}
+.w-e-toolbar h3,
+.w-e-text-container h3,
+.w-e-menu-panel h3 {
+  font-size: 18.72px !important;
+}
+.w-e-toolbar h4,
+.w-e-text-container h4,
+.w-e-menu-panel h4 {
+  font-size: 16px !important;
+}
+.w-e-toolbar h5,
+.w-e-text-container h5,
+.w-e-menu-panel h5 {
+  font-size: 13.28px !important;
+}
+.w-e-toolbar p,
+.w-e-text-container p,
+.w-e-menu-panel p {
+  font-size: 16px !important;
+}
+.w-e-toolbar .eleImg,
+.w-e-text-container .eleImg,
+.w-e-menu-panel .eleImg {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  padding: 0 3px;
+}
+.w-e-toolbar *,
+.w-e-text-container *,
+.w-e-menu-panel * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.w-e-toolbar hr,
+.w-e-text-container hr,
+.w-e-menu-panel hr {
+  cursor: pointer;
+  display: block;
+  height: 0px;
+  border: 0;
+  border-top: 3px solid #ccc;
+  margin: 20px 0;
+}
+.w-e-clear-fix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.w-e-drop-list-item {
+  position: relative;
+  top: 1px;
+  padding-right: 7px;
+  color: #333 !important;
+}
+.w-e-drop-list-tl {
+  padding-left: 10px;
+  text-align: left;
+}
+</style><style>@font-face {
+  font-family: 'w-e-icon';
+  src: url(data:font/woff;base64,d09GRgABAAAAABskAAsAAAAAGtgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgDxIPFWNtYXAAAAFoAAABHAAAARz2mfAgZ2FzcAAAAoQAAAAIAAAACAAAABBnbHlmAAACjAAAFXwAABV8IH7+mGhlYWQAABgIAAAANgAAADYb6gumaGhlYQAAGEAAAAAkAAAAJAkjBWlobXR4AAAYZAAAAKQAAACkmYcEbmxvY2EAABkIAAAAVAAAAFReAmKYbWF4cAAAGVwAAAAgAAAAIAA0ALZuYW1lAAAZfAAAAYYAAAGGmUoJ+3Bvc3QAABsEAAAAIAAAACAAAwAAAAMD7wGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAQAAA8fwDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAQAAAAA8ACAABAAcAAEAIOkB6QbpDekS6UfpZul36bnpu+m+6cbpy+nf6gvqDepS6lzqX+pl6nHqfPAN8BTxIPHc8fz//f//AAAAAAAg6QDpBukM6RLpR+ll6Xfpuem76b7pxunL6d/qC+oN6lLqXOpf6mLqcep38A3wFPEg8dzx/P/9//8AAf/jFwQXABb7FvcWwxamFpYWVRZUFlIWSxZHFjQWCRYIFcQVuxW5FbcVrBWnEBcQEQ8GDksOLAADAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAAEAEEAAQO/A38ABQALABEAFwAAATMVIREzAxEhFSMVATUzESE1ETUhESM1Av/A/sJ+fgE+wP4Cfv7CAT5+Ar9+AT78ggE+fsACvsD+wn7+An7+wsAAAAAABABBAAEDvwN/AAUACwARABcAAAEhESM1IxM1MxEhNQERIRUjFREVMxUhEQKBAT5+wMB+/sL9wAE+wMD+wgN//sLA/X7A/sJ+AcIBPn7A/v7AfgE+AAAAAAIAAP/ABAADwAAEABMAAAE3AScBAy4BJxM3ASMBAyUBNQEHAYCAAcBA/kCfFzsyY4ABgMD+gMACgAGA/oBOAUBAAcBA/kD+nTI7FwERTgGA/oD9gMABgMD+gIAAAgAA/8AEAAOAACkALQAAAREjNTQmIyEiBh0BFBYzITI2PQEzESEVIyIGFREUFjsBMjY1ETQmKwE1ASE1IQQAwCYa/UAaJiYaAsAaJoD9wCANExMNgA0TEw0gAUD9QALAAYABgEAaJiYawBomJhpA/wCAEw3+wA0TEw0BQA0TQAGAQAAABAAAAAAEAAOAABAAIQAtADQAAAE4ATEROAExITgBMRE4ATEhNSEiBhURFBYzITI2NRE0JiMHFAYjIiY1NDYzMhYTITUTATM3A8D8gAOA/IAaJiYaA4AaJiYagDgoKDg4KCg4QP0A4AEAQOADQP0AAwBAJhr9ABomJhoDABom4Cg4OCgoODj9uIABgP7AwAAAAgAAAEAEAANAADgAPAAAASYnLgEnJiMiBw4BBwYHBgcOAQcGFRQXHgEXFhcWFx4BFxYzMjc+ATc2NzY3PgE3NjU0Jy4BJyYnARENAQPVNjg5djw9Pz89PHY5ODYLBwgLAwMDAwsIBws2ODl2PD0/Pz08djk4NgsHCAsDAwMDCwgHC/2rAUD+wAMgCAYGCAICAgIIBgYIKSoqWS0uLy8uLVkqKikIBgYIAgICAggGBggpKipZLS4vLy4tWSoqKf3gAYDAwAAAAAACAMD/wANAA8AAGwAnAAABIgcOAQcGFRQXHgEXFjEwNz4BNzY1NCcuAScmAyImNTQ2MzIWFRQGAgBCOzpXGRkyMngyMjIyeDIyGRlXOjtCUHBwUFBwcAPAGRlXOjtCeH19zEFBQUHMfX14Qjs6VxkZ/gBwUFBwcFBQcAAAAQAAAAAEAAOAACsAAAEiBw4BBwYHJxEhJz4BMzIXHgEXFhUUBw4BBwYHFzY3PgE3NjU0Jy4BJyYjAgA1MjJcKSkjlgGAkDWLUFBFRmkeHgkJIhgYHlUoICAtDAwoKIteXWoDgAoLJxscI5b+gJA0PB4eaUZFUCsoKUkgIRpgIysrYjY2OWpdXosoKAABAAAAAAQAA4AAKgAAExQXHgEXFhc3JicuAScmNTQ3PgE3NjMyFhcHIREHJicuAScmIyIHDgEHBgAMDC0gIChVHhgYIgkJHh5pRkVQUIs1kAGAliMpKVwyMjVqXV6LKCgBgDk2NmIrKyNgGiEgSSkoK1BFRmkeHjw0kAGAliMcGycLCigoi15dAAAAAAIAAABABAEDAAAmAE0AABMyFx4BFxYVFAcOAQcGIyInLgEnJjUnNDc+ATc2MxUiBgcOAQc+ASEyFx4BFxYVFAcOAQcGIyInLgEnJjUnNDc+ATc2MxUiBgcOAQc+AeEuKSk9ERISET0pKS4uKSk9ERIBIyN6UlFdQHUtCRAHCBICSS4pKT0REhIRPSkpLi4pKT0REgEjI3pSUV1AdS0JEAcIEgIAEhE9KSkuLikpPRESEhE9KSkuIF1RUnojI4AwLggTCgIBEhE9KSkuLikpPRESEhE9KSkuIF1RUnojI4AwLggTCgIBAAAGAED/wAQAA8AAAwAHAAsAEQAdACkAACUhFSERIRUhESEVIScRIzUjNRMVMxUjNTc1IzUzFRURIzUzNSM1MzUjNQGAAoD9gAKA/YACgP2AwEBAQIDAgIDAwICAgICAgAIAgAIAgMD/AMBA/fIyQJI8MkCS7v7AQEBAQEAABgAA/8AEAAPAAAMABwALABcAIwAvAAABIRUhESEVIREhFSEBNDYzMhYVFAYjIiYRNDYzMhYVFAYjIiYRNDYzMhYVFAYjIiYBgAKA/YACgP2AAoD9gP6ASzU1S0s1NUtLNTVLSzU1S0s1NUtLNTVLA4CA/wCA/wCAA0A1S0s1NUtL/rU1S0s1NUtL/rU1S0s1NUtLAAUAAABABWADAAADAAcACwAOABEAABMhFSEVIRUhFSEVIQEXNzUnBwADgPyAA4D8gAOA/IAD4MDAwMADAMBAwEDAAUDAwEDAwAAAAAADAAAAAAQAA6AAAwANABQAADchFSElFSE1EyEVITUhJQkBIxEjEQAEAPwABAD8AIABAAEAAQD9YAEgASDggEBAwEBAAQCAgMABIP7g/wABAAAAAAACAB7/zAPiA7QAMwBkAAABIiYnJicmNDc2PwE+ATMyFhcWFxYUBwYPAQYiJyY0PwE2NCcuASMiBg8BBhQXFhQHDgEjAyImJyYnJjQ3Nj8BNjIXFhQPAQYUFx4BMzI2PwE2NCcmNDc2MhcWFxYUBwYPAQ4BIwG4ChMIIxISEhIjwCNZMTFZIyMSEhISI1gPLA8PD1gpKRQzHBwzFMApKQ8PCBMKuDFZIyMSEhISI1gPLA8PD1gpKRQzHBwzFMApKQ8PDysQIxISEhIjwCNZMQFECAckLS1eLS0kwCIlJSIkLS1eLS0kVxAQDysPWCl0KRQVFRTAKXQpDysQBwj+iCUiJC0tXi0tJFcQEA8rD1gpdCkUFRUUwCl0KQ8rEA8PJC0tXi0tJMAiJQAAAAAFAAD/wAQAA8AAGwA3AFMAXwBrAAAFMjc+ATc2NTQnLgEnJiMiBw4BBwYVFBceARcWEzIXHgEXFhUUBw4BBwYjIicuAScmNTQ3PgE3NhMyNz4BNzY3BgcOAQcGIyInLgEnJicWFx4BFxYnNDYzMhYVFAYjIiYlNDYzMhYVFAYjIiYCAGpdXosoKCgoi15dampdXosoKCgoi15dalZMTHEgISEgcUxMVlZMTHEgISEgcUxMVisrKlEmJiMFHBtWODc/Pzc4VhscBSMmJlEqK9UlGxslJRsbJQGAJRsbJSUbGyVAKCiLXl1qal1eiygoKCiLXl1qal1eiygoA6AhIHFMTFZWTExxICEhIHFMTFZWTExxICH+CQYGFRAQFEM6OlYYGRkYVjo6QxQQEBUGBvcoODgoKDg4KCg4OCgoODgAAAEAAAFABAACQAAPAAATFRQWMyEyNj0BNCYjISIGABMNA8ANExMN/EANEwIgwA0TEw3ADRMTAAAAAwAA/8AEAAPAABsANwBDAAABIgcOAQcGFRQXHgEXFjMyNz4BNzY1NCcuAScmAyInLgEnJjU0Nz4BNzYzMhceARcWFRQHDgEHBhMHJwcXBxc3FzcnNwIAal1eiygoKCiLXl1qal1eiygoKCiLXl1qVkxMcSAhISBxTExWVkxMcSAhISBxTExKoKBgoKBgoKBgoKADwCgoi15dampdXosoKCgoi15dampdXosoKPxgISBxTExWVkxMcSAhISBxTExWVkxMcSAhAqCgoGCgoGCgoGCgoAACAAD/wAQAA8AADwAVAAABISIGFREUFjMhMjY1ETQmASc3FwEXA4D9ADVLSzUDADVLS/4L7VqTATNaA8BLNf0ANUtLNQMANUv85e5akgEyWgAAAAABAGX/wAObA8AAKQAAASImIyIHDgEHBhUUFjMuATU0NjcwBwYCBwYHFSETMzcjNx4BMzI2Nw4BAyBEaEZxU1RtGhtJSAYNZUoQEEs8PFkBPWzGLNc0LVUmLlAYHT0DsBAeHWE+P0FNOwsmN5lvA31+/sWPkCMZAgCA9gkPN2sJBwAAAAACAAAAAAQAA4AACQAXAAAlMwcnMxEjNxcjJREnIxEzFSE1MxEjBxEDgICgoICAoKCA/wBAwID+gIDAQMDAwAIAwMDA/wCA/UBAQALAgAEAAAMAwAAAA0ADgAAWAB8AKAAAAT4BNTQnLgEnJiMhESEyNz4BNzY1NCYBMzIWFRQGKwETIxEzMhYVFAYCxBwgFBRGLi81/sABgDUvLkYUFET+hGUqPDwpZp+fnyw+PgHbIlQvNS8uRhQU/IAUFEYuLzVGdAFGSzU1S/6AAQBLNTVLAAAAAAIAwAAAA0ADgAAfACMAAAEzERQHDgEHBiMiJy4BJyY1ETMRFBYXHgEzMjY3PgE1ASEVIQLAgBkZVzo7QkI7OlcZGYAbGBxJKChJHBgb/gACgP2AA4D+YDw0NU4WFxcWTjU0PAGg/mAeOBcYGxsYFzge/qCAAAAAAAEAgAAAA4ADgAALAAABFSMBMxUhNTMBIzUDgID+wID+QIABQIADgED9AEBAAwBAAAEAAAAABAADgAA9AAABFSMeARUUBgcOASMiJicuATUzFBYzMjY1NCYjITUhLgEnLgE1NDY3PgEzMhYXHgEVIzQmIyIGFRQWMzIWFwQA6xUWNTAscT4+cSwwNYByTk5yck7+AAEsAgQBMDU1MCxxPj5xLDA1gHJOTnJyTjtuKwHAQB1BIjViJCEkJCEkYjU0TEw0NExAAQMBJGI1NWIkISQkISRiNTRMTDQ0TCEfAAAACgAAAAAEAAOAAAMABwALAA8AEwAXABsAHwAjACcAABMRIREBNSEVHQEhNQEVITUjFSE1ESEVISUhFSERNSEVASEVISE1IRUABAD9gAEA/wABAP8AQP8AAQD/AAKAAQD/AAEA/IABAP8AAoABAAOA/IADgP3AwMBAwMACAMDAwMD/AMDAwAEAwMD+wMDAwAAABQAAAAAEAAOAAAMABwALAA8AEwAAEyEVIRUhFSERIRUhESEVIREhFSEABAD8AAKA/YACgP2ABAD8AAQA/AADgIBAgP8AgAFAgP8AgAAAAAAFAAAAAAQAA4AAAwAHAAsADwATAAATIRUhFyEVIREhFSEDIRUhESEVIQAEAPwAwAKA/YACgP2AwAQA/AAEAPwAA4CAQID/AIABQID/AIAAAAUAAAAABAADgAADAAcACwAPABMAABMhFSEFIRUhESEVIQEhFSERIRUhAAQA/AABgAKA/YACgP2A/oAEAPwABAD8AAOAgECA/wCAAUCA/wCAAAAAAAUAAAAABAADgAADAAcACwAPABMAABMhFSEVIRUhFSEVIRUhFSEVIRUhAAQA/AAEAPwABAD8AAQA/AAEAPwAA4CAQIBAgECAQIAAAAAGAAAAAAQAA4AAAwAHAAsADwATABYAABMhFSEFIRUhFSEVIRUhFSEFIRUhGQEFAAQA/AABgAKA/YACgP2AAoD9gP6ABAD8AAEAA4CAQIBAgECAQIABAAGAwAAAAAYAAAAABAADgAADAAcACwAPABMAFgAAEyEVIQUhFSEVIRUhFSEVIQUhFSEBESUABAD8AAGAAoD9gAKA/YACgP2A/oAEAPwAAQD/AAOAgECAQIBAgECAAoD+gMAAAQA/AD8C5gLmACwAACUUDwEGIyIvAQcGIyIvASY1ND8BJyY1ND8BNjMyHwE3NjMyHwEWFRQPARcWFQLmEE4QFxcQqKgQFxYQThAQqKgQEE4QFhcQqKgQFxcQThAQqKgQwxYQThAQqKgQEE4QFhcQqKgQFxcQThAQqKgQEE4QFxcQqKgQFwAAAAYAAAAAAyUDbgAUACgAPABNAFUAggAAAREUBwYrASInJjURNDc2OwEyFxYVMxEUBwYrASInJjURNDc2OwEyFxYXERQHBisBIicmNRE0NzY7ATIXFhMRIREUFxYXFjMhMjc2NzY1ASEnJicjBgcFFRQHBisBERQHBiMhIicmNREjIicmPQE0NzY7ATc2NzY7ATIXFh8BMzIXFhUBJQYFCCQIBQYGBQgkCAUGkgUFCCUIBQUFBQglCAUFkgUFCCUIBQUFBQglCAUFSf4ABAQFBAIB2wIEBAQE/oABABsEBrUGBAH3BgUINxobJv4lJhsbNwgFBQUFCLEoCBcWF7cXFhYJKLAIBQYCEv63CAUFBQUIAUkIBQYGBQj+twgFBQUFCAFJCAUGBgUI/rcIBQUFBQgBSQgFBgYF/lsCHf3jDQsKBQUFBQoLDQJmQwUCAgVVJAgGBf3jMCIjISIvAiAFBggkCAUFYBUPDw8PFWAFBQgAAgAHAEkDtwKvABoALgAACQEGIyIvASY1ND8BJyY1ND8BNjMyFwEWFRQHARUUBwYjISInJj0BNDc2MyEyFxYBTv72BgcIBR0GBuHhBgYdBQgHBgEKBgYCaQUFCP3bCAUFBQUIAiUIBQUBhf72BgYcBggHBuDhBgcHBh0FBf71BQgHBv77JQgFBQUFCCUIBQUFBQAAAAEAIwAAA90DbgCzAAAlIicmIyIHBiMiJyY1NDc2NzY3Njc2PQE0JyYjISIHBh0BFBcWFxYzFhcWFRQHBiMiJyYjIgcGIyInJjU0NzY3Njc2NzY9ARE0NTQ1NCc0JyYnJicmJyYnJiMiJyY1NDc2MzIXFjMyNzYzMhcWFRQHBiMGBwYHBh0BFBcWMyEyNzY9ATQnJicmJyY1NDc2MzIXFjMyNzYzMhcWFRQHBgciBwYHBhURFBcWFxYXMhcWFRQHBiMDwRkzMhoZMjMZDQgHCQoNDBEQChIBBxX+fhYHARUJEhMODgwLBwcOGzU1GhgxMRgNBwcJCQsMEA8JEgECAQIDBAQFCBIRDQ0KCwcHDho1NRoYMDEYDgcHCQoMDRAQCBQBBw8BkA4HARQKFxcPDgcHDhkzMhkZMTEZDgcHCgoNDRARCBQUCRERDg0KCwcHDgACAgICDAsPEQkJAQEDAwUMROAMBQMDBQzUUQ0GAQIBCAgSDwwNAgICAgwMDhEICQECAwMFDUUhAdACDQ0ICA4OCgoLCwcHAwYBAQgIEg8MDQICAgINDA8RCAgBAgEGDFC2DAcBAQcMtlAMBgEBBgcWDwwNAgICAg0MDxEICAEBAgYNT/3mRAwGAgIBCQgRDwwNAAACAAD/twP/A7cAEwA5AAABMhcWFRQHAgcGIyInJjU0NwE2MwEWFxYfARYHBiMiJyYnJicmNRYXFhcWFxYzMjc2NzY3Njc2NzY3A5soHh4avkw3RUg0NDUBbSEp/fgXJicvAQJMTHtHNjYhIRARBBMUEBASEQkXCA8SExUVHR0eHikDtxsaKCQz/plGNDU0SUkwAUsf/bErHx8NKHpNTBobLi86OkQDDw4LCwoKFiUbGhERCgsEBAIAAQAAAAAAAIWwaoFfDzz1AAsEAAAAAADbteOZAAAAANu145kAAP+3BWADwAAAAAgAAgAAAAAAAAABAAADwP/AAAAFgAAA//8FYAABAAAAAAAAAAAAAAAAAAAAKQQAAAAAAAAAAAAAAAIAAAAEAABBBAAAQQQAAAAEAAAABAAAAAQAAAAEAADABAAAAAQAAAAEAAAABAAAQAQAAAAFgAAABAAAAAQAAB4EAAAABAAAAAQAAAAEAAAABAAAZQQAAAAEAADABAAAwAQAAIAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAMlAD8DJQAAA74ABwQAACMD/wAAAAAAAAAKABQAHgBKAHYApADmAS4BkgHQAhYCXALQAw4DWAN+A6gEPgTeBPoFZAWOBdAF+AY6BnYGjgbmBy4HVgd+B6gHzgf8CCoIbgkmCXAKYgq+AAEAAAApALQACgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAHAAAAAQAAAAAAAgAHAGAAAQAAAAAAAwAHADYAAQAAAAAABAAHAHUAAQAAAAAABQALABUAAQAAAAAABgAHAEsAAQAAAAAACgAaAIoAAwABBAkAAQAOAAcAAwABBAkAAgAOAGcAAwABBAkAAwAOAD0AAwABBAkABAAOAHwAAwABBAkABQAWACAAAwABBAkABgAOAFIAAwABBAkACgA0AKRpY29tb29uAGkAYwBvAG0AbwBvAG5WZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBpY29tb29uAGkAYwBvAG0AbwBvAG5pY29tb29uAGkAYwBvAG0AbwBvAG5SZWd1bGFyAFIAZQBnAHUAbABhAHJpY29tb29uAGkAYwBvAG0AbwBvAG5Gb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="w-e-icon-"],
+[class*=" w-e-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'w-e-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.w-e-icon-close:before {
+  content: "\f00d";
+}
+.w-e-icon-upload2:before {
+  content: "\e9c6";
+}
+.w-e-icon-trash-o:before {
+  content: "\f014";
+}
+.w-e-icon-header:before {
+  content: "\f1dc";
+}
+.w-e-icon-pencil2:before {
+  content: "\e906";
+}
+.w-e-icon-paint-brush:before {
+  content: "\f1fc";
+}
+.w-e-icon-image:before {
+  content: "\e90d";
+}
+.w-e-icon-play:before {
+  content: "\e912";
+}
+.w-e-icon-location:before {
+  content: "\e947";
+}
+.w-e-icon-undo:before {
+  content: "\e965";
+}
+.w-e-icon-redo:before {
+  content: "\e966";
+}
+.w-e-icon-quotes-left:before {
+  content: "\e977";
+}
+.w-e-icon-list-numbered:before {
+  content: "\e9b9";
+}
+.w-e-icon-list2:before {
+  content: "\e9bb";
+}
+.w-e-icon-link:before {
+  content: "\e9cb";
+}
+.w-e-icon-happy:before {
+  content: "\e9df";
+}
+.w-e-icon-bold:before {
+  content: "\ea62";
+}
+.w-e-icon-underline:before {
+  content: "\ea63";
+}
+.w-e-icon-italic:before {
+  content: "\ea64";
+}
+.w-e-icon-strikethrough:before {
+  content: "\ea65";
+}
+.w-e-icon-table2:before {
+  content: "\ea71";
+}
+.w-e-icon-paragraph-left:before {
+  content: "\ea77";
+}
+.w-e-icon-paragraph-center:before {
+  content: "\ea78";
+}
+.w-e-icon-paragraph-right:before {
+  content: "\ea79";
+}
+.w-e-icon-paragraph-justify:before {
+  content: "\ea7a";
+}
+.w-e-icon-terminal:before {
+  content: "\f120";
+}
+.w-e-icon-page-break:before {
+  content: "\ea68";
+}
+.w-e-icon-cancel-circle:before {
+  content: "\ea0d";
+}
+.w-e-icon-font:before {
+  content: "\ea5c";
+}
+.w-e-icon-text-heigh:before {
+  content: "\ea5f";
+}
+.w-e-icon-paint-format:before {
+  content: "\e90c";
+}
+.w-e-icon-indent-increase:before {
+  content: "\ea7b";
+}
+.w-e-icon-indent-decrease:before {
+  content: "\ea7c";
+}
+.w-e-icon-row-height:before {
+  content: "\e9be";
+}
+.w-e-icon-fullscreen_exit:before {
+  content: "\e900";
+}
+.w-e-icon-fullscreen:before {
+  content: "\e901";
+}
+.w-e-icon-split-line:before {
+  content: "\ea0b";
+}
+.w-e-icon-checkbox-checked:before {
+  content: "\ea52";
+}
+</style><style>.w-e-toolbar {
+  display: flex;
+  padding: 0 6px;
+  flex-wrap: wrap;
+  position: relative;
+  /* 单个菜单 */
+}
+.w-e-toolbar .w-e-menu {
+  position: relative;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+.w-e-toolbar .w-e-menu i {
+  color: #999;
+}
+.w-e-toolbar .w-e-menu:hover {
+  background-color: #F6F6F6;
+}
+.w-e-toolbar .w-e-menu:hover i {
+  color: #333;
+}
+.w-e-toolbar .w-e-active i {
+  color: #1e88e5;
+}
+.w-e-toolbar .w-e-active:hover i {
+  color: #1e88e5;
+}
+.w-e-menu-tooltip {
+  position: absolute;
+  display: flex;
+  color: #f1f1f1;
+  background-color: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 4px 5px 6px;
+  justify-content: center;
+  align-items: center;
+}
+.w-e-menu-tooltip-up::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  border-top-color: rgba(0, 0, 0, 0.73);
+}
+.w-e-menu-tooltip-down::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  border-bottom-color: rgba(0, 0, 0, 0.73);
+}
+.w-e-menu-tooltip-item-wrapper {
+  font-size: 14px;
+  margin: 0 5px;
+}
+</style><style>.w-e-text-container {
+  position: relative;
+  height: 100%;
+}
+.w-e-text-container .w-e-progress {
+  position: absolute;
+  background-color: #1e88e5;
+  top: 0;
+  left: 0;
+  height: 1px;
+}
+.w-e-text-container .placeholder {
+  color: #D4D4D4;
+  position: absolute;
+  font-size: 11pt;
+  line-height: 22px;
+  left: 10px;
+  top: 10px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  z-index: -1;
+}
+.w-e-text {
+  padding: 0 10px;
+  overflow-y: auto;
+}
+.w-e-text p,
+.w-e-text h1,
+.w-e-text h2,
+.w-e-text h3,
+.w-e-text h4,
+.w-e-text h5,
+.w-e-text table,
+.w-e-text pre {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+.w-e-text ul,
+.w-e-text ol {
+  margin: 10px 0 10px 20px;
+}
+.w-e-text blockquote {
+  display: block;
+  border-left: 8px solid #d0e5f2;
+  padding: 5px 10px;
+  margin: 10px 0;
+  line-height: 1.4;
+  font-size: 100%;
+  background-color: #f1f1f1;
+}
+.w-e-text code {
+  display: inline-block;
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: 0 3px;
+}
+.w-e-text pre code {
+  display: block;
+}
+.w-e-text table {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+.w-e-text table td,
+.w-e-text table th {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 3px 5px;
+  min-height: 30px;
+  height: 30px;
+}
+.w-e-text table th {
+  border-bottom: 2px solid #ccc;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+.w-e-text:focus {
+  outline: none;
+}
+.w-e-text img {
+  cursor: pointer;
+}
+.w-e-text img:hover {
+  box-shadow: 0 0 5px #333;
+}
+.w-e-text .w-e-todo {
+  margin: 0 0 0 20px;
+}
+.w-e-text .w-e-todo li {
+  list-style: none;
+  font-size: 1em;
+}
+.w-e-text .w-e-todo li span:nth-child(1) {
+  position: relative;
+  left: -18px;
+}
+.w-e-text .w-e-todo li span:nth-child(1) input {
+  position: absolute;
+  margin-right: 3px;
+}
+.w-e-text .w-e-todo li span:nth-child(1) input[type=checkbox] {
+  top: 50%;
+  margin-top: -6px;
+}
+.w-e-tooltip {
+  position: absolute;
+  display: flex;
+  color: #f1f1f1;
+  background-color: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 4px 5px 6px;
+  justify-content: center;
+  align-items: center;
+}
+.w-e-tooltip-up::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  border-top-color: rgba(0, 0, 0, 0.73);
+}
+.w-e-tooltip-down::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  border-bottom-color: rgba(0, 0, 0, 0.73);
+}
+.w-e-tooltip-item-wrapper {
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 5px;
+}
+.w-e-tooltip-item-wrapper:hover {
+  color: #ccc;
+  text-decoration: underline;
+}
+</style><style>.w-e-menu .w-e-panel-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border: 1px solid #ccc;
+  border-top: 0;
+  box-shadow: 1px 1px 2px #ccc;
+  color: #333;
+  background-color: #fff;
+  text-align: left;
+  /* 为 emotion panel 定制的样式 */
+  /* 上传图片、上传视频的 panel 定制样式 */
+}
+.w-e-menu .w-e-panel-container .w-e-panel-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px;
+  margin: 2px 5px 0 0;
+  cursor: pointer;
+  color: #999;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-close:hover {
+  color: #333;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-title {
+  list-style: none;
+  display: flex;
+  font-size: 14px;
+  margin: 2px 10px 0 10px;
+  border-bottom: 1px solid #f1f1f1;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-title .w-e-item {
+  padding: 3px 5px;
+  color: #999;
+  cursor: pointer;
+  margin: 0 3px;
+  position: relative;
+  top: 1px;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-title .w-e-active {
+  color: #333;
+  border-bottom: 1px solid #333;
+  cursor: default;
+  font-weight: 700;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content {
+  padding: 10px 15px 10px 15px;
+  font-size: 16px;
+  /* 输入框的样式 */
+  /* 按钮的样式 */
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content input:focus,
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content textarea:focus,
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content button:focus {
+  outline: none;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-top: 10px;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content textarea:focus {
+  border-color: #1e88e5;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content input[type=text] {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  height: 20px;
+  color: #333;
+  text-align: left;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content input[type=text].small {
+  width: 30px;
+  text-align: center;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content input[type=text].block {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content input[type=text]:focus {
+  border-bottom: 2px solid #1e88e5;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button {
+  font-size: 14px;
+  color: #1e88e5;
+  border: none;
+  padding: 5px 10px;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.left {
+  float: left;
+  margin-right: 10px;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.right {
+  float: right;
+  margin-left: 10px;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.gray {
+  color: #999;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.red {
+  color: #c24f4a;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button:hover {
+  background-color: #f1f1f1;
+}
+.w-e-menu .w-e-panel-container .w-e-panel-tab-content .w-e-button-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.w-e-menu .w-e-panel-container .w-e-emoticon-container .w-e-item {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 3px;
+  display: inline-block;
+}
+.w-e-menu .w-e-panel-container .w-e-up-img-container,
+.w-e-menu .w-e-panel-container .w-e-up-video-container {
+  text-align: center;
+}
+.w-e-menu .w-e-panel-container .w-e-up-img-container .w-e-up-btn,
+.w-e-menu .w-e-panel-container .w-e-up-video-container .w-e-up-btn {
+  display: inline-block;
+  color: #999;
+  cursor: pointer;
+  font-size: 60px;
+  line-height: 1;
+}
+.w-e-menu .w-e-panel-container .w-e-up-img-container .w-e-up-btn:hover,
+.w-e-menu .w-e-panel-container .w-e-up-video-container .w-e-up-btn:hover {
+  color: #333;
+}
+</style><style>.w-e-toolbar .w-e-droplist {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  border-right-color: #ccc;
+  border-bottom-color: #ccc;
+}
+.w-e-toolbar .w-e-droplist .w-e-dp-title {
+  text-align: center;
+  color: #999;
+  line-height: 2;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 13px;
+}
+.w-e-toolbar .w-e-droplist ul.w-e-list {
+  list-style: none;
+  line-height: 1;
+}
+.w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item {
+  color: #333;
+  padding: 5px 0;
+}
+.w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item:hover {
+  background-color: #f1f1f1;
+}
+.w-e-toolbar .w-e-droplist ul.w-e-block {
+  list-style: none;
+  text-align: left;
+  padding: 5px;
+}
+.w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item {
+  display: inline-block;
+  padding: 3px 5px;
+}
+.w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item:hover {
+  background-color: #f1f1f1;
+}
+</style><style>.w-e-text-container {
+  overflow: hidden;
+}
+.w-e-img-drag-mask {
+  position: absolute;
+  z-index: 1;
+  border: 1px dashed #ccc;
+  box-sizing: border-box;
+}
+.w-e-img-drag-mask .w-e-img-drag-rb {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: se-resize;
+}
+.w-e-img-drag-mask .w-e-img-drag-show-size {
+  min-width: 110px;
+  height: 22px;
+  line-height: 22px;
+  font-size: 14px;
+  color: #999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #999;
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 5px;
+}
+</style><style>.w-e-table {
+  display: flex;
+}
+.w-e-table .w-e-table-input {
+  width: 40px;
+  text-align: center!important;
+  margin: 0 5px;
+}
+</style><style>.w-e-full-screen-editor {
+  position: fixed;
+  width: 100%!important;
+  height: 100%!important;
+  left: 0;
+  top: 0;
+}
+</style><style>.w-e-content-mantle {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+.w-e-content-mantle .w-e-content-preview {
+  width: 100%;
+  min-height: 100%;
+  padding: 0 10px;
+  line-height: 1.5;
+}
+.w-e-content-mantle .w-e-content-preview img {
+  cursor: default;
+}
+.w-e-content-mantle .w-e-content-preview img:hover {
+  box-shadow: none;
+}
+.w-e-menue-mantle {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+</style></head>
+    <body class="common_bg_lightgray center-page response_article" id="" style="cursor: default;">
+        <div class="wrap_all">
+
+            
+
+<div class="topbar_wrap">
+    <div class="navbar_top navbar-default navbar-fixed-top ">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <!-- phone collapse button -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="phone_show pull-right phone_menu">
+                    
+                        
+                            
+                                <a href="javascript:showLoginModal();" class="login">登录/注册</a>
+                            
+                        
+                    
+                    
+                </div>
+
+                <!-- logo -->
+                <div class="navbar-brand">
+                    
+                        <a href="https://www.51openlab.com/index/" style="cursor:pointer" class="logo">
+                    
+
+                    
+                        <img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/51logo.4d362eba409a.png" id="index_logo" style="margin-right: 20px;">
+                    
+
+                    
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse navbar_right" id="navbar-collapse">
+                
+                    
+                        
+
+
+<ul class="nav navbar-nav navbar_style_user">
+    
+    <li class="">
+        <a href="https://www.51openlab.com/index/">首页</a>
+    </li>
+    
+    <li class="">
+        <a href="https://www.51openlab.com/platform/curriculum/list/">课程</a>
+    </li>
+    <li class="">
+        <a href="https://www.51openlab.com/platform/project/list/">项目实战</a>
+    </li>
+    
+    <li class="">
+        
+            <a href="https://www.51openlab.com/diy_expt/index/">开放实验室</a>
+        
+    </li>
+    
+    <li class="active">
+        <a href="https://www.51openlab.com/article/list/">社区</a>
+    </li>
+    
+    
+    <li class="">
+        <a href="https://www.51openlab.com/contests/">赛事中心</a>
+    </li>
+    
+</ul>
+
+                    
+                
+
+                
+                    
+                        
+                           <ul class="nav navbar-nav navbar-right">
+                               
+                                    <li><a href="https://www.51openlab.com/college">高校版</a></li>
+                                    <li class="phone_hide"><a href="javascript:showLoginModal();">登录/注册</a></li>
+                               
+                           </ul>
+                        
+                    
+
+                    
+                
+            </div>
+            
+
+            
+            
+        </div>
+    </div>
+    
+
+</div>
+
+
+            
+
+    
+
+    
+    <div class="container-fluid main">
+
+        <div class="main2">
+            
+<div class="well well_frame">
+    <div class="head">
+        <h3>Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 | 开发者实战</h3>
+        <div class="head_info">
+            <img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/defaultHead.png">
+            <span class="font_14">openlab_4276841a</span>
+            <span class="course-sx"></span>
+            <span class="time">
+                
+                    更新于 1月前
+                
+            </span>
+        </div>
+    </div>
+    <div class="body w-e-text">
+        <h1><span style="font-size: 16px;" id="g59gx">概述&nbsp;</span><br></h1><section><section><section><section><section><section><section><section><section><section><section><p>图像分类(Image Classification)，是根据各自在图像信息中所反映的不同特征，把不同类别的目标区分开来的图像处理方法。它利用计算机对图像进行定量分析，把图像或图像中的每个像元或区域划归为若干个类别中的某一种，以代替人的视觉判读。而在分类任务中比较经典的网络结构有VGGNet，ResNet，以及后面出现的MobileNet与ShuffleNet等，而在本文中主要使用到的是ResNet。</p><p><br></p></section></section><section><section><p>本文使用了YOLOv5模型，使用OpenVINO<sup>™</sup>&nbsp;工具套件为分类模型优化部署的框架，介绍了YOLOv5和OpenVINO<sup>™&nbsp;</sup>工具套件的安装和使用，以及YOLOv5模型训练的全部流程。并详细介绍了OpenVINO<sup>™&nbsp;</sup>&nbsp;Inference Engine 应用程序典型开发流程，以及怎样使用Python编程语言开发AI推理应用程序。</p></section></section></section><section><section><section><section><section><section><section></section></section></section></section><section><section><section><section></section></section></section></section></section></section></section><section><section><section><section><section><section></section></section></section></section><section><section><h2 id="37sta">&nbsp;1 安装Anaconda&nbsp;</h2></section></section><section><section><section><section></section></section></section></section></section></section><section><section><h3 id="ao3mv">&nbsp;1.1 Anaconda概述&nbsp;</h3></section></section><section><p><br></p></section><section><p>Anaconda是一个用于科学计算的发行版，支持 Linux, Mac, Windows系统，提供了包管理与环境管理的功能，可以很方便地解决多版本python并存、切换以及各种第三方包安装问题。Anaconda利用工具/命令conda来进行package和environment的管理，并且已经包含了Python和相关的配套工具。</p></section><section><p><br></p></section><section><section><h3 id="shogq">&nbsp;1.2 下载并安装Anaconda&nbsp;</h3></section></section><section><p><br></p></section><section><p>下载并安装Anaconda，具体步骤如下。</p><p><strong>第一步</strong>，通过网址</p><p>https://www.anaconda.com/products/individual</p><p>进入Anaconda官网，直接点击Download进行下载，如图1-1所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/9ce39d13-474b-4528-92e4-1720776a4643" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>找到下载文件Anaconda3-2021.05-Windows-x86_64.exe并双击安装到图1-2中的界面，进入用户选项界面默认选择Just Me，再点击Next&gt;&nbsp;按钮。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/546e9bca-d61d-4e7f-a109-42a71156e0a0" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第三步，</strong>设置安装路径，尽量保持默认路径，然后点击Next&gt;按钮安装，如图1-3所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/6d671761-e914-48d5-b3b4-e41dc1d5822c" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第四步，</strong>进入高级安装选项设置，一定要勾选<strong>Add&nbsp;Anaconda3&nbsp;to&nbsp;my&nbsp;PATH&nbsp;environment&nbsp;variable</strong>，将Anaconda3的路径添加到环境变量中，然后点击Install 按钮，Anaconda安装完成，如图1-4所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/226961ce-1a92-4f3e-ae55-d7410e222a0a" contenteditable="false"></section></section><section><p><br></p></section><section><section><h3 id="zx2xr">1.3 测试Anaconda安装&nbsp;</h3></section></section><section><p><br></p></section><section><p>全部安装完毕后，在Windows“开始”菜单中选择 Anaconda Navigator ，进入主界后点击Environments 选项卡，如下图1-5所示可以看到当前的Anaconda默认虚拟环境是base(root)，单击base(root)右侧的绿色箭头，在弹出的菜单中选择Open with Python。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/9b1699cd-aea4-4e39-8308-d76c98314fc6" contenteditable="false"></section></section><section><p><br></p></section><section><p>在弹出Windows命令行窗口中，输入代码&lt;print&lt; font=""&gt;(“hello python”)&gt;，得到如下图1-6的结果证明Anaconda和Python全部安装成功。</p></section><section><p><br></p></section><section><section><br><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/20febce1-6606-4c41-bad3-a9cc7ba4725b" contenteditable="false"></section></section><section><p><br></p></section><section><section><section><section><section><section></section></section></section></section><section><section><h2 id="mitck">&nbsp;2 迅速安装YOLOv5&nbsp;</h2></section></section><section><section><section><section></section></section></section></section></section></section><section><section><h3 id="8jbyb">&nbsp;2.1 安装CUDA与cuDNN库&nbsp;</h3></section></section><section><p><br></p></section><section><p>如果您的计算机有NVIDIA<sup>®</sup>&nbsp;GPU，请确保满足以下条件并且安装GPU版PaddlePaddl</p></section><section><section><section><section><table><tbody><tr><td colspan="1" rowspan="1"><section><section><p><strong>■</strong><strong>&nbsp;CUDA&nbsp;工具包10.1/10.2&nbsp;配合&nbsp;cuDNN 7 (cuDNN版本&gt;=7.6.5）</strong></p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;&nbsp;</strong><strong>CUDA&nbsp;工具包11.0配合cuDNN v8.0.4</strong></p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;&nbsp;</strong><strong>CUDA&nbsp;工具包11.2配合cuDNN v8.1.1</strong></p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;</strong><strong>&nbsp;GPU运算能力超过3.0的硬件设备</strong></p></section></section></td></tr></tbody></table></section></section></section></section><section><p>安装CUDA和cuDNN库的步骤如下：</p><p><strong>第一步</strong>，到以下网址下载11.0vCUDA，如图2-1所示。</p><p>https://developer.nvidia.com/cuda-downloads?&nbsp;</p><p><br></p></section><section><p><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/115fd056-5fb3-4cd9-9f2c-4969f7f6d3b2" contenteditable="false"></p></section><section><p><br></p></section><section><p><strong>第二步，</strong>安装完成后双击exe文件开始安装，如图2-2所示。</p></section><section><p><br></p></section><section><section>&nbsp; &nbsp;&nbsp;<img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/9ff7135b-86de-43f3-b7aa-fef2e95c7b4c" contenteditable="false"></section></section><section><p><strong>第三步，</strong>之后只需要一路默认安装即可完成，如图2-3所示。</p></section><section><p><br></p></section><section><section><br><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/9265b1a2-c321-499d-ae1b-b40235da8ed0" contenteditable="false"><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></section></section><section><p><strong>第四步</strong>，进入https://developer.nvidia.com/rdp/cudnn-download&nbsp;</p><p>安装cuDNN v8.0.4，这里需要登录，如果没有账号的话就去注册一个，如图2-4所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/aa9ad507-2437-44f6-b65b-9dc66e75a737" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第五步，</strong>下载下来的文件是一个压缩包，解压后有三个文件夹bin、include和lib，依次将三个文件夹中的内容拷贝到CUDA的安装目录(默认情况下是C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.0)下的bin、include和lib下，这个要一一对应，如图2-5所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/5041d7c9-c35f-42a7-ab05-b1db8edf6e17" contenteditable="false"></section></section><section><p><br></p></section><section><section><h3 id="jp2jc">&nbsp;2.2 安装YOLOv5&nbsp;</h3></section></section><section><p><br></p></section><section><p><strong>2.1.1 安装git</strong></p></section><section><p><br></p></section><section><p>Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。具体安装步骤如下：</p></section><section><p><br></p></section><section><p><strong>第一步，</strong>从官网地址：https://git-scm.com/downloads</p><p>下载最新版本的Git，如图2-9所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/92717fbb-20dc-4bc9-a683-ad851cdd1365" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>完成安装后会得到exe文件，双击打开，如图2-10所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/666f2d85-fade-4542-a30d-27d4888f6ee0" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第三步，</strong>之后只需要一路默认安装即可完成，如图2-11所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/9916af34-6efa-4549-8a3f-ee83fb4ffad3" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>2.2.2 安装YOLOv5</strong></p></section><section><p><br></p></section><section><p><strong>第一步，</strong>在创建的虚拟环境上从gitee下载，下载命令如下：git clone https://gitee.com/jiujuei**mp/YOLOv5</p></section><section><p><br></p></section><section><p><strong>第二步，</strong>安装Python依赖库。Python依赖库在requirements.txt中给出，可通过如下命令安装：pip install --upgrade -r requirements.txt，如图2-13所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/c0d045f0-688b-4a0b-8fbe-edcd7d52d9fd" contenteditable="false"></section></section><section><section><section><section><section><section></section></section></section></section><section><section><p><br></p><h2 id="7uiwq">&nbsp;3 训练模型&nbsp;</h2></section></section><section><section><section><section></section></section></section></section></section></section><section><p>本章节基于coco数据集，使用YOLOv5进行图像检测模型的训练与推理。</p></section><section><p><br></p></section><section><section><h3 id="0fh5k">&nbsp;3.1 数据集准备&nbsp;</h3></section></section><section><p><br></p></section><section><p>第一步，从网址http://cocodataset.org 进入官网下载coco数据集。</p></section><section><p><br></p></section><section><p>MS COCO的全称是Microsoft Common Objects in Context，起源于是微软于2014年出资标注的Microsoft COCO数据集，与ImageNet 竞赛一样，被视为是计算机视觉领域最受关注和最权威的比赛之一。</p></section><section><p><br></p></section><section><p>当在ImageNet竞赛停办后，COCO竞赛就成为是当前目标识别、检测等领域的一个最权威、最重要的标杆，也是目前该领域在国际上唯一能汇集Google、微软、Facebook以及国内外众多顶尖院校和优秀创新企业共同参与的大赛。&nbsp;</p></section><section><p><br></p></section><section><p>该数据集主要解决3个问题：目标检测，目标之间的上下文关系，目标的2维上的精确定位。COCO数据集有91类，虽然比ImageNet和SUN类别少，但是每一类的图像多，这有利于获得更多的每类中位于某种特定场景的能力，对比PASCAL VOC，其有更多类和图像。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/aaca8891-2763-43dc-b4c9-edc073e04131" contenteditable="false"></section></section><section><p><br></p></section><section><section><h3 id="wrztd">&nbsp;3.2 使用预训练模型进行训练&nbsp;</h3></section></section><section><section><p><br></p></section></section><section><p><strong>3.2.1 训练前设置</strong><strong>&nbsp;</strong></p></section><section><p><br></p></section><section><p><strong>第一步，</strong>设置PYTHONPATH环境变量。只需设置PYTHONPATH，从而可以从正在用的目录（也就是正在交互模式下使用的当前目录，或者包含顶层文件的目录）以外的其他目录进行导入。具体的设置方法如图3-2所示。</p></section><section><p><br></p></section><section><p><strong>第二步，</strong>设置gpu**。设置gpu**是为了指定使用哪张显卡训练，win下目前仅支持一张显卡训练，**设为0</p></section><section><p><br></p></section><section><p><strong>3.2.2 调整网络yaml文件</strong></p></section><section><p><br></p></section><section><p>由于在Windows系统下不支持多进程读取数据，因此训练前需要修改yaml文件。Yaml文件在YOLOv5/data/&nbsp;文件夹下，如图3-2所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/4996a3f8-84ca-4760-aa58-98107119ca61" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第一步，</strong>需要将Train模块中的path，train、val修改为coco数据集对应所在的路径，如图3-4所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/1384c85f-263c-4877-a41f-85d426fb954b" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>3.2.3 转换标注文件格式</strong></p></section><section><p><br></p></section><section><p>由于coco数据集的标注文件是按照coco的格式以json文件储存，而YOLOv5使用的是YOLO格式的txt文件，因此需要运行一下脚本先把json文件中的标注信息转换出来：</p><pre><code class="Bash"><xmp>"""
+
+COCO 格式的数据集转化为 YOLO 格式的数据集
+
+--json_path 输入的json文件路径
+
+--save_path 保存的文件夹名字，默认为当前目录下的labels。
+
+"""
+
+
+
+import os 
+
+import json
+
+from tqdm import tqdm
+
+import argparse
+
+
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--json_path', default='./instances_val2017.json',type=str, help="input: coco format(json)")
+
+parser.add_argument('--save_path', default='./labels', type=str, help="specify where to save the output dir of labels")
+
+arg = parser.parse_args()
+
+
+
+def convert(size, box):
+
+    dw = 1. / (size[0])
+
+    dh = 1. / (size[1])
+
+    x = box[0] + box[2] / 2.0
+
+    y = box[1] + box[3] / 2.0
+
+    w = box[2]
+
+    h = box[3]
+
+
+
+    x = x * dw
+
+    w = w * dw
+
+    y = y * dh
+
+    h = h * dh
+
+    return (x, y, w, h)
+
+if __name__ == '__main__':
+
+    json_file =   arg.json_path # COCO Object Instance 类型的标注
+
+    ana_txt_save_path = arg.save_path  # 保存的路径
+
+
+
+    data = json.load(open(json_file, 'r'))
+
+    if not os.path.exists(ana_txt_save_path):
+
+        o***akedirs(ana_txt_save_path)
+
+
+
+    id_map = {} # coco数据集的id不连续！重新映射一下再输出！
+
+    with open(os.path.join(ana_txt_save_path, 'classes.txt'), 'w') as f:
+
+        # 写入classes.txt
+
+        for i, category in enumerate(data['categories']): 
+
+            f.write(f"{category['name']}\n") 
+
+            id_map[category['id']] = i
+
+    # print(id_map)
+
+
+
+    for img in tqdm(data['images']):
+
+        filename = img["file_name"]
+
+        img_width = img["width"]
+
+        img_height = img["height"]
+
+        img_id = img["id"]
+
+        head, tail = os.path.splitext(filename)
+
+        ana_txt_name = head + ".txt"  # 对应的txt名字，与jpg一致
+
+        f_txt = open(os.path.join(ana_txt_save_path, ana_txt_name), 'w')
+
+        for ann in data['annotations']:
+
+            if ann['image_id'] == img_id:
+
+                box = convert((img_width, img_height), ann["bbox"])
+
+                f_txt.write("%s %s %s %s %s\n" % (id_map[ann["category_id"]], box[0], box[1], box[2], box[3]))
+
+        f_txt.close()</xmp></code></pre></section><section><section><section><section><p><br></p></section></section></section></section><section><p><strong>3.2.3 模型训练</strong></p></section><section><p><br></p></section><section><p>在YOLOv5中提供了YOLOv5s,YOLOv5m YOLOv5l,YOLOv5x等多种结构的模型，不同模型的精度和权值大小不一，用户可以方便地根据自己的需求使用相应的模型以及预训练权值。</p></section><section><section><br><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/526abf33-5328-4763-8c86-bbae8b5f416a" contenteditable="false"><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></section></section><section><p>本文以YOLOv5s为例，进行coco数据集上的训练</p><p>在Anaconda中输入训练脚本</p><p>python train.py --img 640 --batch 8 --epochs 50 --data coco.yaml --weights YOLOv5s.pt</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/4c714e0b-5fcc-4cdd-8a8e-ccd62e945261" contenteditable="false"></section></section><section><p><br></p></section><section><p>最后，经过50epochs的训练后，得到训练集上结果如下：</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/97daeb11-63f9-490a-81c1-5ff38a471b80" contenteditable="false"></section></section><section><p><br></p></section><section><p>在runs文件夹中有训练后的权值文件以及训练测试的结果：</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/71ab0259-b458-4d4b-890e-85db9d51b45b" contenteditable="false"></section></section><section><p><br></p></section><section><p>对YOLOv5s，YOLOv5m，YOLOv5l，YOLOv5x分别进行训练，在单张GTX2080ti的条件下，训练50epoches，训练时间分别为：13h、23h、39h、78h</p></section><section><section><section><section><pre><code class="Bash"><xmp>python train.py --data coco.yaml --cfg YOLOv5s.yaml --weight********atch-size 16
+
+                                          YOLOv5m.yaml                              8
+                                          YOLOv5l.yaml                              4
+                                          YOLOv5x.yaml                             2</xmp></code></pre></section></section></section></section><section><p>训练结果如下所示：</p></section><section><p><br></p></section><section><section><br><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/a9a6d672-d602-4736-ad1e-c12b325f43db" contenteditable="false"><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></section></section><section><p><br></p></section><section><p><strong>3.2.4 模型推理</strong></p></section><section><p><br></p></section><section><pre><code class="Bash"><xmp>使用YOLOv5中的detect.py文件即可完成推理任务，使用命令如下：
+
+python detect.py --source 0  # 本机默认摄像头
+
+                            file.jpg  # 图片 
+
+                            file.mp4  # 视频
+
+                            path/  # 文件夹下所有媒体
+
+                            path/*.jpg  # 文件夹下某类型媒体
+
+                            rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa  # rtsp视频流
+
+                            http://112.50.243.8/PLTV/88888888/224/3221225900/1.m3u8  # http视频流</xmp></code></pre></section><section><p><br></p></section><section><p>得到的推理结果将会在runs/detect文件夹中</p></section><section><p><br></p></section><section><p><strong>3.2.5 转换为onnx格式</strong></p></section><section><p><br></p></section><section><p>为了能在OpenVINO<sup>™&nbsp;</sup>工具套件中进一步部署，需要把生成的pt文件转化为onnx文件</p><p>使用YOLOv5文件夹中的export.py文件，采用如下命令即可：</p><p>python export.py --weights YOLOv5s.pt &nbsp;--batch 1 --img 640</p><p>随后将会在权值文件夹下生成相应的onnx文件</p></section><section><section><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/a40f740e-ae2c-4d87-b482-b88f949ff7f5" contenteditable="false"></section></section><section><p><br></p></section><section><section><section><section><section><section></section></section></section></section><section><section><h2 id="kwjio">4 安装OpenVINO<sup>™&nbsp;</sup>工具套件部署</h2></section></section><section><section><section><section></section></section></section></section></section></section><section><section><h3 id="nxc9t">4.1 &nbsp;OpenVINO<sup>™&nbsp;</sup>工具套件简介</h3><p><br></p></section></section><section><p>OpenVINO<sup>™&nbsp;</sup>工具套件全称是Open Visual Inference &amp; Neural Network Optimization，是英特尔<sup>®&nbsp;</sup>于2018年发布的开源工具包，专注于优化神经网络推理。OpenVINO<sup>™&nbsp;</sup>工具套件主要包括Model Optimizer(模型优化器)和Inference Engine(推理引擎)两个部分。Model Optimizer是用于优化神经网络模型的工具，Inference Engine是用于加速推理计算的软件包。如图4-1所示，即为OpenVINO<sup>™&nbsp;</sup>工具套件的主要组成部分。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/913e8493-07ec-4065-92d0-5458701a4059" contenteditable="false"></section></section><section><p><br></p></section><section><section><h3 id="2zkya">4.2 &nbsp;OpenVINO<sup>™&nbsp;</sup>工具套件安装</h3></section></section><section><p><br></p></section><section><p><strong>4.2.1 OpenVINO<sup>™&nbsp;</sup>工具套件下载和安装</strong></p></section><section><p><br></p></section><section><p>下载并安装OpenVINO<sup>™&nbsp;</sup>工具套件的具体步骤如下。</p><p><strong>第一步</strong>，通过</p><p>https://software.intel.com/content/www/us/en/develop/tools/openvino-toolkit/download.html</p><p>进入OpenVINO<sup>™&nbsp;</sup>工具套件官网下载页面，选择合适的版本，本文选择2021.4版本的OpenVINO<sup>™&nbsp;</sup>工具套件，按照如图5-2所示选择，再点击Download按钮即可下载OpenVINO<sup>™&nbsp;</sup>工具套件2021.4版本的安装程序。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/fdb7499c-8630-4406-8843-a6c3782e887d" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>找到OpenVINO<sup>™&nbsp;</sup>工具套件的安装文件w_openvino_toolkit_p_2021.4.689.exe，双击下载安装，安装步骤全部默认安装即可，如图4-3所示。</p><p><br></p></section><section><p><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/bc4ca805-9f2a-431e-ac9e-2fe525fb7b43" contenteditable="false"></p></section><section><p><br></p></section><section><p><strong>第三步，</strong>安装过程中会有CMake和Mircrosoft Visual Studio依赖软件安装的提示，下面我们继续安装CMake和Mircrosoft Visual Studio软件。</p></section><section><p><br></p></section><section><p><strong>4.2.2 CMake下载和安装</strong><br></p></section><section><p><br></p></section><section><p>CMake作为一个跨平台的C/C++程序编译开源配置工具，在OpenVINO<sup>™&nbsp;</sup>工具套件的应用中，CMake用来管理OpenVINO<sup>™&nbsp;</sup>工具套件中的演示程序(Demos)和范例程序(Samples)。</p><p>下载并安装Cmake的步骤如下所示。</p></section><section><p><br></p></section><section><p><strong>第一步，</strong>通过<strong>&nbsp;https://cmake.org/download/&nbsp;</strong>进入CMake官网下载界面，下载安装文件，选择的CMake版本大于等于3.4版本即可，本文的版本选择为cmake-3.21.3-windows-x86_64.msi，如图4-4所示</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/da615564-5bb3-4475-89ed-2ef0ec3e1a15" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>双击安装文件，默认选项完成安装，在Install Options页面选择Add Cmake to the system PATH for all users将CMake添加到系统变量PATH中。如图4-5所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/fd4a814c-1890-4d8b-bf2c-0199a3bc37d2" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>4.2.3 Mircrosoft&nbsp;Visual&nbsp;Studio下载和安装</strong><br></p></section><section><p><br></p></section><section><p>OpenVINO<sup>™&nbsp;</sup>工具套件支持Mircrosoft Visual Studio 2015、2017和2019。由于Mircrosoft Visual Studio 2017是目前Windows操作系统下应用最广泛的C++ IDE，本文选择使用Mircrosoft Visual Studio 2017版本。</p></section><section><p><br></p></section><section><p>Mircrosoft&nbsp;Visual&nbsp;Studio&nbsp;2017安装步骤如下:</p></section><section><p><strong>第一步，</strong>通过网址https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/&nbsp;进入Mircrosoft Visual Studio旧版本下载地址，单击2017，在展开的下载选项中点击“下载”按钮进入Mircrosoft Visual Studio 2017下载页面，在左侧选择Visual Studio 2017(version 15.9),在右侧的选择页面中选择Visual Studio Community 2017(version 15.9)，单击Download下载，如图4-6所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/34ad6099-7503-499d-8a75-a5b6f6ac2502" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>找到安装文件双击打开，在安装配置中选择“.NET桌面开发”、“使用C++的桌面开发”、“通用Windows平台开发”三个选项后，再选择右下角的“安装”按钮开始安装，如图4-7所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/8a977002-826a-4d8e-b34e-926ba10f340d" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>4.2.4 OpenVINO<sup>™&nbsp;</sup>工具套件验证安装</strong><br></p></section><section><p><br></p></section><section><p><strong>第一步，</strong>打开命令行输入刚才openvino的安装路径，这里以笔者的为例，输入cdC:\Program Files (x86)\Intel\openvino_2021.4.689\bin。再输入：setupvars设置一个临时的环境变量，如图4-8所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/88ff7150-6d0f-49b8-8202-d9cac96bab44" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>输入cd C:\Program Files(x86)\Intel\&nbsp;openvino_2021.4.689\deployment_tools&nbsp;</p><p>\model_optimizer\install_prerequisites，之后再输入install_prerequisites以配置Caffe *，TensorFlow *，MXNet *，Kaldi *和ONNX *的模型优化器，可以将它们训练的模型转化成IR格式供推理引擎使用，如图4-9所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/d1d2b632-5109-4a34-a2dc-02f9d11dae5f" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第三步，</strong>输入 cd C:\Program Files(x86)\Intel\openvino_2021.4.689\deployment_tools\demo，之后在输入demo_squeezenet_download_convert_run.bat来实现自动下载一个训练好的SqueezeNet model，并且使用Model Optimizer转化成IR格式的数据。(这是官方的方法，但实际上会出问题)，如图4-10所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/8cfd39da-059f-4e8a-8f94-74bcce721d0e" contenteditable="false"></section></section><section><p><br></p></section><section><p>笔者在执行bat文件时，并不能正常的下载模型，因此需要手动使用git来下载squeezeNet模型。可以在命令行输入git clone https://github.com/forresti/SqueezeNet，可以下载到如图4-11的文件内容。我们需要提取SqueezeNet_v1.1.caffemodel和deploy.prototxt到测试输出目录下的模型子目录：</p><p>C:\Users\admin\Documents\Intel\OpenVINO\openvino_models\models\public\squeezenet1.1，并重命名为squeezenet1.1.caffemodel和squeezenet1.1.prototxt</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/8ee29a6d-5249-4cef-aecf-47d8dfac7d12" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第四步</strong>，在命令行输入demo_security_barrier_camera，得到如图4-12所示的内容，至此OpenVINO<sup>™</sup>&nbsp;工具套件安装完成。</p></section><section><p><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/f5d94b95-86f5-4858-ac04-c2822f546799" contenteditable="false"></p></section><section><section></section></section><section><p><br></p></section><section><section><section><section><section><section></section></section></section></section><section><section><h2 id="vkinb">5 使用OpenVINO<sup>™&nbsp;</sup>工具套件部署YOLOv5模型</h2></section></section><section><section><section><section></section></section></section></section></section></section><section><section><h3 id="yokm8">&nbsp;5.1&nbsp;使用Model_Optimizer优化模型</h3></section></section><section><p><br></p></section><section><p><strong>5.1.1&nbsp;转化ONNX模型到IR格式</strong><br></p></section><section><p><br></p></section><section><p>model_optimizer可以支持ONNX模型的转换，具体步骤如下：</p><p><strong>第一步，</strong>输入命令来到model_optimizer目录下</p></section><section><section><section><section><p>cd&nbsp;C:\Program Files (x86)\Intel\openvino_2021.4.689\deployment_tools\model_optimizer</p></section></section></section></section><section><p><strong>第二步，</strong>输入如下命令实现转换<br></p></section><section><section><section><section><p>python mo_onnx.py --input_model /onnx_models/flower_rec.onnx --output_dir /openvino/FP16 --input_shape [1,3,224,224] --data_type FP16 --scale_values [127.5,127.5,127.5] --mean_values [127.5,127.5,127.5]</p></section></section></section></section><section><p>--data_type来指定模型的精度，--input_shape来指定模型接受图像的形状。最关键的两点我要拿出来讲,分别是--mean_value(MV)和--scale_values(SV)。在转到IR模型的时候如果指定了这2个参数，那么在之后用模型做推理的时候就可以不用做Normalization。当转换成功时，将会出现如图5-2中的SUCCESS提示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/3ff097e0-3573-46f9-b9bd-290d6e228a6b" contenteditable="false"></section></section><section><p><br></p></section><section><section><p>5.2 Inference&nbsp;Engine&nbsp;应用程序典型开发流程</p></section></section><section><p><br></p></section><section><p>Inference Engine典型的开发流程一共有八步，如图5-3所示：</p><p><br></p></section><section><p><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/54902e95-679d-44dc-bdda-bd3c1c229449" contenteditable="false"></p></section><section><p><br></p></section><section><p>本次的案例开发将会基于Python（环境配置以及使用难度都对于入门新手比较友好），故使用Python对应的API来简单介绍以上的流程。</p></section><section><section><section><section><table><tbody><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;</strong>初始化IECore实例：使用ie=IECore()来初始化Core对象，可用于管理可用设备和读取网络对象。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■</strong>读入一个IR模型：net = ie.read_network(model=model_xml,</p><p>weight***odel_bin)，将IR模型的路径赋给model_xml与model_bin便可以读取。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;</strong>配置输入和输出：使用input_blob = next(iter(net.inputs))，out_blob = next(iter(net.outputs))定义输入和输出。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■</strong>将网络加载到设备：exec_net = ie.load_network(network=net, device_name="CPU")将模型加载到设备，载入的硬件由device_name参数决定。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■ &nbsp;</strong>创建推理请求：模型载入AI计算硬件后会得到一个infer对象，用于执行AI推理计算。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■</strong>输入数据：使用inputs={input_blob:[image]}&nbsp;获取由推断请求分配的Blob，并将图像和数据提供给blob</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■</strong>执行推理：使用exec_net.infer(inputs={input_blob:[image]})进行异步请求推理。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;</strong>输出结果：使用res = res[out_blob]&nbsp;获得推理计算结果。</p></section></section></td></tr></tbody></table></section></section></section></section><section><p><br></p></section><section><section><p>&nbsp;5.3&nbsp;编写OpenVINO<sup>™&nbsp;</sup>&nbsp;AI推理计算Python范例</p></section></section><section><p><br></p></section><section><p>本节将基于5.1节生成的IR文件flower_rec.xml和flower_rec.bin,从零开始，实现完整的OpenVINO<sup>™&nbsp;&nbsp;</sup>AI 推理计算python程序。</p></section><section><p><br></p></section><section><p><strong>5.3.1&nbsp;OpenVINO<sup>™&nbsp;</sup>工具套件中</strong><strong>python和环境变量的设置</strong></p></section><section><p><br></p></section><section><p><strong>第一步，</strong>将路径</p><p>C:\Program Files (x86)\Intel\openvino_2021.4.689\python\python3.6下的openvino文件**一份到python安装路径E:\python3.6\Lib\site-packages（python的安装路径可能有所不同，关键是找到Lib\site-packages下即可）下，如图5-4所示。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/ed7f6545-858e-4f57-ab4b-a4715b229f42" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第二步，</strong>使用pip install -r "C:\Program Files(x86)\Intel\openvino_2021.4.689\</p><p>python\python3.6\requirements.txt"将所需要的库进行安装。</p></section><section><p><br></p></section><section><p><strong>第三步，</strong>将图5-5中红框标识的路径配置进系统环境变量当中。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/1f879921-760b-4b61-b5ad-99d6b23ef0d7" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>第四步，</strong>在PyCharm中输入如图5-6所示的代码，若能正常输出设备名称则为配置成功。</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/f3509958-6f07-482c-98c7-8942084d8cd2" contenteditable="false"></section></section><section><p><br></p></section><section><p><strong>5.3.2&nbsp;开发AI推理计算Python应用程序</strong><br></p></section><section><p><br></p></section><section><p>在成功配置环境变量和项目属性后，使用Python编程语言开发OpenVINO<sup>™&nbsp;</sup>工具套件推理应用程序。</p></section><section><p><br></p></section><section><p><strong>第一步</strong>，引入相应库函数，配置推理计算设备，IR文件路径，媒体文件路径，如代码清单6-1所示：</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step1
+
+from openvino.inference_engine import IECore
+import numpy as np
+import cv2 as cv
+model_xml = "models/YOLOv5s.xml"
+model_bin = "models/YOLOv5***in"
+src = cv.imread(r"images\image_06626_2.jpg")</xmp></code></pre></section></section></section></section><section><p>其中，各个库的用途如下：</p></section><section><section><section><section><table><tbody><tr><td colspan="1" rowspan="1"><section><section><p><strong>■</strong><strong>import&nbsp;</strong>IECore定义和实现Inference Engine的类、方法以及函数。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;</strong><strong></strong><strong>import</strong><strong>&nbsp;</strong>cv2&nbsp;OpenCV库，包含了OpenCV的各个模块。</p></section></section></td></tr><tr><td colspan="1" rowspan="1"><section><section><p><strong>■&nbsp;</strong><strong>&nbsp;import</strong>&nbsp;numpy 用于对图像矩阵的处理。</p></section></section></td></tr></tbody></table></section></section></section></section><section><p><strong>第二步，</strong>初始化Core对象，管理可用设备和读取网络对象，如代码清单6-2所示</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step2 初始化Core对象
+
+ie = IECore()
+for device in ie.available_devices:
+   print(device)</xmp></code></pre></section></section></section></section><section><p><strong>第三步，</strong>使用读取IR模型(支持.xml格式)，将IR模型读入ie.read_network</p><p>方法中去。如代码清单6-3所示：</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step3 读取IR模型
+
+net = ie.read_network(model=model_xml,weight***odel_bin)</xmp></code></pre></section></section></section></section><section><p><strong>第四步，</strong>配置模型输入和输出，将模型载入内存后，使用net.outputs和net.inputs参数保存输入和输出，如代码清单6-4所示：</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step4 配置模型输入和输出
+input_blob = next(iter(net.inputs))
+out_blob = next(iter(net.outputs))
+n,c,h,w = net.inputs[input_blob].shape</xmp></code></pre></section></section></section></section><section><p><strong>第五步，</strong>使用ie.load_network()将模型加载到设备，载入的硬件由LoadNetwork()方法的DEVICE参数决定。如代码清单6-5所示：</p></section><section><section><section><pre><code class="Bash"><xmp>#Step5 将模型加载到设备
+exec_net = ie.load_network(network=net, device_name="CPU")</xmp></code></pre></section></section></section><section><p><strong>第六步，</strong>准备输入数据，并按模型要求对图像矩阵进行转置处理，如代码清单6-6所示</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step6 准备输入数据
+
+image = cv.resize(src,(w,h))
+image = image.transpose(2,0,1)</xmp></code></pre></section></section></section></section><section><p><strong>第七步，</strong>执行推理计算，使用此前加载到设备上的模型exec_net的infer()方法进行推理，如代码清单6-7所示：</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step7 执行推理计算
+res = exec_net.infer(inputs={input_blob:[image]})</xmp></code></pre></section></section></section></section><section><p><strong>第八步，</strong>处理推理计算结果，使用numpy的np.max()和np.argmax()方法对输出结果进行筛选，获得对应输入图像的推理得分以及标签索引，之后再利用Opencv的putText()与imshow()方法对结果进行显示，如代码清单6-8所示:</p></section><section><section><section><section><pre><code class="Bash"><xmp>#Step8 处理推理计算结果
+res = res[out_blob]
+print(res.shape)
+print(np.max(res,1))
+label_index = str(np.argmax(res, 1)[0]) #使用0将list转成数值类型
+print(label_index)
+label_index = 'classes_index: '+label_index
+scores = ' scores: ' + str(np.max(res,1)[0])[:5]
+cv.putText(src, label_index, (20,50), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255,255,255), 2, 12)
+cv.putText(src, scores, (5,85), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255,255,255), 2, 12)
+cv.imshow("flowers recognition",src)
+cv.waitKey(0)</xmp></code></pre></section></section></section></section><section><p><strong>第九步，</strong>执行程序detection.py，若执行无误将会出现如图5-7所示的结果。</p></section><section><p><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/c6df627f-f8c4-4bf2-935b-4e0b72c8f6f7" contenteditable="false"></p></section><section><section></section></section><section><p><br></p></section><section><section><h3 id="ijd5g">5.4&nbsp;基于benchmark的性能测试&nbsp;</h3></section></section><section><p><br></p></section><section><p>使用OpenVINO<sup>™&nbsp;</sup>工具套件中的benchmarkapp.exe对转化的IR模型进行测试：</p><p>命令如下：</p><p>benchmark_app.exe -m YOLOv5s.xml -i football.mp4 -d CPU</p><p>结果如下所示：</p></section><section><p><br></p></section><section><section><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/68e6c318-b842-4582-a010-3193d7e55b65" contenteditable="false"></section></section><section><p><br></p></section><section><section><section><section><section><section></section></section></section></section><section><section><h2 id="rhuya">&nbsp;6 总结&nbsp;</h2></section></section><section><section><section><section></section></section></section></section></section></section><section><p><br></p></section><section><p>本文基于详细介绍了YOLOv5框架和预训练模型，并使用Python编程语言训练coco数据集的完整流程，在模型部署模块中，详细介绍了OpenVINO<sup>™&nbsp;</sup>工具套件及其两个重要组件：Model Optimizer和Inference Engine的安装和使用，将训练完毕的YOLOv5s模型转换为IR格式文件后，使用Python编程语言进行AI应用程序的开发方法。在使用Inference Engine进行模型推理部署是，OpenVINO<sup>™&nbsp;</sup>工具套件提供了八个统一的API接口，流程化的开发方式极大降低了AI应用程序开发的难度，对于不同模型的不同输入输出节点，只需少量改动应用程序，便可快速独立开发属于自己的AI应用程序。</p></section><section><p><br></p><p>* 本文内容及配图均为“英特尔物联网”的原创内容。该公众号的运营主体拥有上述内容的著作权或相应许可。除在微信朋友圈分享之外，如未经该运营主体书面同意，请勿转载、转帖或以其他任何方式**、发表或发布上述内容。如需转载上述内容或其中任何部分，请留言联系。</p></section></section></section></section></section></section></section></section></section>
+    </div>
+    <div class="footer">
+        版权声明：如需转载，请联系原作者并附上原文链接。
+    </div>
+</div>
+<div class="well well_frame" id="ctx_article_comment">
+    <div class="head">
+        <span class="title">0个评论</span>
+    </div>
+    <div id="comment_list" class="page_list">
+        <div class="clearfix video-question1">
+    <div id="ctx_notify_login_replay" style="color: rgb(102, 102, 102); text-align: center; margin-bottom: 20px; margin-top: 40px;">
+        请<a href="javascript:;" id="btn_notify_login_replay">登录</a>后评论。
+    </div>
+    <div id="top_comment_text"></div>
+
+    <div class="video-question-r">
+        <a class="btn btn-orange btn-sm" id="btn_reply_article" style="display: none;">
+            <i class="icon-spinner icon-spin hide"></i>
+            提交
+        </a>
+
+
+    </div>
+</div>
+<div class="video_padination">
+
+    <div id="comment-list" class="video-page-list video-page-list1 page_list" style="height:auto;">
+
+        
+
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    var top_comment_editor = null;
+</script>
+    </div>
+    <div class="text-center paginator" id="comment_paginator"></div>
+</div>
+<div class="suspension_1" style="display: block; margin-left: 991px;">
+	<div class="suspension-box" id="right_box_comment">
+		<i class="iconfont icon-xiaoxi"></i>
+        <div class="suspension-text">0</div>
+	</div>
+    
+    <div class="suspension-box">
+		<i class="iconfont icon-dianzan " data-uuid="ed27e326-ae44-11ec-8979-0242ac110003" data-type="article"></i>
+        <div class="suspension-text">1</div>
+	</div>
+    <div class="suspension-box top" id="gotoTop" style="">
+		<i class="iconfont icon-top"></i>
+	</div>
+</div>
+
+        </div>
+        
+
+    </div>
+    
+
+    
+    
+    <div class="blank_block"></div>
+    
+
+    <input type="hidden" value="/site_media/static/" id="staticUrl">
+
+
+
+            
+
+
+        </div>
+
+        
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/placeholder.9f342a8d3614.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/breadcrumbs.2c1a9d5c174c.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/jquery-ui.min.b278bf2bcd74.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/bootstrap.min.8c237312864d.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/jquery.cookie.d5528dde0006.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/jquery.form.08a24670beb2.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/bootstrap-show-password.min.774271339520.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/img_smooth_check.282b2fa9d3e9.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/parsley.min.03280442fd4e.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/zh_cn.c7b0ab4dd49c.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/slideVerify.a153a39d4b7a.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/default.a182c633427b.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/start_course_expt.c60fb5ff52c9.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/login.e58d59e44c91.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/notification.31bedad13f3a.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/notice.7b15932c7d6a.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/userCommon.1bd723ce4b23.js.下载"></script>
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/utils.11fbdbec18b6.js.下载"></script>
+    
+    <script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/intel_chat.5fbc70e13bf7.js.下载"></script>
+    
+    <script>
+        var namespace = 'article_manage';
+        var isUserLogin = true;
+           var user = 'AnonymousUser';
+           if(user == 'AnonymousUser'){
+               isUserLogin = false;
+           }
+        var userSiteId = 1;
+        $.ajax({
+            type: "POST",
+            url: "/pv_uv_handle/",
+            dataType: "json",
+            success: function (data) {
+            },
+            error:function(data){
+            }
+        });
+        $(document).ready(function(){
+            /* ----- 侧边悬浮 ---- */
+            $(document).on("mouseenter", ".suspension .a", function(){
+                var _this = $(this);
+                var s = $(".suspension");
+                var isService = _this.hasClass("a-service");
+                var isServicePhone = _this.hasClass("a-service-phone");
+                var isQrcode = _this.hasClass("a-qrcode");
+                if(isService){ s.find(".d-service").show().siblings(".d").hide();}
+                if(isServicePhone){ s.find(".d-service-phone").show().siblings(".d").hide();}
+                if(isQrcode){ s.find(".d-qrcode").show().siblings(".d").hide();}
+            });
+            $(document).on("mouseleave", ".suspension, .suspension .a-top", function(){
+                $(".suspension").find(".d").hide();
+            });
+            $(document).on("mouseenter", ".suspension .a-top", function(){
+                $(".suspension").find(".d").hide();
+            });
+            $(document).on("click", ".suspension .a-top", function(){
+                $("html,body").animate({scrollTop: 0});
+            });
+            $(window).scroll(function(){
+                var st = $(document).scrollTop();
+                var $top = $(".suspension .a-top");
+                if(st > 400){
+                    $top.css({display: 'block'});
+                }else{
+                    if ($top.is(":visible")) {
+                        $top.hide();
+                    }
+                }
+            });
+
+            $(document).on('click', '#adver_2c, #right_adver', function (e) {
+                if(namespace == 'platform'){
+                    window.open('http://www.51openlab.com');
+                }
+                else {
+                    location.href = 'http://www.51openlab.com';
+                }
+            });
+
+        });
+
+
+        $(function(){
+
+            // $(document).on('click', '#alert_logout_sure', function(){
+            $('#alert_logout_sure').on('click', function(){
+                location.reload();
+            });
+            
+
+            function timing_check_session() {
+                setInterval(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/check_user_session/?force_activity=true",
+                        dataType: "json",
+                        success: function (data) {
+                            if(data.error == "Not login"){
+                                window.location.href = "/login/?next=" + window.location.pathname + window.location.search;
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown){
+                        }
+                    });
+                }, 1000 * 60 * 5)
+            }
+
+            var has_messages = $("#has_messages").text();
+            if (has_messages == "1") {
+                $("#message_modal").modal();
+            }
+        });
+
+    </script>
+
+
+    <!--百度统计-->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?374c0f8586ba25398cea9807e25a6b8a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/comment_common.6833d6c4dc93.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/wangEditor.article.min.a7f5d0f4e028.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/wangEditor-resizeable.201458b4f1eb.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/img_upload.e39e899d5341.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/commentEditor.0de8a07401c5.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/article_comment.6025794d23c5.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/comment_resource_loader.96f9a1103b18.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/communityEditor.3764570e4e48.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/getHideElementSize.689a0aed0fcc.js.下载"></script>
+
+<!--social share-->
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/base64.4fbea9629b1e.js.下载"></script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/jweixin-1.6.0.js.下载"></script>
+<script type="text/javascript">
+    var wx_appid = 'wxd1393abc52fbb9fd';
+    var wx_timestamp = '1653620000';
+    var wx_nonceStr = 'ukd9HUGgVfUdMLaN';
+    var wx_signature = 'd922759920d8f5024a8571dfdf7e192bc526d354';
+    var wx_title = 'Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 | 开发者实战 | 51OpenLab-一站式ICT创新服务平台';
+    var wx_desc = Base64.decode('5qaC6L+wIArlm77lg4/liIbnsbsoSW1hZ2UgQ2xhc3NpZmljYXRpb24p77yM5piv5qC55o2u5ZCE6Ieq5Zyo5Zu+5YOP5L+h5oGv5Lit5omA5Y+N5pig55qE5LiN5ZCM54m55b6B77yM5oqK5LiN5ZCM57G75Yir55qE55uu5qCH5Yy65YiG5byA5p2l55qE5Zu+5YOP5aSE55CG5pa55rOV44CC5a6D5Yip55So6K6h566X5py65a+55Zu+5YOP6L+b6KGM5a6a6YeP5YiG5p6Q77yM5oqK5Zu+5YOP5oiW5Zu+5YOP5Lit55qE5q+P5Liq5YOP5YWD5oiW5Yy65Z+f5YiS5b2S5Li66Iul5bmy5Liq57G75Yir5Lit55qE5p+Q5LiA56eN77yM5Lul5Luj5pu/5Lq655qE6KeG6KeJ5Yik6K+744CC6ICM5Zyo5YiG57G75Lu75Yqh5Lit5q+U6L6D57uP5YW455qE572R57uc57uT5p6E5pyJVkdHTmV077yMUmVzTmV077yM5Lul5Y+K5ZCO6Z2i5Ye6546w55qETW9iaWxlTmV05LiOU2h1ZmZsZU5ldOetie+8jOiAjOWcqOacrOaWh+S4reS4u+imgeS9v+eUqOWIsOeahOaYr1Jl');
+    var wx_link = 'https://www.51openlab.com/article/253/';
+    var wx_img = 'https://www.51openlab.com/site_media/media/community/ed27e326-ae44-11ec-8979-0242ac110003/tmp/807a86ff-33bd-4c59-ae5d-d064e309a9a1';
+    document.title = wx_title;
+</script>
+<script src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/wx_social_share.ebba2c382186.js.下载"></script>
+
+<script type="text/javascript">
+
+     var article_id = '253';
+     var article_uuid = 'ed27e326-ae44-11ec-8979-0242ac110003';
+
+     var current_selection_max_page = '1';
+     var current_page_size = "5";
+
+     var comment_target_type = 3;
+     var comment_target_id = article_uuid;
+
+    $('.body').find('div').eq(0).removeAttr('contenteditable');
+    
+    $(".suspension_1").css('margin-left', $(".main").width() + 5 + "px").css('display', 'block');
+
+    $(function(){
+        const $toTopBtn = $('#gotoTop');
+        toTopBtnControl($toTopBtn, 500);
+
+        $(document).on('click', '#gotoTop', function () {
+                window.scrollTo({
+                    left: 0,
+                    top: 0,
+                    behavior: 'smooth'
+                });
+        });
+
+        $(document).on('click', '#right_box_comment', function () {
+            smooth_scrool_to_element('ctx_article_comment');
+        });
+
+        is_need_login_page = false;
+
+    });
+
+    function toTopBtnControl($toTopBtn, distance) {
+        $(window).scroll(function(){
+            const winTop = $(this).scrollTop();
+            if(winTop > distance) {
+              $toTopBtn.fadeIn();
+            } else {
+              $toTopBtn.fadeOut();
+            }
+        });
+    }
+
+</script>
+
+
+
+
+        
+    
+        <footer id="footer">
+            
+                
+                    
+
+
+<div class="footer_nav">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4">
+                <h5>关于我们</h5>
+                <div class="br"></div>
+                <p class="intro">51OpenLab是一站式ICT创新服务平台，以“共学、共研、共创”为使命，连接和服务ICT产学研链条，提供实验平台、培训认证、测试验证、项目对接、众包研发、成果转化等多元服务，促进基础设施、信息、人才和技术等资源的流通、共享和合作，构筑开放融合的产业创新生态。</p>
+            </div>
+            <div class="col-xs-2 phone_hide">
+                <h5>友情链接</h5>
+                <div class="br"></div>
+                <p><a target="_blank" href="https://www.sdnlab.com/">SDNLAB</a></p>
+                <p><a target="_blank" href="https://www.fnedu.com/">未来网络学院</a></p>
+                <p><a target="_blank" href="https://www.pmlabs.com.cn/">紫金山实验室</a></p>
+                <p><a target="_blank" href="http://www.fnii.cn/">江苏省未来网络创新研究院</a></p>
+            </div>
+            <div class="col-xs-2">
+                <h5>联系我们</h5>
+                <div class="br"></div>
+                <p>微信：18021416632</p>
+                <p>邮箱：service@51openlab.com</p>
+            </div>
+            <div class="col-xs-2 phone_hide">
+                <h5>微信咨询</h5>
+                <div class="br"></div>
+                <p class="code_img"><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/51fuwu_image.4b87161c3dd0.jpeg"></p>
+            </div>
+            <div class="col-xs-2">
+                <h5>微信公众号</h5>
+                <div class="br"></div>
+                <p class="code_img"><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/51wx_image.fe516efef0f6.jpeg"></p>
+            </div>
+        </div>
+    </div>
+</div>
+                
+            
+            
+            
+
+
+<div class="footer_bottom">
+    51OpenLab ©2015-2022 南京优速网络科技有限公司 版权所有 &nbsp;&nbsp;v1.7.212 &nbsp;&nbsp;<a target="_blank" href="https://beian.miit.gov.cn/">苏ICP备13052757号-6</a>
+    <!--<span class="text-orange"></span>-->
+</div>
+
+
+            
+        </footer>
+        
+
+    
+
+    
+
+
+    <link rel="stylesheet" type="text/css" href="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/parsley.3b36bb7fbabf.css">
+
+
+<!-- 用户登录/注册 -->
+<div id="loginModal" class="modal fade modal_style_1 login_modal" data-backdrop="static" style="z-index:9999999;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+                <button type="button" class="close" data-dismiss="modal" style="position: absolute; right: 10px;top: 5px; z-index: 10;">×</button>
+                <div class="left_banner">
+                    <div class="login_bg"></div>
+                </div>
+                <div class="right_forms form-horizontal">
+                    
+                        
+
+<!-- 登录 -->
+<form class="login_form" id="user_login_form">
+    <h4>用户登录<span>还没账户？<a href="javascript:;" id="toRegisterPage">去注册<i class="fa fa-angle-double-right"></i></a></span></h4>
+    <div class="alert alert-danger hide" id="login_error_msg">
+
+    </div>
+    <input type="hidden" name="csrfmiddlewaretoken" value="PCfa4tOJtTciaCA5ZFEIxwf8cZnMUjUqWhQRhHYGobbxnSmZQIw5yJuQ8WwireZa">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <input type="text" class="form-control" placeholder="请输入手机号/用户名/邮箱" autocomplete="false" id="login_cellphone" name="username" data-parsley-required="" data-parsley-required-message="请输入正确的账户信息" data-parsley-trigger="change">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="pwd_input">
+                <div class="input-group"><input type="password" class="form-control" placeholder="请输入密码" autocomplete="false" data-toggle="password" data-message="点击显示/隐藏密码" id="login_password" name="password" data-parsley-length="[6, 16]" data-parsley-whitespace="trim" data-parsley-required="true" data-parsley-required-message="请输入密码" data-parsley-password="" data-parsley-password-message="6~16位字母数字组合"><input type="text" class="form-control" placeholder="请输入密码" style="display: none;"><span tabindex="100" class="add-on input-group-addon input-group-append" title="点击显示/隐藏密码" style="cursor: pointer;">
+      <i class="icon-eye-open fa fa-eye">
+      
+      </i></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control hide" autocomplete="new-password" name="site_id" value="0" id="site-id" data-parsley-required="">
+        <!--<i class="glyphicon glyphicon-lock"></i>                -->
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="verify-wrap phone_show" id="phoneLoginVerify"></div>
+            <div class="widgets__img_check_box phone_hide" id="LoginImgCheck">
+                <div class="widgets__img_display" style="width: 340px;">
+                    <div class="widgets__img_cnt" style="width: 340px; height: 150px;">
+                        <img class="widgets__img_src" src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/t3.png" width="340" height="150">
+                        <canvas class="widgets__img_fragment_hollow" width="340px" height="150px"></canvas>
+                        <div class="widgets__img_fragment_cnt" style="left: -108.921px;">
+                            <canvas class="widgets__img_fragment widgets__img_fragment_shadow" width="340px" height="150px"></canvas>
+                            <canvas class="widgets__img_fragment widgets__img_fragment_content" width="340px" height="150px"></canvas>
+                        </div>
+                        <div class="widgets__icon_refresh"></div>
+                    </div>
+                </div>
+                <div class="widgets__smooth_cnt" style="width: 340px;">
+                    <div class="widgets__smooth_bar">请滑动拼图完成验证</div>
+                    <div class="widgets__smooth_cross"></div>
+                    <div class="widgets__smooth_circle">
+                        <i class="fa fa-angle-double-right normal"></i>
+                        <i class="fa fa-check success"></i>
+                        <i class="fa fa-remove error"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-lg btn-block btn-orange radius" id="loginBtn">登录</button>
+        </div>
+    </div>
+    <div class="form-group font_12">
+        <div class="col-xs-6">
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="autoLogin"> 自动登录
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-6 text-right">
+            <a href="javascript:;" data-dismiss="modal" data-toggle="modal" data-target="#findPwdModal">忘记密码？</a>
+        </div>
+    </div>
+    <div class="login_br"><span>第三方账户登录</span></div>
+    <div class="row other_links">
+        <div class="col-xs-4 text-center">
+            <a href="javascript:openQQ(0);"><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/qq.a3a036736870.png"></a>
+        </div>
+        <div class="col-xs-4 text-center">
+            <a href="javascript:openWeixin(0);"><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/wx.9d74dc1a767d.png"></a>
+        </div>
+        <div class="col-xs-4 text-center">
+            <a href="javascript:accessFNSCHOOL()"><img src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/SDNLAB.ea42ae529c8a.png"></a>
+        </div>
+    </div>
+</form>
+
+                        
+<!-- 注册 -->
+<form class="register_form" data-parsley-validate="" novalidate="">
+    <h4>新用户注册<span>已有账户，<a href="javascript:;" id="toLoginPage">立即登录<i class="fa fa-angle-double-right"></i></a></span></h4>
+    <div class="alert alert-danger hide" id="error_msg">
+
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="phone_input">
+                <div class="phone_no">CN+86</div>
+                <input type="text" class="form-control" placeholder="请输入手机号" autocomplete="false" id="cellphone" data-parsley-required="" data-parsley-required-message="请输入正确的手机号码" data-parsley-trigger="change" data-parsley-pattern="\d{11}" data-parsley-remote="" data-parsley-remote-validator="cellphone_exist" data-parsley-remote-message="手机号码已经被注册" data-parsley-id="4">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="pwd_input">
+                <div class="input-group"><input type="password" class="form-control" placeholder="请输入密码" autocomplete="false" data-toggle="password" data-message="点击显示/隐藏密码" id="password" data-parsley-length="[6, 16]" data-parsley-whitespace="trim" data-parsley-required="true" data-parsley-required-message="请输入密码" data-parsley-password="" data-parsley-password-message="6~16位字母数字组合" data-parsley-id="6"><input type="text" class="form-control" placeholder="请输入密码" style="display: none;" data-parsley-id="8"><span tabindex="100" class="add-on input-group-addon input-group-append" title="点击显示/隐藏密码" style="cursor: pointer;">
+      <i class="icon-eye-open fa fa-eye">
+      
+      </i></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="yzm_input">
+                <div class="verify-wrap phone_show" id="phoneRegisterVerify"></div>
+                <div class="widgets__img_check_box" id="registerImgCheck">
+                    <div class="widgets__img_display" style="width: 340px;">
+                        <div class="widgets__img_cnt" style="width: 340px; height: 150px;">
+                            <img class="widgets__img_src" src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/t3.png" width="340" height="150">
+                            <canvas class="widgets__img_fragment_hollow" width="340px" height="150px"></canvas>
+                            <div class="widgets__img_fragment_cnt" style="left: -140.706px;">
+                                <canvas class="widgets__img_fragment widgets__img_fragment_shadow" width="340px" height="150px"></canvas>
+                                <canvas class="widgets__img_fragment widgets__img_fragment_content" width="340px" height="150px"></canvas>
+                            </div>
+                            <div class="widgets__icon_refresh"></div>
+                        </div>
+                    </div>
+                    <div class="widgets__smooth_cnt" style="width: 340px;">
+                        <div class="widgets__smooth_bar">请滑动拼图完成验证</div>
+                        <div class="widgets__smooth_cross"></div>
+                        <div class="widgets__smooth_circle">
+                            <i class="fa fa-angle-double-right normal"></i>
+                            <i class="fa fa-check success"></i>
+                            <i class="fa fa-remove error"></i>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="form-control" placeholder="请输入短信验证码" autocomplete="false" id="captcha" data-parsley-required="true" data-parsley-remote="" data-parsley-remote-validator="captcha_validate" data-parsley-remote-message="验证码输入错误" data-parsley-id="10">
+                <div class="float_text text-center floatText">
+                    <a href="javascript:;" class="getYzmBtn">获取验证码</a>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-lg btn-block btn-orange radius" id="sign_up">立即注册</button>
+        </div>
+    </div>
+    <div class="form-group font_12">
+        <div class="col-xs-12">
+            <div class="checkbox">
+                <label>
+                    <input id="agree_51openlab" type="checkbox" data-parsley-multiple="agree_51openlab" data-parsley-mincheck="1" data-parsley-id="13"> 同意
+                    <a href="https://www.51openlab.com/user/agreement/" target="_blank">《51OpenLab注册协议》</a>
+                </label>
+            </div>
+        </div>
+    </div>
+</form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade bind_cell_phone_modal" id="bindCellphoneModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">绑定手机</h4>
+            </div>
+            <div class="modal-body">
+                <input style="display:none" id="bindUserId">
+                <input style="display:none" id="bindAccountId">
+                <form class="modal-body form-horizontal" data-parsley-validate="" id="bindCellphoneForm" novalidate="">
+                <div class="form-group">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <div class="phone_input">
+                            <div class="phone_no">CN+86</div>
+                            <input type="text" class="form-control" placeholder="请输入手机号" autocomplete="false" id="bindCellphone" data-parsley-required="" data-parsley-required-message="请输入正确的手机号" data-parsley-trigger="change" data-parsley-pattern="\d{11}" data-parsley-id="17">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <div class="yzm_input">
+                            <div class="verify-wrap phone_show" id="bindPhoneVerify"></div>
+                            <div class="widgets__img_check_box phone_hide" id="pwdImgCheckBind" style="display: none;">
+                                <div class="widgets__img_display" style="width: 348px;">
+                                    <div class="widgets__img_cnt" style="width: 348px; height: 150px;">
+                                        <img class="widgets__img_src" src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/t1.png" width="348" height="150">
+                                        <canvas class="widgets__img_fragment_hollow" width="348px" height="150px"></canvas>
+                                        <div class="widgets__img_fragment_cnt" style="left: -116.01px;">
+                                            <canvas class="widgets__img_fragment widgets__img_fragment_shadow" width="348px" height="150px"></canvas>
+                                            <canvas class="widgets__img_fragment widgets__img_fragment_content" width="348px" height="150px"></canvas>
+                                        </div>
+                                        <div class="widgets__icon_refresh"></div>
+                                    </div>
+                                </div>
+                                <div class="widgets__smooth_cnt" style="position: absolute; width: 348px;">
+                                    <div class="widgets__smooth_bar">请滑动拼图完成验证</div>
+                                    <div class="widgets__smooth_cross"></div>
+                                    <div class="widgets__smooth_circle">
+                                        <i class="fa fa-angle-double-right normal"></i>
+                                        <i class="fa fa-check success"></i>
+                                        <i class="fa fa-remove error"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="请输入短信验证码" autocomplete="false" id="captcha_bind" data-parsley-required="true" data-parsley-remote="" data-parsley-remote-validator="captcha_validate" data-parsley-remote-message="验证码输入错误" data-parsley-id="19">
+                            <div class="float_text text-center floatText">
+                                <a href="javascript:;" class="getYzmBtnForBind">获取验证码</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="forceBindCellphone">立即绑定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- 找回密码 -->
+<div id="findPwdModal" class="modal fade modal_style_1 find_pwd_modal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">重置密码</h4>
+            </div>
+            <form class="modal-body form-horizontal" data-parsley-validate="" id="findPwdForm" novalidate="">
+                <div class="form-group">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <div class="phone_input">
+                            <div class="phone_no">CN+86</div>
+                            <input type="text" class="form-control" placeholder="请输入手机号" autocomplete="false" id="cellphone_fp" data-parsley-required="" data-parsley-required-message="请输入正确的手机号" data-parsley-trigger="change" data-parsley-remote="" data-parsley-remote-validator="cellphone_fp_exist" data-parsley-remote-message="手机号码未被注册" data-parsley-id="23">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <div class="pwd_input">
+                            <div class="input-group"><input type="password" class="form-control" placeholder="请输入新密码" autocomplete="false" data-toggle="password" data-message="点击显示/隐藏密码" id="password_fp" data-parsley-length="[6, 16]" data-parsley-whitespace="trim" data-parsley-required="true" data-parsley-required-message="请输入密码" data-parsley-password="" data-parsley-password-message="6~16位字母数字组合" data-parsley-id="25"><input type="text" class="form-control" placeholder="请输入新密码" style="display: none;" data-parsley-id="27"><span tabindex="100" class="add-on input-group-addon input-group-append" title="点击显示/隐藏密码" style="cursor: pointer;">
+      <i class="icon-eye-open fa fa-eye">
+      
+      </i></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <div class="yzm_input">
+                            <div class="verify-wrap phone_show" id="phoneFindPwdVerify"></div>
+                            <div class="widgets__img_check_box" id="pwdImgCheck">
+                                <div class="widgets__img_display" style="width: 370px;">
+                                    <div class="widgets__img_cnt" style="width: 370px; height: 150px;">
+                                        <img class="widgets__img_src" src="./Windows下训练PyTorch版YOLOv5并用OpenVINO™ 部署 _ 开发者实战 _ 51OpenLab-一站式ICT创新服务平台_files/t2.png" width="370" height="150">
+                                        <canvas class="widgets__img_fragment_hollow" width="370px" height="150px"></canvas>
+                                        <div class="widgets__img_fragment_cnt" style="left: -256.591px;">
+                                            <canvas class="widgets__img_fragment widgets__img_fragment_shadow" width="370px" height="150px"></canvas>
+                                            <canvas class="widgets__img_fragment widgets__img_fragment_content" width="370px" height="150px"></canvas>
+                                        </div>
+                                        <div class="widgets__icon_refresh"></div>
+                                    </div>
+                                </div>
+                                <div class="widgets__smooth_cnt" style="width: 370px;">
+                                    <div class="widgets__smooth_bar">请滑动拼图完成验证</div>
+                                    <div class="widgets__smooth_cross"></div>
+                                    <div class="widgets__smooth_circle">
+                                        <i class="fa fa-angle-double-right normal"></i>
+                                        <i class="fa fa-check success"></i>
+                                        <i class="fa fa-remove error"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="请输入短信验证码" autocomplete="false" id="captcha_fp" data-parsley-required="true" data-parsley-id="29">
+                            <div class="float_text text-center floatText">
+                                <a href="javascript:;" class="getYzmBtnForPassword">获取验证码</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-default circle" data-dismiss="modal">取消</button>
+                <button class="btn btn-orange radius" id="updatePasswordBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+     <div id="message_modal" class="modal fade modal_style_1" tabindex="-1" role="dialog" aria-hidden="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                            <p id="has_messages" class="hidden">0</p>
+                            <p class="text-center"></p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-orange radius" data-dismiss="modal" id="alert_close">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--警告框-->
+<!--    <div id="alert_modal" class="modal fade modal_style_1" tabindex="-1" role="dialog" aria-hidden="false" data-backdrop="static">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+<!--                    <h4 class="modal-title">提示</h4>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p class="text-center" class="alert_info" id="alert_info"></p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button class="btn btn-default delete-cancel" data-dismiss="modal" id="alert_cancel">取消</button>-->
+<!--                    <button class="btn btn-orange radius" data-dismiss="modal" id="alert_close">确定</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+    
+        <!-- body遮罩loading -->
+        <div id="body_loading_layer">
+            <div class="common_page_loading"><span class="loader_spot bg"></span><span class="loader_spot sm"></span><span class="loader_spot bg"></span></div>
+        </div>
+
+        <!--操作提示框-->
+        <div id="alert_modal_action" class="modal fade modal_style_1" tabindex="-1" role="dialog" aria-hidden="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="alert_action_title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center" id="alert_action_info"></p>
+                    </div>
+                    <div class="modal-footer" id="alert_action_button">
+                        <button class="btn btn-orange radius" data-dismiss="modal" id="alert_logout_sure">我知道了</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!--操作提示框-->
+        <div id="alert_modal" class="modal fade modal_style_1" tabindex="-1" role="dialog" aria-hidden="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="alert_title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center" id="alert_info"></p>
+                    </div>
+                    <div class="modal-footer" id="alert_button">
+                        <button class="btn btn-orange radius" data-dismiss="modal">我知道了</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 确认提示框 -->
+        <div id="alertModal" class="modal fade modal_style_1" data-backdrop="static" style="z-index: 99999999;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">确定删除吗？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default delete-cancel circle" data-dismiss="modal">取消</button>
+                        <button class="btn delete-confirm btn-orange radius" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--创建实验提示框-->
+        <div id="start_expt_alert_modal" class="modal fade modal_style_1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center" id="start_expt_modal_text">您存在课程实验正在运行，确定结束原实验吗？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default circle delete-cancel" data-dismiss="modal" id="continue_expt_btn">继续原实验
+                        </button>
+                        <button class="btn btn-orange radius delete-confirm" id="start_expt_btn" type="button">确定，开始新实验
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 公告框 -->
+    <!-- 普通用户展示公告框 -->
+    <div id="index_user_notice_modal" class="modal fade modal_style_1 create_notice_modal user_notice_modal" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">公告栏</h4>
+
+                </div>
+                <div class="modal-body form-horizontal">
+                    <h4 class="text-center" id="index_user_notice_modal_title"></h4>
+                    <p id="index_user_notice_modal_content" class="text-justify"><br></p>
+                    <p id="index_user_notice_modal_sender" class="text-right"></p>
+                    <p id="index_user_notice_modal_date" class="text-right"></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="font_12 text-right">
+                        <a href="javascript:;" id="index_page_user_notice_modal_last" page="last" notice_id="">上一条</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:;" id="index_page_user_notice_modal_next" page="next" notice_id="">下一条</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:;" id="index_page_user_notice_ignore">忽略所有</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="index_hidden_unread_notices" value="{&quot;error&quot;:&quot;Not login&quot;}">
+    
+
+    
+
+</body></html>
