@@ -49,6 +49,8 @@ namespace ReadRAW
             //Aside.SetNodeTipsText(Aside.Nodes[0], "6", Color.Red, Color.White);
             Aside.SetNodeTipsText(parent.Nodes[0], " ", Color.Lime, Color.White);
             Aside.SetNodeTipsText(parent.Nodes[1], " ", Color.Lime, Color.White);
+
+
             //Aside.SetNodeTipsText(parent.Nodes[2], " ", Color.Lime, Color.White);
             //Aside.SetNodeTipsText(parent.Nodes[3], " ", Color.Lime, Color.White);
 

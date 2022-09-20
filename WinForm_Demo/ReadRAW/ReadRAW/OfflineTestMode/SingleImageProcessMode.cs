@@ -136,8 +136,6 @@ namespace ReadRAW.OfflineTestMode
             //使用集合infoList3_ChooseHeatMapType添加离线测试模式下21种热力图类型至heatmapTypeUiComboBox1中；
             heatmapTypeUiComboBox1.DisplayMember = "Name";
             heatmapTypeUiComboBox1.DataSource = infoList3_ChooseHeatMapType;
-
-
         }
 
 
@@ -184,8 +182,14 @@ namespace ReadRAW.OfflineTestMode
         //定义全局变量BmpToImg;--2022-0915;
         Image<Bgr, Byte> BmpToImg;
 
+        //定义全局变量imgGray;--2022-0919;
+        Image<Gray, byte> imgGray;
+
+        //定义全局变量pictureState,判断图像是否为空；
+        public bool pictureState = true;
+
 /************************定义全局变量--热力图类型*************************************************************/
-        //定义全局变量热力图类型1--imgColorAutumn;
+//定义全局变量热力图类型1--imgColorAutumn;
         Image<Bgr, byte> imgColorAutumn;
 
         //定义全局变量热力图类型2--imgColorBone;
@@ -260,19 +264,15 @@ namespace ReadRAW.OfflineTestMode
 
         public class Info
         {
-            //public string Id { get; set; }
+           
             public string Name { get; set; }
 
             public override string ToString()
-            {
-                //return "ID: " + Id + ", Name: " + Name;
+            {                
                 return  "Name: " + Name;
             }
         }
-        //add;
-
-       
-
+            
 
         //线程；
         //Thread thread1;
@@ -285,18 +285,11 @@ namespace ReadRAW.OfflineTestMode
 
         //定义全局变量bt大小；
         Bitmap bt = new Bitmap(640, 512);
-
-        //定义uiComboBox2_SelectedIndex全局变量;
-        //private int uiComboBox2_SelectedIndex;
-
-        //设置索引;
-        //public int SelectedIndex { get; private set; }
+    
 
         //定义区域模式下，上下限阈值全局变量；
         public int upperPixel_Value;    //上限阈值;
-
         public int lowerPixel_Value;    //下限阈值;
-
 
 
         //加载Raw原始图像；
@@ -418,7 +411,7 @@ namespace ReadRAW.OfflineTestMode
 
                 //显示模式--热力图；
                 //(选择不同的热力图类型在进行判断，保存不同的格式类型);
-                if (offlineShowMode_Flag == 1)
+                else if (offlineShowMode_Flag == 1)
                 {
                     //Bmp转换为Image--work;
                     //Image imgSrc = Image.FromHbitmap(Bmp.GetHbitmap());
@@ -430,7 +423,8 @@ namespace ReadRAW.OfflineTestMode
                     //Image<Gray, byte> imgSrc = new Image<Gray, byte>(imgSrc.Size);
 
                     //灰度图;--work;
-                    Image<Gray, byte> imgGray = new Image<Gray, byte>(BmpToImg.Size);
+                    //Image<Gray, byte> imgGray = new Image<Gray, byte>(BmpToImg.Size);
+                    imgGray = new Image<Gray, byte>(BmpToImg.Size);
 
                     //将Mat类型图像ImgToMat转换为imgGray;             
                     CvInvoke.CvtColor(ImgToMat, imgGray, ColorConversion.Bgr2Gray);
@@ -2073,29 +2067,321 @@ namespace ReadRAW.OfflineTestMode
                 Directory.CreateDirectory(path);
             }
 
-            //保存bmp灰度图像--work；
+/*****************保存bmp灰度图像--work*******************************************************************************************/
             //offlineShowMode_Flag==0,灰度图;
             if (offlineShowMode_Flag == 0)
             {
-                bt.Save(path + "\\" + dbf_File2 + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                bt.Save(path + "\\" + dbf_File2 + "_Gray.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
 
                 //保存完成后，显示提示信息；
                 MessageBox.Show("Save GrayImage Success!"); 
             }
 
-            //保存热力图结果图像；
+/********************保存热力图结果图像----start******************************************************************************************/
             ////offlineShowMode_Flag==1,热力图(选择不同的热力图类型在进行判断，保存不同的格式类型);
-            if (offlineShowMode_Flag == 1)
-            {         
-                CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Autumn.bmp", imgColorAutumn);
+            else if (offlineShowMode_Flag == 1)
+            {
+                //offlineHeatMapType_Flag--热力图类型1--Autumn；
+                if (offlineHeatMapType_Flag == 0)
+                {
+                    //Autumn颜色映射;--work;
+                    imgColorAutumn = new Image<Bgr, byte>(BmpToImg.Size);
 
-                //保存完成后，显示提示信息；
-                MessageBox.Show("Save HeatMap Image Success!");
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorAutumn, Emgu.CV.CvEnum.ColorMapType.Autumn);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Autumn.bmp", imgColorAutumn);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Autumn Image successfully!");                 
+                }
+
+                //热力图类型2--Bone；
+                else if (offlineHeatMapType_Flag == 1)
+                {
+                    //Bone颜色映射;--work;                     
+                    imgColorBone = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorBone, Emgu.CV.CvEnum.ColorMapType.Bone);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Bone.bmp", imgColorBone);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Bone Image successfully!");             
+                }
+
+                //热力图类型3--Jet；
+                else if (offlineHeatMapType_Flag == 2)
+                {
+                    //Jet颜色映射;--work;                        
+                    imgColorJet = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorJet, Emgu.CV.CvEnum.ColorMapType.Jet);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Jet.bmp", imgColorJet);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Jet Image successfully!");
+
+                }
+                //热力图类型4--Winter；
+                else if (offlineHeatMapType_Flag == 3)
+                {
+                    //Winter颜色映射;--work;                    
+                    imgColorWinter = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorWinter, Emgu.CV.CvEnum.ColorMapType.Winter);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Winter.bmp", imgColorWinter);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Winter Image successfully!");
+                }
+
+                //热力图类型5--Rainbow；
+                else if (offlineHeatMapType_Flag == 4)
+                {
+                    //Rainbow颜色映射;--work;                       
+                    imgColorRainbow = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorRainbow, Emgu.CV.CvEnum.ColorMapType.Rainbow);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Rainbow.bmp", imgColorRainbow);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Rainbow Image successfully!");
+                }
+
+                //热力图类型6--Ocean；
+                else if (offlineHeatMapType_Flag == 5)
+                {
+                    //Ocean颜色映射;--work;                      
+                    imgColorOcean = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorOcean, Emgu.CV.CvEnum.ColorMapType.Ocean);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Ocean.bmp", imgColorOcean);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Ocean Image successfully!");
+                }
+
+                //热力图类型7--Summer；
+                else if (offlineHeatMapType_Flag == 6)
+                {
+                    //Summer颜色映射;--work;                       
+                    imgColorSummer = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorSummer, Emgu.CV.CvEnum.ColorMapType.Summer);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Summer.bmp", imgColorSummer);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Summer Image successfully!");
+
+                }
+
+                //热力图类型8--Spring；
+                else if (offlineHeatMapType_Flag == 7)
+                {
+                    //Spring颜色映射;--work;                      
+                    imgColorSpring = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorSpring, Emgu.CV.CvEnum.ColorMapType.Spring);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Spring.bmp", imgColorSpring);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Spring Image successfully!");
+                }
+
+                //热力图类型9--Cool；
+                else if (offlineHeatMapType_Flag == 8)
+                {
+                    //Cool颜色映射;--work;                     
+                    imgColorCool = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorCool, Emgu.CV.CvEnum.ColorMapType.Cool);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Cool.bmp", imgColorCool);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Cool Image successfully!");
+                }
+
+                //热力图类型10--Hsv；
+                else if (offlineHeatMapType_Flag == 9)
+                {
+                    //Hsv颜色映射;--work;                       
+                    imgColorHsv = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorHsv, Emgu.CV.CvEnum.ColorMapType.Hsv);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Hsv.bmp", imgColorHsv);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Hsv Image successfully!");
+                }
+
+                //热力图类型11--Pink；
+                else if (offlineHeatMapType_Flag == 10)
+                {
+                    //Pink颜色映射;--work;                       
+                    imgColorPink = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorPink, Emgu.CV.CvEnum.ColorMapType.Pink);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Pink.bmp", imgColorPink);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Pink Image successfully!");
+                }
+
+                //热力图类型12--Hot；
+                else if (offlineHeatMapType_Flag == 11)
+                {
+                    //Hot颜色映射;--work;                        
+                    imgColorHot = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorHot, Emgu.CV.CvEnum.ColorMapType.Hot);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Hot.bmp", imgColorHot);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Hot Image successfully!");
+                }
+
+                //热力图类型13--Parula；
+                else if (offlineHeatMapType_Flag == 12)
+                {
+                    //Parula颜色映射;--work;                       
+                    imgColorParula = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorParula, Emgu.CV.CvEnum.ColorMapType.Parula);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Parula.bmp", imgColorParula);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Parula Image successfully!");
+                }
+
+                //热力图类型14--Magma；
+                else if (offlineHeatMapType_Flag == 13)
+                {
+                    //Magma颜色映射;--work;                        
+                    imgColorMagma = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorMagma, Emgu.CV.CvEnum.ColorMapType.Magma);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Magma.bmp", imgColorMagma);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Magma Image successfully!");
+                }
+
+                //热力图类型15--Inferno；
+                else if (offlineHeatMapType_Flag == 14)
+                {
+                    //Inferno颜色映射;--work;                        
+                    imgColorInferno = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorInferno, Emgu.CV.CvEnum.ColorMapType.Inferno);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Inferno.bmp", imgColorInferno);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Inferno Image successfully!");
+                }
+
+                //热力图类型16--Plasma；
+                else if (offlineHeatMapType_Flag == 15)
+                {
+                    //Plasma颜色映射;--work;                        
+                    imgColorPlasma = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorPlasma, Emgu.CV.CvEnum.ColorMapType.Plasma);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Plasma.bmp", imgColorPlasma);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Plasma Image successfully!");
+                }
+
+                //热力图类型17--Viridis；
+                else if (offlineHeatMapType_Flag == 16)
+                {
+                    //Viridis颜色映射;--work;                      
+                    imgColorViridis = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorViridis, Emgu.CV.CvEnum.ColorMapType.Viridis);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Viridis.bmp", imgColorViridis);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Viridis Image successfully!");
+                }
+
+                //热力图类型18--Cividis；
+                else if (offlineHeatMapType_Flag == 17)
+                {
+                    //Cividis颜色映射;--work;                        
+                    imgColorCividis = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorCividis, Emgu.CV.CvEnum.ColorMapType.Cividis);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Cividis.bmp", imgColorCividis);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Cividis Image successfully!");
+                }
+
+                //热力图类型19--Twilight；
+                else if (offlineHeatMapType_Flag == 18)
+                {
+                    //Twilight颜色映射;--work;                        
+                    imgColorTwilight = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorTwilight, Emgu.CV.CvEnum.ColorMapType.Twilight);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Twilight.bmp", imgColorTwilight);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Twilight Image successfully!");
+                }
+
+                //热力图类型20--TwilightShifted；
+                else if (offlineHeatMapType_Flag == 19)
+                {
+                    //TwilightShifted颜色映射;--work;                       
+                    imgColorTwilightShifted = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorTwilightShifted, Emgu.CV.CvEnum.ColorMapType.TwilightShifted);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_TwilightShifted.bmp", imgColorTwilightShifted);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_TwilightShifted Image successfully!");
+                }
+
+                //热力图类型21--Turbo；
+                else if (offlineHeatMapType_Flag == 20)
+                {
+                    //Turbo颜色映射;--work;                        
+                    imgColorTurbo = new Image<Bgr, byte>(BmpToImg.Size);
+
+                    //将imgGray转换为imgColorAutumn;--work;
+                    CvInvoke.ApplyColorMap(imgGray, imgColorTurbo, Emgu.CV.CvEnum.ColorMapType.Turbo);
+
+                    CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Turbo.bmp", imgColorTurbo);
+                    //保存完成后，显示提示信息；
+                    MessageBox.Show("Save HeatMap_Turbo Image successfully!");
+                }
+
+                //CvInvoke.Imwrite(path + "\\" + dbf_File2 + "_Autumn.bmp", imgColorAutumn);
+                ////保存完成后，显示提示信息；
+                //MessageBox.Show("Save HeatMap Image Success!");
             }
-   
+/********************保存热力图结果图像----end******************************************************************************************/
 
-            //CvInvoke.Imwrite(path + "\\" + dbf_File2 + "Raw2Bmp.bmp", bt); //保存结果图像；
-            //CvInvoke.WaitKey(0); //暂停按键等待;
         }
 
         //imgFormatUiComboBox1.SelectedIndex不同索引对应不同的图像格式；
@@ -2206,7 +2492,7 @@ namespace ReadRAW.OfflineTestMode
 
 /********************************************离线测试---相对值模式************************************************************/
             //相对值模式，其区域模式上下限均设置及热力图设置均为false;
-            if (offlineTestMode_Flag == 1)
+            else if (offlineTestMode_Flag == 1)
             {
                 //regionMode--close;v
                 upThresholdTextBox1.Visible = false;
@@ -2451,6 +2737,21 @@ namespace ReadRAW.OfflineTestMode
         {
             //heatmapTypeUiComboBox1.SelectedIndex(0-20:Autumn;Bone;Jet;.....TwilightShifted;Turbo)
             offlineHeatMapType_Flag = heatmapTypeUiComboBox1.SelectedIndex;
+
+            //点击热力图类型，立即响应产生热力图结果;
+            ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            GetImgIntProcess();
+
+            ////调用函数将Raw(8,12,14)进行绝对值模式处理;
+            ////将输入图像Raw转换为的图像数组转换为字节;
+            //AbsModeGetImgByteProcess();
+
+            ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            GetImgRGBProcess();
+
+            ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            GetBmpProcess();
+
         }
     }
 
