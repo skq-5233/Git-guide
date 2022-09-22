@@ -48,8 +48,8 @@
             this.pixelValueLabel1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.showModeUiComboBox3 = new Sunny.UI.UIComboBox();
             this.heatmapTypeUiComboBox1 = new Sunny.UI.UIComboBox();
+            this.showModeUiComboBox3 = new Sunny.UI.UIComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -155,7 +155,7 @@
             // 
             this.groupBox1.Controls.Add(this.uiButton1_Load_Img);
             this.groupBox1.Controls.Add(this.uiButton2_SaveImg);
-            this.groupBox1.Location = new System.Drawing.Point(33, 516);
+            this.groupBox1.Location = new System.Drawing.Point(623, 516);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(152, 168);
             this.groupBox1.TabIndex = 86;
@@ -210,7 +210,7 @@
             this.groupBox2.Controls.Add(this.lowerThresholdLabel4);
             this.groupBox2.Controls.Add(this.imgFormatUiComboBox1);
             this.groupBox2.Controls.Add(this.imageFormatLabel1);
-            this.groupBox2.Location = new System.Drawing.Point(208, 516);
+            this.groupBox2.Location = new System.Drawing.Point(16, 516);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(309, 180);
             this.groupBox2.TabIndex = 91;
@@ -279,31 +279,12 @@
             this.groupBox4.Controls.Add(this.heatmapTypeUiComboBox1);
             this.groupBox4.Controls.Add(this.showModeUiComboBox3);
             this.groupBox4.Controls.Add(this.heatMapLabel1);
-            this.groupBox4.Location = new System.Drawing.Point(554, 516);
+            this.groupBox4.Location = new System.Drawing.Point(362, 516);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(212, 168);
             this.groupBox4.TabIndex = 94;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "显示模式选择";
-            // 
-            // showModeUiComboBox3
-            // 
-            this.showModeUiComboBox3.DataSource = null;
-            this.showModeUiComboBox3.DropDownWidth = 300;
-            this.showModeUiComboBox3.FillColor = System.Drawing.Color.White;
-            this.showModeUiComboBox3.FilterMaxCount = 50;
-            this.showModeUiComboBox3.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.showModeUiComboBox3.Location = new System.Drawing.Point(7, 27);
-            this.showModeUiComboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.showModeUiComboBox3.MinimumSize = new System.Drawing.Size(63, 0);
-            this.showModeUiComboBox3.Name = "showModeUiComboBox3";
-            this.showModeUiComboBox3.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.showModeUiComboBox3.Size = new System.Drawing.Size(150, 29);
-            this.showModeUiComboBox3.TabIndex = 78;
-            this.showModeUiComboBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.showModeUiComboBox3.Watermark = "";
-            this.showModeUiComboBox3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.showModeUiComboBox3.SelectedIndexChanged += new System.EventHandler(this.uiComboBox3_SelectedIndexChanged);
             // 
             // heatmapTypeUiComboBox1
             // 
@@ -323,6 +304,25 @@
             this.heatmapTypeUiComboBox1.Watermark = "";
             this.heatmapTypeUiComboBox1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.heatmapTypeUiComboBox1.SelectedIndexChanged += new System.EventHandler(this.heatmapTypeUiComboBox1_SelectedIndexChanged);
+            // 
+            // showModeUiComboBox3
+            // 
+            this.showModeUiComboBox3.DataSource = null;
+            this.showModeUiComboBox3.DropDownWidth = 300;
+            this.showModeUiComboBox3.FillColor = System.Drawing.Color.White;
+            this.showModeUiComboBox3.FilterMaxCount = 50;
+            this.showModeUiComboBox3.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.showModeUiComboBox3.Location = new System.Drawing.Point(7, 27);
+            this.showModeUiComboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.showModeUiComboBox3.MinimumSize = new System.Drawing.Size(63, 0);
+            this.showModeUiComboBox3.Name = "showModeUiComboBox3";
+            this.showModeUiComboBox3.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.showModeUiComboBox3.Size = new System.Drawing.Size(150, 29);
+            this.showModeUiComboBox3.TabIndex = 78;
+            this.showModeUiComboBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.showModeUiComboBox3.Watermark = "";
+            this.showModeUiComboBox3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.showModeUiComboBox3.SelectedIndexChanged += new System.EventHandler(this.uiComboBox3_SelectedIndexChanged);
             // 
             // SingleImageProcessMode
             // 

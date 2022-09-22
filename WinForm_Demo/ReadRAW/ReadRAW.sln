@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadRAW", "ReadRAW\ReadRAW.csproj", "{E30056FA-4CF1-4BCA-8214-2AA6B3A717E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmguCV4_DNN_YOLOv5", "D:\DL\Project\EmguCV4_DNN_YOLOv5_20220415\EmguCV4_DNN_YOLOv5\EmguCV4_DNN_YOLOv5.csproj", "{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{E30056FA-4CF1-4BCA-8214-2AA6B3A717E6}.Release|x64.Build.0 = Release|Any CPU
 		{E30056FA-4CF1-4BCA-8214-2AA6B3A717E6}.Release|x86.ActiveCfg = Release|Any CPU
 		{E30056FA-4CF1-4BCA-8214-2AA6B3A717E6}.Release|x86.Build.0 = Release|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Debug|x64.ActiveCfg = Debug|x64
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Debug|x64.Build.0 = Debug|x64
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Release|x64.ActiveCfg = Release|x64
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Release|x64.Build.0 = Release|x64
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA1498FB-F88C-4B55-9F81-A3183D5C03CC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

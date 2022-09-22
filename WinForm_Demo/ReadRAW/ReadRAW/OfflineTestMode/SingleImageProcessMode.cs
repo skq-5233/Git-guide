@@ -157,6 +157,12 @@ namespace ReadRAW.OfflineTestMode
         //定义全局变量--offlineTestMode_Flag，通过uiComboBox2_SelectedIndexChanged索引选取不同的离线测试模式(0--绝对值模式；1--相对值模式；2--区域模式);
         public int offlineTestMode_Flag;
 
+        //imgFormatUiComboBox1.SelectedIndex选择索引值赋值给offlineImgFormat_Flag;
+        public int offlineImgFormat_Flag;
+
+        //将showModeUiComboBox3.SelectedIndex选择索引值赋值给offlineBitFormat_Flag，用于判断图像位数8/12/14；
+        public int offlineBitFormat_Flag;
+
         //定义全局变量--offlineShowMode_Flag，通过uiComboBox3_SelectedIndexChanged索引选取不同的显示模式(0--灰度图模式；1--热力图模式);
         public int offlineShowMode_Flag;
 
@@ -185,8 +191,8 @@ namespace ReadRAW.OfflineTestMode
         //定义全局变量imgGray;--2022-0919;
         Image<Gray, byte> imgGray;
 
-        //定义全局变量pictureState,判断图像是否为空；
-        public bool pictureState = true;
+        //定义全局变量pictureState,判断图像是否为空；2022-0920
+        //public bool pictureState = true;
 
 /************************定义全局变量--热力图类型*************************************************************/
 //定义全局变量热力图类型1--imgColorAutumn;
@@ -263,8 +269,7 @@ namespace ReadRAW.OfflineTestMode
         //DateTime dt = DateTime.Now;
 
         public class Info
-        {
-           
+        {    
             public string Name { get; set; }
 
             public override string ToString()
@@ -312,12 +317,23 @@ namespace ReadRAW.OfflineTestMode
             //ofd.InitialDirectory = @"C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\raw";
 
             if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                //使用线程thread1；
-                Thread thread1 = new Thread(new ThreadStart(ImgprocessAccelerate));
-                thread1.Start();
+            {               
+                    //ofd.FileName--获取（打开）图像绝对路径（包括图像名称）;ImgData--获取字节数组；
+                    ImgData = File.ReadAllBytes(ofd.FileName);
 
-            }
+                    //使用线程thread1；
+                    Thread thread1 = new Thread(new ThreadStart(ImgprocessAccelerate));
+                    thread1.Start();
+
+                ////判断byte[] ImgData是否为空；
+                //if (ImgData != null)
+                //    {
+                //        //使用线程thread1；
+                //        Thread thread1 = new Thread(new ThreadStart(ImgprocessAccelerate));
+                //        thread1.Start();
+                //    }
+
+            }           
         }
 
         //使用线程thread1，将函数ImgData()封装；
@@ -339,9 +355,264 @@ namespace ReadRAW.OfflineTestMode
             //var Bmp = GetBmp(ImgRGB, Width, Height);
             #endregion
 
-            //获取（打开）图像绝对路径（包括图像名称）;
-            ImgData = File.ReadAllBytes(ofd.FileName);
+            //ofd.FileName--获取（打开）图像绝对路径（包括图像名称）;ImgData--获取字节数组；--origin-work;
+            //ImgData = File.ReadAllBytes(ofd.FileName);
 
+
+/***********************************ChangeLogic*********************************************************************************
+* 修改代码逻辑关系，当其他参数被选择时，打开图像，应立即响应；
+*******************************************************************************************************************************/
+
+/*************************根据索引值进行图像格式选择***************************************************************************************************
+************ imgFormatUiComboBox1.SelectedIndex不同索引对应不同的图像格式*******************************************************
+*****************************************************************************************************************************/
+            if (offlineImgFormat_Flag == 0)
+            {
+                ofd.Title = "请选择文件";
+                ofd.Filter = "RAW文件(*.raw)|*.raw|所有文件(*.*)|*.*";
+
+                //打开数据位数选择(mono8,mono12,mono14)；
+                //imgBitFormaLabel1.Visible = true;
+                //chooseBitFormatUiComboBox1.Visible = true;
+            }
+
+            else if (offlineImgFormat_Flag == 1)
+            {
+                ofd.Title = "请选择文件";
+                ofd.Filter = "Jpg文件(*.jpg)|*.Jpg|所有文件(*.*)|*.*";
+
+                //关闭数据位数选择(mono8,mono12,mono14)；
+                //imgBitFormaLabel1.Visible = false;
+                //chooseBitFormatUiComboBox1.Visible = false;
+            }
+
+            else if (offlineImgFormat_Flag == 2)
+            {
+                ofd.Title = "请选择文件";
+                ofd.Filter = "Png文件(*.png)|*.png|所有文件(*.*)|*.*";
+
+                //关闭数据位数选择(mono8,mono12,mono14)；
+                //imgBitFormaLabel1.Visible = false;
+                //chooseBitFormatUiComboBox1.Visible = false;
+            }
+
+            else if (offlineImgFormat_Flag == 3)
+            {
+                ofd.Title = "请选择文件";
+                ofd.Filter = "Tif文件(*.tif)|*.Tif|所有文件(*.*)|*.*";
+
+                //关闭数据位数选择(mono8,mono12,mono14)；
+                //imgBitFormaLabel1.Visible = false;
+                //chooseBitFormatUiComboBox1.Visible = false;
+            }
+
+            else if (offlineImgFormat_Flag == 4)
+            {
+                ofd.Title = "请选择文件";
+                ofd.Filter = "Bmp文件(*.bmg)|*.Bmg|所有文件(*.*)|*.*";
+
+                //关闭数据位数选择(mono8,mono12,mono14)；
+                //imgBitFormaLabel1.Visible = false;
+                //chooseBitFormatUiComboBox1.Visible = false;
+            }
+
+///*************************当图像格式选择Raw***************************************************************************************************
+//************ 进行不同位数选择（0-8；1-12；2-14）*******************************************************
+//*****************************************************************************************************************************/
+
+//            if (offlineBitFormat_Flag == 0)
+//            {
+//                Bits = "8";
+//            }
+
+//            else if (offlineBitFormat_Flag == 1)
+//            {
+//                Bits = "12";
+//            }
+
+//            else if (offlineBitFormat_Flag == 2)
+//            {
+//                Bits = "14";
+//            }
+
+/*********************testModeUiComboBox2.SelectedIndex选择索引值赋值给offlineTestMode_Flag****************************************
+********************用于判断三种离线测试模式（0-绝对值模式；1-相对值模式；2-区域模式）*************************************************/
+
+/********************************************离线测试---绝对值模式************************************************************/
+            //绝对值模式，其区域模式上下限均设置及热力图设置均为false;
+            if (offlineTestMode_Flag == 0 )
+            {
+                //regionMode--close;
+                //upThresholdTextBox1.Visible = false;
+                //lowThresholdTextBox2.Visible = false;
+                //upperThresholdLabel3.Visible = false;
+                //lowerThresholdLabel4.Visible = false;
+
+                //heatMap--close;
+                //heatMapLabel1.Visible = false;
+                //heatmapTypeUiComboBox1.Visible = false;
+
+
+                //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                GetImgIntProcess();
+
+                //////调用函数将Raw(8,12,14)进行绝对值模式处理;
+                //////将输入图像Raw转换为的图像数组转换为字节;
+                AbsModeGetImgByteProcess();
+
+
+                //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                GetImgRGBProcess();
+
+                //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                GetBmpProcess();
+
+            }
+
+/********************************************离线测试---相对值模式************************************************************/
+            //相对值模式，其区域模式上下限均设置及热力图设置均为false;
+            else if (offlineTestMode_Flag == 1)
+            {
+                //regionMode--close;
+                //upThresholdTextBox1.Visible = false;
+                //lowThresholdTextBox2.Visible = false;
+                //upperThresholdLabel3.Visible = false;
+                //lowerThresholdLabel4.Visible = false;
+
+                //heatMap--close;
+                //heatMapLabel1.Visible = false;
+                //heatmapTypeUiComboBox1.Visible = false;
+
+                //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                GetImgIntProcess();
+
+                //////调用函数将Raw(8,12,14)进行相对值模式处理;
+                //////将输入图像Raw转换为的图像数组转换为字节;
+                RelModeGetImgByteProcess();
+
+
+                //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                GetImgRGBProcess();
+
+                //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                GetBmpProcess();
+
+            }
+
+/********************************************离线测试---区域模式**************************************************************/
+            //区域模式，其上下阈值设置均打开，热力图模式设置关闭；
+            else if (offlineTestMode_Flag == 2)
+            {
+                //regionMode--open;
+                //upThresholdTextBox1.Visible= true;
+                //lowThresholdTextBox2.Visible = true;             
+                //upperThresholdLabel3.Visible = true;
+                //lowerThresholdLabel4.Visible = true;
+
+                //heatMap--close;
+                //heatMapLabel1.Visible = false;
+                //heatmapTypeUiComboBox1.Visible = false;
+
+                ////////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                GetImgIntProcess();
+
+                ////////调用函数将Raw(8,12,14)进行区域模式处理;
+                ////////将输入图像Raw转换为的图像数组转换为字节;            
+                RegionModeGetImgByteProcess();
+
+                ////////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                GetImgRGBProcess();
+
+                ////////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                GetBmpProcess();
+            }
+
+/****************************【离线模式】外部调用（否则出错！）GetImgIntProcess()、GetImgRGBProcess()及GetBmpProcess()函数**********************/
+            ////////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            //GetImgIntProcess();
+
+            ////////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            //GetImgRGBProcess();
+
+            ////////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            //GetBmpProcess();
+
+
+            /********************显示模式选择显示模式（0--灰度图模式；1--热力图模式）******************************************************************/
+            /*****uiComboBox2.SelectedIndex不同索引对应不同的显示模式选择；*****************************************************************/
+
+            //显示模式（0--灰度图模式；1--热力图模式）；
+            //灰度图模式;其区域模式上下限均设置及热力图设置均为false;
+            if (offlineShowMode_Flag == 0)
+            {
+                //regionMode--close;
+                //upThresholdTextBox1.Visible = false;
+                //lowThresholdTextBox2.Visible = false;
+                //upperThresholdLabel3.Visible = false;
+                //lowerThresholdLabel4.Visible = false;
+
+                //heatMap--close;
+                //heatMapLabel1.Visible = false;
+                //heatmapTypeUiComboBox1.Visible = false;
+
+               
+                ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                GetImgIntProcess();
+
+                ////调用函数将Raw(8,12,14)进行绝对值模式处理;
+                ////将输入图像Raw转换为的图像数组转换为字节;
+                //AbsModeGetImgByteProcess();
+
+                ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                GetImgRGBProcess();
+
+                ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                GetBmpProcess();
+            }
+
+            //热力图模式;其区域模式上下限均设置设置均为false，热力图模式设置为true;
+            //(选择不同的热力图类型再进行判断，显示不同的格式类型);
+            else if (offlineShowMode_Flag == 1)
+            {
+                //regionMode--close;
+                //upThresholdTextBox1.Visible = false;
+                //lowThresholdTextBox2.Visible = false;
+                //upperThresholdLabel3.Visible = false;
+                //lowerThresholdLabel4.Visible = false;
+
+                //heatMap--open;
+                //heatMapLabel1.Visible = true;
+                //heatmapTypeUiComboBox1.Visible = true;
+
+                //点击热力图类型，立即响应产生热力图结果;
+                ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                GetImgIntProcess();
+
+                ////调用函数将Raw(8,12,14)进行绝对值模式处理;
+                ////将输入图像Raw转换为的图像数组转换为字节;
+                //AbsModeGetImgByteProcess();
+
+                ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                GetImgRGBProcess();
+
+                ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                GetBmpProcess();
+            }
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+            #region  this Code-Not-Use
             //调用函数--GetImgIntProcess();将输入图像Raw转换为图像数组;
             //GetImgIntProcess();
 
@@ -365,7 +636,8 @@ namespace ReadRAW.OfflineTestMode
 
             //调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
             //GetBmpProcess();
-           
+            #endregion
+
         }
 
 
@@ -728,7 +1000,6 @@ namespace ReadRAW.OfflineTestMode
 /***********************************************热力图类型选择--end***********************************************/
 
                 }
-
 
 
                 #region//其他信息: 无法将类型为“System.Drawing.Bitmap”的对象强制转换为类型“Emgu.CV.IInputArray”。
@@ -2074,7 +2345,7 @@ namespace ReadRAW.OfflineTestMode
                 bt.Save(path + "\\" + dbf_File2 + "_Gray.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
 
                 //保存完成后，显示提示信息；
-                MessageBox.Show("Save GrayImage Success!"); 
+                MessageBox.Show("Save GrayImage successfully!"); 
             }
 
 /********************保存热力图结果图像----start******************************************************************************************/
@@ -2384,61 +2655,122 @@ namespace ReadRAW.OfflineTestMode
 
         }
 
+
         //imgFormatUiComboBox1.SelectedIndex不同索引对应不同的图像格式；
         private void uiComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Console.WriteLine(SelectedIndex);
-            //label1.Text = uiComboBox1.SelectedIndex.ToString();         
+            //label1.Text = uiComboBox1.SelectedIndex.ToString();  
 
-            if (imgFormatUiComboBox1.SelectedIndex == 0)
+            //imgFormatUiComboBox1.SelectedIndex选择索引值赋值给offlineImgFormat_Flag，
+            offlineImgFormat_Flag = imgFormatUiComboBox1.SelectedIndex;
+
+            //changed;
+            if (offlineImgFormat_Flag == 0)
             {
-                ofd.Title = "请选择文件"; 
-                ofd.Filter = "RAW文件(*.raw)|*.raw|所有文件(*.*)|*.*";
+                //ofd.Title = "请选择文件";
+                //ofd.Filter = "RAW文件(*.raw)|*.raw|所有文件(*.*)|*.*";
 
                 //打开数据位数选择(mono8,mono12,mono14)；
                 imgBitFormaLabel1.Visible = true;
                 chooseBitFormatUiComboBox1.Visible = true;
             }
 
-            else if (imgFormatUiComboBox1.SelectedIndex == 1)
+            else if (offlineImgFormat_Flag == 1)
             {
-                ofd.Title = "请选择文件";
-                ofd.Filter = "Jpg文件(*.jpg)|*.Jpg|所有文件(*.*)|*.*";
+                //ofd.Title = "请选择文件";
+                //ofd.Filter = "Jpg文件(*.jpg)|*.Jpg|所有文件(*.*)|*.*";
 
                 //关闭数据位数选择(mono8,mono12,mono14)；
                 imgBitFormaLabel1.Visible = false;
                 chooseBitFormatUiComboBox1.Visible = false;
             }
 
-            else if (imgFormatUiComboBox1.SelectedIndex == 2)
+            else if (offlineImgFormat_Flag == 2)
             {
-                ofd.Title = "请选择文件";
-                ofd.Filter = "Png文件(*.png)|*.png|所有文件(*.*)|*.*";
+                //ofd.Title = "请选择文件";
+                //ofd.Filter = "Png文件(*.png)|*.png|所有文件(*.*)|*.*";
 
                 //关闭数据位数选择(mono8,mono12,mono14)；
                 imgBitFormaLabel1.Visible = false;
                 chooseBitFormatUiComboBox1.Visible = false;
             }
 
-            else if (imgFormatUiComboBox1.SelectedIndex == 3)
+            else if (offlineImgFormat_Flag == 3)
             {
-                ofd.Title = "请选择文件";
-                ofd.Filter = "Tif文件(*.tif)|*.Tif|所有文件(*.*)|*.*";
+                //ofd.Title = "请选择文件";
+                //ofd.Filter = "Tif文件(*.tif)|*.Tif|所有文件(*.*)|*.*";
 
                 //关闭数据位数选择(mono8,mono12,mono14)；
                 imgBitFormaLabel1.Visible = false;
                 chooseBitFormatUiComboBox1.Visible = false;
             }
 
-            else if (imgFormatUiComboBox1.SelectedIndex == 4)
+            else if (offlineImgFormat_Flag == 4)
             {
-                ofd.Title = "请选择文件";
-                ofd.Filter = "Bmp文件(*.bmg)|*.Bmg|所有文件(*.*)|*.*";
+                //ofd.Title = "请选择文件";
+                //ofd.Filter = "Bmp文件(*.bmg)|*.Bmg|所有文件(*.*)|*.*";
 
                 //关闭数据位数选择(mono8,mono12,mono14)；
                 imgBitFormaLabel1.Visible = false;
                 chooseBitFormatUiComboBox1.Visible = false;
             }
+
+            //调用ImgprocessAccelerate函数；
+            //ImgprocessAccelerate();
+
+
+            #region-originCode-work
+            //if (offlineImgFormat_Flag == 0)
+            //{
+            //    ofd.Title = "请选择文件"; 
+            //    ofd.Filter = "RAW文件(*.raw)|*.raw|所有文件(*.*)|*.*";
+
+            //    //打开数据位数选择(mono8,mono12,mono14)；
+            //    imgBitFormaLabel1.Visible = true;
+            //    chooseBitFormatUiComboBox1.Visible = true;
+            //}
+
+            //else if (offlineImgFormat_Flag == 1)
+            //{
+            //    ofd.Title = "请选择文件";
+            //    ofd.Filter = "Jpg文件(*.jpg)|*.Jpg|所有文件(*.*)|*.*";
+
+            //    //关闭数据位数选择(mono8,mono12,mono14)；
+            //    imgBitFormaLabel1.Visible = false;
+            //    chooseBitFormatUiComboBox1.Visible = false;
+            //}
+
+            //else if (offlineImgFormat_Flag == 2)
+            //{
+            //    ofd.Title = "请选择文件";
+            //    ofd.Filter = "Png文件(*.png)|*.png|所有文件(*.*)|*.*";
+
+            //    //关闭数据位数选择(mono8,mono12,mono14)；
+            //    imgBitFormaLabel1.Visible = false;
+            //    chooseBitFormatUiComboBox1.Visible = false;
+            //}
+
+            //else if (offlineImgFormat_Flag == 3)
+            //{
+            //    ofd.Title = "请选择文件";
+            //    ofd.Filter = "Tif文件(*.tif)|*.Tif|所有文件(*.*)|*.*";
+
+            //    //关闭数据位数选择(mono8,mono12,mono14)；
+            //    imgBitFormaLabel1.Visible = false;
+            //    chooseBitFormatUiComboBox1.Visible = false;
+            //}
+
+            //else if (offlineImgFormat_Flag == 4)
+            //{
+            //    ofd.Title = "请选择文件";
+            //    ofd.Filter = "Bmp文件(*.bmg)|*.Bmg|所有文件(*.*)|*.*";
+
+            //    //关闭数据位数选择(mono8,mono12,mono14)；
+            //    imgBitFormaLabel1.Visible = false;
+            //    chooseBitFormatUiComboBox1.Visible = false;
+            //}
+            #endregion
 
         }
 
@@ -2458,10 +2790,106 @@ namespace ReadRAW.OfflineTestMode
             //testModeUiComboBox2.SelectedIndex选择索引值赋值给offlineTestMode_Flag，
             //用于判断三种离线测试模式（0-绝对值模式；1-相对值模式；2-区域模式）；
             offlineTestMode_Flag = testModeUiComboBox2.SelectedIndex;
-          
-/********************************************离线测试---绝对值模式************************************************************/
+
+            //调用ImgprocessAccelerate函数；当选择不同显示模式时，实时显示结果；
+            ImgprocessAccelerate();
+
+            #region OriginCode--work      
+            /********************************************离线测试---绝对值模式************************************************************/
+            //            //绝对值模式，其区域模式上下限均设置及热力图设置均为false;
+            //            if (offlineTestMode_Flag == 0 )
+            //            {
+            //                //regionMode--close;
+            //                upThresholdTextBox1.Visible = false;
+            //                lowThresholdTextBox2.Visible = false;
+            //                upperThresholdLabel3.Visible = false;
+            //                lowerThresholdLabel4.Visible = false;
+
+            //                //heatMap--close;
+            //                heatMapLabel1.Visible = false;
+            //                heatmapTypeUiComboBox1.Visible = false;
+
+
+            //                ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            //                GetImgIntProcess();
+
+            //                ////调用函数将Raw(8,12,14)进行绝对值模式处理;
+            //                ////将输入图像Raw转换为的图像数组转换为字节;
+            //                AbsModeGetImgByteProcess();
+
+
+            //                ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            //                GetImgRGBProcess();
+
+            //                ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            //                GetBmpProcess();
+
+            //            }
+
+            ///********************************************离线测试---相对值模式************************************************************/
+            //            //相对值模式，其区域模式上下限均设置及热力图设置均为false;
+            //            else if (offlineTestMode_Flag == 1)
+            //            {
+            //                //regionMode--close;
+            //                upThresholdTextBox1.Visible = false;
+            //                lowThresholdTextBox2.Visible = false;
+            //                upperThresholdLabel3.Visible = false;
+            //                lowerThresholdLabel4.Visible = false;
+
+            //                //heatMap--close;
+            //                heatMapLabel1.Visible = false;
+            //                heatmapTypeUiComboBox1.Visible = false;
+
+            //                ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            //                GetImgIntProcess();
+
+            //                ////调用函数将Raw(8,12,14)进行相对值模式处理;
+            //                ////将输入图像Raw转换为的图像数组转换为字节;
+            //                RelModeGetImgByteProcess();
+
+
+            //                ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            //                GetImgRGBProcess();
+
+            //                ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            //                GetBmpProcess();
+
+            //            }
+
+
+            ///********************************************离线测试---区域模式**************************************************************/
+            //            //区域模式，其上下阈值设置均打开，热力图模式设置关闭；
+            //            else if (offlineTestMode_Flag == 2)
+            //            {
+            //                //regionMode--open;
+            //                upThresholdTextBox1.Visible= true;
+            //                lowThresholdTextBox2.Visible = true;             
+            //                upperThresholdLabel3.Visible = true;
+            //                lowerThresholdLabel4.Visible = true;
+
+            //                //heatMap--close;
+            //                heatMapLabel1.Visible = false;
+            //                heatmapTypeUiComboBox1.Visible = false;
+
+            //                //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            //                GetImgIntProcess();
+
+            //                //////调用函数将Raw(8,12,14)进行区域模式处理;
+            //                //////将输入图像Raw转换为的图像数组转换为字节;            
+            //                RegionModeGetImgByteProcess();
+
+            //                //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            //                GetImgRGBProcess();
+
+            //                //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            //                GetBmpProcess();
+            //            }
+            #endregion
+
+
+            /********************************************离线测试---绝对值模式************************************************************/
             //绝对值模式，其区域模式上下限均设置及热力图设置均为false;
-            if (offlineTestMode_Flag == 0 )
+            if (offlineTestMode_Flag == 0)
             {
                 //regionMode--close;
                 upThresholdTextBox1.Visible = false;
@@ -2474,19 +2902,19 @@ namespace ReadRAW.OfflineTestMode
                 heatmapTypeUiComboBox1.Visible = false;
 
 
-                ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-                GetImgIntProcess();
+                //    ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                //    GetImgIntProcess();
 
-                ////调用函数将Raw(8,12,14)进行绝对值模式处理;
-                ////将输入图像Raw转换为的图像数组转换为字节;
-                AbsModeGetImgByteProcess();
+                //    ////调用函数将Raw(8,12,14)进行绝对值模式处理;
+                //    ////将输入图像Raw转换为的图像数组转换为字节;
+                //    AbsModeGetImgByteProcess();
 
 
-                ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-                GetImgRGBProcess();
+                //    ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                //    GetImgRGBProcess();
 
-                ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-                GetBmpProcess();
+                //    ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                //    GetBmpProcess();
 
             }
 
@@ -2494,7 +2922,7 @@ namespace ReadRAW.OfflineTestMode
             //相对值模式，其区域模式上下限均设置及热力图设置均为false;
             else if (offlineTestMode_Flag == 1)
             {
-                //regionMode--close;v
+                //regionMode--close;
                 upThresholdTextBox1.Visible = false;
                 lowThresholdTextBox2.Visible = false;
                 upperThresholdLabel3.Visible = false;
@@ -2504,30 +2932,29 @@ namespace ReadRAW.OfflineTestMode
                 heatMapLabel1.Visible = false;
                 heatmapTypeUiComboBox1.Visible = false;
 
-                ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-                GetImgIntProcess();
+                //    ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                //    GetImgIntProcess();
 
-                ////调用函数将Raw(8,12,14)进行相对值模式处理;
-                ////将输入图像Raw转换为的图像数组转换为字节;
-                RelModeGetImgByteProcess();
+                //    ////调用函数将Raw(8,12,14)进行相对值模式处理;
+                //    ////将输入图像Raw转换为的图像数组转换为字节;
+                //    RelModeGetImgByteProcess();
 
 
-                ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-                GetImgRGBProcess();
+                //    ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                //    GetImgRGBProcess();
 
-                ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-                GetBmpProcess();
+                //    ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                //    GetBmpProcess();
 
             }
-
 
 /********************************************离线测试---区域模式**************************************************************/
             //区域模式，其上下阈值设置均打开，热力图模式设置关闭；
             else if (offlineTestMode_Flag == 2)
             {
                 //regionMode--open;
-                upThresholdTextBox1.Visible= true;
-                lowThresholdTextBox2.Visible = true;             
+                upThresholdTextBox1.Visible = true;
+                lowThresholdTextBox2.Visible = true;
                 upperThresholdLabel3.Visible = true;
                 lowerThresholdLabel4.Visible = true;
 
@@ -2535,30 +2962,45 @@ namespace ReadRAW.OfflineTestMode
                 heatMapLabel1.Visible = false;
                 heatmapTypeUiComboBox1.Visible = false;
 
-                //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-                GetImgIntProcess();
+                //    //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+                //    GetImgIntProcess();
 
-                //////调用函数将Raw(8,12,14)进行区域模式处理;
-                //////将输入图像Raw转换为的图像数组转换为字节;            
-                RegionModeGetImgByteProcess();
+                //    //////调用函数将Raw(8,12,14)进行区域模式处理;
+                //    //////将输入图像Raw转换为的图像数组转换为字节;            
+                //    RegionModeGetImgByteProcess();
 
-                //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-                GetImgRGBProcess();
+                //    //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+                //    GetImgRGBProcess();
 
-                //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-                GetBmpProcess();
+                //    //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+                //    GetBmpProcess();
             }
 
-/****************************【离线模式】外部调用（否则出错！）GetImgIntProcess()、GetImgRGBProcess()及GetBmpProcess()函数**********************/
-            ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-            GetImgIntProcess();
-           
 
-            ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-            GetImgRGBProcess();
+            //                ////调用函数将Raw(8,12,14)进行绝对值模式处理;
+            //                ////将输入图像Raw转换为的图像数组转换为字节;
+            //AbsModeGetImgByteProcess();
 
-            ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-            GetBmpProcess();
+            //                ////调用函数将Raw(8,12,14)进行相对值模式处理;
+            //                ////将输入图像Raw转换为的图像数组转换为字节;
+            //RelModeGetImgByteProcess();
+
+            //                //////调用函数将Raw(8,12,14)进行区域模式处理;
+            //                //////将输入图像Raw转换为的图像数组转换为字节;            
+            //RegionModeGetImgByteProcess();
+
+
+
+            /****************************【离线模式】外部调用（否则出错！）GetImgIntProcess()、GetImgRGBProcess()及GetBmpProcess()函数**********************/
+            //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            //GetImgIntProcess();
+
+
+            //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            //GetImgRGBProcess();
+
+            //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            //GetBmpProcess();
         }
 
 
@@ -2572,6 +3014,8 @@ namespace ReadRAW.OfflineTestMode
 
             //显示模式（0--灰度图模式；1--热力图模式）；
             //灰度图模式;其区域模式上下限均设置及热力图设置均为false;
+
+            //Origin-Work;
             if (offlineShowMode_Flag == 0)
             {
                 //regionMode--close;
@@ -2579,14 +3023,14 @@ namespace ReadRAW.OfflineTestMode
                 lowThresholdTextBox2.Visible = false;
                 upperThresholdLabel3.Visible = false;
                 lowerThresholdLabel4.Visible = false;
-                 
+
                 //heatMap--close;
                 heatMapLabel1.Visible = false;
                 heatmapTypeUiComboBox1.Visible = false;
             }
 
-            //热力图模式;其区域模式上下限均设置设置均为false，热力图模式设置为true;
-            //(选择不同的热力图类型再进行判断，显示不同的格式类型);
+            ////热力图模式;其区域模式上下限均设置设置均为false，热力图模式设置为true;
+            ////(选择不同的热力图类型再进行判断，显示不同的格式类型);
             else if (offlineShowMode_Flag == 1)
             {
                 //regionMode--close;
@@ -2601,6 +3045,11 @@ namespace ReadRAW.OfflineTestMode
             }
 
 
+            //调用ImgprocessAccelerate函数；当选择不同显示模式时，实时显示结果；
+            ImgprocessAccelerate();
+
+
+            #region ThisCodeNotUse
             ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;   
             //GetImgIntProcess();
 
@@ -2617,6 +3066,7 @@ namespace ReadRAW.OfflineTestMode
 
             ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
             //GetBmpProcess();
+            #endregion
 
         }
 
@@ -2624,23 +3074,47 @@ namespace ReadRAW.OfflineTestMode
         //选择不同的图像位数；
         private void chooseFormatUiComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //通过chooseFormatUiComboBox1索引选择不同的图像位数：8,12,14；
-            //if(chooseBitFormatUiComboBox1.SelectedIndex == 0)
-            //{
-            //    Bits = "8";
-            //}
+           
+            //将showModeUiComboBox3.SelectedIndex选择索引值赋值给offlineBitFormat_Flag，用于判断图像位数(0-8;1-12;2-14)；
+            offlineBitFormat_Flag = chooseBitFormatUiComboBox1.SelectedIndex;
 
-            switch (chooseBitFormatUiComboBox1.SelectedIndex)
+            //调用ImgprocessAccelerate函数；
+            //ImgprocessAccelerate();
+
+/*************************当图像格式选择Raw***************************************************************************************************
+************ 进行不同位数选择（0-8；1-12；2-14）*******************************************************
+*****************************************************************************************************************************/
+
+            if (offlineBitFormat_Flag == 0)
             {
-                case 0: Bits = "8";             
-                    break;
-                case 1: Bits = "12";
-                    break;
-                default: Bits = "14";
-                    break;
-
+                Bits = "8";
             }
-            
+
+            else if (offlineBitFormat_Flag == 1)
+            {
+                Bits = "12";
+            }
+
+            else if (offlineBitFormat_Flag == 2)
+            {
+                Bits = "14";
+            }
+
+
+            #region OriginCode-Work;
+            //switch (chooseBitFormatUiComboBox1.SelectedIndex)
+            //{
+            //    case 0: Bits = "8";             
+            //        break;
+            //    case 1: Bits = "12";
+            //        break;
+            //    default: Bits = "14";
+            //        break;
+
+            //}
+            #endregion
+
+
         }
 
 
@@ -2737,20 +3211,59 @@ namespace ReadRAW.OfflineTestMode
         {
             //heatmapTypeUiComboBox1.SelectedIndex(0-20:Autumn;Bone;Jet;.....TwilightShifted;Turbo)
             offlineHeatMapType_Flag = heatmapTypeUiComboBox1.SelectedIndex;
+           
 
-            //点击热力图类型，立即响应产生热力图结果;
-            ////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
-            GetImgIntProcess();
+/*****uiComboBox2.SelectedIndex不同索引对应不同的显示模式选择；*****************************************************************/
 
-            ////调用函数将Raw(8,12,14)进行绝对值模式处理;
-            ////将输入图像Raw转换为的图像数组转换为字节;
-            //AbsModeGetImgByteProcess();
+            //显示模式（0--灰度图模式；1--热力图模式）；
+            //灰度图模式;其区域模式上下限均设置及热力图设置均为false;
+            if (offlineShowMode_Flag == 0)
+            {
+                //regionMode--close;
+                upThresholdTextBox1.Visible = false;
+                lowThresholdTextBox2.Visible = false;
+                upperThresholdLabel3.Visible = false;
+                lowerThresholdLabel4.Visible = false;
 
-            ////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
-            GetImgRGBProcess();
+                //heatMap--close;
+                heatMapLabel1.Visible = false;
+                heatmapTypeUiComboBox1.Visible = false;
+            }
 
-            ////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
-            GetBmpProcess();
+            //热力图模式;其区域模式上下限均设置设置均为false，热力图模式设置为true;
+            //(选择不同的热力图类型再进行判断，显示不同的格式类型);
+            else if (offlineShowMode_Flag == 1)
+            {
+                //regionMode--close;
+                upThresholdTextBox1.Visible = false;
+                lowThresholdTextBox2.Visible = false;
+                upperThresholdLabel3.Visible = false;
+                lowerThresholdLabel4.Visible = false;
+
+                //heatMap--open;
+                heatMapLabel1.Visible = true;
+                heatmapTypeUiComboBox1.Visible = true;
+            }
+
+
+            //调用ImgprocessAccelerate函数；当选择不同热力图模式时，实时显示结果；
+            ImgprocessAccelerate();
+
+            #region OriginCode--Work
+            ////点击热力图类型，立即响应产生热力图结果;
+            //////调用GetImgIntProcess处理函数;将输入的Raw图像转换为图像数组;       
+            //GetImgIntProcess();
+
+            //////调用函数将Raw(8,12,14)进行绝对值模式处理;
+            //////将输入图像Raw转换为的图像数组转换为字节;
+            ////AbsModeGetImgByteProcess();
+
+            //////调用函数--GetImgRGBProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像;
+            //GetImgRGBProcess();
+
+            //////调用函数--GetBmpProcess();将输入图像Raw转换为的图像数组转换为的字节转换为RGB图像转化为Bmp;
+            //GetBmpProcess();
+            #endregion
 
         }
     }
