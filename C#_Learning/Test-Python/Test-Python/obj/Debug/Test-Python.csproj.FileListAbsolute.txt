@@ -1,1 +1,9 @@
 C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\bin\Debug\Test-Python.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\bin\Debug\Test-Python.exe
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\bin\Debug\Test-Python.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\obj\Debug\Test-Python.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\obj\Debug\Test_Python.Form1.resources
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\obj\Debug\Test_Python.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\obj\Debug\Test-Python.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\obj\Debug\Test-Python.exe
+C:\Users\eivision\Desktop\WinForm_Demo\Test-Python\Test-Python\obj\Debug\Test-Python.pdb
