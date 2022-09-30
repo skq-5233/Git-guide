@@ -24,7 +24,6 @@ C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\DevExpress.Sp
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\DevExpress.Utils.v20.1.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\DevExpress.XtraEditors.v20.1.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\Emgu.CV.Bitmap.dll
-C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\Emgu.CV.DebuggerVisualizers.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\Emgu.CV.Models.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\Emgu.CV.Platform.NetCore.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\Emgu.CV.Platform.NetFramework.dll
@@ -82,3 +81,5 @@ C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Release\ReadRAW.Onlin
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Release\ReadRAW.ReadRawImg.resources
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Release\ReadRAW.Properties.Resources.resources
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Release\ReadRAW.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\System.Drawing.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Release\System.Drawing.Common.xml

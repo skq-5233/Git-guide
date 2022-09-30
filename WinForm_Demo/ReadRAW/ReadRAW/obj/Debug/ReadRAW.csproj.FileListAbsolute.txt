@@ -132,7 +132,9 @@ C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\System.Runtime.
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Models.xml
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Platform.NetCore.xml
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\Emgu.CV.Platform.NetFramework.xml
-C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\SunnyUI.Common.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\obj\Debug\ReadRAW.csprojResolveAssemblyReference.cache
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\System.Drawing.Common.dll
 C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\System.Drawing.Common.xml
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\SunnyUI.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\MvCameraControl.Net.dll
+C:\Users\eivision\Desktop\WinForm_Demo\ReadRAW\ReadRAW\bin\Debug\MvCameraControl.Net.xml

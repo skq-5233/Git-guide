@@ -50,6 +50,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.heatmapTypeUiComboBox1 = new Sunny.UI.UIComboBox();
             this.showModeUiComboBox3 = new Sunny.UI.UIComboBox();
+            this.uiLabel1 = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -61,10 +62,12 @@
             // 
             this.uiButton1_Load_Img.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton1_Load_Img.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiButton1_Load_Img.ForeColor = System.Drawing.Color.Black;
             this.uiButton1_Load_Img.Location = new System.Drawing.Point(14, 34);
             this.uiButton1_Load_Img.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton1_Load_Img.Name = "uiButton1_Load_Img";
             this.uiButton1_Load_Img.Size = new System.Drawing.Size(100, 52);
+            this.uiButton1_Load_Img.Style = Sunny.UI.UIStyle.Custom;
             this.uiButton1_Load_Img.TabIndex = 8;
             this.uiButton1_Load_Img.Text = "打开图像";
             this.uiButton1_Load_Img.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -87,10 +90,12 @@
             // 
             this.uiButton2_SaveImg.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton2_SaveImg.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiButton2_SaveImg.ForeColor = System.Drawing.Color.Black;
             this.uiButton2_SaveImg.Location = new System.Drawing.Point(14, 109);
             this.uiButton2_SaveImg.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton2_SaveImg.Name = "uiButton2_SaveImg";
             this.uiButton2_SaveImg.Size = new System.Drawing.Size(100, 52);
+            this.uiButton2_SaveImg.Style = Sunny.UI.UIStyle.Custom;
             this.uiButton2_SaveImg.TabIndex = 11;
             this.uiButton2_SaveImg.Text = "保存图像";
             this.uiButton2_SaveImg.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -324,10 +329,22 @@
             this.showModeUiComboBox3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.showModeUiComboBox3.SelectedIndexChanged += new System.EventHandler(this.uiComboBox3_SelectedIndexChanged);
             // 
+            // uiLabel1
+            // 
+            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLabel1.Location = new System.Drawing.Point(676, 149);
+            this.uiLabel1.Name = "uiLabel1";
+            this.uiLabel1.Size = new System.Drawing.Size(99, 23);
+            this.uiLabel1.TabIndex = 95;
+            this.uiLabel1.Text = "处理时间：";
+            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
             // SingleImageProcessMode
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(824, 720);
+            this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -371,5 +388,6 @@
         private System.Windows.Forms.Label imgBitFormaLabel1;
         private Sunny.UI.UIComboBox chooseBitFormatUiComboBox1;
         private Sunny.UI.UIComboBox heatmapTypeUiComboBox1;
+        private Sunny.UI.UILabel uiLabel1;
     }
 }

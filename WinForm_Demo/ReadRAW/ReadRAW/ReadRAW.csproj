@@ -59,6 +59,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-ipp-dldt 4.5.5.4823\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
     </Reference>
+    <Reference Include="MvCameraControl.Net">
+      <HintPath>D:\software\MVS_STD_3.4.1_220407\MVS\Development\DotNet\AnyCpu\MvCameraControl.Net.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\SKQ\VS-Code\Project_Code\Template-Matching2022-0113\dll\netstandard.dll</HintPath>
@@ -77,6 +80,9 @@
     </Reference>
     <Reference Include="SunnyUI">
       <HintPath>..\..\SunnyUI-V3.2.3\SunnyUI-V3.2.3\SunnyUI.Demo\Bin\SunnyUI.dll</HintPath>
+    </Reference>
+    <Reference Include="SunnyUI.Common">
+      <HintPath>D:\SKQ\VS-Code\Demo\SunnyUI\SunnyUI-V3.2.3\SunnyUI-V3.2.3\SunnyUI.Demo\Bin\SunnyUI.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
