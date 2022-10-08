@@ -1,0 +1,22 @@
+方法1：
+System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(@"d:\a");
+if (di.GetFiles().Length + di.GetDirectories().Length == 0)
+{
+    //目录为空
+}
+方法2--遍历目录下的所有文件夹，可以浏览大量目录和子目录。如果它为空，则删除一个文件夹。使用以下代码删除空的文件夹和子文件夹：
+string dir = textBox1.Text;
+string[] folders = System.IO.Directory.GetDirectories(dir, "*.*", System.IO.SearchOption.AllDirectories);
+foreach (var directory in folders)
+{
+    if (System.IO.Directory.GetFiles(directory).Length == 0 && System.IO.Directory.GetDirectories(directory).Length == 0)
+    {
+        System.IO.StreamWriter Dfile = new System.IO.StreamWriter(newpath, true);
+        System.IO.Directory.Delete(directory);
+    }
+}
+
+
+GetFiles获取文件列表
+GetDirectories获取子目录列表
+GetFileSystemEntries获取文件和子目录列表
