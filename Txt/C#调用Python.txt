@@ -1,0 +1,14 @@
+httpsblog.csdn.netqq_39397024articledetails115331321
+
+Python生成exe文件
+https://jingyan.baidu.com/article/ed2a5d1f03e60749f6be17d2.html
+
+1.电脑桌面按下组合键“win+R”，在窗口输入cmd，点击确定，打开cmd窗口。
+
+2.安装Pyinstaller。
+
+3.安装完毕后，进入需要生成exe文件的路径。
+
+4.使用指令“pyinstaller -F xxx.py”生成exe文件。
+
+5.等待生成完毕后，进入源文件目录，进入dist目录，找到生成的exe文件，即可完成Python生成exe文件操作。
