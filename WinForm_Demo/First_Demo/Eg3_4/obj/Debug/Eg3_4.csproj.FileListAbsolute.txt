@@ -1,0 +1,10 @@
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\bin\Debug\Eg3_4.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\obj\Debug\Eg3_4.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\obj\Debug\Eg3_4.Form1ConnState.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\obj\Debug\Eg3_4.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\obj\Debug\Eg3_4.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\bin\Debug\Eg3_4.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\bin\Debug\Eg3_4.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\bin\Debug\MySql.Data.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\obj\Debug\Eg3_4.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_4\obj\Debug\Eg3_4.pdb

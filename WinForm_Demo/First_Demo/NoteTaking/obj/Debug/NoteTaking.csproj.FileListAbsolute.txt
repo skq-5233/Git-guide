@@ -1,0 +1,13 @@
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\bin\Debug\NoteTaking.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\bin\Debug\NoteTaking.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\bin\Debug\NoteTaking.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.Login.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.Form2.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\bin\Debug\SunnyUI.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\bin\Debug\SunnyUI.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\NoteTaking\obj\Debug\NoteTaking.Form3.resources

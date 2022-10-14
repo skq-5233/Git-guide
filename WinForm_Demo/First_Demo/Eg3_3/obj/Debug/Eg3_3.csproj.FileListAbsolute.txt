@@ -1,0 +1,9 @@
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\bin\Debug\Eg3_3.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\bin\Debug\Eg3_3.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\bin\Debug\Eg3_3.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\obj\Debug\Eg3_3.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\obj\Debug\Eg3_3.Form1tablet.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\obj\Debug\Eg3_3.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\obj\Debug\Eg3_3.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\obj\Debug\Eg3_3.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg3_3\obj\Debug\Eg3_3.pdb

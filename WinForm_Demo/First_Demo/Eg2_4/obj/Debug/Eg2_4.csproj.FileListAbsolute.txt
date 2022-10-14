@@ -1,0 +1,12 @@
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\bin\Debug\Eg2_4.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\bin\Debug\Eg2_4.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\bin\Debug\Eg2_4.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\bin\Debug\SunnyUI.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\bin\Debug\SunnyUI.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.MDIChild1.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.MDIParent.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_4\obj\Debug\Eg2_4.pdb

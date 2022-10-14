@@ -1,0 +1,15 @@
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\Eg2_5.exe.config
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\Eg2_5.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\Eg2_5.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\SunnyUI.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\SunnyUI.Common.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\obj\Debug\Eg2_5.csprojResolveAssemblyReference.cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\obj\Debug\Eg2_5.MDIParent.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\obj\Debug\Eg2_5.Properties.Resources.resources
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\obj\Debug\Eg2_5.csproj.GenerateResource.Cache
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\obj\Debug\Eg2_5.exe
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\obj\Debug\Eg2_5.pdb
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\IrisSkin4.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\Emgu.CV.Platform.NetStandard.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\netstandard.dll
+C:\Users\eivision\Desktop\WinForm_Demo\First_Demo\Eg2_5\bin\Debug\Emgu.CV.Platform.NetStandard.xml
