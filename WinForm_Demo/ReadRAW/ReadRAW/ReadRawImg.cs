@@ -28,6 +28,7 @@ namespace ReadRAW
     {
         public ReadRawImg()
         {
+            //由系统生成的对于窗体界面的定义方法;
             InitializeComponent();
 
             //add--(Aside-NavBar及Header);
@@ -44,15 +45,12 @@ namespace ReadRAW
             Aside.CreateChildNode(parent, AddPage(new BatchImageProcessMode(), ++pageIndex));
 
 
-            //示例设置某个节点的小红点提示: Color.Red;
+            //设置某个节点的小红(绿)点提示: Color.Red;以下代码屏蔽则不显示亮点;
             Aside.ShowTips = true;
             //Aside.SetNodeTipsText(Aside.Nodes[0], "6", Color.Red, Color.White);
             Aside.SetNodeTipsText(parent.Nodes[0], " ", Color.Lime, Color.White);
             Aside.SetNodeTipsText(parent.Nodes[1], " ", Color.Lime, Color.White);
 
-
-            //Aside.SetNodeTipsText(parent.Nodes[2], " ", Color.Lime, Color.White);
-            //Aside.SetNodeTipsText(parent.Nodes[3], " ", Color.Lime, Color.White);
 
             pageIndex = 2000;
 
@@ -68,7 +66,7 @@ namespace ReadRAW
             Aside.CreateChildNode(parent, AddPage(new ParameterSettingMode(), Guid.NewGuid()));
 
 
-            //示例设置某个节点的小红点提示
+            //设置某个节点的小红(绿)点提示: Color.Red;以下代码屏蔽则不显示亮点;
             Aside.ShowTips = true;
             //Aside.SetNodeTipsText(Aside.Nodes[0], "6", Color.Red, Color.White);
             Aside.SetNodeTipsText(parent.Nodes[0], " ", Color.Lime, Color.White);
@@ -603,13 +601,15 @@ namespace ReadRAW
         private void ReadRawImg_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Application.Exit();   //直接退出，无询问；
-            DialogResult result = MessageBox.Show("确定要退出吗?", "温馨提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("确定要退出吗?", "温馨提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);//MessageBoxIcon.Warning--黄色三角形内有一感叹号；
             if (result == DialogResult.Yes)
             {
-
+                //窗体关闭事件继续;
+                e.Cancel = false;
             }
             else
             {
+                //窗体关闭事件取消;
                 e.Cancel = true;
             }
         }

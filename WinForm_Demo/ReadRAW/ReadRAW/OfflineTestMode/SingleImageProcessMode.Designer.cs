@@ -50,12 +50,19 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.heatmapTypeUiComboBox1 = new Sunny.UI.UIComboBox();
             this.showModeUiComboBox3 = new Sunny.UI.UIComboBox();
-            this.uiLabel1 = new Sunny.UI.UILabel();
+            this.pixelValueLabel2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiButton1_Load_Img
@@ -84,6 +91,7 @@
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // uiButton2_SaveImg
@@ -107,7 +115,7 @@
             this.imgFormatUiComboBox1.DataSource = null;
             this.imgFormatUiComboBox1.FillColor = System.Drawing.Color.White;
             this.imgFormatUiComboBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.imgFormatUiComboBox1.Location = new System.Drawing.Point(102, 19);
+            this.imgFormatUiComboBox1.Location = new System.Drawing.Point(102, 17);
             this.imgFormatUiComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgFormatUiComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
             this.imgFormatUiComboBox1.Name = "imgFormatUiComboBox1";
@@ -126,7 +134,7 @@
             this.testModeUiComboBox2.FillColor = System.Drawing.Color.White;
             this.testModeUiComboBox2.FilterMaxCount = 50;
             this.testModeUiComboBox2.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.testModeUiComboBox2.Location = new System.Drawing.Point(102, 86);
+            this.testModeUiComboBox2.Location = new System.Drawing.Point(102, 83);
             this.testModeUiComboBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.testModeUiComboBox2.MinimumSize = new System.Drawing.Size(63, 0);
             this.testModeUiComboBox2.Name = "testModeUiComboBox2";
@@ -141,7 +149,7 @@
             // imageFormatLabel1
             // 
             this.imageFormatLabel1.AutoSize = true;
-            this.imageFormatLabel1.Location = new System.Drawing.Point(11, 23);
+            this.imageFormatLabel1.Location = new System.Drawing.Point(11, 21);
             this.imageFormatLabel1.Name = "imageFormatLabel1";
             this.imageFormatLabel1.Size = new System.Drawing.Size(90, 21);
             this.imageFormatLabel1.TabIndex = 83;
@@ -150,7 +158,7 @@
             // testModeLabel2
             // 
             this.testModeLabel2.AutoSize = true;
-            this.testModeLabel2.Location = new System.Drawing.Point(11, 89);
+            this.testModeLabel2.Location = new System.Drawing.Point(11, 86);
             this.testModeLabel2.Name = "testModeLabel2";
             this.testModeLabel2.Size = new System.Drawing.Size(90, 21);
             this.testModeLabel2.TabIndex = 84;
@@ -170,7 +178,7 @@
             // upperThresholdLabel3
             // 
             this.upperThresholdLabel3.AutoSize = true;
-            this.upperThresholdLabel3.Location = new System.Drawing.Point(11, 121);
+            this.upperThresholdLabel3.Location = new System.Drawing.Point(11, 118);
             this.upperThresholdLabel3.Name = "upperThresholdLabel3";
             this.upperThresholdLabel3.Size = new System.Drawing.Size(90, 21);
             this.upperThresholdLabel3.TabIndex = 87;
@@ -189,19 +197,21 @@
             // 
             // upThresholdTextBox1
             // 
-            this.upThresholdTextBox1.Location = new System.Drawing.Point(102, 117);
+            this.upThresholdTextBox1.Location = new System.Drawing.Point(102, 114);
             this.upThresholdTextBox1.Name = "upThresholdTextBox1";
             this.upThresholdTextBox1.Size = new System.Drawing.Size(100, 29);
             this.upThresholdTextBox1.TabIndex = 89;
-            this.upThresholdTextBox1.Text = "0";
+            this.upThresholdTextBox1.Text = "5000";
+            this.upThresholdTextBox1.Visible = false;
             // 
             // lowThresholdTextBox2
             // 
-            this.lowThresholdTextBox2.Location = new System.Drawing.Point(102, 148);
+            this.lowThresholdTextBox2.Location = new System.Drawing.Point(102, 145);
             this.lowThresholdTextBox2.Name = "lowThresholdTextBox2";
             this.lowThresholdTextBox2.Size = new System.Drawing.Size(100, 29);
             this.lowThresholdTextBox2.TabIndex = 90;
-            this.lowThresholdTextBox2.Text = "0";
+            this.lowThresholdTextBox2.Text = "200";
+            this.lowThresholdTextBox2.Visible = false;
             // 
             // groupBox2
             // 
@@ -227,7 +237,7 @@
             this.chooseBitFormatUiComboBox1.DataSource = null;
             this.chooseBitFormatUiComboBox1.FillColor = System.Drawing.Color.White;
             this.chooseBitFormatUiComboBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chooseBitFormatUiComboBox1.Location = new System.Drawing.Point(102, 53);
+            this.chooseBitFormatUiComboBox1.Location = new System.Drawing.Point(102, 50);
             this.chooseBitFormatUiComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chooseBitFormatUiComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
             this.chooseBitFormatUiComboBox1.Name = "chooseBitFormatUiComboBox1";
@@ -243,7 +253,7 @@
             // imgBitFormaLabel1
             // 
             this.imgBitFormaLabel1.AutoSize = true;
-            this.imgBitFormaLabel1.Location = new System.Drawing.Point(11, 55);
+            this.imgBitFormaLabel1.Location = new System.Drawing.Point(11, 52);
             this.imgBitFormaLabel1.Name = "imgBitFormaLabel1";
             this.imgBitFormaLabel1.Size = new System.Drawing.Size(90, 21);
             this.imgBitFormaLabel1.TabIndex = 91;
@@ -274,7 +284,7 @@
             this.groupBox3.Controls.Add(this.pixelValueLabel1);
             this.groupBox3.Location = new System.Drawing.Point(688, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(129, 103);
+            this.groupBox3.Size = new System.Drawing.Size(129, 210);
             this.groupBox3.TabIndex = 93;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "像素信息";
@@ -329,22 +339,70 @@
             this.showModeUiComboBox3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.showModeUiComboBox3.SelectedIndexChanged += new System.EventHandler(this.uiComboBox3_SelectedIndexChanged);
             // 
-            // uiLabel1
+            // pixelValueLabel2
             // 
-            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel1.Location = new System.Drawing.Point(676, 149);
-            this.uiLabel1.Name = "uiLabel1";
-            this.uiLabel1.Size = new System.Drawing.Size(99, 23);
-            this.uiLabel1.TabIndex = 95;
-            this.uiLabel1.Text = "处理时间：";
-            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.pixelValueLabel2.AutoSize = true;
+            this.pixelValueLabel2.Location = new System.Drawing.Point(6, 73);
+            this.pixelValueLabel2.Name = "pixelValueLabel2";
+            this.pixelValueLabel2.Size = new System.Drawing.Size(74, 21);
+            this.pixelValueLabel2.TabIndex = 96;
+            this.pixelValueLabel2.Text = "像素值：";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 21);
+            this.label1.TabIndex = 97;
+            this.label1.Text = "处理时间：";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 21);
+            this.label2.TabIndex = 98;
+            this.label2.Text = "最大值：";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 95);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 21);
+            this.label3.TabIndex = 99;
+            this.label3.Text = "最小值：";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.label3);
+            this.groupBox5.Location = new System.Drawing.Point(686, 355);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(129, 155);
+            this.groupBox5.TabIndex = 100;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "原像素最值";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label1);
+            this.groupBox6.Controls.Add(this.pixelValueLabel2);
+            this.groupBox6.Location = new System.Drawing.Point(688, 231);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(129, 100);
+            this.groupBox6.TabIndex = 101;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "时间及像素值";
             // 
             // SingleImageProcessMode
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(824, 720);
-            this.Controls.Add(this.uiLabel1);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -360,6 +418,10 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -388,6 +450,11 @@
         private System.Windows.Forms.Label imgBitFormaLabel1;
         private Sunny.UI.UIComboBox chooseBitFormatUiComboBox1;
         private Sunny.UI.UIComboBox heatmapTypeUiComboBox1;
-        private Sunny.UI.UILabel uiLabel1;
+        private System.Windows.Forms.Label pixelValueLabel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
     }
 }
