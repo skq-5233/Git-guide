@@ -86,8 +86,7 @@ namespace ReadRAW.OfflineTestMode
             infoList_ChooseTestMode.Add(new Info() { Name = "绝对值模式" });
             infoList_ChooseTestMode.Add(new Info() { Name = "相对值模式" });
             infoList_ChooseTestMode.Add(new Info() { Name = "区域模式" });
-            //infoList1.Add(new Info() { Name = "热力图模式" });
-
+            
 
             //使用集合infoList_ChooseTestMode添加离线测试模式下三种测试模式至testModeUiComboBox2中；           
             testModeUiComboBox2.DisplayMember = "Name";

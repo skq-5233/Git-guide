@@ -85,7 +85,7 @@
             this.bnClose.Size = new System.Drawing.Size(85, 36);
             this.bnClose.Style = Sunny.UI.UIStyle.Custom;
             this.bnClose.TabIndex = 51;
-            this.bnClose.Text = "关闭设备";
+            this.bnClose.Text = "关闭相机";
             this.bnClose.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bnClose.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.bnClose.Click += new System.EventHandler(this.bnClose_Click);
@@ -101,7 +101,7 @@
             this.bnOpen.Size = new System.Drawing.Size(85, 36);
             this.bnOpen.Style = Sunny.UI.UIStyle.Custom;
             this.bnOpen.TabIndex = 50;
-            this.bnOpen.Text = "打开设备";
+            this.bnOpen.Text = "打开相机";
             this.bnOpen.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bnOpen.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.bnOpen.Click += new System.EventHandler(this.bnOpen_Click);
@@ -117,7 +117,7 @@
             this.bnEnum.Size = new System.Drawing.Size(85, 36);
             this.bnEnum.Style = Sunny.UI.UIStyle.Custom;
             this.bnEnum.TabIndex = 49;
-            this.bnEnum.Text = "查找设备";
+            this.bnEnum.Text = "查找相机";
             this.bnEnum.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bnEnum.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.bnEnum.Click += new System.EventHandler(this.bnEnum_Click);
