@@ -344,3 +344,16 @@ tileBar、AddWideItem（图像选择、文本信息及对其方式）、tileBarDropDownContainer、
 3、编写程序并调试，将DataGridView数据导出至Excel表；
 下周：
 完善重庆登康牙膏盒印刷质量检测器其他模块功能；
+
+2023--0103-0106；
+本周：
+（1、编写并调试程序，通过在线编辑DataGridView表，将DataGridView修改后的【品牌信息】保存至Ini文件中；
+   2、编写并调试程序，实时刷新DataGridView表，完善【品牌修改】功能，将修改后的【品牌信息】在DataGridView表中实时显示；
+   3、将【品牌修改】、【品牌复制】、【品牌备份】、【品牌删除】各功能模块进行设置，使其均在Tabpage1中进行操作；
+   4、DataGridView显示特定图像行数（如三行图像），在RowTemplate属性下，设置height尺寸；高：178；
+   5、导出DataGridView数据至Excel表；
+   6、参加党建知识考试；
+下周：
+完善重庆登康牙膏盒印刷质量检测器【统计】功能模块；
+
+
